@@ -2,13 +2,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.Characters
 {
+    [RequireComponent(typeof(SphereCollider))]
     public class EnemyChecker : MonoBehaviour
     {
+        [SerializeField] EnemyCheckerRenderer _renderer;
         private Character _character;
 
         private void Awake()
         {
             _character = GetComponentInParent<Character>();
+
+            if (_renderer != null)
+                _renderer.SetRadius(GetComponent<SphereCollider>().radius * transform.localScale.x);
         }
 
         private void OnTriggerEnter(Collider other)
