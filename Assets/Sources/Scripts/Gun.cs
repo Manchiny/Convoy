@@ -81,10 +81,10 @@ namespace Assets.Scripts.Guns
             _bulletsPool.Enqueue(bullet);
         }
 
-        private void OnBulletHited(Bullet bullet, Enemy zombie)
+        private void OnBulletHited(Bullet bullet, Enemy enemy)
         {
-            //if (zombie != null)
-            //    Game.Instance.OnZombieHited(zombie, Damage);
+            if (enemy != null)
+                Game.Instance.OnEnemyHited(enemy, Damage);
 
             bullet.gameObject.SetActive(false);
             _bulletsPool.Enqueue(bullet);
