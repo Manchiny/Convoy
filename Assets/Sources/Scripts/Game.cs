@@ -40,9 +40,9 @@ namespace Assets.Scripts
             _input.Init(_player.Movement);
         }
 
-        public void OnEnemyHited(Enemy enemy, int damage)
+        public void OnDamageableHited(Damageable damageable, int damage)
         {
-            enemy.GetDamage(damage);
+            damageable.GetDamage(damage);
         }
     }
 }

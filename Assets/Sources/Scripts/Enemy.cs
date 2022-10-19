@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,55 +7,38 @@ namespace Assets.Scripts.Characters
     [RequireComponent(typeof(Animator))]
     public class Enemy : Character
     {
-        [SerializeField] private Transform _target;
-      //  [SerializeField] private HandAttackChecker _attackChecker;
-
         private const string IdleAnimationKey = "Idle";
         private const string RunAnimationKey = "Run";
-        private const string AttackAnimationKey = "Attack";
+        private const string AttackAnimationKey = "Idle";
 
-        private const float DestinationDistance = 1f;
+        private const float AttackDistance = 5f;
 
         private string _lastAnimationKey;
 
         private NavMeshAgent _agent;
         private Animator _animator;
 
-        private HashSet<Damageable> _attackTargets = new();
-        public override int MaxHealth => 30;
+        public override int MaxHealth => 150;
         public virtual int Damage => 10;
 
-        private bool NeedAttack => _attackTargets.Count > 0;
-      //  private bool CanAttackPlayer => (Game.Player.transform.position - transform.position).sqrMagnitude <= DestinationDistance * DestinationDistance;
+        private bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
+
+        public override Team TeamId => Team.Enemy;
 
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
-            DisableAttackCheker();
         }
 
         private void Update()
         {
-            //if (CanAttackPlayer)
-            //    Attack(Game.Player);
-            //else if (NeedAttack)
-            //    Attack(_attackTargets.First());
-            //else if (_target != null)
-            //    MoveTo(_target);
-            //else
-            //    StopAnithing();
-        }
-
-        public void OnAttackableEnter(IEnemyTarget damageable)
-        {
-            if (damageable.Damageable.IsAlive)
-                _attackTargets.Add(damageable.Damageable);
-        }
-
-        public void OnAttackableExit(IEnemyTarget damageable)
-        {
-            _attackTargets.Remove(damageable.Damageable);
+            if (NeedAttack)
+                Attack();
+            else if (Target != null)
+                MoveTo(Target.transform);
+            else
+                StopAnithing();
         }
 
         protected override void OnGetDamage()
@@ -65,37 +46,46 @@ namespace Assets.Scripts.Characters
             //  throw new System.NotImplementedException();
         }
 
-        private void Attack(Damageable damageable)
+        protected override void Die()
         {
-            if (damageable.IsAlive == false)
-                _attackTargets.Remove(damageable);
+            gameObject.SetActive(false);
+        }
+
+        protected override void OnEnemyFinded(Damageable enemy)
+        {
+            if (Target == null)
+                Target = enemy;
+        }
+
+        protected override void OneEnenmyMissed(Damageable enemy)
+        {
+            if (enemy == Target || (Target != null && Target.IsAlive == false))
+                Target = TryGetAnyNewTarget();
+        }
+
+        private void Attack()
+        {
+            if (Target.IsAlive == false)
+                RemoveFromEnemies(Target);
             else
             {
-                //if ((damageable.transform.position - transform.position).sqrMagnitude < DestinationDistance * DestinationDistance)
-                //{
                 _agent.ResetPath();
 
-                transform.LookAt(damageable.transform);
+                transform.LookAt(Target.transform);
+                TryShoot();
                 PlayAnimation(AttackAnimationKey);
-                //}
-                //else
-                //    MoveTo(damageable.transform);
             }
         }
 
         private void MoveTo(Transform target)
         {
-            DisableAttackCheker();
-
+            _agent.SetDestination(target.position);
             PlayAnimation(RunAnimationKey);
-
-            //if (CanAttackPlayer == false)
-            //    _agent.SetDestination(target.position);
         }
 
         private void StopAnithing()
         {
-            DisableAttackCheker();
+            _agent.ResetPath();
             PlayAnimation(IdleAnimationKey);
         }
 
@@ -107,22 +97,7 @@ namespace Assets.Scripts.Characters
             _lastAnimationKey = animationKey;
 
             _animator.StopPlayback();
-            _animator.CrossFade(animationKey, 0.15f);
-        }
-
-        protected override void Die()
-        {
-            gameObject.SetActive(false);
-        }
-
-        protected void EnableAttackChecker()
-        {
-          //  _attackChecker.gameObject.SetActive(true);
-        }
-
-        public void DisableAttackCheker()
-        {
-            //_attackChecker.gameObject.SetActive(false);
+            _animator.CrossFade(animationKey, 0.1f);
         }
     }
 }

@@ -1,60 +1,91 @@
-using Assets.Scripts.Characters;
 using System;
+using System.Collections;
 using UnityEngine;
+using static Assets.Scripts.Damageable;
 
 namespace Assets.Scripts.Guns
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour
     {
         private const float Lifetime = 5f;
+        private const float Speed = 10f;
 
-        private Rigidbody _rigidbody;
+        private Team _team;
 
         private bool _isActive = true;
-        private Enemy _enemyHited;
+        private Damageable _enemyHited;
 
-        public event Action<Bullet, Enemy> Hited;
+        private WaitForSeconds _waitSeconds;
+        private Coroutine _autoDeactivate;
+
+        private Vector3 _moveDirection;
+
+        public event Action<Bullet, Damageable> Hited;
 
         private void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody>();
+            _waitSeconds = new WaitForSeconds(Lifetime);
+        }
+
+        private void Update()
+        {
+            if (_isActive == false)
+                return;
+
+            transform.Translate(_moveDirection * Time.deltaTime * Speed);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             if (_isActive)
-            {
-                collision.gameObject.TryGetComponent(out _enemyHited);
                 Deactivate();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_isActive)
+            {
+                if (other.gameObject.TryGetComponent(out Damageable enemyHited) && enemyHited.TeamId != _team)
+                {
+                    _enemyHited = enemyHited;
+                    Deactivate();
+                }
             }
         }
 
-        public void Activate(Vector3 position, Vector3 moveDirection)
+        public void Activate(Vector3 position, Vector3 moveDirection, Team team)
         {
             _enemyHited = null;
+            _team = team;
 
             transform.position = position;
-            transform.LookAt(moveDirection);
+            // transform.LookAt(moveDirection);
+            _moveDirection = moveDirection;
 
             _isActive = true;
 
             gameObject.SetActive(true);
 
-            _rigidbody.AddForce(moveDirection.normalized * 10f, ForceMode.Impulse);
+        //    _rigidbody.AddForce(moveDirection.normalized * 10f, ForceMode.Impulse);
 
-            //Utils.WaitSeconds(Lifetime)
-            //  .Then(() =>
-            //  {
-            //      if (gameObject != null && gameObject.activeInHierarchy)
-            //          Deactivate();
-            //  });
+            _autoDeactivate = StartCoroutine(DeactivatAfterLifetime());
         }
 
         private void Deactivate()
         {
+            if (_autoDeactivate != null)
+                StopCoroutine(_autoDeactivate);
+
             _isActive = false;
             Hited?.Invoke(this, _enemyHited);
+        }
+
+        private IEnumerator DeactivatAfterLifetime()
+        {
+            yield return _waitSeconds;
+
+            if (gameObject != null && gameObject.activeInHierarchy)
+                Deactivate();
         }
     }
 }

@@ -7,7 +7,15 @@ namespace Assets.Scripts
     {
         public event Action<Damageable> Died;
 
+        public enum Team
+        {
+            Player,
+            Enemy,
+            Default
+        }
+
         public abstract int MaxHealth { get; }
+        public abstract Team TeamId{ get; }
         public int CurrentHealth { get; protected set; }
         public bool IsAlive => CurrentHealth > 0;
 

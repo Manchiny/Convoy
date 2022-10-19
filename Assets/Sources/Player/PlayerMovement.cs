@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Characters
@@ -11,7 +12,7 @@ namespace Assets.Scripts.Characters
         private Player _player;
 
         private float _speed = 3.5f;
-        private float _rotationSpeed = 7.5f;
+        private float _rotationSpeed = 15f;
 
         private Animator _animator;
         private Rigidbody _rigidbody;
@@ -20,6 +21,11 @@ namespace Assets.Scripts.Characters
         private float _speedSide;
 
         private Vector3 _inputDirection;
+
+        private bool _isStoped;
+
+        public event Action OnMovementStarted;
+        public event Action OnMovementStoped;
 
         private float SpeedForward
         {
@@ -56,6 +62,17 @@ namespace Assets.Scripts.Characters
 
         public void SetInputDirection(Vector3 inputDirection)
         {
+            if (_isStoped == false && inputDirection == Vector3.zero)
+            {
+                _isStoped = true;
+                OnMovementStoped?.Invoke();
+            }
+            else if (_isStoped == true && inputDirection != Vector3.zero)
+            {
+                _isStoped = false;
+                OnMovementStarted?.Invoke();
+            }
+
             _inputDirection = inputDirection;
         }
 

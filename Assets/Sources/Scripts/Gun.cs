@@ -2,6 +2,7 @@ using Assets.Scripts.Characters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Assets.Scripts.Damageable;
 
 namespace Assets.Scripts.Guns
 {
@@ -35,21 +36,21 @@ namespace Assets.Scripts.Guns
             RemoveSubscribes();
         }
 
-        public void TryShoot(Enemy target)
+        public void TryShoot(Damageable target, Team team)
         {
             if (!_canShoot)
                 return;
 
             Vector3 direction = transform.forward;// target.transform.position + _offset - _shootingPoint.transform.position;
-            Shoot(_shootingPoint.position, direction);
+            Shoot(_shootingPoint.position, direction, team);
         }
 
-        private void Shoot(Vector3 position, Vector3 direction)
+        private void Shoot(Vector3 position, Vector3 direction, Team team)
         {
             _canShoot = false;
 
             var bullet = GetFreeBullet();
-            bullet.Activate(position, direction);
+            bullet.Activate(position, direction, team);
 
             _shootingEffect.Play();
 
@@ -94,10 +95,10 @@ namespace Assets.Scripts.Guns
             _bulletsPool.Enqueue(bullet);
         }
 
-        private void OnBulletHited(Bullet bullet, Enemy enemy)
+        private void OnBulletHited(Bullet bullet, Damageable damageable)
         {
-            if (enemy != null)
-                Game.Instance.OnEnemyHited(enemy, Damage);
+            if (damageable != null)
+                Game.Instance.OnDamageableHited(damageable, Damage);
 
             bullet.gameObject.SetActive(false);
             _bulletsPool.Enqueue(bullet);
