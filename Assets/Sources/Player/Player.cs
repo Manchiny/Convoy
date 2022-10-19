@@ -26,8 +26,8 @@ namespace Assets.Scripts.Characters
 
         private void Update()
         {
-            //if (Target != null)
-            //    TryShoot();
+           // if (Target != null)
+                TryShoot();
         }
 
         public void OnEnemyDetected(Enemy enemy)
@@ -58,14 +58,14 @@ namespace Assets.Scripts.Characters
 
         private void TryShoot()
         {
-            if (Target.IsAlive == false)
-            {
-                _enemies.Remove(Target);
-                Target = TryGetNewTarget();
-            }
+            //if (Target.IsAlive == false)
+            //{
+            //    _enemies.Remove(Target);
+            //    Target = TryGetNewTarget();
+            //}
 
-            if (Target == null)
-                return;
+            //if (Target == null)
+            //    return;
 
             _gun.TryShoot(Target);
         }

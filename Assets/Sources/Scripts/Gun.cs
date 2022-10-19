@@ -1,4 +1,5 @@
 using Assets.Scripts.Characters;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +19,15 @@ namespace Assets.Scripts.Guns
 
         private Queue<Bullet> _bulletsPool = new();
 
+        private WaitForSeconds _waitSeconds;
+        private Coroutine _cooldawnAwaite;
+
         protected virtual int Damage => 10;
 
         private void Start()
         {
             CreatePool();
+            _waitSeconds = new WaitForSeconds(CooldawnSeconds);
         }
 
         private void OnDisable()
@@ -48,8 +53,16 @@ namespace Assets.Scripts.Guns
 
             _shootingEffect.Play();
 
-            //Utils.WaitSeconds(CooldawnSeconds)
-            //    .Then(() => _canShoot = true);
+            if (_cooldawnAwaite != null)
+                StopCoroutine(_cooldawnAwaite);
+
+            _cooldawnAwaite = StartCoroutine(WaitCooldawn());
+        }
+
+        private IEnumerator WaitCooldawn()
+        {
+            yield return _waitSeconds;
+            _canShoot = true;
         }
 
         private Bullet GetFreeBullet()
@@ -96,6 +109,9 @@ namespace Assets.Scripts.Guns
             {
                 bullet.Hited -= OnBulletHited;
             }
+
+            if (_cooldawnAwaite != null)
+                StopCoroutine(_cooldawnAwaite);
         }
     }
 }

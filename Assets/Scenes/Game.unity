@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d184edd7e0ce7c642b4912bd3373dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 0}
+  _gun: {fileID: 8222017900711786550}
 --- !u!114 &200538900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +231,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c9b88a9ae497a9842a0495f85a6c94bb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -572,7 +572,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0, y: 8, z: -5}
+  m_LocalPosition: {x: 0, y: 24, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -592,8 +592,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 543450653496606075}
-  _offset: {x: 0, y: 13, z: -8.5}
-  _moveSpeed: 50
+  _offset: {x: 0, y: 24, z: -10}
+  _moveSpeed: 100
 --- !u!1 &1034948761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,6 +4790,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1597319102771307606, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
   m_PrefabInstance: {fileID: 8222017900711786548}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8222017900711786550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1718949717573777950, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+  m_PrefabInstance: {fileID: 8222017900711786548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e99cf832a914741b1e4459acf56471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8377345879137646650
 GameObject:
   m_ObjectHideFlags: 0
