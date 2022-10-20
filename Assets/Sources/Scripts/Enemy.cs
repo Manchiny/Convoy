@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Characters
+namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Animator))]
-    public class Enemy : Character
+    public class Enemy : Unit
     {
         private const string IdleAnimationKey = "Idle";
         private const string RunAnimationKey = "Run";
         private const string AttackAnimationKey = "Idle";
 
-        private const float AttackDistance = 5f;
+        private const float AttackDistance = 14f;
 
         private string _lastAnimationKey;
 
@@ -55,6 +55,12 @@ namespace Assets.Scripts.Characters
         {
             if (Target == null)
                 Target = enemy;
+
+            else if (enemy is Tank && Target is not Tank)
+            {
+                Target = enemy;
+                Debug.Log("Enemy finde tank");
+            }
         }
 
         protected override void OneEnenmyMissed(Damageable enemy)

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Characters
+namespace Assets.Scripts.Units
 {
-    public abstract class Character : Damageable
+    public abstract class Unit : Damageable, IAttackable
     {
-        [SerializeField] private Gun _gun;
+        [SerializeField] protected Gun Gun;
 
         private HashSet<Damageable> _attackTargets = new();
 
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Characters
             if (Target == null)
                 return;
 
-            _gun.TryShoot(Target, TeamId);
+            Gun.TryShoot(Target, TeamId);
         }
 
         protected Damageable TryGetAnyNewTarget()

@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Characters
+namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(PlayerMovement))]
-    public class Player : Character
+    public class Player : Unit
     {
         public PlayerMovement Movement { get; private set; }
 
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Characters
 
         protected override void OnGetDamage()
         {
-            Debug.Log("Player take damage");
+            //Debug.Log("Player take damage");
         }
 
         protected override void Die()

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1785d3b46621a4ba506c4b59e09013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationDuration: 12
+  RotationDuration: 15
 --- !u!1 &26788001372008913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d184edd7e0ce7c642b4912bd3373dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 5860341949193917845}
+  Gun: {fileID: 5860341949193917845}
 --- !u!114 &3788807027046739115
 MonoBehaviour:
   m_ObjectHideFlags: 0

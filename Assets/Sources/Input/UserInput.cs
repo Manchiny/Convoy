@@ -1,4 +1,4 @@
-using Assets.Scripts.Characters;
+using Assets.Scripts.Units;
 using UnityEngine;
 
 namespace Assets.Scripts.UserInputSystem

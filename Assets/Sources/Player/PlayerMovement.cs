@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Characters
+namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody))]

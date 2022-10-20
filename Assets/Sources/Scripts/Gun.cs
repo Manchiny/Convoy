@@ -1,4 +1,4 @@
-using Assets.Scripts.Characters;
+using Assets.Scripts.Units;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,18 +12,17 @@ namespace Assets.Scripts.Guns
         [SerializeField] private Bullet _bullet;
         [SerializeField] private ParticleSystem _shootingEffect;
 
-        private const float CooldawnSeconds = 0.3f;
-        private const int PoolCount = 50;
-
-        private Vector3 _offset = new Vector3(0, 1, 0);
-        private bool _canShoot = true;
-
         private Queue<Bullet> _bulletsPool = new();
 
         private WaitForSeconds _waitSeconds;
         private Coroutine _cooldawnAwaite;
 
         protected virtual int Damage => 10;
+        protected virtual float CooldawnSeconds => 0.3f;
+        protected virtual int PoolCount => 50;
+
+        protected Transform ShootingPoint => _shootingPoint;
+        protected bool CanShoot { get; set; } = true;
 
         private void Start()
         {
@@ -36,21 +35,21 @@ namespace Assets.Scripts.Guns
             RemoveSubscribes();
         }
 
-        public void TryShoot(Damageable target, Team team)
+        public virtual void TryShoot(Damageable target, Team team)
         {
-            if (!_canShoot)
+            if (!CanShoot)
                 return;
 
             Vector3 direction = transform.forward;// target.transform.position + _offset - _shootingPoint.transform.position;
-            Shoot(_shootingPoint.position, direction, team);
+            Shoot(direction, team);
         }
 
-        private void Shoot(Vector3 position, Vector3 direction, Team team)
+        protected void Shoot(Vector3 direction, Team team)
         {
-            _canShoot = false;
+            CanShoot = false;
 
             var bullet = GetFreeBullet();
-            bullet.Activate(position, direction, team);
+            bullet.Activate(_shootingPoint.position, direction, team);
 
             _shootingEffect.Play();
 
@@ -63,7 +62,7 @@ namespace Assets.Scripts.Guns
         private IEnumerator WaitCooldawn()
         {
             yield return _waitSeconds;
-            _canShoot = true;
+            CanShoot = true;
         }
 
         private Bullet GetFreeBullet()
