@@ -5,19 +5,20 @@ namespace Assets.Scripts.Units
 {
     public class Tank : Unit
     {
-        private const float TowerRotationSpeed = 12f;
         private const float MoveSpeed = 2f;
-
+        private const float RotationSpeed = 50f;
         private const float DestinationDistance = 1f;
+
+        private const float TowerRotationSpeed = 12f;
 
         private IReadOnlyList<Vector3> _waypoints;
         private Vector3 _currnentTargetPoint;
         private int _currentWaypointId;
 
-        public override int MaxHealth => 200;
-        public override Team TeamId => Team.Player;
-
         private bool _inited;
+
+        public override int MaxHealth => 1000;
+        public override Team TeamId => Team.Player;
 
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
 
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Units
             if (Target != null)
             {
                 if (NeedRotateTower)
-                    RotateTower();
+                    Rotate(Gun.transform, Target.transform.position, TowerRotationSpeed);
                 else
                     TryShoot();
             }
@@ -38,8 +39,9 @@ namespace Assets.Scripts.Units
                 if ((_currnentTargetPoint - transform.position).sqrMagnitude < DestinationDistance * DestinationDistance)
                     OnWaypointReached();
 
-                Rotate();
-                MoveToNextPoint();
+                Rotate(transform, _currnentTargetPoint, RotationSpeed);
+                Move();
+                RotateTowerToZero();
             }
         }
 
@@ -83,21 +85,9 @@ namespace Assets.Scripts.Units
             Target = enemy;
         }
 
-        private void MoveToNextPoint()
+        private void Move()
         {
             transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
-        }
-
-        private void Rotate()
-        {
-            Vector3 lookPos = Vector3.zero;
-
-            lookPos = _currnentTargetPoint - transform.position;
-
-            lookPos.y = 0;
-
-            Quaternion rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 50f * Time.deltaTime);
         }
 
         private void OnWaypointReached()
@@ -117,6 +107,7 @@ namespace Assets.Scripts.Units
         {
             Vector3 towerPoition = Gun.transform.position;
             towerPoition.y = 0;
+
             Vector3 targetPosition = Target.transform.position;
             targetPosition.y = 0;
 
@@ -125,16 +116,22 @@ namespace Assets.Scripts.Units
             return enemyDirection == Gun.transform.forward.normalized;
         }
 
-        private void RotateTower()
+        private void Rotate(Transform rotatedTransform, Vector3 lookAtPosition, float speed)
         {
             Vector3 lookPos = Vector3.zero;
 
-            lookPos = Target.transform.position - Gun.transform.position;
+            lookPos = lookAtPosition - rotatedTransform.position;
 
             lookPos.y = 0;
 
-            Quaternion towerRotation = Quaternion.LookRotation(lookPos);
-            Gun.transform.rotation = Quaternion.RotateTowards(Gun.transform.rotation, towerRotation, TowerRotationSpeed * Time.deltaTime);
+            Quaternion rotation = Quaternion.LookRotation(lookPos);
+            rotatedTransform.rotation = Quaternion.RotateTowards(rotatedTransform.rotation, rotation, speed * Time.deltaTime);
+        }
+
+        private void RotateTowerToZero()
+        {
+            Quaternion rotation = Quaternion.identity;
+            Gun.transform.localRotation = Quaternion.RotateTowards(Gun.transform.localRotation, rotation, TowerRotationSpeed * Time.deltaTime);
         }
     }
 }
