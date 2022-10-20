@@ -1814,6 +1814,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 603610083, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b32dfcafac7cfc54b84d5049d73dd40d, type: 2}
     - target: {fileID: 890473685257634337, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
       propertyPath: m_Size.x
       value: 5.42
@@ -1898,7 +1902,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 603610081, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
 --- !u!114 &1235343292019521863 stripped
 MonoBehaviour:
