@@ -6,8 +6,11 @@ namespace Assets.Scripts.Units
     public class Tank : Unit
     {
         private const float TowerRotationSpeed = 12f;
+        private const float MoveSpeed = 2f;
 
-        private List<Vector3> _waypoints;
+        private const float DestinationDistance = 1f;
+
+        private IReadOnlyList<Vector3> _waypoints;
         private Vector3 _currnentTargetPoint;
         private int _currentWaypointId;
 
@@ -20,18 +23,27 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
-            //if (!_inited)
-            //    return;
+            if (!_inited)
+                return;
 
             if (Target != null)
+            {
                 if (NeedRotateTower)
                     RotateTower();
                 else
                     TryShoot();
+            }
+            else
+            {
+                if ((_currnentTargetPoint - transform.position).sqrMagnitude < DestinationDistance * DestinationDistance)
+                    OnWaypointReached();
 
+                Rotate();
+                MoveToNextPoint();
+            }
         }
 
-        public void Init(Vector3 spawnPosition, List<Vector3> waypoints)
+        public void Init(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)
         {
             transform.position = spawnPosition;
             transform.rotation = Quaternion.identity;
@@ -39,17 +51,19 @@ namespace Assets.Scripts.Units
             _waypoints = waypoints;
             _currentWaypointId = 0;
 
+            _currnentTargetPoint = waypoints[0];
+
             _inited = true;
         }
 
         protected override void Die()
         {
-            
+
         }
 
         protected override void OnGetDamage()
         {
-            
+
         }
 
         protected override void OnEnemyFinded(Damageable enemy)
@@ -67,6 +81,23 @@ namespace Assets.Scripts.Units
         private void SetTarget(Damageable enemy)
         {
             Target = enemy;
+        }
+
+        private void MoveToNextPoint()
+        {
+            transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
+        }
+
+        private void Rotate()
+        {
+            Vector3 lookPos = Vector3.zero;
+
+            lookPos = _currnentTargetPoint - transform.position;
+
+            lookPos.y = 0;
+
+            Quaternion rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 50f * Time.deltaTime);
         }
 
         private void OnWaypointReached()
