@@ -24,7 +24,7 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
-            if (!_inited)
+            if (!_inited || IsAlive == false)
                 return;
 
             if (Target != null)

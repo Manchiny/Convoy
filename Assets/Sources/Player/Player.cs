@@ -26,6 +26,9 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
+            if (IsAlive == false)
+                return;
+
             if (Target != null)
                 if (Target.IsAlive)
                     TryShoot();

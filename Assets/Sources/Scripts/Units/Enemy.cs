@@ -33,6 +33,9 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
+            if (IsAlive == false)
+                return;
+
             if (NeedAttack)
                 Attack();
             else if (Target != null)
@@ -48,7 +51,7 @@ namespace Assets.Scripts.Units
 
         protected override void Die()
         {
-            gameObject.SetActive(false);
+           // gameObject.SetActive(false);
         }
 
         protected override void OnEnemyFinded(Damageable enemy)

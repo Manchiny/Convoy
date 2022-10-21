@@ -2243,6 +2243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2628307218638535289}
   - component: {fileID: 2628307218638535288}
+  - component: {fileID: 1150717058}
   m_Layer: 0
   m_Name: Soldat
   m_TagString: Untagged
@@ -2392,6 +2393,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.003550291, y: 0.28202766, z: 0.010169089}
     m_Extent: {x: 0.97347206, y: 1.7626119, z: 0.8904509}
   m_DirtyAABB: 0
+--- !u!114 &1150717058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2628307218638535286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc9f386ca78d72499de6837aa5bfaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2628307218638774269
 GameObject:
   m_ObjectHideFlags: 0

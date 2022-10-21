@@ -6,6 +6,7 @@ namespace Assets.Scripts
     public abstract class Damageable : MonoBehaviour
     {
         public event Action<Damageable> Died;
+        public event Action Damaged;
 
         public enum Team
         {
@@ -39,6 +40,8 @@ namespace Assets.Scripts
                 Die();
                 Died?.Invoke(this);
             }
+            else
+                Damaged?.Invoke();
         }
 
         protected abstract void Die();

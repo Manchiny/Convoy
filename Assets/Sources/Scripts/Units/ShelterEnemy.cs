@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Units
@@ -13,6 +11,9 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
+            if (IsAlive == false)
+                return;
+
             if (Target != null)
             {
                 RotateToTarget();
