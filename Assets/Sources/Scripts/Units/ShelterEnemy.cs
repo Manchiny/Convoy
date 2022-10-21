@@ -6,10 +6,10 @@ namespace Assets.Scripts.Units
 {
     public class ShelterEnemy : Unit
     {
+        private Tower _tower;
         public override int MaxHealth => 100;
 
         public override Team TeamId => Team.Enemy;
-
 
         private void Update()
         {
@@ -20,9 +20,14 @@ namespace Assets.Scripts.Units
             }
         }
 
+        public void ForceDie()
+        {
+            GetDamage(MaxHealth);
+        }
+
         protected override void Die()
         {
-            throw new System.NotImplementedException();
+            gameObject.SetActive(false);
         }
 
         protected override void OneEnenmyMissed(Damageable enemy)

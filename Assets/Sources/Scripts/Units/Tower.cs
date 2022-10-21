@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Units
@@ -8,8 +6,8 @@ namespace Assets.Scripts.Units
     public class Tower : Damageable, IAttackable
     {
         [SerializeField] private ShelterEnemy _unit;
-        public override int MaxHealth => 100;
 
+        public override int MaxHealth => 100;
         public override Team TeamId => _unit.TeamId;
 
         public void AddFindedEnemy(Damageable enemy)
@@ -24,7 +22,7 @@ namespace Assets.Scripts.Units
 
         protected override void Die()
         {
-            
+            _unit.ForceDie();         
         }
 
         protected override void OnGetDamage()
