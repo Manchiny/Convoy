@@ -1,11 +1,12 @@
+using Assets.Scripts.Destroyable;
 using UnityEngine;
 
 namespace Assets.Scripts.Units
 {
-
     public class Tower : Damageable, IAttackable
     {
         [SerializeField] private ShelterEnemy _unit;
+        [SerializeField] private DestroyableObject _destroyable;
 
         public override int MaxHealth => 100;
         public override Team TeamId => _unit.TeamId;
@@ -22,7 +23,13 @@ namespace Assets.Scripts.Units
 
         protected override void Die()
         {
-            _unit.ForceDie();         
+            _unit.transform.parent = transform.parent;
+            _unit.ForceDie();
+
+            _destroyable.transform.parent = transform.parent;
+            _destroyable.DestroyObject();
+
+            gameObject.SetActive(false);
         }
 
         protected override void OnGetDamage()
