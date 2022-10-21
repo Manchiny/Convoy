@@ -1,4 +1,3 @@
-using Assets.Scripts.Units;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +11,7 @@ namespace Assets.Scripts.Guns
         [SerializeField] private Bullet _bullet;
         [SerializeField] private ParticleSystem _shootingEffect;
 
+        private Vector3 _shootingDiredtionOffaset = new Vector3(0, 1, 0);
         private Queue<Bullet> _bulletsPool = new();
 
         private WaitForSeconds _waitSeconds;
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Guns
             if (!CanShoot)
                 return;
 
-            Vector3 direction = transform.forward;// target.transform.position + _offset - _shootingPoint.transform.position;
+            Vector3 direction = target.transform.position + _shootingDiredtionOffaset - _shootingPoint.transform.position;
             Shoot(direction, team);
         }
 

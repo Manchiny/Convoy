@@ -5,30 +5,31 @@ using UnityEngine;
 namespace Assets.Scripts.Units
 {
 
-    public class Tower : Unit
+    public class Tower : Damageable, IAttackable
     {
+        [SerializeField] private ShelterEnemy _unit;
         public override int MaxHealth => 100;
 
-        public override Team TeamId => Team.Enemy;
+        public override Team TeamId => _unit.TeamId;
+
+        public void AddFindedEnemy(Damageable enemy)
+        {
+            _unit.AddFindedEnemy(enemy);
+        }
+
+        public void RemoveFromEnemies(Damageable enemy)
+        {
+            _unit.RemoveFromEnemies(enemy);
+        }
 
         protected override void Die()
         {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void OneEnenmyMissed(Damageable enemy)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void OnEnemyFinded(Damageable enemy)
-        {
-            throw new System.NotImplementedException();
+            
         }
 
         protected override void OnGetDamage()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

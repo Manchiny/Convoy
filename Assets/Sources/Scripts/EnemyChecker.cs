@@ -10,7 +10,7 @@ namespace Assets.Scripts.Units
 
         private void Awake()
         {
-            _character = GetComponentInParent<Unit>();
+            _character = GetComponentInParent<IAttackable>();
 
             if (_renderer != null)
                 _renderer.SetRadius(GetComponent<SphereCollider>().radius * transform.localScale.x);
