@@ -9,9 +9,9 @@ namespace Assets.Scripts.UI
     public class HUD : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _levelText;
-        [SerializeField] private TextMeshProUGUI _moneyText;
+        [SerializeField] private TextMeshProUGUI _badgesText;
         [Space]
-        [SerializeField] private RectTransform _moneyPanelContent;
+        [SerializeField] private RectTransform _badgesPanelContent;
         [Space]
         [SerializeField] private BasicButton _settingsButton;
         [SerializeField] private BasicButton _leaderboardButton;
@@ -25,8 +25,7 @@ namespace Assets.Scripts.UI
         private CanvasGroup _canvas;
 
         protected Tween _showHideAnimation;
-
-        private Tween MoneyAnimationTween;
+        private Tween _badgePanelAnimationTween;
 
         private void Awake()
         {
@@ -38,7 +37,7 @@ namespace Assets.Scripts.UI
             //Game.User.MoneyChanged -= OnMoneyChanged;
             //Game.Localization.LanguageChanged -= OnLocalizationChanged;
 
-            _settingsButton.RemoveListener(OnSettingsButtonClick);
+           // _settingsButton.RemoveListener(OnSettingsButtonClick);
         }
 
         public void Init(bool isReinit)
@@ -107,22 +106,22 @@ namespace Assets.Scripts.UI
 
         private void SetMoneyText(int moneyCount)
         {
-            _moneyText.text = $"${moneyCount}";
+            _badgesText.text = $"${moneyCount}";
         }
 
         private void PlayMoneyPanelAnimation()
         {
-            if (MoneyAnimationTween != null)
-                MoneyAnimationTween.Kill();
+            if (_badgePanelAnimationTween != null)
+                _badgePanelAnimationTween.Kill();
 
             var sequence = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject);
 
-            sequence.Append(_moneyPanelContent.DOScale(1.5f, MoneyPanelAnimationDuration));
-            sequence.Append(_moneyPanelContent.DOScale(1f, MoneyPanelAnimationDuration));
+            sequence.Append(_badgesPanelContent.DOScale(1.5f, MoneyPanelAnimationDuration));
+            sequence.Append(_badgesPanelContent.DOScale(1f, MoneyPanelAnimationDuration));
 
-            MoneyAnimationTween = sequence;
+            _badgePanelAnimationTween = sequence;
 
-            MoneyAnimationTween.Play();
+            _badgePanelAnimationTween.Play();
         }
 
         private void OnSettingsButtonClick()

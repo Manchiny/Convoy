@@ -1,4 +1,5 @@
 using Assets.Scripts.Levels;
+using Assets.Scripts.UI;
 using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Assets.Scripts
         [SerializeField] private Tank _tank;
         [Space]
         [SerializeField] private List<Level> _levels;
+        [Space]
+        [SerializeField] private WindowsController _windowsController;
 
         private UserInput _input;
         private Level _currentLevel;
@@ -19,6 +22,7 @@ namespace Assets.Scripts
         public static Game Instance { get; private set; }
 
         public static Player Player => Instance._player;
+        public static WindowsController Windows => Instance._windowsController;
 
         private void Awake()
         {
