@@ -17,7 +17,7 @@ namespace Assets.Scripts.Units
 
         private bool _inited;
 
-        public override int MaxHealth => 1000;
+        public override int MaxHealth => 5000;
         public override Team TeamId => Team.Player;
 
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;

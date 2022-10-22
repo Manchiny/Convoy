@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Units
@@ -5,11 +6,15 @@ namespace Assets.Scripts.Units
     [RequireComponent(typeof(PlayerMovement))]
     public class Player : Unit
     {
-        public PlayerMovement Movement { get; private set; }
+        [SerializeField] private Transform _badgeHolder;
+
+        private HashSet<SolderBadge> _badges = new();
 
         public override int MaxHealth => 10000;
-
         public override Team TeamId => Team.Player;
+
+        public PlayerMovement Movement { get; private set; }
+
 
         private void Awake()
         {
@@ -34,6 +39,12 @@ namespace Assets.Scripts.Units
                     TryShoot();
                 else
                     RemoveFromEnemies(Target);
+        }
+
+        public void TakeBadge(SolderBadge badge)
+        {
+           badge. MoveToHolder(_badgeHolder, _badges.Count);
+            _badges.Add(badge);
         }
 
         protected override void OnGetDamage()
