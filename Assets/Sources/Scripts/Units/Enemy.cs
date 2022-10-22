@@ -7,6 +7,8 @@ namespace Assets.Scripts.Units
     [RequireComponent(typeof(Animator))]
     public class Enemy : Unit
     {
+        [SerializeField] private SolderBadge _badgePrefab;
+
         private const string IdleAnimationKey = "Idle";
         private const string RunAnimationKey = "Run";
         private const string AttackAnimationKey = "Idle";
@@ -51,8 +53,10 @@ namespace Assets.Scripts.Units
 
         protected override void Die()
         {
+            DropBadge();
            // gameObject.SetActive(false);
         }
+
 
         protected override void OnEnemyFinded(Damageable enemy)
         {
@@ -107,6 +111,12 @@ namespace Assets.Scripts.Units
 
             _animator.StopPlayback();
             _animator.CrossFade(animationKey, 0.1f);
+        }
+
+        private void DropBadge()
+        {
+            var badge = Instantiate(_badgePrefab, transform.position, Quaternion.identity, transform.parent);
+            badge.AddDropForce();
         }
     }
 }

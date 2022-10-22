@@ -1302,6 +1302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gun: {fileID: 3720941773707769410}
+  _badgePrefab: {fileID: 800044193050613070, guid: 8d43ae08f73cee74397a5a0bd59e7375, type: 3}
 --- !u!1 &2628307218016196242
 GameObject:
   m_ObjectHideFlags: 0
