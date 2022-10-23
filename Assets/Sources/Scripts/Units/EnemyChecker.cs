@@ -18,7 +18,7 @@ namespace Assets.Scripts.Units
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Damageable target) && target.TeamId != _character.TeamId)
+            if (other.TryGetComponent(out Damageable target) && target.TeamId != _character.TeamId && target.IsAlive)
                 _character.AddFindedEnemy(target);
         }
 

@@ -91,7 +91,7 @@ namespace Assets.Scripts.Guns
 
         private void CreateBulletForPool()
         {
-            Bullet bullet = Instantiate(_bullet, _shootingPoint.position, Quaternion.identity);
+            Bullet bullet = Instantiate(_bullet, _shootingPoint.position, Quaternion.identity, Game.GarbageHolder);
             bullet.gameObject.SetActive(false);
 
             bullet.Hited += OnBulletHited;

@@ -15,14 +15,17 @@ namespace Assets.Scripts
         [SerializeField] private List<Level> _levels;
         [Space]
         [SerializeField] private WindowsController _windowsController;
+        [Space]
+        [SerializeField] private Transform _sceneGarbageHolder;
 
         private UserInput _input;
-        private Level _currentLevel;
+        public Level CurrentLevel { get; private set; }
 
         public static Game Instance { get; private set; }
 
         public static Player Player => Instance._player;
         public static WindowsController Windows => Instance._windowsController;
+        public static Transform GarbageHolder => Instance._sceneGarbageHolder;
 
         private void Awake()
         {
@@ -64,10 +67,10 @@ namespace Assets.Scripts
 
         private void StartLevel(Level level)
         {
-            if (_currentLevel != null)
-                Destroy(_currentLevel.gameObject);
+            if (CurrentLevel != null)
+                Destroy(CurrentLevel.gameObject);
 
-            _currentLevel = level;
+            CurrentLevel = level;
             _tank.Init(level.SpawnPoint.position, level.Waypoints);
         }
     }

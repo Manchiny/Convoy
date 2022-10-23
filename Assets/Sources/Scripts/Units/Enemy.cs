@@ -34,7 +34,7 @@ namespace Assets.Scripts.Units
 
         protected abstract void OnDie();
 
-        protected override void OneEnenmyMissed(Damageable enemy)
+        protected override void OnEnenmyMissed(Damageable enemy)
         {
             if (enemy == Target || (Target != null && Target.IsAlive == false))
                 Target = TryGetAnyNewTarget();

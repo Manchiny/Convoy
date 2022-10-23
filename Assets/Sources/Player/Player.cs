@@ -44,10 +44,9 @@ namespace Assets.Scripts.Units
 
         public void TakeBadge(SolderBadge badge)
         {
-           badge. MoveToHolder(_badgeHolder, _badges.Count);
+           badge.MoveToHolder(_badgeHolder, _badges.Count);
             _badges.Add(badge);
         }
-
 
         public void OnTankZoneLeave()
         {
@@ -71,10 +70,11 @@ namespace Assets.Scripts.Units
 
         protected override void OnEnemyFinded(Damageable enemy)
         {
-           
+            if (Movement.IsStoped && (Target == null || Target.IsAlive == false))
+                OnStopMovement();
         }
 
-        protected override void OneEnenmyMissed(Damageable enemy)
+        protected override void OnEnenmyMissed(Damageable enemy)
         {
             if (enemy == Target || (Target != null && Target.IsAlive == false))
                 Target = TryGetNearestTarget();

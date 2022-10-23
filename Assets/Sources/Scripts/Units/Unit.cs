@@ -22,11 +22,11 @@ namespace Assets.Scripts.Units
         public void RemoveFromEnemies(Damageable enemy)
         {
             _attackTargets.Remove(enemy);
-            OneEnenmyMissed(enemy);
+            OnEnenmyMissed(enemy);
         }
 
         protected abstract void OnEnemyFinded(Damageable enemy);
-        protected abstract void OneEnenmyMissed(Damageable enemy);
+        protected abstract void OnEnenmyMissed(Damageable enemy);
 
         protected void TryShoot()
         {

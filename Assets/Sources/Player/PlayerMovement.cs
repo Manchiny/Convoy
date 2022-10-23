@@ -22,10 +22,9 @@ namespace Assets.Scripts.Units
 
         private Vector3 _inputDirection;
 
-        private bool _isStoped;
-
         public event Action OnMovementStarted;
         public event Action OnMovementStoped;
+        public bool IsStoped { get; private set; }
 
         private float SpeedForward
         {
@@ -62,14 +61,14 @@ namespace Assets.Scripts.Units
 
         public void SetInputDirection(Vector3 inputDirection)
         {
-            if (_isStoped == false && inputDirection == Vector3.zero)
+            if (IsStoped == false && inputDirection == Vector3.zero)
             {
-                _isStoped = true;
+                IsStoped = true;
                 OnMovementStoped?.Invoke();
             }
-            else if (_isStoped == true && inputDirection != Vector3.zero)
+            else if (IsStoped == true && inputDirection != Vector3.zero)
             {
-                _isStoped = false;
+                IsStoped = false;
                 OnMovementStarted?.Invoke();
             }
 
