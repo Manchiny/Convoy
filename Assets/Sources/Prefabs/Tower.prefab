@@ -1187,6 +1187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88304f4170b7bbb4bb034331eafb4b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosionPoint: {fileID: 0}
 --- !u!1 &7117185786076154249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,6 +1674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 8165444127442117316}
+  _destroyable: {fileID: 0}
 --- !u!54 &352806881
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1837,6 +1839,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 877467257654689151}
     m_Modifications:
+    - target: {fileID: 2788994199968583866, guid: 061ac820e769950448bcd509c7b0122d, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2788994199968583866, guid: 061ac820e769950448bcd509c7b0122d, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2788994199968583866, guid: 061ac820e769950448bcd509c7b0122d, type: 3}
+      propertyPath: m_VertexStreams.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2788994199968583866, guid: 061ac820e769950448bcd509c7b0122d, type: 3}
+      propertyPath: m_VertexStreams.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8725883507570500810, guid: 061ac820e769950448bcd509c7b0122d, type: 3}
       propertyPath: m_RootOrder
       value: 1

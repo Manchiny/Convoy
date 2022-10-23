@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Units
         public override Team TeamId => Team.Player;
 
         public PlayerMovement Movement { get; private set; }
+        public bool InTankZone { get; private set; } = true;
 
 
         private void Awake()
@@ -45,6 +47,17 @@ namespace Assets.Scripts.Units
         {
            badge. MoveToHolder(_badgeHolder, _badges.Count);
             _badges.Add(badge);
+        }
+
+
+        public void OnTankZoneLeave()
+        {
+            InTankZone = false;
+        }
+
+        public void OnTankZoneEntered()
+        {
+            InTankZone = true;
         }
 
         protected override void OnGetDamage()

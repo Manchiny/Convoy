@@ -2683,6 +2683,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 311.544
       objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_VertexStreams.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_VertexStreams.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
 --- !u!114 &3720941773707769410 stripped

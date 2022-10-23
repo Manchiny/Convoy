@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 303036543}
-  - component: {fileID: 303036545}
   - component: {fileID: 303036544}
+  - component: {fileID: 5850713871504434065}
   m_Layer: 0
   m_Name: EnemyChecker
   m_TagString: Untagged
@@ -33,19 +33,6 @@ Transform:
   m_Father: {fileID: 1907157048326148263}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &303036545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303036542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8aa199eff5073843a8dd6c52ca9a2db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 603610082}
 --- !u!135 &303036544
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -59,6 +46,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5850713871504434065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303036542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203344a47163f1d4b97e0cbdd2fe8763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 603610082}
 --- !u!1 &603610079
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +70,6 @@ GameObject:
   - component: {fileID: 603610080}
   - component: {fileID: 603610083}
   - component: {fileID: 603610082}
-  - component: {fileID: 603610081}
   m_Layer: 0
   m_Name: EnemyCheckerRenderer
   m_TagString: Untagged
@@ -113,7 +112,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f7221072665a60c468b203024775dc13, type: 2}
+  - {fileID: 2100000, guid: b32dfcafac7cfc54b84d5049d73dd40d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -218,19 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eabb39a27c05ca42adeb896780bd960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &603610081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603610079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1785d3b46621a4ba506c4b59e09013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationDuration: 15
 --- !u!1 &1241944114353441309
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,8 +265,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 2, z: 5.42}
-  m_Center: {x: 0.31, y: 1, z: 0}
+  m_Size: {x: 5.42, y: 2.8, z: 9}
+  m_Center: {x: 0, y: 1.41, z: 0.31}
 --- !u!54 &1172411987161782817
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -292,8 +278,8 @@ Rigidbody:
   m_Mass: 5000
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
@@ -14803,13 +14789,13 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
+  m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
-  m_VertexStreams: 0001030405
+  m_VertexStreams: 000304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -19640,6 +19626,7 @@ GameObject:
   - component: {fileID: 5992160854311417717}
   - component: {fileID: 3763712407046838428}
   - component: {fileID: 7739443772712505473}
+  - component: {fileID: 1159268620}
   m_Layer: 0
   m_Name: Cube.002
   m_TagString: Untagged
@@ -19717,6 +19704,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1159268620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580040354480748201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc9f386ca78d72499de6837aa5bfaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8622190603766377795
 GameObject:
   m_ObjectHideFlags: 0
@@ -19729,6 +19728,7 @@ GameObject:
   - component: {fileID: 4339324475498237702}
   - component: {fileID: 1538070756088411557}
   - component: {fileID: 7389560940813390849}
+  - component: {fileID: 1115095785}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -19821,3 +19821,15 @@ MonoBehaviour:
   _shootingPoint: {fileID: 6802362510588816497}
   _bullet: {fileID: 3912627011782732605, guid: f9f357f6bdb376f458475aeaf9cb9469, type: 3}
   _shootingEffect: {fileID: 4140677524692547992}
+--- !u!114 &1115095785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622190603766377795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc9f386ca78d72499de6837aa5bfaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

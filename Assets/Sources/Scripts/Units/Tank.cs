@@ -26,7 +26,7 @@ namespace Assets.Scripts.Units
         {
             if (!_inited || IsAlive == false)
                 return;
-
+            
             if (Target != null)
             {
                 if (NeedRotateTower)

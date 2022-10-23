@@ -16,13 +16,13 @@ namespace Assets.Scripts.Units
                 _renderer.SetRadius(GetComponent<SphereCollider>().radius * transform.localScale.x);
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out Damageable target) && target.TeamId != _character.TeamId)
                 _character.AddFindedEnemy(target);
         }
 
-        private void OnTriggerExit(Collider other)
+        protected virtual void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out Damageable target) && target.TeamId != _character.TeamId)
                 _character.RemoveFromEnemies(target);

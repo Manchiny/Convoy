@@ -1140,6 +1140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gun: {fileID: 5860341949193917845}
+  _badgeHolder: {fileID: 0}
 --- !u!114 &3788807027046739115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2868,6 +2869,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cdb068b2ffe192440aeeae0fd38d54c4, type: 2}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_VertexStreams.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_VertexStreams.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8336267090405326985, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
       propertyPath: m_DynamicOccludee
       value: 0
