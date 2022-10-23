@@ -11,6 +11,7 @@ namespace Assets.Scripts.Guns
         private const float Speed = 10f;
 
         private Team _team;
+        private Gun _gun;
 
         private bool _isActive = true;
         private Damageable _enemyHited;
@@ -53,10 +54,11 @@ namespace Assets.Scripts.Guns
             }
         }
 
-        public void Activate(Vector3 position, Vector3 moveDirection, Team team)
+        public void Activate(Vector3 position, Vector3 moveDirection, Team team, Gun gun)
         {
             _enemyHited = null;
             _team = team;
+            _gun = gun;
 
             transform.position = position;
             // transform.LookAt(moveDirection);
@@ -77,7 +79,11 @@ namespace Assets.Scripts.Guns
                 StopCoroutine(_autoDeactivate);
 
             _isActive = false;
+
             Hited?.Invoke(this, _enemyHited);
+            
+            if (_gun == null || _gun.gameObject == null)
+                Destroy(this);
         }
 
         private IEnumerator DeactivatAfterLifetime()

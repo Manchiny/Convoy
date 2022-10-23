@@ -10,6 +10,7 @@ namespace Assets.Scripts.Guns
         [SerializeField] private Transform _shootingPoint;
         [SerializeField] private Bullet _bullet;
         [SerializeField] private ParticleSystem _shootingEffect;
+        [SerializeField] private int _poolCount = 20;
 
         private Vector3 _shootingDiredtionOffaset = new Vector3(0, 1, 0);
         private Queue<Bullet> _bulletsPool = new();
@@ -19,7 +20,6 @@ namespace Assets.Scripts.Guns
 
         protected virtual int Damage => 10;
         protected virtual float CooldawnSeconds => 0.3f;
-        protected virtual int PoolCount => 50;
 
         protected Transform ShootingPoint => _shootingPoint;
         protected bool CanShoot { get; set; } = true;
@@ -33,6 +33,11 @@ namespace Assets.Scripts.Guns
         private void OnDisable()
         {
             RemoveSubscribes();
+        }
+
+        private void OnDestroy()
+        {
+            DestroyPool();
         }
 
         public virtual void TryShoot(Damageable target, Team team)
@@ -49,7 +54,7 @@ namespace Assets.Scripts.Guns
             CanShoot = false;
 
             var bullet = GetFreeBullet();
-            bullet.Activate(_shootingPoint.position, direction, team);
+            bullet.Activate(_shootingPoint.position, direction, team, this);
 
             _shootingEffect.Play();
 
@@ -78,7 +83,7 @@ namespace Assets.Scripts.Guns
 
         private void CreatePool()
         {
-            for (int i = 0; i < PoolCount; i++)
+            for (int i = 0; i < _poolCount; i++)
             {
                 CreateBulletForPool();
             }
@@ -112,6 +117,17 @@ namespace Assets.Scripts.Guns
 
             if (_cooldawnAwaite != null)
                 StopCoroutine(_cooldawnAwaite);
+        }
+
+        private void DestroyPool()
+        {
+            while(_bulletsPool.Count > 0)
+            {
+                Bullet bullet = _bulletsPool.Dequeue();
+
+                if(bullet !=null)
+                    Destroy(bullet.gameObject);
+            }
         }
     }
 }

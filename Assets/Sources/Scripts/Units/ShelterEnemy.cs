@@ -2,12 +2,19 @@ using UnityEngine;
 
 namespace Assets.Scripts.Units
 {
-    public class ShelterEnemy : Unit
+    [RequireComponent(typeof(Rigidbody))]
+    public class ShelterEnemy : Enemy
     {
-        private Tower _tower;
-        public override int MaxHealth => 100;
+        private Rigidbody _rigidbody;
 
+        public override int MaxHealth => 100;
         public override Team TeamId => Team.Enemy;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
         private void Update()
         {
@@ -26,33 +33,12 @@ namespace Assets.Scripts.Units
             GetDamage(MaxHealth);
         }
 
-        protected override void Die()
+        protected override void OnDie() 
         {
-            gameObject.SetActive(false);
+            _rigidbody.isKinematic = false;
         }
 
-        protected override void OneEnenmyMissed(Damageable enemy)
-        {
-            if (enemy == Target || (Target != null && Target.IsAlive == false))
-                Target = TryGetAnyNewTarget();
-        }
-
-        protected override void OnEnemyFinded(Damageable enemy)
-        {
-            if (Target == null)
-                Target = enemy;
-
-            else if (enemy is Tank && Target is not Tank)
-            {
-                Target = enemy;
-                Debug.Log("Enemy find tank");
-            }
-        }
-
-        protected override void OnGetDamage()
-        {
-
-        }
+        protected override void OnGetDamage() { }
 
         private void RotateToTarget()
         {
@@ -61,6 +47,8 @@ namespace Assets.Scripts.Units
 
             transform.LookAt(lookPosition);
         }
+
+
     }
 }
 

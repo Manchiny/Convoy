@@ -424,6 +424,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2628307218003889794, guid: 0f51832bcf15b1340aa4d42553715131, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628307218003889794, guid: 0f51832bcf15b1340aa4d42553715131, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2628307218003889796, guid: 0f51832bcf15b1340aa4d42553715131, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1112,6 +1120,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &770726006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7290968288076574309, guid: ea599531b82632045a4ea334b969d532, type: 3}
+  m_PrefabInstance: {fileID: 8209076640321981291}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &770726009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770726006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc9f386ca78d72499de6837aa5bfaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &846629801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,6 +1521,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064227501}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1135974464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7290968288510466701, guid: ea599531b82632045a4ea334b969d532, type: 3}
+  m_PrefabInstance: {fileID: 8209076640321981291}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1135974469
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135974464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.6, z: 0}
 --- !u!1 &1150860854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5125037371767695711, guid: ea599531b82632045a4ea334b969d532, type: 3}
@@ -2710,6 +2754,10 @@ PrefabInstance:
     - target: {fileID: 1907157048326148263, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7389560940813390849, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: _poolCount
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
@@ -4533,6 +4581,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.3894331
       objectReference: {fileID: 0}
+    - target: {fileID: 7290968288510466705, guid: ea599531b82632045a4ea334b969d532, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 7290968288510466705, guid: ea599531b82632045a4ea334b969d532, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7290968288591383555, guid: ea599531b82632045a4ea334b969d532, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02499594
@@ -4585,6 +4641,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b1c0516588a33324c8638cf7722e3a49, type: 2}
+    - target: {fileID: 8165444127442117316, guid: ea599531b82632045a4ea334b969d532, type: 3}
+      propertyPath: _badgePrefab
+      value: 
+      objectReference: {fileID: 800044193050613070, guid: 8d43ae08f73cee74397a5a0bd59e7375, type: 3}
     - target: {fileID: 8209076640321981302, guid: ea599531b82632045a4ea334b969d532, type: 3}
       propertyPath: m_UseGravity
       value: 1

@@ -17,7 +17,6 @@ namespace Assets.Scripts.Units
         public PlayerMovement Movement { get; private set; }
         public bool InTankZone { get; private set; } = true;
 
-
         private void Awake()
         {
             Movement = GetComponent<PlayerMovement>();
