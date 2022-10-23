@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,6 +6,7 @@ namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Collider))]
     public class Enemy : Unit
     {
         [SerializeField] private SolderBadge _badgePrefab;
@@ -12,13 +14,16 @@ namespace Assets.Scripts.Units
         private const string IdleAnimationKey = "Idle";
         private const string RunAnimationKey = "Run";
         private const string AttackAnimationKey = "Idle";
+        private const string DeathAnimationKey = "Death";
 
         private const float AttackDistance = 14f;
+        private const float DelayBeforeRemove = 5f;
 
         private string _lastAnimationKey;
 
         private NavMeshAgent _agent;
         private Animator _animator;
+        private Collider _collider;
 
         public override int MaxHealth => 150;
         public virtual int Damage => 10;
@@ -31,6 +36,7 @@ namespace Assets.Scripts.Units
         {
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
+            _collider = GetComponent<Collider>();
         }
 
         private void Update()
@@ -54,7 +60,10 @@ namespace Assets.Scripts.Units
         protected override void Die()
         {
             DropBadge();
-           // gameObject.SetActive(false);
+            PlayAnimation(DeathAnimationKey);
+            _collider.isTrigger = true;
+
+            StartCoroutine(WaitAndDestroy());
         }
 
 
@@ -117,6 +126,12 @@ namespace Assets.Scripts.Units
         {
             var badge = Instantiate(_badgePrefab, transform.position, Quaternion.identity, transform.parent);
             badge.AddDropForce();
+        }
+
+        private IEnumerator WaitAndDestroy()
+        {
+            yield return new WaitForSeconds(DelayBeforeRemove);
+            Destroy(gameObject);
         }
     }
 }

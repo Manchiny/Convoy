@@ -52,7 +52,7 @@ namespace Assets.Scripts.Units
             if (_attackTargets.Count == 0)
                 return null;
 
-            return _attackTargets.OrderBy(enemy => (enemy.transform.position - transform.position).sqrMagnitude).First();
+            return _attackTargets.OrderBy(enemy => (enemy.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
         }
     }
 }
