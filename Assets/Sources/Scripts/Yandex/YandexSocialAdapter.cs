@@ -14,6 +14,7 @@ namespace Assets.Scripts.Social
      //   public override Saver GetSaver => new YandexSaver();
         public bool IsAuthorized => IsInited && PlayerAccount.IsAuthorized;
         public bool HasPersonalDataPermission => PlayerAccount.HasPersonalProfileDataPermission;
+        public Agava.YandexGames.DeviceType DeviceType => Device.Type;
 
         public bool IsInited { get; private set; }
 
@@ -66,11 +67,6 @@ namespace Assets.Scripts.Social
 
                 Debug.Log($"My id = {result.uniqueID}, name = {name}");
             });
-        }
-
-        public void OnGetDeviceTypeButtonClick()
-        {
-            Debug.Log($"DeviceType = {Device.Type}");
         }
 
         public void OnGetEnvironmentButtonClick()

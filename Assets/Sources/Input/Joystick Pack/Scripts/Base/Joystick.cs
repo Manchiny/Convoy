@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Units;
+﻿using Assets.Scripts;
+using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,7 +22,13 @@ public class Joystick : UserInput, IPointerDownHandler, IDragHandler, IPointerUp
 
     private Vector2 _input = Vector2.zero;
 
-    public override bool NeedActivate => SystemInfo.deviceType != DeviceType.Desktop;
+    public override bool NeedActivate()
+    {
+#if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
+        return Game.SocialAdapter.DeviceType != Agava.YandexGames.DeviceType.Desktop;
+#endif
+        return SystemInfo.deviceType != DeviceType.Desktop;
+    }
 
     public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
     public bool SnapX { get { return snapX; } set { snapX = value; } }
@@ -42,7 +49,7 @@ public class Joystick : UserInput, IPointerDownHandler, IDragHandler, IPointerUp
         set { deadZone = Mathf.Abs(value); }
     }
 
-    protected override void Start()
+    protected virtual void Start()
     {
         HandleRange = handleRange;
         DeadZone = deadZone;
@@ -60,8 +67,6 @@ public class Joystick : UserInput, IPointerDownHandler, IDragHandler, IPointerUp
         handle.anchorMax = center;
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
-
-        base.Start();
     }
 
     public override void Init(PlayerMovement character)

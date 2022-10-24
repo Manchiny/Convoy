@@ -30,6 +30,7 @@ namespace Assets.Scripts
         private GameMode _currentMode;
 
         public event Action<GameMode> GameModeChanged;
+        public static Action Inited;
 
         public enum GameMode
         {
@@ -41,10 +42,12 @@ namespace Assets.Scripts
         public static Game Instance { get; private set; }
 
         public static YandexAdvertisingAdapter Adverts => Instance._adverts;
+        public static YandexSocialAdapter SocialAdapter => Instance._yandexAdapter;
         public static Player Player => Instance._player;
         public static WindowsController Windows => Instance._windowsController;
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
+
 
         private void Awake()
         {
@@ -72,13 +75,16 @@ namespace Assets.Scripts
 
             StartLevel(_levels[0]);
             _currentMode = GameMode.Game;
+
+            Inited?.Invoke();
         }
 
 
         public void SetInputSystem(UserInput input)
         {
             Debug.Log($"Device type = {SystemInfo.deviceType}");
-            if (input.NeedActivate == false)
+
+            if (input.NeedActivate() == false)
             {
                 input.gameObject.SetActive(false);
                 Debug.Log($"{input.GetType()} disbled");

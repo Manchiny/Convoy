@@ -7,7 +7,13 @@ namespace Assets.Scripts.UserInputSystem
     {
         private PlayerInput _input;
 
-        public override bool NeedActivate => SystemInfo.deviceType == DeviceType.Desktop;
+        public override bool NeedActivate()
+        {
+#if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
+        return Game.SocialAdapter.DeviceType == Agava.YandexGames.DeviceType.Desktop;
+#endif
+            return SystemInfo.deviceType == DeviceType.Desktop;
+        }
 
         private void OnEnable()
         {

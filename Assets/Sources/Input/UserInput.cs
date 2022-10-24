@@ -10,13 +10,22 @@ namespace Assets.Scripts.UserInputSystem
 
         private PlayerMovement _characterMovement;
 
-        public abstract bool NeedActivate { get; }
-
         protected virtual float Horizontal => InputVector.x;
         protected virtual float Vertical => InputVector.y;
 
-        protected virtual void Start()
+        private void Awake()
         {
+            Game.Inited += OnGameInited;
+        }
+
+        private void OnDestroy()
+        {
+            Game.Inited -= OnGameInited;
+        }
+
+        public void OnGameInited()
+        {
+            Game.Inited -= OnGameInited;
             Game.Instance.SetInputSystem(this);
         }
 
@@ -24,6 +33,8 @@ namespace Assets.Scripts.UserInputSystem
         {
             _characterMovement = character;
         }
+
+        public abstract bool NeedActivate();
 
         private void Update()
         {
