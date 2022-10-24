@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI
                        Game.Windows.ScreenChange<UpgradeTankWindow>(true, w => w.Init());
         protected void Init()
         {
-            Game.Instance.SetMode(Game.GameMode.Pause);
+            Game.Instance.SetMode(Game.GameMode.TankUpgrade);
             SetText();
         }
 

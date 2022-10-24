@@ -2,6 +2,7 @@ using Assets.Scripts.Levels;
 using Assets.Scripts.UI;
 using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,10 +22,12 @@ namespace Assets.Scripts
         private UserInput _input;
         private GameMode _currentMode;
 
+        public event Action<GameMode> GameModeChanged;
+
         public enum GameMode
         {
             Game,
-            Pause
+            TankUpgrade,
         }
 
         public Level CurrentLevel { get; private set; }
@@ -81,10 +84,12 @@ namespace Assets.Scripts
                 case GameMode.Game:
                     Unpause();
                     break;
-                case GameMode.Pause:
+                case GameMode.TankUpgrade:
                     Pause();
                     break;
             }
+
+            GameModeChanged?.Invoke(mode);
         }
 
         private void Pause()
