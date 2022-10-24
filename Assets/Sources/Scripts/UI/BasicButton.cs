@@ -178,7 +178,7 @@ namespace Assets.Scripts.UI
             _selectTween.Append(_rectTransform.DOScale(new Vector3(_baseScale.x * 0.95f, _baseScale.y * 1.01f, _baseScale.z), 0.05f));
             _selectTween.Append(_rectTransform.DOScale(_baseScale, 0.05f));
             _selectTween.OnComplete(() => _selectTween = null);
-            _selectTween.SetLink(gameObject);
+            _selectTween.SetLink(gameObject).SetUpdate(true);
 
             _selectTween.Play();
         }
@@ -197,7 +197,7 @@ namespace Assets.Scripts.UI
             _pressTween = DOTween.Sequence()
                 .Append(_rectTransform.DOScale(new Vector3(_baseScale.x * 0.95f, _baseScale.y * .95f, _baseScale.z), 0.05f));
 
-            _pressTween.SetLink(gameObject);
+            _pressTween.SetLink(gameObject).SetUpdate(true);
             _pressTween.SetAutoKill(false);
 
             _pressTween.Play();
@@ -225,7 +225,7 @@ namespace Assets.Scripts.UI
             _selectTween.Append(_rectTransform.DOScale(_baseScale, 0.1f));
             _selectTween.SetLoops(-1);
             _selectTween.OnComplete(() => _selectTween = null);
-            _selectTween.SetLink(gameObject);
+            _selectTween.SetLink(gameObject).SetUpdate(true);
             _selectTween.Play();
         }
 
@@ -239,7 +239,7 @@ namespace Assets.Scripts.UI
             _selectTween.Append(_rectTransform.DOScale(_baseScale, 0.5f));
             _selectTween.SetLoops(-1);
             _selectTween.OnComplete(() => _selectTween = null);
-            _selectTween.SetLink(gameObject);
+            _selectTween.SetLink(gameObject).SetUpdate(true);
             _selectTween.Play();
         }
 
@@ -339,7 +339,7 @@ namespace Assets.Scripts.UI
             {
                 var alpha = appear ? 1f : 0f;
                 _appearTween =
-                CanvasGroup.DOFade(alpha, duration).SetEase(Ease.InSine).SetLink(gameObject);
+                CanvasGroup.DOFade(alpha, duration).SetEase(Ease.InSine).SetLink(gameObject).SetUpdate(true);
 
                 if (!appear)
                     _appearTween.OnComplete(() => gameObject.SetActive(false));

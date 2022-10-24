@@ -19,13 +19,21 @@ namespace Assets.Scripts
         [SerializeField] private Transform _sceneGarbageHolder;
 
         private UserInput _input;
-        public Level CurrentLevel { get; private set; }
+        private GameMode _currentMode;
 
+        public enum GameMode
+        {
+            Game,
+            Pause
+        }
+
+        public Level CurrentLevel { get; private set; }
         public static Game Instance { get; private set; }
 
         public static Player Player => Instance._player;
         public static WindowsController Windows => Instance._windowsController;
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
+        public static GameMode CurrentMode => Instance._currentMode;
 
         private void Awake()
         {
@@ -43,6 +51,7 @@ namespace Assets.Scripts
         private void Start()
         {
             StartLevel(_levels[0]);
+            _currentMode = GameMode.Game;
         }
 
         public void SetInputSystem(UserInput input)
@@ -63,6 +72,29 @@ namespace Assets.Scripts
         public void OnDamageableHited(Damageable damageable, int damage)
         {
             damageable.GetDamage(damage);
+        }
+
+        public void SetMode(GameMode mode)
+        {
+            switch(mode)
+            {
+                case GameMode.Game:
+                    Unpause();
+                    break;
+                case GameMode.Pause:
+                    Pause();
+                    break;
+            }
+        }
+
+        private void Pause()
+        {
+            Time.timeScale = 0;
+        }
+
+        private void Unpause()
+        {
+            Time.timeScale = 1;
         }
 
         private void StartLevel(Level level)
