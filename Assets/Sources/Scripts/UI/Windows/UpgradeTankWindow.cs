@@ -18,6 +18,9 @@ namespace Assets.Scripts.UI
         {
             Game.Instance.SetMode(Game.GameMode.TankUpgrade);
             SetText();
+
+            if (Game.Adverts != null)
+                Game.Adverts.TryShowInterstitial(Close);
         }
 
         protected override void OnClose()
