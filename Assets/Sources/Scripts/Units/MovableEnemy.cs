@@ -45,7 +45,7 @@ namespace Assets.Scripts.Units
 
         private void Attack()
         {
-            if (Target.IsAlive == false)
+            if (Target.gameObject.activeInHierarchy == false || Target.IsAlive == false)
                 RemoveFromEnemies(Target);
             else
             {

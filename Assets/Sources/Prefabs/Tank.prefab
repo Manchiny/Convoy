@@ -19819,8 +19819,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootingPoint: {fileID: 6802362510588816497}
-  _bullet: {fileID: 3912627011782732605, guid: f9f357f6bdb376f458475aeaf9cb9469, type: 3}
+  _bullet: {fileID: -3022636192214633427, guid: 59e8582a0f1ba7f4ca4dc97f17dbc717, type: 3}
   _shootingEffect: {fileID: 4140677524692547992}
+  _poolCount: 12
 --- !u!114 &1115095785
 MonoBehaviour:
   m_ObjectHideFlags: 0

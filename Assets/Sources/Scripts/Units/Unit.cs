@@ -30,7 +30,7 @@ namespace Assets.Scripts.Units
 
         protected void TryShoot()
         {
-            if (Target.IsAlive == false)
+            if (Target.gameObject.activeInHierarchy == false || Target.IsAlive == false)
                 RemoveFromEnemies(Target);
 
             if (Target == null)
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Units
         protected Damageable TryGetAnyNewTarget()
         {
             if (_attackTargets.Count > 0)
-                return _attackTargets.First();
+                return _attackTargets.FirstOrDefault();
             else
                 return null;
         }
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Units
             if (_attackTargets.Count == 0)
                 return null;
 
-            return _attackTargets.OrderBy(enemy => (enemy.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
+            return _attackTargets.Where(enemy => enemy.gameObject.activeInHierarchy).OrderBy(enemy => (enemy.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
         }
     }
 }

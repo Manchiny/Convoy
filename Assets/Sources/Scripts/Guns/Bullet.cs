@@ -7,8 +7,8 @@ namespace Assets.Scripts.Guns
 {
     public class Bullet : MonoBehaviour
     {
-        private const float Lifetime = 5f;
-        private const float Speed = 10f;
+        protected virtual float Lifetime => 5f;
+        protected virtual float Speed => 10f;
 
         private Team _team;
         private Gun _gun;

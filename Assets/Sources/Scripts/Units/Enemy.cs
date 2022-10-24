@@ -29,7 +29,7 @@ namespace Assets.Scripts.Units
             Animations.PlayAnimation(EnemyAnimations.DeathAnimationKey);
 
             OnDie();
-            StartCoroutine(WaitAndDestroy());
+            StartCoroutine(WaitAndDisable());
         }
 
         protected abstract void OnDie();
@@ -63,10 +63,10 @@ namespace Assets.Scripts.Units
             badge.AddDropForce();
         }
 
-        private IEnumerator WaitAndDestroy()
+        private IEnumerator WaitAndDisable()
         {
             yield return new WaitForSeconds(DelayBeforeRemove);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

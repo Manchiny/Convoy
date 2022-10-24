@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +35,7 @@ namespace Assets.Scripts.Units
                 return;
 
             if (Target != null)
-                if (Target.IsAlive)
+                if (Target.gameObject.activeInHierarchy && Target.IsAlive == true)
                     TryShoot();
                 else
                     RemoveFromEnemies(Target);

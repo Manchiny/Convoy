@@ -19728,6 +19728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gun: {fileID: 7981081646891342860}
+  _badgePrefab: {fileID: 0}
 --- !u!1 &8725883507601785050
 GameObject:
   m_ObjectHideFlags: 0
@@ -20422,8 +20423,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4aee99bf7714f94c8b683286b241f7f, type: 2}
-  - {fileID: 2100000, guid: 7c21427fd5a0ed545bdc1dbc7109e699, type: 2}
+  - {fileID: 2100000, guid: 1b0fd59acd7af7f4aac8ac9b6321035a, type: 2}
+  - {fileID: 2100000, guid: b3d067ce834ef27429fccfd4e2ddfa0d, type: 2}
   - {fileID: 2100000, guid: 3f0ef116d408aff4eba9ae765d9868d7, type: 2}
   - {fileID: 2100000, guid: cdb068b2ffe192440aeeae0fd38d54c4, type: 2}
   - {fileID: 2100000, guid: 5dc849b42e604e248bd9dc37a3872e36, type: 2}
@@ -22052,3 +22053,4 @@ MonoBehaviour:
   _shootingPoint: {fileID: 4729909486598491403}
   _bullet: {fileID: 3912627011782732605, guid: f9f357f6bdb376f458475aeaf9cb9469, type: 3}
   _shootingEffect: {fileID: 2788994199970552034}
+  _poolCount: 20
