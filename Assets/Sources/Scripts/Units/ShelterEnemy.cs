@@ -9,6 +9,8 @@ namespace Assets.Scripts.Units
 
         public override int MaxHealth => 100;
         public override Team TeamId => Team.Enemy;
+        public override int Damage => 15;
+        public override int Armor => 0;
 
         protected override void Awake()
         {

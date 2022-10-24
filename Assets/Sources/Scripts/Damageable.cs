@@ -16,6 +16,7 @@ namespace Assets.Scripts
         }
 
         public abstract int MaxHealth { get; }
+        public abstract int Armor { get; }
         public abstract Team TeamId{ get; }
         public int CurrentHealth { get; protected set; }
         public bool IsAlive => CurrentHealth > 0;
@@ -30,10 +31,15 @@ namespace Assets.Scripts
             if (damage <= 0 || IsAlive == false)
                 return;
 
-            CurrentHealth -= damage;
+            int totalDamage = damage - Armor;
+
+            if (totalDamage < 0)
+                totalDamage = 0;
+
+            CurrentHealth -= totalDamage;
             OnGetDamage();
 
-            Debug.Log($"{name} take damage: {damage}; Health = {CurrentHealth}");
+            Debug.Log($"{name} take damage: {totalDamage}; Health = {CurrentHealth}");
 
             if (IsAlive == false)
             {

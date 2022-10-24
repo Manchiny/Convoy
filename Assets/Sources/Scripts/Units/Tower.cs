@@ -9,6 +9,8 @@ namespace Assets.Scripts.Units
         [SerializeField] private DestroyableObject _destroyable;
 
         public override int MaxHealth => 100;
+        public int Damage => 0;
+        public override int Armor => 0;
         public override Team TeamId => _unit.TeamId;
 
         public void AddFindedEnemy(Damageable enemy)

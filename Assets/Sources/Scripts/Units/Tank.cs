@@ -16,9 +16,13 @@ namespace Assets.Scripts.Units
         private int _currentWaypointId;
 
         private bool _inited;
+        private TankData _data;
 
         public override int MaxHealth => 5000;
+        public override int Damage => _data.Damage;
+        public override int Armor => _data.Armor;
         public override Team TeamId => Team.Player;
+        public TankData GetData => _data;
 
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
 
@@ -45,7 +49,12 @@ namespace Assets.Scripts.Units
             }
         }
 
-        public void Init(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)
+        public void Init(TankData data)
+        {
+            _data = data;
+        }
+
+        public void InitLevelProperties(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)
         {
             transform.position = spawnPosition;
             transform.rotation = Quaternion.identity;

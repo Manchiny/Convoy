@@ -132,7 +132,7 @@ namespace Assets.Scripts
                 Destroy(CurrentLevel.gameObject);
 
             CurrentLevel = level;
-            _tank.Init(level.SpawnPoint.position, level.Waypoints);
+            _tank.InitLevelProperties(level.SpawnPoint.position, level.Waypoints);
         }
     }
 }

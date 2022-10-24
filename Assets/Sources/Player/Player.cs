@@ -13,8 +13,12 @@ namespace Assets.Scripts.Units
         public override int MaxHealth => 10000;
         public override Team TeamId => Team.Player;
 
+        public override int Damage => 15;
+        public override int Armor => 0;
+
         public PlayerMovement Movement { get; private set; }
         public bool InTankZone { get; private set; } = true;
+
 
         private void Awake()
         {

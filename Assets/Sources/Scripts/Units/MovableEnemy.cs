@@ -11,7 +11,12 @@ namespace Assets.Scripts.Units
 
         private NavMeshAgent _agent;
         private Collider _collider;
+
+        public override int MaxHealth => 150;
+        public override int Armor => 0;
+        public override int Damage => 15;
         private bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
+
 
         protected override void Awake()
         {

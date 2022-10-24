@@ -6,6 +6,7 @@ namespace Assets.Scripts
     {
         public void AddFindedEnemy(Damageable enemy);
         public void RemoveFromEnemies(Damageable enemy);
+        public int Damage { get; }
         public Team TeamId { get; }
     }
 }

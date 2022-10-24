@@ -15,14 +15,20 @@ namespace Assets.Scripts.Guns
         private Vector3 _shootingDiredtionOffaset = new Vector3(0, 1, 0);
         private Queue<Bullet> _bulletsPool = new();
 
+        private IAttackable _attackable;
         private WaitForSeconds _waitSeconds;
         private Coroutine _cooldawnAwaite;
 
-        protected virtual int Damage => 10;
+        protected int Damage => _attackable.Damage;
         protected virtual float CooldawnSeconds => 0.3f;
 
         protected Transform ShootingPoint => _shootingPoint;
         protected bool CanShoot { get; set; } = true;
+
+        private void Awake()
+        {
+            _attackable = GetComponentInParent<IAttackable>();
+        }
 
         private void Start()
         {

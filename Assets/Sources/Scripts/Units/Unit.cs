@@ -13,6 +13,8 @@ namespace Assets.Scripts.Units
 
         public Damageable Target { get; protected set; }
 
+        public abstract int Damage { get; }
+
         public void AddFindedEnemy(Damageable enemy)
         {
             _attackTargets.Add(enemy);

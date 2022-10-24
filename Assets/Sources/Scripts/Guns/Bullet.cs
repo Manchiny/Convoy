@@ -61,15 +61,11 @@ namespace Assets.Scripts.Guns
             _gun = gun;
 
             transform.position = position;
-            // transform.LookAt(moveDirection);
             _moveDirection = moveDirection;
 
             _isActive = true;
 
             gameObject.SetActive(true);
-
-        //    _rigidbody.AddForce(moveDirection.normalized * 10f, ForceMode.Impulse);
-
             _autoDeactivate = StartCoroutine(DeactivatAfterLifetime());
         }
 
