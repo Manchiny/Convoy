@@ -15,6 +15,12 @@ namespace Assets.Scripts.Units
         public override Team TeamId => Team.Enemy;
         public override int MaxHealth => 150;
 
+        public enum EnemyType
+        {
+            Movable,
+            Tower
+        }
+
         protected EnemyAnimations Animations { get; private set; }
 
         protected virtual void Awake()

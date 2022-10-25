@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   _roadPartCount: 7
+  _maxMovableEnemyiesInGroup: 6
+  _minMovableEnemyiesInGroup: 3
+  _enemiesFullness:
+  - _type: 0
+    _chance: 70
+  - _type: 1
+    _chance: 30

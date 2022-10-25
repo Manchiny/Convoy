@@ -169,7 +169,7 @@ namespace Assets.Scripts
         {
             CurrentLevel = level;
 
-            level.CreateRoad();
+            level.Configure();
 
             _tank.OnLevelStarted(level.TankSpawnPoint.position, level.Waypoints);
             _player.OnLevelStarted(level.PlayerSpawnPoint.position);
