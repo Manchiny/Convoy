@@ -1,4 +1,5 @@
 using Assets.Scripts.Levels;
+using Assets.Scripts.Saves;
 using Assets.Scripts.Social;
 using Assets.Scripts.Social.Adverts;
 using Assets.Scripts.UI;
@@ -23,11 +24,14 @@ namespace Assets.Scripts
         [SerializeField] private Transform _sceneGarbageHolder;
         [Space]
         [SerializeField] private YandexSocialAdapter _yandexAdapter;
+        [SerializeField] private TankPropertiesDatabase _tankPropertiesDatabase;
 
         private YandexAdvertisingAdapter _adverts;
 
         private UserInput _input;
         private GameMode _currentMode;
+        private Saver _saver;
+        private UserData _userData;
 
         public event Action<GameMode> GameModeChanged;
         public static Action Inited;
@@ -44,10 +48,10 @@ namespace Assets.Scripts
         public static YandexAdvertisingAdapter Adverts => Instance._adverts;
         public static YandexSocialAdapter SocialAdapter => Instance._yandexAdapter;
         public static Player Player => Instance._player;
+        public static TankPropertiesDatabase TankProperies => Instance._tankPropertiesDatabase;
         public static WindowsController Windows => Instance._windowsController;
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
-
 
         private void Awake()
         {
@@ -55,6 +59,8 @@ namespace Assets.Scripts
             {
                 Instance = this;
                 Windows.Loader.gameObject.SetActive(true);
+
+                _tankPropertiesDatabase.Init();
 
                 DontDestroyOnLoad(this);
                 return;
@@ -67,16 +73,18 @@ namespace Assets.Scripts
         {
 #if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
             yield return StartCoroutine(_yandexAdapter.Init());
+
             _adverts = new YandexAdvertisingAdapter();
             _adverts.Init(_yandexAdapter);
 #endif
             yield return null;
-            Windows.Loader.gameObject.SetActive(false);
 
-            StartLevel(_levels[0]);
-            _currentMode = GameMode.Game;
+            if (_yandexAdapter.IsInited)
+                _saver = new YandexSaver();
+            else
+                _saver = new LocalJSONSaver();
 
-            Inited?.Invoke();
+            _saver.LoadUserData(InitGame);
         }
 
 
@@ -114,6 +122,26 @@ namespace Assets.Scripts
             }
 
             GameModeChanged?.Invoke(mode);
+        }
+
+        public void Save()
+        {
+            _userData.TankData = _tank.GetData;
+            _saver.Save(_userData);
+        }
+
+        private void InitGame(UserData userData)
+        {
+            _userData = userData;
+
+            Windows.Loader.gameObject.SetActive(false);
+
+            StartLevel(_levels[0]);
+            _currentMode = GameMode.Game;
+
+            _tank.Init(_userData.TankData);
+
+            Inited?.Invoke();
         }
 
         private void Pause()

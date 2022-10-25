@@ -2399,6 +2399,7 @@ MonoBehaviour:
   _windowsController: {fileID: 1186169090}
   _sceneGarbageHolder: {fileID: 1003126594}
   _yandexAdapter: {fileID: 2054690793}
+  _tankPropertiesDatabase: {fileID: 11400000, guid: ef19ed8f8e59864418af081a25368be8, type: 2}
 --- !u!114 &1186169090
 MonoBehaviour:
   m_ObjectHideFlags: 0

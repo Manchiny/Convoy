@@ -28,9 +28,9 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
-            if (!_inited || IsAlive == false)
+            if (!_inited || _data == null || IsAlive == false)
                 return;
-            
+
             if (Target != null)
             {
                 if (NeedRotateTower)
