@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Assets.Scripts.TankData;
 
 namespace Assets.Scripts.Units
 {
@@ -30,6 +31,14 @@ namespace Assets.Scripts.Units
         {
             if (!_inited || _data == null || IsAlive == false)
                 return;
+
+#if UNITY_EDITOR
+            if (Input.GetKeyUp(KeyCode.Space) == true)
+            {
+                _data.AddUpgradePoint(StatName.Damage);
+                Game.Instance.Save();
+            }
+#endif
 
             if (Target != null)
             {
