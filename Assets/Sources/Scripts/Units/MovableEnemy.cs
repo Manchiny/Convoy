@@ -15,6 +15,8 @@ namespace Assets.Scripts.Units
         public override int MaxHealth => 150;
         public override int Armor => 0;
         public override int Damage => 15;
+        public override float ShootDelay => 0.3f;
+
         private bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
 
 

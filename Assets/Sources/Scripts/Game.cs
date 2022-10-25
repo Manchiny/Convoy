@@ -24,7 +24,8 @@ namespace Assets.Scripts
         [SerializeField] private Transform _sceneGarbageHolder;
         [Space]
         [SerializeField] private YandexSocialAdapter _yandexAdapter;
-        [SerializeField] private TankPropertiesDatabase _tankPropertiesDatabase;
+        [SerializeField] private UnitPropertiesDatabase _tankPropertiesDatabase;
+        [SerializeField] private UnitPropertiesDatabase _playerCharacterPropertiesDatabase;
 
         private YandexAdvertisingAdapter _adverts;
 
@@ -48,9 +49,11 @@ namespace Assets.Scripts
         public static YandexAdvertisingAdapter Adverts => Instance._adverts;
         public static YandexSocialAdapter SocialAdapter => Instance._yandexAdapter;
         public static Player Player => Instance._player;
-        public static TankPropertiesDatabase TankProperies => Instance._tankPropertiesDatabase;
+        public static UnitPropertiesDatabase TankProperies => Instance._tankPropertiesDatabase;
+        public static UnitPropertiesDatabase CharacterProperties => Instance._playerCharacterPropertiesDatabase;
         public static WindowsController Windows => Instance._windowsController;
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
+
         public static GameMode CurrentMode => Instance._currentMode;
 
         private void Awake()
@@ -59,8 +62,6 @@ namespace Assets.Scripts
             {
                 Instance = this;
                 Windows.Loader.gameObject.SetActive(true);
-
-                _tankPropertiesDatabase.Init();
 
                 DontDestroyOnLoad(this);
                 return;
@@ -79,6 +80,9 @@ namespace Assets.Scripts
 #endif
             yield return null;
 
+            _tankPropertiesDatabase.Init();
+            _playerCharacterPropertiesDatabase.Init();
+
             if (_yandexAdapter.IsInited)
                 _saver = new YandexSaver();
             else
@@ -86,6 +90,7 @@ namespace Assets.Scripts
 
             _saver.LoadUserData(InitGame);
         }
+
 
 
         public void SetInputSystem(UserInput input)
@@ -127,6 +132,8 @@ namespace Assets.Scripts
         public void Save()
         {
             _userData.TankData = _tank.GetData;
+            _userData.PlayerCharacterData = _player.GetData;
+
             _saver.Save(_userData);
         }
 
@@ -139,7 +146,8 @@ namespace Assets.Scripts
             StartLevel(_levels[0]);
             _currentMode = GameMode.Game;
 
-            _tank.Init(_userData.TankData);
+            _tank.Init(_userData.TankData, _tankPropertiesDatabase);
+            _player.Init(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
 
             Inited?.Invoke();
         }

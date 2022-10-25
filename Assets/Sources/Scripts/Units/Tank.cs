@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using static Assets.Scripts.TankData;
+using static Assets.Scripts.UnitData;
 
 namespace Assets.Scripts.Units
 {
@@ -17,13 +18,17 @@ namespace Assets.Scripts.Units
         private int _currentWaypointId;
 
         private bool _inited;
-        private TankData _data;
+        private UnitData _data;
+        private UnitPropertiesDatabase _propertiesDatabase;
+
+        public override Team TeamId => Team.Player;
 
         public override int MaxHealth => 5000;
-        public override int Damage => _data.Damage;
-        public override int Armor => _data.Armor;
-        public override Team TeamId => Team.Player;
-        public TankData GetData => _data;
+        public override int Armor => _data.GetArmor(_propertiesDatabase);
+        public override int Damage => _data.GetDamage(_propertiesDatabase);
+        public override float ShootDelay => _data.GetShootDelay(_propertiesDatabase);
+
+        public UnitData GetData => _data;
 
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
 
@@ -58,9 +63,10 @@ namespace Assets.Scripts.Units
             }
         }
 
-        public void Init(TankData data)
+        public void Init(UnitData data, UnitPropertiesDatabase propertiesDatabase)
         {
             _data = data;
+            _propertiesDatabase = propertiesDatabase;
         }
 
         public void InitLevelProperties(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)

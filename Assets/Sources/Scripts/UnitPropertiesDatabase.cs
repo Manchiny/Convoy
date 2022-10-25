@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    [CreateAssetMenu(fileName = "TankPropertiesDatabase", menuName = "Data/TankPropertiesDatabase")]
-    public class TankPropertiesDatabase : ScriptableObject
+    [CreateAssetMenu(fileName = "UnitPropertiesDatabase", menuName = "Data/UnitPropertiesDatabase")]
+    public class UnitPropertiesDatabase : ScriptableObject
     {
         [SerializeField] private List<UnitProperty> _armorLevels;
         [SerializeField] private List<UnitProperty> _damageLevels;

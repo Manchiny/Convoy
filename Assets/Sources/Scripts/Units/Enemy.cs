@@ -12,10 +12,10 @@ namespace Assets.Scripts.Units
 
         private Animator _animator;
 
-        protected EnemyAnimations Animations { get; private set; }
-
-        public override int MaxHealth => 150;
         public override Team TeamId => Team.Enemy;
+        public override int MaxHealth => 150;
+
+        protected EnemyAnimations Animations { get; private set; }
 
         protected virtual void Awake()
         {

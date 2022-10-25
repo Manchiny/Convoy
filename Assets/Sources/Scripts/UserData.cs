@@ -3,27 +3,21 @@ using System.Linq;
 
 namespace Assets.Scripts
 {
+    [Serializable]
     public class UserData
     {
-        public TankData TankData;
-        public int Badges;
+        public UnitData TankData;
+        public UnitData PlayerCharacterData;
 
-        public UserData()
-        {
-            TankData = new TankData(Game.TankProperies);
-            Badges = 0;
-        }
+        public int Badges;
     }
 
-
     [Serializable]
-    public class TankData // todo переименовать в unitData и юзеру пихнуть аналогичную штуку
+    public class UnitData
     {
         public UnitPropertyValues ArmorProperty;
         public UnitPropertyValues DamageProperty;
         public UnitPropertyValues ShootDelayProperty;
-
-        private TankPropertiesDatabase _database;
 
         public enum StatName
         {
@@ -32,18 +26,16 @@ namespace Assets.Scripts
             ShootDelay
         }
 
-        public TankData(TankPropertiesDatabase database)
+        public UnitData()
         {
-            _database = database;
-
             ArmorProperty = new();
             DamageProperty = new();
             ShootDelayProperty = new();
         }
 
-        public int Armor => (int)_database.ArmorLevels.Where(property => property.Level == ArmorProperty.LevelValue).FirstOrDefault().Value;
-        public int Damage => (int)_database.DamageLevels.Where(property => property.Level == DamageProperty.LevelValue).FirstOrDefault().Value;
-        public float ShootDelay => _database.ShootDelayLevels.Where(property => property.Level == ShootDelayProperty.LevelValue).FirstOrDefault().Value;
+        public int GetArmor(UnitPropertiesDatabase database) => (int)database.ArmorLevels.Where(property => property.Level == ArmorProperty.LevelValue).FirstOrDefault().Value;
+        public int GetDamage(UnitPropertiesDatabase database) => (int)database.DamageLevels.Where(property => property.Level == DamageProperty.LevelValue).FirstOrDefault().Value;
+        public float GetShootDelay(UnitPropertiesDatabase database) => database.ShootDelayLevels.Where(property => property.Level == ShootDelayProperty.LevelValue).FirstOrDefault().Value;
 
         public void AddUpgradePoint(StatName stat)
         {

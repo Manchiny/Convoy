@@ -19,9 +19,7 @@ namespace Assets.Scripts.Saves
 
             void OnSuccess(string data)
             {
-                string dataString = data;
-                UserData userData = JsonUtility.FromJson<UserData>(dataString);
-
+                UserData userData = JsonUtility.FromJson<UserData>(data);
                 onComplete?.Invoke(userData);
             }
 

@@ -7,10 +7,13 @@ namespace Assets.Scripts.Units
     {
         private Rigidbody _rigidbody;
 
-        public override int MaxHealth => 100;
         public override Team TeamId => Team.Enemy;
-        public override int Damage => 15;
+
+        public override int MaxHealth => 100;
         public override int Armor => 0;
+        public override int Damage => 15;
+        public override float ShootDelay => 0.3f;
+
 
         protected override void Awake()
         {

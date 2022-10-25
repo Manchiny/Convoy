@@ -8,8 +8,6 @@ namespace Assets.Scripts.UI
         [SerializeField] private TextMeshProUGUI _textTitle;
 
         private const float FadeDuration = 1f;
-        private const string TapToStartKey = "tapToStart";
-
         public override string LockKey => "UpgradeTankWindow";
 
         public static UpgradeTankWindow Show() =>
@@ -19,8 +17,8 @@ namespace Assets.Scripts.UI
             Game.Instance.SetMode(Game.GameMode.TankUpgrade);
             SetText();
 
-            if (Game.Adverts != null)
-                Game.Adverts.TryShowInterstitial(Close);
+            //if (Game.Adverts != null)
+            //    Game.Adverts.TryShowInterstitial(Close);
         }
 
         protected override void OnClose()

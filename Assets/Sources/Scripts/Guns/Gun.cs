@@ -16,11 +16,11 @@ namespace Assets.Scripts.Guns
         private Queue<Bullet> _bulletsPool = new();
 
         private IAttackable _attackable;
-        private WaitForSeconds _waitSeconds;
+      //  private WaitForSeconds _waitSeconds;
         private Coroutine _cooldawnAwaite;
 
         protected int Damage => _attackable.Damage;
-        protected virtual float CooldawnSeconds => 0.3f;
+        protected virtual float CooldawnSeconds => _attackable.ShootDelay;
 
         protected Transform ShootingPoint => _shootingPoint;
         protected bool CanShoot { get; set; } = true;
@@ -33,7 +33,6 @@ namespace Assets.Scripts.Guns
         private void Start()
         {
             CreatePool();
-            _waitSeconds = new WaitForSeconds(CooldawnSeconds);
         }
 
         private void OnDisable()
@@ -72,7 +71,7 @@ namespace Assets.Scripts.Guns
 
         private IEnumerator WaitCooldawn()
         {
-            yield return _waitSeconds;
+            yield return new WaitForSeconds(CooldawnSeconds);
             CanShoot = true;
         }
 
