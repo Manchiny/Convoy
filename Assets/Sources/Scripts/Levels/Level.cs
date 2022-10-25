@@ -6,7 +6,6 @@ namespace Assets.Scripts.Levels
 {
     public class Level : MonoBehaviour
     {
-        [SerializeField] private List<Transform> _waypoints;
         [SerializeField] private Transform _tankSpawnPoint;
         [SerializeField] private Transform _playerSpawnPoint;
 
@@ -15,16 +14,11 @@ namespace Assets.Scripts.Levels
 
         private List<RoadPart> _currentRoad = new();
 
-        public IReadOnlyList<Vector3> Waypoints => _waypoints.Select(point => point.position).ToList();
+        public IReadOnlyList<Vector3> Waypoints => _currentRoad.Select(road => road.Center).ToList();
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
 
-        private void Start()
-        {
-            CreateRoad(_config);
-        }
-
-        public void CreateRoad(LevelConfig config)
+        public void CreateRoad()//(LevelConfig config)
         {
             _currentRoad.ForEach(road => Destroy(road.gameObject));
             _currentRoad.Clear();
@@ -33,7 +27,7 @@ namespace Assets.Scripts.Levels
             firstRoadPart.transform.position = Vector3.zero;
             _currentRoad.Add(firstRoadPart);
 
-            for (int i = 1; i < config.RoadPartsCount; i++)
+            for (int i = 1; i < _config.RoadPartsCount; i++)
             {
                 CreatRandomRoadPart();
             }

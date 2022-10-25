@@ -167,10 +167,10 @@ namespace Assets.Scripts
 
         private void StartLevel(Level level)
         {
-            if (CurrentLevel != null)
-                Destroy(CurrentLevel.gameObject);
-
             CurrentLevel = level;
+
+            level.CreateRoad();
+
             _tank.OnLevelStarted(level.TankSpawnPoint.position, level.Waypoints);
             _player.OnLevelStarted(level.PlayerSpawnPoint.position);
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Levels
@@ -14,6 +12,7 @@ namespace Assets.Scripts.Levels
         public const float TowerOffset = 13f;
 
         public Vector3 EndConnectorPosition => _endConnector.position;
+        public Vector3 Center => _center.position;
 
     }
 }
