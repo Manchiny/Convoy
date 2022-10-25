@@ -69,8 +69,10 @@ namespace Assets.Scripts.Units
             _propertiesDatabase = propertiesDatabase;
         }
 
-        public void InitLevelProperties(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)
+        public void OnLevelStarted(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)
         {
+            _inited = false;
+
             transform.position = spawnPosition;
             transform.rotation = Quaternion.identity;
 
@@ -78,6 +80,9 @@ namespace Assets.Scripts.Units
             _currentWaypointId = 0;
 
             _currnentTargetPoint = waypoints[0];
+
+            ResetHealth();
+            Target = null;
 
             _inited = true;
         }
@@ -145,7 +150,6 @@ namespace Assets.Scripts.Units
             Vector3 lookPos = Vector3.zero;
 
             lookPos = lookAtPosition - rotatedTransform.position;
-
             lookPos.y = 0;
 
             Quaternion rotation = Quaternion.LookRotation(lookPos);

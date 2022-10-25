@@ -137,6 +137,11 @@ namespace Assets.Scripts
             _saver.Save(_userData);
         }
 
+        public void RestartLevel()
+        {
+            StartLevel(_levels[0]);
+        }
+
         private void InitGame(UserData userData)
         {
             _userData = userData;
@@ -168,7 +173,8 @@ namespace Assets.Scripts
                 Destroy(CurrentLevel.gameObject);
 
             CurrentLevel = level;
-            _tank.InitLevelProperties(level.SpawnPoint.position, level.Waypoints);
+            _tank.OnLevelStarted(level.TankSpawnPoint.position, level.Waypoints);
+            _player.OnLevelStarted(level.PlayerSpawnPoint.position);
         }
     }
 }

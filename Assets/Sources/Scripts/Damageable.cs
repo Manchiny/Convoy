@@ -23,7 +23,7 @@ namespace Assets.Scripts
 
         protected virtual void Start()
         {
-            Init();
+            ResetHealth();
         }
 
         public void GetDamage(int damage)
@@ -53,7 +53,7 @@ namespace Assets.Scripts
         protected abstract void Die();
         protected abstract void OnGetDamage();
 
-        private void Init()
+        protected void ResetHealth()
         {
             CurrentHealth = MaxHealth;
         }

@@ -58,6 +58,23 @@ namespace Assets.Scripts.Units
         {
             _data = data;
             _propertiesDatabase = propertiesDatabase;
+        }
+
+        public void OnLevelStarted(Vector3 spawnPosition)
+        {
+            _inited = false;
+            transform.position = spawnPosition;
+
+            ResetHealth();
+            InTankZone = true;
+
+            foreach (var badge in _badges)
+            {
+                Destroy(badge.gameObject);
+            }
+
+            _badges.Clear();
+            Target = null;
 
             _inited = true;
         }

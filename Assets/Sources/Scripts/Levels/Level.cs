@@ -7,9 +7,11 @@ namespace Assets.Scripts.Levels
     public class Level : MonoBehaviour
     {
         [SerializeField] private List<Transform> _waypoints;
-        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private Transform _tankSpawnPoint;
+        [SerializeField] private Transform _playerSpawnPoint;
 
         public IReadOnlyList<Vector3> Waypoints => _waypoints.Select(point => point.position).ToList();
-        public Transform SpawnPoint => _spawnPoint;
+        public Transform TankSpawnPoint => _tankSpawnPoint;
+        public Transform PlayerSpawnPoint => _playerSpawnPoint;
     }
 }
