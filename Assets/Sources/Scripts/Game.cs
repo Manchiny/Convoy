@@ -91,8 +91,6 @@ namespace Assets.Scripts
             _saver.LoadUserData(InitGame);
         }
 
-
-
         public void SetInputSystem(UserInput input)
         {
             Debug.Log($"Device type = {SystemInfo.deviceType}");
