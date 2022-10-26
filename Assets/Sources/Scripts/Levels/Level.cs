@@ -18,6 +18,7 @@ namespace Assets.Scripts.Levels
         [Space]
         [SerializeField] private List<EnemyPrefab> _enemyPrefabs;
         [SerializeField] private Ground _ground;
+        [SerializeField] private Transform _borderEnd;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
 
@@ -33,6 +34,8 @@ namespace Assets.Scripts.Levels
             CreateRoad();
             _ground.Resize(_currentRoad.Count * RoadPart.Lenght);
             CreateEnemyies();
+
+            _borderEnd.position = _currentRoad.Last().EndConnectorPosition;
         }
 
         private void CreateRoad()
