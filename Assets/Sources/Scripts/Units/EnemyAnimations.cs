@@ -31,7 +31,6 @@ namespace Assets.Scripts.Units
         public void Reset()
         {
             _lastAnimationKey = "";
-            PlayAnimation(IdleAnimationKey);
         }
     }
 }

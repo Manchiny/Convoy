@@ -17,6 +17,7 @@ namespace Assets.Scripts.Levels
         [SerializeField] private LevelConfig _config;
         [Space]
         [SerializeField] private List<EnemyPrefab> _enemyPrefabs;
+        [SerializeField] private Ground _ground;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
 
@@ -30,6 +31,7 @@ namespace Assets.Scripts.Levels
         public void Configure()//(LevelConfig config)
         {
             CreateRoad();
+            _ground.Resize(_currentRoad.Count * RoadPart.Lenght);
             CreateEnemyies();
         }
 
