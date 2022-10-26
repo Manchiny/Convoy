@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ShelterEnemy : Enemy
+    public class TowerSolderEnemy : Enemy
     {
         private Rigidbody _rigidbody;
 
@@ -13,7 +13,6 @@ namespace Assets.Scripts.Units
         public override int Armor => 0;
         public override int Damage => 15;
         public override float ShootDelay => 0.3f;
-
 
         protected override void Awake()
         {

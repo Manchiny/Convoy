@@ -17,6 +17,8 @@ MonoBehaviour:
   _minMovableEnemyiesInGroup: 3
   _enemiesFullness:
   - _type: 0
-    _chance: 30
+    _chance: 10
   - _type: 1
-    _chance: 70
+    _chance: 10
+  - _type: 2
+    _chance: 80

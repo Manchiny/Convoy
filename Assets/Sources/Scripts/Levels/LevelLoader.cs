@@ -84,6 +84,9 @@ namespace Assets.Scripts.Levels
                     case EnemyType.Tower:
                         CreateTower(config, road, prefab);
                         break;
+                    case EnemyType.RoadShelter:
+                        CreateRoadShelter(config, road, prefab);
+                        break;
                 }
             }
         }
@@ -144,6 +147,24 @@ namespace Assets.Scripts.Levels
             Quaternion rotation = Quaternion.Euler(EnemyRotation);
 
             Instantiate(prefab, position, rotation, _enemiesContainer);
+        }
+
+        private void CreateRoadShelter(LevelConfig config, RoadPart road, Damageable prefab)
+        {
+            int soldersCount = 1; // TODO - parametral random;
+
+            Vector3 position = road.Center;
+            Quaternion rotation = Quaternion.Euler(EnemyRotation);
+
+            Damageable enemy = Instantiate(prefab, position, rotation, _enemiesContainer);
+
+            if (enemy is RoadShelter)
+            {
+                var shelter = enemy as RoadShelter;
+                shelter.CreateSolders(soldersCount);
+            }
+            else
+                Debug.LogError("You are trying to create enemy group, but prefab is not IEnemyGroupable!");
         }
 
         private void RemoveOldEnemies()

@@ -26,7 +26,7 @@ namespace Assets.Scripts.Units
 
         public override Team TeamId => Team.Player;
 
-        public override int MaxHealth => 15000;
+        public override int MaxHealth => 2000;
         public override int Armor => _data.GetArmor(_propertiesDatabase);
         public override int Damage => _data.GetDamage(_propertiesDatabase);
         public override float ShootDelay => _data.GetShootDelay(_propertiesDatabase);

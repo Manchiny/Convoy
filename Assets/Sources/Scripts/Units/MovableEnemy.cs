@@ -7,8 +7,6 @@ namespace Assets.Scripts.Units
     [RequireComponent(typeof(Collider))]
     public class MovableEnemy : Enemy, IEnemyGroupable
     {
-        private const float AttackDistance = 14f;
-
         private NavMeshAgent _agent;
         private Collider _collider;
         private EnemyGroup _group;
@@ -18,10 +16,12 @@ namespace Assets.Scripts.Units
         public override int Damage => 15;
         public override float ShootDelay => 0.3f;
 
+        protected virtual float AttackDistance => 14f;
+
         public override Damageable Target  => _group.Target;
         public EnemyGroup Group => _group;
 
-        private bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
+        protected bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
 
         protected override void Awake()
         {
@@ -35,13 +35,13 @@ namespace Assets.Scripts.Units
             if (IsAlive == false || _group == null)
                 return;
 
-            if (NeedAttack)
-                Attack();
-            else if (Target != null && Target is Tank)
-                MoveTo(Target.transform);
-            else
-                StayOnPlace();
+            OnFixedUpdate();
         }
+
+        //private void OnEnable()
+        //{
+        //    StayOnPlace();
+        //}
 
         public void SetGroup(EnemyGroup group)
         {
@@ -53,6 +53,16 @@ namespace Assets.Scripts.Units
             base.OnRestart();
             _collider.isTrigger = false;
             _group.ResetTarget();
+        }
+
+        protected virtual void OnFixedUpdate()
+        {
+            if (NeedAttack)
+                Attack();
+            else if (Target != null && Target is Tank)
+                MoveTo(Target.transform);
+            else
+                StayOnPlace();
         }
 
         protected override void OnEnemyFinded(Damageable enemy)
@@ -67,7 +77,7 @@ namespace Assets.Scripts.Units
             _collider.isTrigger = true;
         }
 
-        private void Attack()
+        protected void Attack()
         {
             if (Target.gameObject.activeInHierarchy == false || Target.IsAlive == false)
                 RemoveFromEnemies(Target);
@@ -81,13 +91,13 @@ namespace Assets.Scripts.Units
             }
         }
 
-        private void MoveTo(Transform target)
+        protected void MoveTo(Transform target)
         {
             _agent.SetDestination(target.position);
             Animations.PlayAnimation(EnemyAnimations.RunAnimationKey);
         }
 
-        private void StayOnPlace()
+        protected void StayOnPlace()
         {
             _agent.ResetPath();
             Animations.PlayAnimation(EnemyAnimations.IdleAnimationKey);

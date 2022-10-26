@@ -1438,6 +1438,8 @@ MonoBehaviour:
     _prefab: {fileID: 2628307218003889793, guid: 0f51832bcf15b1340aa4d42553715131, type: 3}
   - _type: 1
     _prefab: {fileID: 5493221914931301020, guid: ea599531b82632045a4ea334b969d532, type: 3}
+  - _type: 2
+    _prefab: {fileID: 1034718663721285396, guid: 57cdc42640cc7eb4d83691abb3ae2ab8, type: 3}
   _ground: {fileID: 537378340}
   _borderEnd: {fileID: 1157670982}
   _endLevelCheckpoint: {fileID: 1105307585}

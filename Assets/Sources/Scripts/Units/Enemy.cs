@@ -19,28 +19,32 @@ namespace Assets.Scripts.Units
         public enum EnemyType
         {
             Movable,
-            Tower
+            Tower,
+            RoadShelter
         }
         
         protected EnemyAnimations Animations { get; private set; }
        
-        public override void OnRestart()
-        {
-            base.OnRestart();
-
-            if(_dyingProcess !=null)
-            {
-                StopCoroutine(_dyingProcess);
-                _dyingProcess = null;
-            }
-
-            Animations.Reset();
-        }
-
         protected virtual void Awake()
         {
             _animator = GetComponent<Animator>();
             Animations = new EnemyAnimations(_animator);
+        }
+
+        private void OnEnable()
+        {
+            Animations.Reset();
+        }
+
+        public override void OnRestart()
+        {
+            base.OnRestart();
+
+            if (_dyingProcess != null)
+            {
+                StopCoroutine(_dyingProcess);
+                _dyingProcess = null;
+            }
         }
 
         protected sealed override void Die()

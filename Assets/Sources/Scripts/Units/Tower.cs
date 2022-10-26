@@ -5,7 +5,7 @@ namespace Assets.Scripts.Units
 {
     public class Tower : Damageable, IAttackable, IRestartable
     {
-        [SerializeField] private ShelterEnemy _unit;
+        [SerializeField] private TowerSolderEnemy _unit;
         [SerializeField] private DestroyableObject _destroyable;
 
         public override Team TeamId => _unit.TeamId;
