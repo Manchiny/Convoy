@@ -1245,8 +1245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 200538899}
   _tank: {fileID: 1235343292019521863}
-  _levels:
-  - {fileID: 1435787595}
+  _levelLoader: {fileID: 1435787595}
   _windowsController: {fileID: 1186169090}
   _sceneGarbageHolder: {fileID: 1003126594}
   _yandexAdapter: {fileID: 2054690793}
@@ -1374,7 +1373,7 @@ MonoBehaviour:
   - {fileID: 289050782578046079, guid: da996bd24206e964b9627636cb8d4402, type: 3}
   - {fileID: 1135347177410668310, guid: bed47454d4226f74c9f34d8c828bdc1e, type: 3}
   - {fileID: 8048773836413947175, guid: 7f1eba5b690cda340b5528eaca477888, type: 3}
-  _config: {fileID: 11400000, guid: e5fa6140213cf894aa06abfe3792ff49, type: 2}
+  _levelsDatabase: {fileID: 11400000, guid: f52c3d4a47bd41c42a2874ab9ba34e14, type: 2}
   _enemyPrefabs:
   - _type: 0
     _prefab: {fileID: 2628307218003889793, guid: 0f51832bcf15b1340aa4d42553715131, type: 3}

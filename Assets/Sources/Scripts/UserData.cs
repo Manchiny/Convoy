@@ -9,6 +9,7 @@ namespace Assets.Scripts
         public UnitData TankData;
         public UnitData PlayerCharacterData;
 
+        public int LevelId;
         public int Badges;
     }
 

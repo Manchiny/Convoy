@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static Assets.Scripts.UnitData;
@@ -20,9 +21,11 @@ namespace Assets.Scripts.Units
         private UnitData _data;
         private UnitPropertiesDatabase _propertiesDatabase;
 
+        public event Action Completed;
+
         public override Team TeamId => Team.Player;
 
-        public override int MaxHealth => 5000;
+        public override int MaxHealth => 15000;
         public override int Armor => _data.GetArmor(_propertiesDatabase);
         public override int Damage => _data.GetDamage(_propertiesDatabase);
         public override float ShootDelay => _data.GetShootDelay(_propertiesDatabase);
@@ -81,7 +84,7 @@ namespace Assets.Scripts.Units
             _currnentTargetPoint = waypoints[0];
 
             ResetHealth();
-            Target = null;
+            ClearTargets();
 
             _inited = true;
         }
@@ -127,7 +130,7 @@ namespace Assets.Scripts.Units
             }
             else
             {
-                Game.Instance.RestartLevel();
+                Completed?.Invoke();
             }
         }
 

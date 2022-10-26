@@ -7,7 +7,7 @@ using static Assets.Scripts.Units.Enemy;
 
 namespace Assets.Scripts.Levels
 {
-    public class Level : MonoBehaviour
+    public class LevelLoader : MonoBehaviour
     {
         [SerializeField] private Transform _tankSpawnPoint;
         [SerializeField] private Transform _playerSpawnPoint;
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Levels
         [SerializeField] private Transform _enemiesContainer;
         [Space]
         [SerializeField] private List<RoadPart> _roadPrefabs;
-        [SerializeField] private LevelConfig _config;
+        [SerializeField] private LevelsDatabase _levelsDatabase;
         [Space]
         [SerializeField] private List<EnemyPrefab> _enemyPrefabs;
         [SerializeField] private Ground _ground;
@@ -30,45 +30,56 @@ namespace Assets.Scripts.Levels
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
 
-        public void Configure()//(LevelConfig config)
+        public void LoadLevel(int levelId)
         {
-            CreateRoad();
+            LevelConfig config = _levelsDatabase.GetLevelConfig(levelId);
+            Configure(config);
+        }
+
+        private void Configure(LevelConfig config)
+        {
+            RemoveOldRoad();
+            CreateRoad(config);
+
             _ground.Resize(_currentRoad.Count * RoadPart.Lenght);
-            CreateEnemyies();
+
+            RemoveOldEnemies();
+            CreateEnemyies(config);
 
             _borderEnd.position = _currentRoad.Last().EndConnectorPosition;
         }
 
-        private void CreateRoad()
+        private void CreateRoad(LevelConfig config)
         {
-            _currentRoad.ForEach(road => Destroy(road.gameObject));
-            _currentRoad.Clear();
-
             var firstRoadPart = Instantiate(_roadPrefabs[0], _roadContainer);
             firstRoadPart.transform.position = Vector3.zero;
             _currentRoad.Add(firstRoadPart);
 
-            for (int i = 1; i < _config.RoadPartsCount; i++)
-            {
+            for (int i = 1; i < config.RoadPartsCount; i++)
                 CreatRandomRoadPart();
-            }
         }
 
-        private void CreateEnemyies()
+        private void RemoveOldRoad()
+        {
+            _currentRoad.ForEach(road => Destroy(road.gameObject));
+            _currentRoad.Clear();
+        }
+
+        private void CreateEnemyies(LevelConfig config)
         {
             for (int i = 1; i < _currentRoad.Count - 1; i++)
             {
                 RoadPart road = _currentRoad[i];
-                EnemyType type = _config.GetRandomEnemyType();
+                EnemyType type = config.GetRandomEnemyType();
                 Damageable prefab = _enemyPrefabs.Where(enemy => enemy.EnemyType == type).First().Prefab;
 
                 switch (type)
                 {
                     case EnemyType.Movable:
-                        CreateMovableGroup(_config, road, prefab);
+                        CreateMovableGroup(config, road, prefab);
                         break;
                     case EnemyType.Tower:
-                        CreateTower(_config, road, prefab);
+                        CreateTower(config, road, prefab);
                         break;
                 }
             }
@@ -130,6 +141,14 @@ namespace Assets.Scripts.Levels
             Quaternion rotation = Quaternion.Euler(EnemyRotation);
 
             Instantiate(prefab, position, rotation, _enemiesContainer);
+        }
+
+        private void RemoveOldEnemies()
+        {
+            var enemies = _enemiesContainer.GetChildrensWithInactive().Where(t => t != _enemiesContainer);
+
+            foreach (var enemy in enemies)
+                Destroy(enemy.gameObject);
         }
     }
 

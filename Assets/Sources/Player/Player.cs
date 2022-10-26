@@ -15,7 +15,7 @@ namespace Assets.Scripts.Units
         private HashSet<SolderBadge> _badges = new();
 
         public override Team TeamId => Team.Player;
-        public override int MaxHealth => 10000;
+        public override int MaxHealth => 8000;
         public override int Armor => _data.GetArmor(_propertiesDatabase);
         public override int Damage => _data.GetDamage(_propertiesDatabase);
         public override float ShootDelay => _data.GetShootDelay(_propertiesDatabase);
@@ -67,8 +67,8 @@ namespace Assets.Scripts.Units
             ResetHealth();
             InTankZone = true;
 
-            _badges.Clear();
-            Target = null;
+            // _badges.Clear();
+            ClearTargets();
 
             _inited = true;
         }

@@ -7,7 +7,6 @@ using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -17,7 +16,7 @@ namespace Assets.Scripts
         [SerializeField] private Player _player;
         [SerializeField] private Tank _tank;
         [Space]
-        [SerializeField] private List<Level> _levels;
+        [SerializeField] private LevelLoader _levelLoader;
         [Space]
         [SerializeField] private WindowsController _windowsController;
         [Space]
@@ -29,32 +28,40 @@ namespace Assets.Scripts
 
         private YandexAdvertisingAdapter _adverts;
 
-        private UserInput _input;
-        private GameMode _currentMode;
-        private Saver _saver;
         private UserData _userData;
+        private Saver _saver;
 
-        public event Action<GameMode> GameModeChanged;
+        private GameMode _currentMode;
+
+        private UserInput _input;
+
+        private bool _winLooseProcess;
+
         public static event Action Inited;
         public static event Action Restarted;
+
+        public event Action<GameMode> GameModeChanged;
 
         public enum GameMode
         {
             Game,
-            TankUpgrade,
+            TankUpgrade
         }
 
-        public Level CurrentLevel { get; private set; }
         public static Game Instance { get; private set; }
+
+        public int CurrentLevelId => _userData.LevelId;
+        public static Player Player => Instance._player;
+
+        public static WindowsController Windows => Instance._windowsController;
 
         public static YandexAdvertisingAdapter Adverts => Instance._adverts;
         public static YandexSocialAdapter SocialAdapter => Instance._yandexAdapter;
-        public static Player Player => Instance._player;
+
         public static UnitPropertiesDatabase TankProperies => Instance._tankPropertiesDatabase;
         public static UnitPropertiesDatabase CharacterProperties => Instance._playerCharacterPropertiesDatabase;
-        public static WindowsController Windows => Instance._windowsController;
-        public static Transform GarbageHolder => Instance._sceneGarbageHolder;
 
+        public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
 
         private void Awake()
@@ -92,6 +99,13 @@ namespace Assets.Scripts
             _saver.LoadUserData(InitGame);
         }
 
+        private void OnDestroy()
+        {
+            _tank.Completed -= OnLevelComplete;
+            _tank.Died -= OnAnyPlayerUnitDied;
+            _player.Died -= OnAnyPlayerUnitDied;
+        }
+
         public void SetInputSystem(UserInput input)
         {
             Debug.Log($"Device type = {SystemInfo.deviceType}");
@@ -104,6 +118,7 @@ namespace Assets.Scripts
             }
 
             Debug.Log($"{input.GetType()} init");
+
             _input = input;
             _input.Init(_player.Movement);
         }
@@ -136,25 +151,68 @@ namespace Assets.Scripts
             _saver.Save(_userData);
         }
 
-        public void RestartLevel()
-        {
-            StartLevel(_levels[0], true);
-            Restarted?.Invoke();
-        }
-
         private void InitGame(UserData userData)
         {
             _userData = userData;
 
             Windows.Loader.gameObject.SetActive(false);
 
-            StartLevel(_levels[0]);
+            StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
 
             _tank.Init(_userData.TankData, _tankPropertiesDatabase);
             _player.Init(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
 
+            _tank.Completed += OnLevelComplete;
+            _tank.Died += OnAnyPlayerUnitDied;
+            _player.Died += OnAnyPlayerUnitDied;
+
             Inited?.Invoke();
+        }
+
+        private void StartLevel(int levelId, bool restart = false)
+        {
+            if (restart == false)
+                _levelLoader.LoadLevel(levelId);
+
+            _tank.OnLevelStarted(_levelLoader.TankSpawnPoint.position, _levelLoader.Waypoints);
+            _player.OnLevelStarted(_levelLoader.PlayerSpawnPoint.position);
+
+            Debug.Log($"Level {levelId + 1} started");
+        }
+
+        private void OnAnyPlayerUnitDied(Damageable unit)
+        {
+            if (_winLooseProcess)
+                return;
+
+            _winLooseProcess = true;
+
+            Debug.Log($"Level {CurrentLevelId + 1} loosed!");
+            RestartLevel();
+        }
+
+        private void OnLevelComplete()
+        {
+            if (_winLooseProcess)
+                return;
+
+            _winLooseProcess = true;
+
+            Debug.Log($"Level {CurrentLevelId + 1} completed!");
+
+            _userData.LevelId++;
+            Save();
+
+            StartLevel(CurrentLevelId);
+        }
+
+        private void RestartLevel()
+        {
+            StartLevel(CurrentLevelId, true);
+            _winLooseProcess = false;
+
+            Restarted?.Invoke();
         }
 
         private void Pause()
@@ -165,18 +223,6 @@ namespace Assets.Scripts
         private void Unpause()
         {
             Time.timeScale = 1;
-        }
-
-        private void StartLevel(Level level, bool restart = false)
-        {
-            if (restart == false)
-            {
-                CurrentLevel = level;
-                level.Configure();
-            }
-
-            _tank.OnLevelStarted(level.TankSpawnPoint.position, level.Waypoints);
-            _player.OnLevelStarted(level.PlayerSpawnPoint.position);
         }
     }
 }

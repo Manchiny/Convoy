@@ -1,6 +1,7 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,26 +78,19 @@ public static class Utils
     //    return Game.Localize(str, parameters);
     //}
 
-    public static void LookAt2D(this Transform me, Vector3 target, Vector3? eye = null)
+    public static Transform[] GetChildrensWithInactive(this Transform me)
     {
-        float signedAngle = Vector2.SignedAngle(eye ?? me.up, target - me.position);
+        List<Transform> result = new List<Transform>();
 
-        if (Mathf.Abs(signedAngle) >= 1e-3f)
+        for (int i = 0; i < me.childCount; ++i)
         {
-            var angles = me.eulerAngles;
-            angles.z += signedAngle;
-            me.eulerAngles = angles;
+            result.Add(me.GetChild(i));
         }
+
+        return result.ToArray();
     }
 
-    public static void LookAt2D(this Transform me, Transform target, Vector3? eye = null)
-    {
-        me.LookAt2D(target.position, eye);
-    }
-    public static void LookAt2D(this Transform me, GameObject target, Vector3? eye = null)
-    {
-        me.LookAt2D(target.transform.position, eye);
-    }
+
 
     public static bool IsNullOrEmpty(this string str)
     {

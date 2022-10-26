@@ -31,9 +31,7 @@ namespace Assets.Scripts.Units
         public override void OnRestart()
         {
             base.OnRestart();
-
-            _attackTargets.Clear();
-            Target = null;
+            ClearTargets();
         }
 
         protected abstract void OnEnemyFinded(Damageable enemy);
@@ -64,6 +62,12 @@ namespace Assets.Scripts.Units
                 return null;
 
             return _attackTargets.Where(enemy => enemy.gameObject.activeInHierarchy).OrderBy(enemy => (enemy.transform.position - transform.position).sqrMagnitude).FirstOrDefault();
+        }
+
+        protected void ClearTargets()
+        {
+            _attackTargets.Clear();
+            Target = null;
         }
     }
 }
