@@ -66,10 +66,7 @@ namespace Assets.Scripts.Units
                 Target = enemy;
 
             else if (enemy is Tank && Target is not Tank)
-            {
                 Target = enemy;
-                Debug.Log("Enemy finde tank");
-            }
         }
 
         protected override void OnGetDamage()

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Units
 
         private HashSet<Damageable> _attackTargets = new();
 
-        public Damageable Target { get; protected set; }
+        public virtual Damageable Target { get; protected set; }
 
         public abstract int Damage { get; }
         public abstract float ShootDelay { get; }

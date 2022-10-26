@@ -5,17 +5,21 @@ namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Collider))]
-    public class MovableEnemy : Enemy
+    public class MovableEnemy : Enemy, IEnemyGroupable
     {
         private const float AttackDistance = 14f;
 
         private NavMeshAgent _agent;
         private Collider _collider;
+        private EnemyGroup _group;
 
         public override int MaxHealth => 150;
         public override int Armor => 0;
         public override int Damage => 15;
         public override float ShootDelay => 0.3f;
+
+        public override Damageable Target  => _group.Target;
+        public EnemyGroup Group => _group;
 
         private bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
 
@@ -28,7 +32,7 @@ namespace Assets.Scripts.Units
 
         private void FixedUpdate()
         {
-            if (IsAlive == false)
+            if (IsAlive == false || _group == null)
                 return;
 
             if (NeedAttack)
@@ -36,20 +40,28 @@ namespace Assets.Scripts.Units
             else if (Target != null && Target is Tank)
                 MoveTo(Target.transform);
             else
-                StopAnithing();
+                StayOnPlace();
+        }
+
+        public void SetGroup(EnemyGroup group)
+        {
+            _group = group;
         }
 
         public override void OnRestart()
         {
             base.OnRestart();
             _collider.isTrigger = false;
+            _group.ResetTarget();
         }
 
-        protected override void OnGetDamage()
+        protected override void OnEnemyFinded(Damageable enemy)
         {
-            //  throw new System.NotImplementedException();
+            _group.OnAnyFindTarget(enemy);
         }
 
+        protected override void OnEnenmyMissed(Damageable enemy) { }
+ 
         protected override void OnDie()
         {
             _collider.isTrigger = true;
@@ -75,7 +87,7 @@ namespace Assets.Scripts.Units
             Animations.PlayAnimation(EnemyAnimations.RunAnimationKey);
         }
 
-        private void StopAnithing()
+        private void StayOnPlace()
         {
             _agent.ResetPath();
             Animations.PlayAnimation(EnemyAnimations.IdleAnimationKey);

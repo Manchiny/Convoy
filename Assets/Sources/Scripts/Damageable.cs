@@ -41,8 +41,6 @@ namespace Assets.Scripts
             CurrentHealth -= totalDamage;
             OnGetDamage();
 
-            Debug.Log($"{name} take damage: {totalDamage}; Health = {CurrentHealth}");
-
             if (IsAlive == false)
             {
                 Die();

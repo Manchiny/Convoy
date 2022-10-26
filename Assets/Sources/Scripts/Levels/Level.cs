@@ -1,3 +1,4 @@
+using Assets.Scripts.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,11 +93,21 @@ namespace Assets.Scripts.Levels
             int count = _systemRandom.Next(config.MinMovableEnemyiesInGroup, config.MinMovableEnemyiesInGroup);
             float maxRandomPositionDistance = 5f;
 
+            EnemyGroup group = new();
+
             for (int i = 0; i < count; i++)
             {
                 Damageable enemy = Instantiate(prefab, _enemiesContainer);
                 enemy.transform.position = GetRandomPosition();
                 enemy.transform.rotation = Quaternion.Euler(EnemyRotation);
+
+                if (enemy is IEnemyGroupable)
+                {
+                    var groupable = enemy as IEnemyGroupable;
+                    groupable.SetGroup(group);
+                }
+                else
+                    Debug.LogError("You are trying to create enemy group, but prefab is not IEnemyGroupable!");
             }
 
             Vector3 GetRandomPosition()
