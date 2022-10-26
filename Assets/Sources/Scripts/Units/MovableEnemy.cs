@@ -19,7 +19,6 @@ namespace Assets.Scripts.Units
 
         private bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
 
-
         protected override void Awake()
         {
             base.Awake();
@@ -27,7 +26,7 @@ namespace Assets.Scripts.Units
             _collider = GetComponent<Collider>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsAlive == false)
                 return;
@@ -38,6 +37,12 @@ namespace Assets.Scripts.Units
                 MoveTo(Target.transform);
             else
                 StopAnithing();
+        }
+
+        public override void OnRestart()
+        {
+            base.OnRestart();
+            _collider.isTrigger = false;
         }
 
         protected override void OnGetDamage()

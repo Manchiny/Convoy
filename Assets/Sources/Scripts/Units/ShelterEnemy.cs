@@ -38,9 +38,15 @@ namespace Assets.Scripts.Units
             GetDamage(MaxHealth);
         }
 
-        protected override void OnDie() 
+        protected override void OnDie()
         {
             _rigidbody.isKinematic = false;
+        }
+
+        public override void OnRestart()
+        {
+            base.OnRestart();
+            _rigidbody.isKinematic = true;
         }
 
         protected override void OnGetDamage() { }
@@ -52,8 +58,6 @@ namespace Assets.Scripts.Units
 
             transform.LookAt(lookPosition);
         }
-
-
     }
 }
 

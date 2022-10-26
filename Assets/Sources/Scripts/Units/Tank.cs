@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using static Assets.Scripts.UnitData;
 
@@ -128,7 +127,7 @@ namespace Assets.Scripts.Units
             }
             else
             {
-                //level win;
+                Game.Instance.RestartLevel();
             }
         }
 

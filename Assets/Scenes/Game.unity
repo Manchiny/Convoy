@@ -274,6 +274,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392510946}
   m_CullTransparentMesh: 1
+--- !u!1 &469528874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 469528875}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &469528875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469528874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1435787594}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &537378335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,6 +1337,7 @@ Transform:
   - {fileID: 65374365}
   - {fileID: 315861761}
   - {fileID: 1787407433}
+  - {fileID: 469528875}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1323,7 +1355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tankSpawnPoint: {fileID: 65374365}
   _playerSpawnPoint: {fileID: 315861761}
-  _roadContainer: {fileID: 0}
+  _roadContainer: {fileID: 1787407433}
+  _enemiesContainer: {fileID: 469528875}
   _roadPrefabs:
   - {fileID: 7172362949046865318, guid: 340a8134db1fd55458337bd299b4aea3, type: 3}
   - {fileID: 457527060102342165, guid: 26214cae6bbe7b44c9abdd7547c86ddf, type: 3}
@@ -2027,6 +2060,14 @@ PrefabInstance:
     - target: {fileID: 3707318050679172224, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788807027046739114, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788807027046739114, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3788807027046739116, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
       propertyPath: _badgeHolder

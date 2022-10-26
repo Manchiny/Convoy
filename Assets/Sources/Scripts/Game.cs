@@ -35,7 +35,8 @@ namespace Assets.Scripts
         private UserData _userData;
 
         public event Action<GameMode> GameModeChanged;
-        public static Action Inited;
+        public static event Action Inited;
+        public static event Action Restarted;
 
         public enum GameMode
         {
@@ -114,7 +115,7 @@ namespace Assets.Scripts
 
         public void SetMode(GameMode mode)
         {
-            switch(mode)
+            switch (mode)
             {
                 case GameMode.Game:
                     Unpause();
@@ -137,7 +138,8 @@ namespace Assets.Scripts
 
         public void RestartLevel()
         {
-            StartLevel(_levels[0]);
+            StartLevel(_levels[0], true);
+            Restarted?.Invoke();
         }
 
         private void InitGame(UserData userData)
@@ -165,11 +167,13 @@ namespace Assets.Scripts
             Time.timeScale = 1;
         }
 
-        private void StartLevel(Level level)
+        private void StartLevel(Level level, bool restart = false)
         {
-            CurrentLevel = level;
-
-            level.Configure();
+            if (restart == false)
+            {
+                CurrentLevel = level;
+                level.Configure();
+            }
 
             _tank.OnLevelStarted(level.TankSpawnPoint.position, level.Waypoints);
             _player.OnLevelStarted(level.PlayerSpawnPoint.position);

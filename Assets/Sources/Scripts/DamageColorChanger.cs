@@ -17,6 +17,7 @@ namespace Assets.Scripts.Units
         private Dictionary<Material, Color> _baseColors = new();
         private HashSet<Material> _materials;
 
+        private Tween _coloreChanging;
         private bool _died;
 
         private void Awake()
@@ -30,6 +31,29 @@ namespace Assets.Scripts.Units
 
             _unit.Died += OnUnitDied;
             _unit.Damaged += OnUnitDamaged;
+        }
+
+        private void Start()
+        {
+            Game.Restarted += OnRestart;
+        }
+
+        private void OnDestroy()
+        {
+            Game.Restarted -= OnRestart;
+            _unit.Died -= OnUnitDied;
+            _unit.Damaged -= OnUnitDamaged;
+        }
+
+        public void OnRestart()
+        {
+            if (_coloreChanging != null)
+                _coloreChanging.Kill();
+
+            _died = false;
+
+            foreach (var material in _materials)
+                SetColorToBase(material);
         }
 
         private void OnUnitDied(Damageable damageable)
@@ -77,18 +101,12 @@ namespace Assets.Scripts.Units
 
         private void SetColor(Material material, Color color, float duration, Action onComplete = null)
         {
-           material.DOColor(color, duration).SetEase(Ease.Linear).SetLink(gameObject)
-                .OnComplete(() =>
-                {
-                    if (onComplete != null)
-                        onComplete?.Invoke();
-                });
-        }
-
-        private void OnDisable()
-        {
-            _unit.Died -= OnUnitDied;
-            _unit.Damaged -= OnUnitDamaged;
+            _coloreChanging = material.DOColor(color, duration).SetEase(Ease.Linear).SetLink(gameObject).SetUpdate(true)
+                                        .OnComplete(() =>
+                                        {
+                                            if (onComplete != null)
+                                                onComplete?.Invoke();
+                                        });
         }
     }
 }

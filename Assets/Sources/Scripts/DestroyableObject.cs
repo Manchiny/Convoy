@@ -18,11 +18,8 @@ namespace Assets.Scripts.Destroyable
         {
             _parts.ForEach(part =>
             {
-                part.transform.parent = transform.parent;
                 part.Crush(_explosionPoint.position);
             });
-
-            gameObject.SetActive(false);
         }
     }
 }

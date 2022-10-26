@@ -28,6 +28,14 @@ namespace Assets.Scripts.Units
             OnEnenmyMissed(enemy);
         }
 
+        public override void OnRestart()
+        {
+            base.OnRestart();
+
+            _attackTargets.Clear();
+            Target = null;
+        }
+
         protected abstract void OnEnemyFinded(Damageable enemy);
         protected abstract void OnEnenmyMissed(Damageable enemy);
 

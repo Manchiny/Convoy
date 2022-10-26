@@ -25,7 +25,13 @@ namespace Assets.Scripts.Units
             _lastAnimationKey = animationKey;
 
             _animator.StopPlayback();
-            _animator.CrossFade(animationKey, 0.1f);
+            _animator.CrossFade(animationKey, 0.15f);
+        }
+
+        public void Reset()
+        {
+            _lastAnimationKey = "";
+            PlayAnimation(IdleAnimationKey);
         }
     }
 }

@@ -36,17 +36,11 @@ namespace Assets.Scripts.Guns
             transform.Translate(_moveDirection * Time.deltaTime * Speed);
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (_isActive)
-                Deactivate();
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             if (_isActive)
             {
-                if (other.gameObject.TryGetComponent(out Damageable enemyHited) && enemyHited.TeamId != _team)
+                if (other.gameObject.TryGetComponent(out Damageable enemyHited) && enemyHited.TeamId != _team && enemyHited.IsAlive)
                 {
                     _enemyHited = enemyHited;
                     Deactivate();

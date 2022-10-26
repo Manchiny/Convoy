@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public abstract class Damageable : MonoBehaviour
+    [RequireComponent(typeof(Restartable))]
+    public abstract class Damageable : MonoBehaviour, IRestartable
     {
         public event Action<Damageable> Died;
         public event Action Damaged;
@@ -20,6 +21,7 @@ namespace Assets.Scripts
         public abstract Team TeamId{ get; }
         public int CurrentHealth { get; protected set; }
         public bool IsAlive => CurrentHealth > 0;
+
 
         protected virtual void Start()
         {
@@ -50,12 +52,17 @@ namespace Assets.Scripts
                 Damaged?.Invoke();
         }
 
-        protected abstract void Die();
-        protected abstract void OnGetDamage();
+        public virtual void OnRestart()
+        {
+            ResetHealth();
+        }
 
         protected void ResetHealth()
         {
             CurrentHealth = MaxHealth;
         }
+
+        protected abstract void Die();
+        protected abstract void OnGetDamage();
     }
 }

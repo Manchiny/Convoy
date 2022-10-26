@@ -37,12 +37,14 @@ namespace Assets.Scripts.Guns
 
         private void OnDisable()
         {
-            RemoveSubscribes();
+            if (_cooldawnAwaite != null)
+                StopCoroutine(_cooldawnAwaite);
         }
 
         private void OnDestroy()
         {
             DestroyPool();
+            RemoveSubscribes();
         }
 
         public virtual void TryShoot(Damageable target, Team team)
@@ -119,9 +121,6 @@ namespace Assets.Scripts.Guns
             {
                 bullet.Hited -= OnBulletHited;
             }
-
-            if (_cooldawnAwaite != null)
-                StopCoroutine(_cooldawnAwaite);
         }
 
         private void DestroyPool()

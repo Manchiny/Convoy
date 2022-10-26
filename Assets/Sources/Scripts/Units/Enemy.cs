@@ -11,6 +11,7 @@ namespace Assets.Scripts.Units
         private const float DelayBeforeRemove = 5f;
 
         private Animator _animator;
+        private Coroutine _dyingProcess;
 
         public override Team TeamId => Team.Enemy;
         public override int MaxHealth => 150;
@@ -20,8 +21,21 @@ namespace Assets.Scripts.Units
             Movable,
             Tower
         }
-
+        
         protected EnemyAnimations Animations { get; private set; }
+       
+        public override void OnRestart()
+        {
+            base.OnRestart();
+
+            if(_dyingProcess !=null)
+            {
+                StopCoroutine(_dyingProcess);
+                _dyingProcess = null;
+            }
+
+            Animations.Reset();
+        }
 
         protected virtual void Awake()
         {
@@ -35,7 +49,7 @@ namespace Assets.Scripts.Units
             Animations.PlayAnimation(EnemyAnimations.DeathAnimationKey);
 
             OnDie();
-            StartCoroutine(WaitAndDisable());
+           _dyingProcess = StartCoroutine(WaitAndDisable());
         }
 
         protected abstract void OnDie();

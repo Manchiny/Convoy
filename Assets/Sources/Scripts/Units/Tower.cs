@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Units
 {
-    public class Tower : Damageable, IAttackable
+    public class Tower : Damageable, IAttackable, IRestartable
     {
         [SerializeField] private ShelterEnemy _unit;
         [SerializeField] private DestroyableObject _destroyable;
@@ -23,6 +23,12 @@ namespace Assets.Scripts.Units
         public void RemoveFromEnemies(Damageable enemy)
         {
             _unit.RemoveFromEnemies(enemy);
+        }
+
+        public override void OnRestart()
+        {
+            base.OnRestart();
+            _destroyable.transform.parent = transform;
         }
 
         protected override void Die()

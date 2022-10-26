@@ -18,6 +18,15 @@ namespace Assets.Scripts
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<BoxCollider>();
         }
+        private void Start()
+        {
+            Game.Restarted += OnRestart;
+        }
+
+        private void OnDisable()
+        {
+            Game.Restarted -= OnRestart;
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -37,29 +46,28 @@ namespace Assets.Scripts
             _rigidbody.isKinematic = true;
             _collider.isTrigger = true;
 
-            Vector3 position = badgeHolder.transform.position;
+            transform.parent = badgeHolder;
+
+            Vector3 position = Vector3.zero;
             position.y += DeltaY * positionNumber;
 
             Sequence sequence = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
 
-            sequence.Insert(0, transform.DOMove(position, 0.3f));
-            sequence.Insert(0, transform.DORotate(badgeHolder.transform.rotation.eulerAngles, 0.3f));
-
+            sequence.Insert(0, transform.DOLocalMove(position, 0.3f));
+            sequence.Insert(0, transform.DOLocalRotate(Vector3.zero, 0.3f));
         }
 
         private void PlayResizeAnimation(Transform badgeHolder, int positionNumber)
         {
-            transform.parent = badgeHolder;
-
-            Vector3 position = Vector3.zero;
-            position.y = DeltaY * positionNumber;
-            transform.localPosition = position;
-
             Sequence sequence = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject);
 
-            sequence.Append(transform.DOLocalRotate(Vector3.zero, 0.1f));
             sequence.Append(transform.DOScale(2f, 0.2f));
             sequence.Append(transform.DOScale(1f, 0.1f));
+        }
+
+        private void OnRestart()
+        {
+            Destroy(gameObject);
         }
     }
 }

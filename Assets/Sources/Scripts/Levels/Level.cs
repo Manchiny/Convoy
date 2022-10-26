@@ -11,7 +11,8 @@ namespace Assets.Scripts.Levels
         [SerializeField] private Transform _tankSpawnPoint;
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private Transform _roadContainer;
-
+        [SerializeField] private Transform _enemiesContainer;
+        [Space]
         [SerializeField] private List<RoadPart> _roadPrefabs;
         [SerializeField] private LevelConfig _config;
         [Space]
@@ -88,7 +89,7 @@ namespace Assets.Scripts.Levels
 
             for (int i = 0; i < count; i++)
             {
-                Damageable enemy = Instantiate(prefab);
+                Damageable enemy = Instantiate(prefab, _enemiesContainer);
                 enemy.transform.position = GetRandomPosition();
                 enemy.transform.rotation = Quaternion.Euler(EnemyRotation);
             }
@@ -112,7 +113,7 @@ namespace Assets.Scripts.Levels
 
             Quaternion rotation = Quaternion.Euler(EnemyRotation);
 
-            Instantiate(prefab, position, rotation);
+            Instantiate(prefab, position, rotation, _enemiesContainer);
         }
     }
 

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Units
         private const float MaxAngleForAnimationTransition = 90f;
         private Player _player;
 
-        private float _speed = 3.5f;
+        private float _speed = 5f;
         private float _rotationSpeed = 15f;
 
         private Animator _animator;
