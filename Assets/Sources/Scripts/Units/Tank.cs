@@ -20,6 +20,7 @@ namespace Assets.Scripts.Units
         private bool _inited;
         private UnitData _data;
         private UnitPropertiesDatabase _propertiesDatabase;
+        private bool _completed;
 
         public event Action Completed;
 
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
-            if (!_inited || _data == null || IsAlive == false)
+            if (!_inited || _data == null || IsAlive == false || _completed)
                 return;
 
 #if UNITY_EDITOR
@@ -87,6 +88,14 @@ namespace Assets.Scripts.Units
             ClearTargets();
 
             _inited = true;
+            _completed = false;
+        }
+
+        public void OnComplete()
+        {
+            Debug.Log("[Tank] completed;");
+            _completed = true;
+            Completed?.Invoke();
         }
 
         protected override void Die()
@@ -127,10 +136,6 @@ namespace Assets.Scripts.Units
             {
                 _currentWaypointId++;
                 _currnentTargetPoint = _waypoints[_currentWaypointId];
-            }
-            else
-            {
-                Completed?.Invoke();
             }
         }
 

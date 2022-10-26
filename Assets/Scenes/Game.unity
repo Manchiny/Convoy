@@ -303,7 +303,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1435787594}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &537378339 stripped
 Transform:
@@ -1067,6 +1067,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4441de88a7642e14eab3b0860ce7f266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1105307583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1105307584}
+  - component: {fileID: 1105307586}
+  - component: {fileID: 1105307585}
+  m_Layer: 0
+  m_Name: EndLevelCheckpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1105307584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105307583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 60.4}
+  m_LocalScale: {x: 20, y: 5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1435787594}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105307585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105307583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d325ab4879a8e46a1a92fe630d334e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1105307586
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105307583}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1132143717 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1132143717, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
@@ -1102,7 +1160,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1435787594}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1157670983
 BoxCollider:
@@ -1297,7 +1355,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1435787594}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &1415855121
 BoxCollider:
@@ -1344,10 +1402,11 @@ Transform:
   - {fileID: 65374365}
   - {fileID: 315861761}
   - {fileID: 1787407433}
-  - {fileID: 469528875}
   - {fileID: 1415855120}
   - {fileID: 1157670982}
+  - {fileID: 1105307584}
   - {fileID: 537378339}
+  - {fileID: 469528875}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1381,6 +1440,7 @@ MonoBehaviour:
     _prefab: {fileID: 5493221914931301020, guid: ea599531b82632045a4ea334b969d532, type: 3}
   _ground: {fileID: 537378340}
   _borderEnd: {fileID: 1157670982}
+  _endLevelCheckpoint: {fileID: 1105307585}
 --- !u!1001 &1701183730
 PrefabInstance:
   m_ObjectHideFlags: 0

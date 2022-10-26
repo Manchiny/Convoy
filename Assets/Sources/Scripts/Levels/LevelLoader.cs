@@ -20,6 +20,7 @@ namespace Assets.Scripts.Levels
         [SerializeField] private List<EnemyPrefab> _enemyPrefabs;
         [SerializeField] private Ground _ground;
         [SerializeField] private Transform _borderEnd;
+        [SerializeField] private EndLevelCheckpoint _endLevelCheckpoint;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
 
@@ -40,6 +41,8 @@ namespace Assets.Scripts.Levels
         {
             RemoveOldRoad();
             CreateRoad(config);
+
+            _endLevelCheckpoint.transform.position = _currentRoad.Last().Center;
 
             _ground.Resize(_currentRoad.Count * RoadPart.Lenght);
 

@@ -179,6 +179,8 @@ namespace Assets.Scripts
             _player.OnLevelStarted(_levelLoader.PlayerSpawnPoint.position);
 
             Debug.Log($"Level {levelId + 1} started");
+
+            _winLooseProcess = false;
         }
 
         private void OnAnyPlayerUnitDied(Damageable unit)
@@ -210,8 +212,6 @@ namespace Assets.Scripts
         private void RestartLevel()
         {
             StartLevel(CurrentLevelId, true);
-            _winLooseProcess = false;
-
             Restarted?.Invoke();
         }
 
