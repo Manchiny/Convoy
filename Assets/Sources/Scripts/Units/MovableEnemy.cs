@@ -33,7 +33,7 @@ namespace Assets.Scripts.Units
 
             if (NeedAttack)
                 Attack();
-            else if (Target != null)
+            else if (Target != null && Target is Tank)
                 MoveTo(Target.transform);
             else
                 StopAnithing();
