@@ -1190,11 +1190,10 @@ GameObject:
   - component: {fileID: 2628307218003889797}
   - component: {fileID: 2628307218003889794}
   - component: {fileID: 2628307218003889795}
-  - component: {fileID: 2628307218003889792}
   - component: {fileID: 8520931758247537082}
   - component: {fileID: 4963327257803049976}
   m_Layer: 0
-  m_Name: RoadShelterEnemy
+  m_Name: StayOnPlaceEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1268,28 +1267,6 @@ CapsuleCollider:
   m_Height: 3.2
   m_Direction: 1
   m_Center: {x: 0, y: 1.6, z: 0}
---- !u!195 &2628307218003889792
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2628307218003889822}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.75
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
 --- !u!114 &8520931758247537082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,7 +1288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2628307218003889822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 459cee9c81c6c8948ab92730c7016ed0, type: 3}
+  m_Script: {fileID: 11500000, guid: 388590d6e603a7742a4b2f23662c18cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Gun: {fileID: 3720941773707769410}
@@ -2695,6 +2672,14 @@ PrefabInstance:
     - target: {fileID: 1597319102771307606, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 311.544
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328168806146081520, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328168806146081520, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6894148614988740264, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
       propertyPath: m_UseCustomVertexStreams

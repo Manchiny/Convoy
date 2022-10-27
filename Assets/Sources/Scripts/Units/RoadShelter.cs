@@ -6,7 +6,7 @@ namespace Assets.Scripts.Units
 {
     public class RoadShelter : Damageable, IRestartable
     {
-        [SerializeField] private RoadShelterEnemy _solderPrefab;
+        [SerializeField] private StayOnPlayceEnemy _solderPrefab;
         [SerializeField] private List<Transform> _spwanPoints;
         [SerializeField] private DestroyableObject _destroyable;
 
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Units
                 Vector3 position = _spwanPoints[i].position;
                 Quaternion rotation = _spwanPoints[i].rotation;
 
-                RoadShelterEnemy enemy = Instantiate(_solderPrefab, position, rotation, transform);
+                StayOnPlayceEnemy enemy = Instantiate(_solderPrefab, position, rotation, transform);
                 enemy.SetGroup(group);
                     
                 _units.Add(enemy);

@@ -4,55 +4,30 @@ using UnityEngine.AI;
 namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(Collider))]
-    public class MovableEnemy : Enemy, IEnemyGroupable
+    public class MovableEnemy :  StayOnPlayceEnemy
     {
         private NavMeshAgent _agent;
-        private Collider _collider;
-        private EnemyGroup _group;
 
         public override int MaxHealth => 150;
         public override int Armor => 0;
         public override int Damage => 15;
         public override float ShootDelay => 0.3f;
 
-        protected virtual float AttackDistance => 14f;
+        protected override float AttackDistance => 14f;
 
-        public override Damageable Target  => _group.Target;
-        public EnemyGroup Group => _group;
-
-        protected bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
 
         protected override void Awake()
         {
             base.Awake();
             _agent = GetComponent<NavMeshAgent>();
-            _collider = GetComponent<Collider>();
         }
 
         private void FixedUpdate()
         {
-            if (IsAlive == false || _group == null)
+            if (IsAlive == false || Group == null)
                 return;
 
             OnFixedUpdate();
-        }
-
-        //private void OnEnable()
-        //{
-        //    StayOnPlace();
-        //}
-
-        public void SetGroup(EnemyGroup group)
-        {
-            _group = group;
-        }
-
-        public override void OnRestart()
-        {
-            base.OnRestart();
-            _collider.isTrigger = false;
-            _group.ResetTarget();
         }
 
         protected virtual void OnFixedUpdate()
@@ -65,19 +40,7 @@ namespace Assets.Scripts.Units
                 StayOnPlace();
         }
 
-        protected override void OnEnemyFinded(Damageable enemy)
-        {
-            _group.OnAnyFindTarget(enemy);
-        }
-
-        protected override void OnEnenmyMissed(Damageable enemy) { }
- 
-        protected override void OnDie()
-        {
-            _collider.isTrigger = true;
-        }
-
-        protected void Attack()
+        protected override void Attack()
         {
             if (Target.gameObject.activeInHierarchy == false || Target.IsAlive == false)
                 RemoveFromEnemies(Target);
