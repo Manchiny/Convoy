@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Units
 {
-    public class Tower : Damageable, IAttackable, IRestartable
+    public class Tower : Damageable, IAttackable, IRestartable, IOutOfRoad
     {
         [SerializeField] private TowerSolderEnemy _unit;
         [SerializeField] private DestroyableObject _destroyable;

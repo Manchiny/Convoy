@@ -19,10 +19,12 @@ MonoBehaviour:
   _minOnShelterEnemiesInGroup: 1
   _minSolderLevel: 0
   _maxSolderLevel: 0
+  _doubleSideOutOfRoadEnemyChance: 0
+  _maxFullnesRoadPartChance: 0
   _enemiesFullness:
   - _type: 0
-    _chance: 40
+    _chance: 19
   - _type: 1
-    _chance: 60
+    _chance: 40
   - _type: 2
     _chance: 0

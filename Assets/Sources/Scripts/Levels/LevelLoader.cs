@@ -27,6 +27,9 @@ namespace Assets.Scripts.Levels
         private List<RoadPart> _currentRoad = new();
         private System.Random _systemRandom = new();
 
+        private RoadPart _lastFilledRoadPart;
+        private float _lastOffsetXOnRoad;
+
         public IReadOnlyList<Vector3> Waypoints => _currentRoad.Select(road => road.Center).ToList();
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
@@ -73,21 +76,49 @@ namespace Assets.Scripts.Levels
             for (int i = 1; i < _currentRoad.Count - 1; i++)
             {
                 RoadPart road = _currentRoad[i];
-                EnemyType type = config.GetRandomEnemyType();
-                Damageable prefab = _enemyPrefabs.Where(enemy => enemy.EnemyType == type).First().Prefab;
 
-                switch (type)
+                bool needDoubleSide = false;
+                bool needFillMax =  _systemRandom.NextDouble() <= config.MaxFullnesRoadPartChance;
+
+                Damageable prefab = null;
+
+                if (needFillMax)
                 {
-                    case EnemyType.Movable:
-                        CreateMovableGroup(config, road, prefab);
-                        break;
-                    case EnemyType.Tower:
-                        CreateTower(config, road, prefab);
-                        break;
-                    case EnemyType.RoadShelter:
-                        CreateRoadShelter(config, road, prefab);
-                        break;
+                    List<EnemyType> outOfRoadTypes = _enemyPrefabs.Where(enemy => enemy.Prefab is IOutOfRoad).Select(enemy => enemy.EnemyType).ToList();
+                    List<EnemyType> types = config.GetRandomTypesForFullFill(outOfRoadTypes);
+
+                    foreach (var type in types)
+                    {
+                        prefab = _enemyPrefabs.Where(enemy => enemy.EnemyType == type).First().Prefab;
+                        CreateEnemy(type, prefab, road, config, false, true);
+                    }
                 }
+                else
+                {
+                    EnemyType type = config.GetRandomEnemyType();
+                    prefab = _enemyPrefabs.Where(enemy => enemy.EnemyType == type).First().Prefab;
+
+                    if (prefab is IOutOfRoad)
+                        needDoubleSide = _systemRandom.NextDouble() <= config.DoubleSideOutOfRoadEnemyChance;
+
+                    CreateEnemy(type, prefab, road, config, needDoubleSide);
+                }
+            }
+        }
+
+        private void CreateEnemy(EnemyType type, Damageable prefab, RoadPart road, LevelConfig config, bool needDoubleSide = false, bool needCountLastOffset = false)
+        {
+            switch (type)
+            {
+                case EnemyType.Movable:
+                    CreateMovableGroup(config, road, prefab);
+                    break;
+                case EnemyType.Tower:
+                    CreateTower(config, road, prefab, needDoubleSide, needCountLastOffset);
+                    break;
+                case EnemyType.RoadShelter:
+                    CreateRoadShelter(config, road, prefab);
+                    break;
             }
         }
 
@@ -138,10 +169,13 @@ namespace Assets.Scripts.Levels
             }
         }
 
-        private void CreateTower(LevelConfig config, RoadPart road, Damageable prefab)
+        private void CreateTower(LevelConfig config, RoadPart road, Damageable prefab, bool needDoubleSide = false, bool needCountLastOffset = false)
         {
             int random = _systemRandom.Next(0, 100);
             float offsetX = random < 50 ? -RoadPart.TowerOffset : RoadPart.TowerOffset;
+
+            if (needCountLastOffset && road == _lastFilledRoadPart)
+                offsetX = (-1) * _lastOffsetXOnRoad;
 
             Vector3 position = road.Center;
             position.x += offsetX;
@@ -150,6 +184,18 @@ namespace Assets.Scripts.Levels
 
             Tower tower = Instantiate(prefab, position, rotation, _enemiesContainer) as Tower;
             TryLoadUnitData(tower.Unit, config);
+
+            if(needDoubleSide)
+            {
+                float offset = (-1) * offsetX;
+                position.x = road.Center.x + offset;
+
+                Tower towerSecond = Instantiate(prefab, position, rotation, _enemiesContainer) as Tower;
+                TryLoadUnitData(towerSecond.Unit, config);
+            }
+
+            _lastFilledRoadPart = road;
+            _lastOffsetXOnRoad = offsetX;
         }
 
         private void CreateRoadShelter(LevelConfig config, RoadPart road, Damageable prefab)
