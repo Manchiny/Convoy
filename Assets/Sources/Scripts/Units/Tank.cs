@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.UnitData;
+using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts.Units
 {
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Units
 #if UNITY_EDITOR
             if (Input.GetKeyUp(KeyCode.Space) == true)
             {
-                Data.AddUpgradePoint(StatName.Damage);
+                Data.AddUpgradePoint(UnitPropertyType.Damage);
                 Game.Instance.Save();
             }
 #endif
@@ -55,6 +55,11 @@ namespace Assets.Scripts.Units
                 Move();
                 RotateTowerToZero();
             }
+        }
+
+        private void OnDestroy()
+        {
+            Data.Changed -= UpdateDataProperties;
         }
 
         public void OnLevelStarted(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)
@@ -91,6 +96,11 @@ namespace Assets.Scripts.Units
         protected override void OnGetDamage()
         {
 
+        }
+
+        protected override void OnDataInited()
+        {
+            Data.Changed += UpdateDataProperties;
         }
 
         protected override void OnEnemyFinded(Damageable enemy)

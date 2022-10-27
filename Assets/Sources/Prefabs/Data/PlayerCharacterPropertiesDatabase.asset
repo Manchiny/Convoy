@@ -12,43 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fef43e9d9eda94e9047ca4e5443603, type: 3}
   m_Name: PlayerCharacterPropertiesDatabase
   m_EditorClassIdentifier: 
-  _armorLevels:
-  - _value: 0
-  - _value: 1
-  - _value: 2
-  - _value: 3
-  - _value: 4
-  _damageLevels:
-  - _value: 10
-  - _value: 12
-  - _value: 15
-  - _value: 17
-  - _value: 20
-  _shootDelayLevels:
-  - _value: 1.2
-  - _value: 1.15
-  - _value: 1.1
-  - _value: 1.05
-  - _value: 1
-  - _value: 0.95
-  - _value: 0.9
-  - _value: 0.85
-  - _value: 0.8
-  - _value: 0.75
-  - _value: 0.7
-  - _value: 0.65
-  - _value: 0.6
-  - _value: 0.55
-  - _value: 0.5
-  - _value: 0.45
-  - _value: 0.4
-  - _value: 0.35
-  - _value: 0.3
-  - _value: 0.25
-  - _value: 0.2
-  _maxHealthLevels:
-  - _value: 1000
-  - _value: 1500
-  - _value: 2000
-  - _value: 3000
-  - _value: 5000
+  _properties:
+  - _type: 3
+    _levels:
+    - _value: 1000
+    - _value: 1500
+    - _value: 2000
+    - _value: 3000
+    - _value: 5000
+  - _type: 0
+    _levels:
+    - _value: 0
+    - _value: 1
+    - _value: 2
+    - _value: 3
+    - _value: 4
+  - _type: 1
+    _levels:
+    - _value: 10
+    - _value: 12
+    - _value: 15
+    - _value: 17
+    - _value: 20
+  - _type: 2
+    _levels:
+    - _value: 1.2
+    - _value: 1.15
+    - _value: 1.1
+    - _value: 1.05
+    - _value: 1
+    - _value: 0.95
+    - _value: 0.9
+    - _value: 0.85
+    - _value: 8
+    - _value: 0.75
+    - _value: 0.7
+    - _value: 0.65
+    - _value: 0.6
+    - _value: 0.55
+    - _value: 0.5
+    - _value: 0.45
+    - _value: 0.4
+    - _value: 0.35
+    - _value: 0.3
+    - _value: 0.25
+    - _value: 0.2

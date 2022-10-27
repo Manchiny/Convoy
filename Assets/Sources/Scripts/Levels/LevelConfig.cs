@@ -13,20 +13,33 @@ namespace Assets.Scripts.Levels
         [SerializeField] private int _maxMovableEnemyiesInGroup = 6;
         [Range(2, 9)]
         [SerializeField] private int _minMovableEnemyiesInGroup = 3;
+        [Space]
+        [Range(1, 7)]
+        [SerializeField] private int _maxOnShelterEnemiesInGroup = 4;
+        [Range(1, 7)]
+        [SerializeField] private int _minOnShelterEnemiesInGroup = 1;
+        [Space]
+        [Range(0,4)]
+        [SerializeField] private int _minSolderLevel = 0;
+        [Range(0, 4)]
+        [SerializeField] private int _maxSolderLevel = 0;
+        [Space]
         [SerializeField] private List<EnemiesFullness> _enemiesFullness;
 
         private const int MaxChanse = 100;
 
-        private System.Random _random;
+        private System.Random _random = new System.Random();
 
         public int RoadPartsCount => _roadPartCount;
-        public int MaxMovableEnemyiesInGroup => _maxMovableEnemyiesInGroup;
-        public int MinMovableEnemyiesInGroup => _minMovableEnemyiesInGroup;
+
         public IReadOnlyList<EnemiesFullness> EnemiesFullness => _enemiesFullness;
+
+        public int GetRandomMovableEnimiesInGroupCount => _random.Next(_minMovableEnemyiesInGroup, _maxMovableEnemyiesInGroup);
+        public int GetRandomInShelterEnemiesInGroupCount => _random.Next(_minOnShelterEnemiesInGroup, _maxOnShelterEnemiesInGroup);
+        public int GetRandomUnitLevel => _random.Next(_minSolderLevel, _maxSolderLevel);
 
         public EnemyType GetRandomEnemyType()
         {
-            _random = new System.Random();
             int random = _random.Next(0, MaxChanse);
 
             int chanseCounter = 0;

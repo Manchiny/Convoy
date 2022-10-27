@@ -2,66 +2,100 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts
 {
     [CreateAssetMenu(fileName = "UnitPropertiesDatabase", menuName = "Data/UnitPropertiesDatabase")]
     public class UnitPropertiesDatabase : ScriptableObject
     {
-        [SerializeField] private List<UnitProperty> _armorLevels;
-        [SerializeField] private List<UnitProperty> _damageLevels;
-        [SerializeField] private List<UnitProperty> _shootDelayLevels;
-        [SerializeField] private List<UnitProperty> _maxHealthLevels;
+        [SerializeField] private List<UnitPropertyLevels> _properties;
 
-        private List<UnitProperty> ValidatedArmorLevels;
-        private List<UnitProperty> ValidatedDamageLevels;
-        private List<UnitProperty> ValidatedShootDelayLevels;
-        private List<UnitProperty> ValidatedMaxHealthLevels;
+        private Dictionary<UnitPropertyType, UnitPropertyLevels> _unitProperties;
 
-        public IReadOnlyList<UnitProperty> ArmorLevels => ValidatedArmorLevels;
-        public IReadOnlyList<UnitProperty> DamageLevels => ValidatedDamageLevels;
-        public IReadOnlyList<UnitProperty> ShootDelayLevels => ValidatedShootDelayLevels;
-        public IReadOnlyList<UnitProperty> MaxHealthLevels => ValidatedMaxHealthLevels;
-
-        public void Init()
+        public float GetPropertyValueByLevel(UnitPropertyType type, int level)
         {
-            Validate();
+            if (_unitProperties == null)
+                Init();
 
-            SetLevelValues(_armorLevels);
-            SetLevelValues(_damageLevels);
-            SetLevelValues(_shootDelayLevels);
-        }
-
-        private void Validate()
-        {
-            ValidatedArmorLevels = _armorLevels.OrderBy(property => property.Value).ToList();
-            ValidatedDamageLevels = _damageLevels.OrderBy(property => property.Value).ToList();
-            ValidatedShootDelayLevels = _shootDelayLevels.OrderByDescending(property => property.Value).ToList();
-            ValidatedMaxHealthLevels = _maxHealthLevels.OrderBy(property => property.Value).ToList();
-        }
-
-        private void SetLevelValues(List<UnitProperty> properties)
-        {
-            for (int i = 0; i < properties.Count; i++)
+            if (_unitProperties.TryGetValue(type, out UnitPropertyLevels levels))
+                return levels.GetByLevel(level).Value;
+            else
             {
-                properties[i].SetLevel(i);
+                Debug.LogError($"{name} don't contain levels by type {type}!");
+                return 0;
             }
+        }
+
+        private void Init()
+        {
+            FillKeys();
+
+            //SetLevelValues(_armorLevels);
+            //SetLevelValues(_damageLevels);
+            //SetLevelValues(_shootDelayLevels);
+            //SetLevelValues(_maxHealthLevels);
+        }
+
+        private void FillKeys()
+        {
+            _unitProperties = new();
+
+            foreach (var property in _properties)
+            {
+                if(_unitProperties.TryAdd(property.PropertyType, property) == false)
+                {
+#if UNITY_EDITOR
+                    Debug.LogError($"{name} incorrect property type {property.PropertyType}! Probably there is a dubbing in the database.");
+#endif
+                }
+            }
+#if UNITY_EDITOR
+
+            if (_unitProperties.Count != _properties.Count)
+                Debug.LogError($"{name} database in not full or has dubbing types!");
+#endif
         }
     }
 
     [Serializable]
-    public class UnitProperty
+    public class UnitPropertyLevels
+    {
+        [SerializeField] private UnitPropertyType _type;
+        [SerializeField] private List<UnitPropertyLevel> _levels;
+
+        public UnitPropertyType PropertyType => _type;
+        public IReadOnlyList<UnitPropertyLevel> Levels => _levels;
+
+        public enum UnitPropertyType
+        {
+            Armor,
+            Damage,
+            ShootDelay,
+            MaxHealth
+        }
+
+        public UnitPropertyLevel GetByLevel(int level)
+        {
+            if (level < _levels.Count)
+                return _levels[level];
+            else
+                return _levels.Last();
+        }
+
+        //private void SetLevelValues()
+        //{
+        //    for (int i = 0; i < _levels.Count; i++)
+        //    {
+        //        _levels[i].SetLevel(i);
+        //    }
+        //}
+    }
+
+    [Serializable]
+    public class UnitPropertyLevel
     {
         [SerializeField] private float _value;
-
-        private int _level;
-
-        public int Level => _level;
         public float Value => _value;
-
-        public void SetLevel(int level)
-        {
-            _level = level;
-        }
     }
 }

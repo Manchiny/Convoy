@@ -88,9 +88,6 @@ namespace Assets.Scripts
 #endif
             yield return null;
 
-            _tankPropertiesDatabase.Init();
-            _playerCharacterPropertiesDatabase.Init();
-
             if (_yandexAdapter.IsInited)
                 _saver = new YandexSaver();
             else
@@ -157,11 +154,12 @@ namespace Assets.Scripts
 
             Windows.Loader.gameObject.SetActive(false);
 
+            _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
+            _player.InitData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
+
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
 
-            _tank.LoadData(_userData.TankData, _tankPropertiesDatabase);
-            _player.LoadData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
 
             _tank.Completed += OnLevelComplete;
             _tank.Died += OnAnyPlayerUnitDied;

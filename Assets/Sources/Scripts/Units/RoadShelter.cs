@@ -1,4 +1,5 @@
 using Assets.Scripts.Destroyable;
+using Assets.Scripts.Levels;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +14,10 @@ namespace Assets.Scripts.Units
         private HashSet<Enemy> _units = new();
 
         public override Team TeamId => Team.Enemy;
-        public override int MaxHealth => 300;
-        public override int Armor => 0;
+        public override int MaxHealth { get; protected set; } = 300;
+        public override int Armor { get; protected set; } = 0;
 
-        public void CreateSolders(int count)
+        public void CreateSolders(int count, LevelConfig config, UnitPropertiesDatabase solderLevelsDatabase)
         {
             if (count > _spwanPoints.Count)
             {
@@ -33,7 +34,8 @@ namespace Assets.Scripts.Units
 
                 StayOnPlayceEnemy enemy = Instantiate(_solderPrefab, position, rotation, transform);
                 enemy.SetGroup(group);
-                    
+                enemy.InitData(new UnitData(config.GetRandomUnitLevel), solderLevelsDatabase);
+                
                 _units.Add(enemy);
             }
         }

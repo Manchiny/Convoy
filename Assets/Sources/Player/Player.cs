@@ -30,6 +30,7 @@ namespace Assets.Scripts.Units
         {
             Movement.OnMovementStarted -= OnStartMovement;
             Movement.OnMovementStoped -= OnStopMovement;
+            Data.Changed -= UpdateDataProperties;
         }
 
         private void Update()
@@ -85,6 +86,11 @@ namespace Assets.Scripts.Units
         protected override void Die()
         {
             Debug.LogWarning("Game over");
+        }
+
+        protected override void OnDataInited()
+        {
+            Data.Changed += UpdateDataProperties;
         }
 
         protected override void OnEnemyFinded(Damageable enemy)

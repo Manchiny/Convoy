@@ -16,12 +16,13 @@ namespace Assets.Scripts
             Default
         }
 
-        public abstract int MaxHealth { get; }
-        public abstract int Armor { get; }
         public abstract Team TeamId{ get; }
-        public int CurrentHealth { get; protected set; }
-        public bool IsAlive => CurrentHealth > 0;
 
+        public abstract int MaxHealth { get; protected set; }
+        public abstract int Armor { get; protected set; }
+        public int CurrentHealth { get; protected set; }
+
+        public bool IsAlive => CurrentHealth > 0;
 
         protected virtual void Start()
         {
@@ -48,6 +49,8 @@ namespace Assets.Scripts
             }
             else
                 Damaged?.Invoke();
+
+            Debug.Log($"{name} take: damage {totalDamage}");
         }
 
         public virtual void OnRestart()

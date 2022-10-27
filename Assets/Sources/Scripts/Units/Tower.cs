@@ -9,13 +9,14 @@ namespace Assets.Scripts.Units
         [SerializeField] private DestroyableObject _destroyable;
 
         public override Team TeamId => _unit.TeamId;
+        public Unit Unit => _unit;
 
-        public override int MaxHealth => 100;
-        public override int Armor => 0;
+        public override int MaxHealth { get; protected set; } = 100;
+        public override int Armor { get; protected set; } = 0;
         public int Damage => 0;
         public float ShootDelay => 0f;
 
-        public void AddFindedEnemy(Damageable enemy)
+        public void AddFindedEnemy(Damageable enemy) // TODO: избавиться здесь от интерфейса IAttackable
         {
             _unit.AddFindedEnemy(enemy);
         }

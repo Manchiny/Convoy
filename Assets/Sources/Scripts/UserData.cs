@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts
 {
@@ -21,13 +23,9 @@ namespace Assets.Scripts
         public UnitPropertyValues ShootDelayProperty;
         public UnitPropertyValues MaxHealthProperty;
 
-        public enum StatName
-        {
-            Armor,
-            Damage,
-            ShootDelay,
-            MaxHealth
-        }
+        public event Action Changed;
+
+        private Dictionary<UnitPropertyType, UnitPropertyValues> _values;
 
         public UnitData()
         {
@@ -37,57 +35,68 @@ namespace Assets.Scripts
             MaxHealthProperty = new();
         }
 
-        public int GetArmor(UnitPropertiesDatabase database) 
+        public UnitData(int level)
         {
-            if (ArmorProperty == null)
-                ArmorProperty = new();
-
-           return (int)database.ArmorLevels.Where(property => property.Level == ArmorProperty.LevelValue).FirstOrDefault().Value;
+            ArmorProperty = new(level);
+            DamageProperty = new(level);
+            ShootDelayProperty = new(level);
+            MaxHealthProperty = new(level);
         }
 
-
-        public int GetDamage(UnitPropertiesDatabase database) 
+        public float GetPropertyValue(UnitPropertyType type, UnitPropertiesDatabase database)
         {
-            if (DamageProperty == null)
-                DamageProperty = new();
+            if (_values == null)
+                FillValues();
 
-            return (int)database.DamageLevels.Where(property => property.Level == DamageProperty.LevelValue).FirstOrDefault().Value;
+            return database.GetPropertyValueByLevel(type, GetUserPropertyLevel(type));
         }
 
-
-        public float GetShootDelay(UnitPropertiesDatabase database) 
-        {
-            if (ShootDelayProperty == null)
-                ShootDelayProperty = new();
-
-            return database.ShootDelayLevels.Where(property => property.Level == ShootDelayProperty.LevelValue).FirstOrDefault().Value;
-        }
-
-        public int GetMaxHealth(UnitPropertiesDatabase database) 
-        {
-            if (MaxHealthProperty == null)
-                MaxHealthProperty = new();
-
-           return (int)database.MaxHealthLevels.Where(property => property.Level == MaxHealthProperty.LevelValue).FirstOrDefault().Value;
-        }
-
-        public void AddUpgradePoint(StatName stat)
+        public void AddUpgradePoint(UnitPropertyType stat)
         {
             switch (stat)
             {
-                case StatName.Armor:
+                case UnitPropertyType.Armor:
                     ArmorProperty.AddUpgradePoint();
                     break;
-                case StatName.Damage:
+                case UnitPropertyType.Damage:
                     DamageProperty.AddUpgradePoint();
                     break;
-                case StatName.ShootDelay:
+                case UnitPropertyType.ShootDelay:
                     ShootDelayProperty.AddUpgradePoint();
                     break;
-                case StatName.MaxHealth:
+                case UnitPropertyType.MaxHealth:
                     MaxHealthProperty.AddUpgradePoint();
                     break;
             }
+
+            Changed?.Invoke();
+        }
+
+        private void FillValues()
+        {
+            if (MaxHealthProperty == null)
+                MaxHealthProperty = new();
+            if (ArmorProperty == null)
+                ArmorProperty = new();
+            if (DamageProperty == null)
+                DamageProperty = new();
+            if (ShootDelayProperty == null)
+                ShootDelayProperty = new();
+
+            _values = new();
+
+            _values.Add(UnitPropertyType.MaxHealth, MaxHealthProperty);
+            _values.Add(UnitPropertyType.Armor, ArmorProperty);
+            _values.Add(UnitPropertyType.Damage, DamageProperty);
+            _values.Add(UnitPropertyType.ShootDelay, ShootDelayProperty);
+        }
+
+        private int GetUserPropertyLevel(UnitPropertyType type)
+        {
+            if (_values.TryGetValue(type, out UnitPropertyValues property))
+                return property.LevelValue;
+
+            return 0;
         }
     }
 
@@ -99,6 +108,15 @@ namespace Assets.Scripts
         public int LevelValue;
         public int UpgradePoints;
 
+        public event Action LevelChanged;
+
+        public UnitPropertyValues() { }
+
+        public UnitPropertyValues(int level)
+        {
+            LevelValue = level;
+        }
+
         public void AddUpgradePoint()
         {
             UpgradePoints++;
@@ -107,6 +125,7 @@ namespace Assets.Scripts
             {
                 UpgradePoints = 0;
                 LevelValue++;
+                LevelChanged?.Invoke();
             }
         }
     }

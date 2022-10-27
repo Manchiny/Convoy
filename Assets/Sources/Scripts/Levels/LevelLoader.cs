@@ -107,7 +107,7 @@ namespace Assets.Scripts.Levels
 
         private void CreateMovableGroup(LevelConfig config, RoadPart road, Damageable prefab)
         {
-            int count = _systemRandom.Next(config.MinMovableEnemyiesInGroup, config.MinMovableEnemyiesInGroup);
+            int count = config.GetRandomMovableEnimiesInGroupCount;
             float maxRandomPositionDistance = 5f;
 
             EnemyGroup group = new();
@@ -117,6 +117,8 @@ namespace Assets.Scripts.Levels
                 Damageable enemy = Instantiate(prefab, _enemiesContainer);
                 enemy.transform.position = GetRandomPosition();
                 enemy.transform.rotation = Quaternion.Euler(EnemyRotation);
+
+                TryLoadUnitData(enemy, config);                   
 
                 if (enemy is IEnemyGroupable)
                 {
@@ -146,12 +148,13 @@ namespace Assets.Scripts.Levels
 
             Quaternion rotation = Quaternion.Euler(EnemyRotation);
 
-            Instantiate(prefab, position, rotation, _enemiesContainer);
+            Tower tower = Instantiate(prefab, position, rotation, _enemiesContainer) as Tower;
+            TryLoadUnitData(tower.Unit, config);
         }
 
         private void CreateRoadShelter(LevelConfig config, RoadPart road, Damageable prefab)
         {
-            int soldersCount = 1; // TODO - parametral random;
+            int soldersCount = config.GetRandomInShelterEnemiesInGroupCount;
 
             Vector3 position = road.Center;
             Quaternion rotation = Quaternion.Euler(EnemyRotation);
@@ -161,10 +164,19 @@ namespace Assets.Scripts.Levels
             if (enemy is RoadShelter)
             {
                 var shelter = enemy as RoadShelter;
-                shelter.CreateSolders(soldersCount);
+                shelter.CreateSolders(soldersCount, config, _levelsDatabase.SolderLevelDatabase);
             }
             else
                 Debug.LogError("You are trying to create enemy group, but prefab is not IEnemyGroupable!");
+        }
+
+        private void TryLoadUnitData(Damageable enemy, LevelConfig config)
+        {
+            if (enemy is Unit)
+            {
+                Unit unit = enemy as Unit;
+                unit.InitData(new UnitData(config.GetRandomUnitLevel), _levelsDatabase.SolderLevelDatabase);
+            }
         }
 
         private void RemoveOldEnemies()

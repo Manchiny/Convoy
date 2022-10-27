@@ -2,6 +2,7 @@ using Assets.Scripts.Guns;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts.Units
 {
@@ -9,21 +10,31 @@ namespace Assets.Scripts.Units
     {
         [SerializeField] protected Gun Gun;
 
-        private UnitPropertiesDatabase _propertiesDatabase;      
+        private UnitPropertiesDatabase _propertiesDatabase;
         private HashSet<Damageable> _attackTargets = new();
 
         public virtual Damageable Target { get; protected set; }
         protected UnitData Data { get; private set; }
 
-        public sealed override int MaxHealth => Data.GetMaxHealth(_propertiesDatabase);
-        public sealed override int Armor => Data.GetArmor(_propertiesDatabase);
-        public int Damage => Data.GetDamage(_propertiesDatabase);
-        public float ShootDelay => Data.GetShootDelay(_propertiesDatabase);
+        public sealed override int MaxHealth { get; protected set; }
+        public sealed override int Armor { get; protected set; }
+        public int Damage { get; protected set; }
+        public float ShootDelay { get; protected set; }
 
-        public void LoadData(UnitData data, UnitPropertiesDatabase propertiesDatabase)
+        public void InitData(UnitData data, UnitPropertiesDatabase propertiesDatabase)
         {
             Data = data;
             _propertiesDatabase = propertiesDatabase;
+
+            UpdateDataProperties();
+        }
+
+        public void UpdateDataProperties()
+        {
+            Armor = (int)Data.GetPropertyValue(UnitPropertyType.Armor, _propertiesDatabase);
+            Damage = (int)Data.GetPropertyValue(UnitPropertyType.Damage, _propertiesDatabase);
+            ShootDelay = Data.GetPropertyValue(UnitPropertyType.ShootDelay, _propertiesDatabase);
+            MaxHealth = (int)Data.GetPropertyValue(UnitPropertyType.MaxHealth, _propertiesDatabase);
         }
 
         public void AddFindedEnemy(Damageable enemy)
@@ -44,6 +55,7 @@ namespace Assets.Scripts.Units
             ClearTargets();
         }
 
+        protected virtual void OnDataInited() { }
         protected abstract void OnEnemyFinded(Damageable enemy);
         protected abstract void OnEnenmyMissed(Damageable enemy);
 
@@ -56,6 +68,7 @@ namespace Assets.Scripts.Units
                 return;
 
             Gun.TryShoot(Target, TeamId);
+            Debug.Log($"{name} shooted: damage {Damage}");
         }
 
         protected Damageable TryGetAnyNewTarget()

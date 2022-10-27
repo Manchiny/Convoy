@@ -12,27 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fef43e9d9eda94e9047ca4e5443603, type: 3}
   m_Name: TankPropertiesDatabase
   m_EditorClassIdentifier: 
-  _armorLevels:
-  - _value: 0
-  - _value: 2
-  - _value: 3
-  - _value: 5
-  - _value: 7
-  _damageLevels:
-  - _value: 100
-  - _value: 115
-  - _value: 130
-  - _value: 150
-  - _value: 175
-  _shootDelayLevels:
-  - _value: 2.5
-  - _value: 2.4
-  - _value: 2.35
-  - _value: 2.3
-  - _value: 2.25
-  _maxHealthLevels:
-  - _value: 2000
-  - _value: 3000
-  - _value: 5000
-  - _value: 7500
-  - _value: 10000
+  _properties:
+  - _type: 3
+    _levels:
+    - _value: 2000
+    - _value: 3000
+    - _value: 5000
+    - _value: 7500
+    - _value: 10000
+  - _type: 0
+    _levels:
+    - _value: 0
+    - _value: 2
+    - _value: 0
+    - _value: 0
+    - _value: 0
+  - _type: 2
+    _levels:
+    - _value: 2.5
+    - _value: 2.4
+    - _value: 2.35
+    - _value: 2.3
+    - _value: 2.25
+  - _type: 1
+    _levels:
+    - _value: 100
+    - _value: 115
+    - _value: 130
+    - _value: 150
+    - _value: 170

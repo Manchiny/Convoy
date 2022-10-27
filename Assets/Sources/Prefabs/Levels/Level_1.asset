@@ -15,10 +15,14 @@ MonoBehaviour:
   _roadPartCount: 7
   _maxMovableEnemyiesInGroup: 6
   _minMovableEnemyiesInGroup: 3
+  _maxOnShelterEnemiesInGroup: 4
+  _minOnShelterEnemiesInGroup: 1
+  _minSolderLevel: 0
+  _maxSolderLevel: 0
   _enemiesFullness:
   - _type: 0
-    _chance: 10
+    _chance: 40
   - _type: 1
-    _chance: 10
+    _chance: 30
   - _type: 2
-    _chance: 80
+    _chance: 30
