@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts
@@ -51,25 +51,22 @@ namespace Assets.Scripts
             return database.GetPropertyValueByLevel(type, GetUserPropertyLevel(type));
         }
 
-        public void AddUpgradePoint(UnitPropertyType stat)
+        public void AddUpgradePoint(UnitPropertyType type, UnitPropertiesDatabase database)
         {
-            switch (stat)
+            if (TryGetUserPropertyByType(type, out UnitPropertyValues property))
             {
-                case UnitPropertyType.Armor:
-                    ArmorProperty.AddUpgradePoint();
-                    break;
-                case UnitPropertyType.Damage:
-                    DamageProperty.AddUpgradePoint();
-                    break;
-                case UnitPropertyType.ShootDelay:
-                    ShootDelayProperty.AddUpgradePoint();
-                    break;
-                case UnitPropertyType.MaxHealth:
-                    MaxHealthProperty.AddUpgradePoint();
-                    break;
+                if(database.LevelsCount(type) < property.LevelValue)
+                {
+                    property.AddUpgradePoint();
+                    Changed?.Invoke();
+                }
+                else
+                    Debug.LogError($"Error upgrade {type} property! Propery has max value in database!");
             }
-
-            Changed?.Invoke();
+            else
+            {
+                Debug.LogError($"You are trying to add points for {type} property, but it's no exist in data!");
+            }
         }
 
         private void FillValues()
@@ -93,11 +90,13 @@ namespace Assets.Scripts
 
         private int GetUserPropertyLevel(UnitPropertyType type)
         {
-            if (_values.TryGetValue(type, out UnitPropertyValues property))
+            if(TryGetUserPropertyByType(type, out UnitPropertyValues property))
                 return property.LevelValue;
 
             return 0;
         }
+
+        private bool TryGetUserPropertyByType(UnitPropertyType type, out UnitPropertyValues property) => _values.TryGetValue(type, out property);
     }
 
     [Serializable]

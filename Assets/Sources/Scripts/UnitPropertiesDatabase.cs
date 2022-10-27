@@ -18,13 +18,18 @@ namespace Assets.Scripts
             if (_unitProperties == null)
                 Init();
 
-            if (_unitProperties.TryGetValue(type, out UnitPropertyLevels levels))
+            if(GetPropertyValuesByType(type, out UnitPropertyLevels levels))
                 return levels.GetByLevel(level).Value;
             else
-            {
-                Debug.LogError($"{name} don't contain levels by type {type}!");
                 return 0;
-            }
+        }
+
+        public int LevelsCount(UnitPropertyType type)
+        {
+            if (GetPropertyValuesByType(type, out UnitPropertyLevels levels))
+                return levels.Levels.Count;
+
+            else return 0;
         }
 
         private void Init()
@@ -55,6 +60,17 @@ namespace Assets.Scripts
             if (_unitProperties.Count != _properties.Count)
                 Debug.LogError($"{name} database in not full or has dubbing types!");
 #endif
+        }
+
+        private bool GetPropertyValuesByType(UnitPropertyType type, out UnitPropertyLevels levels)
+        {
+            if (_unitProperties.TryGetValue(type, out levels))
+                return true;
+            else
+            {
+                Debug.LogError($"{name} don't contain levels by type {type}!");
+                return false;
+            }
         }
     }
 

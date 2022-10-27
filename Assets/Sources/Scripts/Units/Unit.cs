@@ -21,6 +21,8 @@ namespace Assets.Scripts.Units
         public int Damage { get; protected set; }
         public float ShootDelay { get; protected set; }
 
+        protected UnitPropertiesDatabase PropertiesDatabase => _propertiesDatabase;
+
         public void InitData(UnitData data, UnitPropertiesDatabase propertiesDatabase)
         {
             Data = data;

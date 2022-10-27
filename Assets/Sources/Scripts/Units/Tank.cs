@@ -34,7 +34,7 @@ namespace Assets.Scripts.Units
 #if UNITY_EDITOR
             if (Input.GetKeyUp(KeyCode.Space) == true)
             {
-                Data.AddUpgradePoint(UnitPropertyType.Damage);
+                Data.AddUpgradePoint(UnitPropertyType.Damage, PropertiesDatabase);
                 Game.Instance.Save();
             }
 #endif
