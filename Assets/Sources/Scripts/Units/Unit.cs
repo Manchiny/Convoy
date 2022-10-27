@@ -9,12 +9,22 @@ namespace Assets.Scripts.Units
     {
         [SerializeField] protected Gun Gun;
 
+        private UnitPropertiesDatabase _propertiesDatabase;      
         private HashSet<Damageable> _attackTargets = new();
 
         public virtual Damageable Target { get; protected set; }
+        protected UnitData Data { get; private set; }
 
-        public abstract int Damage { get; }
-        public abstract float ShootDelay { get; }
+        public sealed override int MaxHealth => Data.GetMaxHealth(_propertiesDatabase);
+        public sealed override int Armor => Data.GetArmor(_propertiesDatabase);
+        public int Damage => Data.GetDamage(_propertiesDatabase);
+        public float ShootDelay => Data.GetShootDelay(_propertiesDatabase);
+
+        public void LoadData(UnitData data, UnitPropertiesDatabase propertiesDatabase)
+        {
+            Data = data;
+            _propertiesDatabase = propertiesDatabase;
+        }
 
         public void AddFindedEnemy(Damageable enemy)
         {

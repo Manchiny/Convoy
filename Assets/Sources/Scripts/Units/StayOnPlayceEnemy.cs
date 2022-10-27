@@ -8,11 +8,6 @@ namespace Assets.Scripts.Units
         private Collider _collider;
         public EnemyGroup _group;
 
-        public override int MaxHealth => 150;
-        public override int Armor => 0;
-        public override int Damage => 15;
-        public override float ShootDelay => 0.3f;
-
         protected virtual float AttackDistance => 24f;
 
         public override Damageable Target => _group.Target;

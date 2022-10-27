@@ -7,12 +7,6 @@ namespace Assets.Scripts.Units
     public class MovableEnemy :  StayOnPlayceEnemy
     {
         private NavMeshAgent _agent;
-
-        public override int MaxHealth => 150;
-        public override int Armor => 0;
-        public override int Damage => 15;
-        public override float ShootDelay => 0.3f;
-
         protected override float AttackDistance => 14f;
 
 

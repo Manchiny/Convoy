@@ -9,11 +9,6 @@ namespace Assets.Scripts.Units
 
         public override Team TeamId => Team.Enemy;
 
-        public override int MaxHealth => 100;
-        public override int Armor => 0;
-        public override int Damage => 15;
-        public override float ShootDelay => 0.3f;
-
         protected override void Awake()
         {
             base.Awake();

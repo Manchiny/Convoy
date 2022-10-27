@@ -18,32 +18,23 @@ namespace Assets.Scripts.Units
         private int _currentWaypointId;
 
         private bool _inited;
-        private UnitData _data;
-        private UnitPropertiesDatabase _propertiesDatabase;
         private bool _completed;
 
         public event Action Completed;
 
         public override Team TeamId => Team.Player;
-
-        public override int MaxHealth => 2000;
-        public override int Armor => _data.GetArmor(_propertiesDatabase);
-        public override int Damage => _data.GetDamage(_propertiesDatabase);
-        public override float ShootDelay => _data.GetShootDelay(_propertiesDatabase);
-
-        public UnitData GetData => _data;
-
+        public UnitData GetData => Data;
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
 
         private void Update()
         {
-            if (!_inited || _data == null || IsAlive == false || _completed)
+            if (!_inited || Data == null || IsAlive == false || _completed)
                 return;
 
 #if UNITY_EDITOR
             if (Input.GetKeyUp(KeyCode.Space) == true)
             {
-                _data.AddUpgradePoint(StatName.Damage);
+                Data.AddUpgradePoint(StatName.Damage);
                 Game.Instance.Save();
             }
 #endif
@@ -64,12 +55,6 @@ namespace Assets.Scripts.Units
                 Move();
                 RotateTowerToZero();
             }
-        }
-
-        public void Init(UnitData data, UnitPropertiesDatabase propertiesDatabase)
-        {
-            _data = data;
-            _propertiesDatabase = propertiesDatabase;
         }
 
         public void OnLevelStarted(Vector3 spawnPosition, IReadOnlyList<Vector3> waypoints)

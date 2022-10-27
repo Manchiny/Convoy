@@ -160,8 +160,8 @@ namespace Assets.Scripts
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
 
-            _tank.Init(_userData.TankData, _tankPropertiesDatabase);
-            _player.Init(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
+            _tank.LoadData(_userData.TankData, _tankPropertiesDatabase);
+            _player.LoadData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
 
             _tank.Completed += OnLevelComplete;
             _tank.Died += OnAnyPlayerUnitDied;

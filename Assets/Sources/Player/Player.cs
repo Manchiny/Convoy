@@ -8,19 +8,13 @@ namespace Assets.Scripts.Units
     {
         [SerializeField] private Transform _badgeHolder;
 
-        private UnitData _data;
-        private UnitPropertiesDatabase _propertiesDatabase;
         private bool _inited;
 
         private HashSet<SolderBadge> _badges = new();
 
         public override Team TeamId => Team.Player;
-        public override int MaxHealth => 8000;
-        public override int Armor => _data.GetArmor(_propertiesDatabase);
-        public override int Damage => _data.GetDamage(_propertiesDatabase);
-        public override float ShootDelay => _data.GetShootDelay(_propertiesDatabase);
 
-        public UnitData GetData => _data;
+        public UnitData GetData => Data;
 
         public PlayerMovement Movement { get; private set; }
         public bool InTankZone { get; private set; } = true;
@@ -51,12 +45,6 @@ namespace Assets.Scripts.Units
                     TryShoot();
                 else
                     RemoveFromEnemies(Target);
-        }
-
-        public void Init(UnitData data, UnitPropertiesDatabase propertiesDatabase)
-        {
-            _data = data;
-            _propertiesDatabase = propertiesDatabase;
         }
 
         public void OnLevelStarted(Vector3 spawnPosition)

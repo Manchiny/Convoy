@@ -14,7 +14,6 @@ namespace Assets.Scripts.Units
         private Coroutine _dyingProcess;
 
         public override Team TeamId => Team.Enemy;
-        public override int MaxHealth => 150;
 
         public enum EnemyType
         {
