@@ -19,12 +19,14 @@ namespace Assets.Scripts
         public UnitPropertyValues ArmorProperty;
         public UnitPropertyValues DamageProperty;
         public UnitPropertyValues ShootDelayProperty;
+        public UnitPropertyValues MaxHealthProperty;
 
         public enum StatName
         {
             Armor,
             Damage,
-            ShootDelay
+            ShootDelay,
+            MaxHealth
         }
 
         public UnitData()
@@ -32,11 +34,42 @@ namespace Assets.Scripts
             ArmorProperty = new();
             DamageProperty = new();
             ShootDelayProperty = new();
+            MaxHealthProperty = new();
         }
 
-        public int GetArmor(UnitPropertiesDatabase database) => (int)database.ArmorLevels.Where(property => property.Level == ArmorProperty.LevelValue).FirstOrDefault().Value;
-        public int GetDamage(UnitPropertiesDatabase database) => (int)database.DamageLevels.Where(property => property.Level == DamageProperty.LevelValue).FirstOrDefault().Value;
-        public float GetShootDelay(UnitPropertiesDatabase database) => database.ShootDelayLevels.Where(property => property.Level == ShootDelayProperty.LevelValue).FirstOrDefault().Value;
+        public int GetArmor(UnitPropertiesDatabase database) 
+        {
+            if (ArmorProperty == null)
+                ArmorProperty = new();
+
+           return (int)database.ArmorLevels.Where(property => property.Level == ArmorProperty.LevelValue).FirstOrDefault().Value;
+        }
+
+
+        public int GetDamage(UnitPropertiesDatabase database) 
+        {
+            if (DamageProperty == null)
+                DamageProperty = new();
+
+            return (int)database.DamageLevels.Where(property => property.Level == DamageProperty.LevelValue).FirstOrDefault().Value;
+        }
+
+
+        public float GetShootDelay(UnitPropertiesDatabase database) 
+        {
+            if (ShootDelayProperty == null)
+                ShootDelayProperty = new();
+
+            return database.ShootDelayLevels.Where(property => property.Level == ShootDelayProperty.LevelValue).FirstOrDefault().Value;
+        }
+
+        public int GetMaxHealth(UnitPropertiesDatabase database) 
+        {
+            if (MaxHealthProperty == null)
+                MaxHealthProperty = new();
+
+           return (int)database.MaxHealthLevels.Where(property => property.Level == MaxHealthProperty.LevelValue).FirstOrDefault().Value;
+        }
 
         public void AddUpgradePoint(StatName stat)
         {
@@ -50,6 +83,9 @@ namespace Assets.Scripts
                     break;
                 case StatName.ShootDelay:
                     ShootDelayProperty.AddUpgradePoint();
+                    break;
+                case StatName.MaxHealth:
+                    MaxHealthProperty.AddUpgradePoint();
                     break;
             }
         }

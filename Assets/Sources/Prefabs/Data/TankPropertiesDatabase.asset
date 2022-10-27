@@ -30,3 +30,9 @@ MonoBehaviour:
   - _value: 2.35
   - _value: 2.3
   - _value: 2.25
+  _maxHealthLevels:
+  - _value: 2000
+  - _value: 3000
+  - _value: 5000
+  - _value: 7500
+  - _value: 10000

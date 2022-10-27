@@ -11,14 +11,17 @@ namespace Assets.Scripts
         [SerializeField] private List<UnitProperty> _armorLevels;
         [SerializeField] private List<UnitProperty> _damageLevels;
         [SerializeField] private List<UnitProperty> _shootDelayLevels;
+        [SerializeField] private List<UnitProperty> _maxHealthLevels;
 
         private List<UnitProperty> ValidatedArmorLevels;
         private List<UnitProperty> ValidatedDamageLevels;
         private List<UnitProperty> ValidatedShootDelayLevels;
+        private List<UnitProperty> ValidatedMaxHealthLevels;
 
         public IReadOnlyList<UnitProperty> ArmorLevels => ValidatedArmorLevels;
         public IReadOnlyList<UnitProperty> DamageLevels => ValidatedDamageLevels;
         public IReadOnlyList<UnitProperty> ShootDelayLevels => ValidatedShootDelayLevels;
+        public IReadOnlyList<UnitProperty> MaxHealthLevels => ValidatedMaxHealthLevels;
 
         public void Init()
         {
@@ -34,6 +37,7 @@ namespace Assets.Scripts
             ValidatedArmorLevels = _armorLevels.OrderBy(property => property.Value).ToList();
             ValidatedDamageLevels = _damageLevels.OrderBy(property => property.Value).ToList();
             ValidatedShootDelayLevels = _shootDelayLevels.OrderByDescending(property => property.Value).ToList();
+            ValidatedMaxHealthLevels = _maxHealthLevels.OrderBy(property => property.Value).ToList();
         }
 
         private void SetLevelValues(List<UnitProperty> properties)
