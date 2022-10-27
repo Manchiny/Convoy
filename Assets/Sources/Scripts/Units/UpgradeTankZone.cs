@@ -1,41 +1,62 @@
 using Assets.Scripts.UI;
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Units
 {
     public class UpgradeTankZone : MonoBehaviour
     {
+        [SerializeField] private RectTransform _openingIndicator;
+        [SerializeField] private Image _filler;
+
         private const float DelayTime = 2f;
 
-        private WaitForSeconds WaitSeconds = new WaitForSeconds(DelayTime);
-        private Coroutine _waitAndShow;
+        private Tween _fillerAnimation;
+
+        private void Start()
+        {
+            _openingIndicator.gameObject.SetActive(false);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Player player) == true && _waitAndShow == null)
-                _waitAndShow = StartCoroutine(WaiteAndShowWindow());
+            if (other.TryGetComponent(out Player player) == true)
+                ShowIndicator();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out Player player) == true && _waitAndShow != null)
+            if (other.TryGetComponent(out Player player) == true)
                 StopWaiting();
         }
 
-        private IEnumerator WaiteAndShowWindow()
+        private void ShowIndicator()
         {
-            yield return WaitSeconds;
-            UpgradeTankWindow.Show();
+            if (_fillerAnimation != null && _fillerAnimation.IsActive())
+                return;
+
+            _filler.fillAmount = 0;
+            _openingIndicator.gameObject.SetActive(true);
+
+            _fillerAnimation = _filler.DOFillAmount(1, DelayTime).SetLink(_openingIndicator.gameObject).SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    UpgradeTankWindow.Show();
+                    StopWaiting();
+                });
         }
 
         private void StopWaiting()
         {
-            if (_waitAndShow != null)
+            if(_fillerAnimation != null)
             {
-                StopCoroutine(_waitAndShow);
-                _waitAndShow = null;
+                _fillerAnimation.Kill();
+                _fillerAnimation = null;
             }
+
+            _openingIndicator.gameObject.SetActive(false);
         }
     }
 }
