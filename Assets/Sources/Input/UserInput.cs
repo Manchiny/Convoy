@@ -11,7 +11,7 @@ namespace Assets.Scripts.UserInputSystem
         private PlayerMovement _characterMovement;
 
         protected virtual float Horizontal => InputVector.x;
-        protected virtual float Vertical => InputVector.y;
+        protected virtual float Vertical  => InputVector.y;
 
         private void Awake()
         {
@@ -42,12 +42,12 @@ namespace Assets.Scripts.UserInputSystem
                 return;
 
             GetInputVector();
-            SetPlayermoveDirection();
+            SetPlayerMoveDirection();
         }
 
         protected abstract void GetInputVector();
 
-        private void SetPlayermoveDirection()
+        private void SetPlayerMoveDirection()
         {
             Direction = new Vector3(Horizontal, 0, Vertical);
             _characterMovement.SetInputDirection(Direction);

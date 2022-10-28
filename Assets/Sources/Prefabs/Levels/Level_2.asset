@@ -23,8 +23,8 @@ MonoBehaviour:
   _maxFullnesRoadPartChance: 0.184
   _enemiesFullness:
   - _type: 0
-    _chance: 20
+    _chance: 10
   - _type: 1
     _chance: 30
   - _type: 2
-    _chance: 50
+    _chance: 60

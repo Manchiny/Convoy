@@ -71,6 +71,8 @@ namespace Assets.Scripts
                 Instance = this;
                 Windows.Loader.gameObject.SetActive(true);
 
+                if(Application.platform == RuntimePlatform.WindowsEditor)
+
                 DontDestroyOnLoad(this);
                 return;
             }
@@ -96,6 +98,13 @@ namespace Assets.Scripts
             _saver.LoadUserData(InitGame);
         }
 
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) == true)
+                RestartLevel();
+        }
+#endif
         private void OnDestroy()
         {
             _tank.Completed -= OnLevelComplete;
