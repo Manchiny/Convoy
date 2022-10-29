@@ -56,7 +56,7 @@ namespace Assets.Scripts.UI
         private void UpdateDistanceText()
         {
             int distance = (int)Vector3.Distance(_player.transform.position, _tank.transform.position);
-            _distanceText.text = $"{distance}m";
+            _distanceText.text = distance + "m".Localize();
         }
 
         private void Rotate()

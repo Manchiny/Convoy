@@ -73,10 +73,10 @@ public static class Utils
         return result;
     }
 
-    //public static string Localize(this string str, params string[] parameters)
-    //{
-    //    return Game.Localize(str, parameters);
-    //}
+    public static string Localize(this string str, params string[] parameters)
+    {
+        return Game.Localize(str, parameters);
+    }
 
     public static Transform[] GetChildrensWithInactive(this Transform me)
     {

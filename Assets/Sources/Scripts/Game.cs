@@ -1,5 +1,6 @@
 using Assets.Scripts.Items;
 using Assets.Scripts.Levels;
+using Assets.Scripts.Localization;
 using Assets.Scripts.Saves;
 using Assets.Scripts.Social;
 using Assets.Scripts.Social.Adverts;
@@ -25,12 +26,15 @@ namespace Assets.Scripts
         [Space]
         [SerializeField] private UnitPropertiesDatabase _tankPropertiesDatabase;
         [SerializeField] private UnitPropertiesDatabase _playerCharacterPropertiesDatabase;
+        [Space]
+        [SerializeField] private LocalizationDatabase _localizationDatabase;
 
         private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
 
         private UserData _userData;
         private Saver _saver;
+        private GameLocalization _gameLocalization;
 
         private GameMode _currentMode;
 
@@ -62,6 +66,8 @@ namespace Assets.Scripts
 
         public static UnitPropertiesDatabase TankProperies => Instance._tankPropertiesDatabase;
         public static UnitPropertiesDatabase CharacterProperties => Instance._playerCharacterPropertiesDatabase;
+
+        public static GameLocalization Localization => Instance?._gameLocalization;
 
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
@@ -123,6 +129,7 @@ namespace Assets.Scripts
             _player.Died -= OnAnyPlayerUnitDied;
         }
 
+        public static string Localize(string key, params string[] parameters) => Localization?.Localize(key, parameters) ?? key;
         public void SetInputSystem(UserInput input)
         {
             Debug.Log($"Device type = {SystemInfo.deviceType}");
@@ -187,14 +194,23 @@ namespace Assets.Scripts
             Save();             
         }
 
+        public void ChangeLocale(string local)
+        {
+            if (local == GameLocalization.CurrentLocale)
+                return;
+
+            _gameLocalization.LoadKeys(local, _localizationDatabase);
+            _userData.SavedLocale = GameLocalization.CurrentLocale;
+        }
+
         private void InitGame(UserData userData)
         {
             _userData = userData;
 
-            Windows.Loader.gameObject.SetActive(false);
-
             _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
             _player.InitData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
+
+            InitLocalization();
 
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
@@ -203,7 +219,23 @@ namespace Assets.Scripts
             _tank.Died += OnAnyPlayerUnitDied;
             _player.Died += OnAnyPlayerUnitDied;
 
+            Windows.Loader.gameObject.SetActive(false);
             Inited?.Invoke();
+        }
+
+        private void InitLocalization()
+        {
+            _gameLocalization = new GameLocalization();
+
+            string locale = _userData.SavedLocale;
+
+            if (locale.IsNullOrEmpty())
+            {
+                locale = GameLocalization.GetSystemLocaleByCapabilities();
+                _userData.SavedLocale = locale;
+            }
+
+            _gameLocalization.LoadKeys(locale, _localizationDatabase);
         }
 
         private void StartLevel(int levelId, bool restart = false)
