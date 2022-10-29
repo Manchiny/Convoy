@@ -9,10 +9,11 @@ namespace Assets.Scripts.UI
         [SerializeField] private Slider _slider;
         [SerializeField] private RectTransform _mainFiller;
 
-        private const float MainFillerOffse = 0.1f;
-        private const float AnimationDurationPerUnit = 0.1f;
+        private const float MainFillerOffse = 0.01f;
+        private const float AnimationDurationPerUnit = 0.15f;
 
-        private Damageable _damageable;
+        protected Damageable Damageable;
+
         private int _maxHealth;
         private int _lastHealth;
 
@@ -22,12 +23,13 @@ namespace Assets.Scripts.UI
 
         private void Awake()
         {
-            _damageable = GetComponentInParent<Damageable>();
+            OnInit();
+
             _slider.minValue = 0;
             _slider.maxValue = 1;
 
-            _damageable.HealthChanged += OnHealthChanged;
-            _damageable.Died += OnDied;
+            Damageable.HealthChanged += OnHealthChanged;
+            Damageable.Died += OnDied;
             Game.Restarted += OnRestart;
 
             OnRestart();
@@ -35,38 +37,47 @@ namespace Assets.Scripts.UI
 
         private void OnDestroy()
         {
-            _damageable.HealthChanged -= OnHealthChanged;
-            _damageable.Died -= OnDied;
+            Damageable.HealthChanged -= OnHealthChanged;
+            Damageable.Died -= OnDied;
             Game.Restarted -= OnRestart;
+        }
+
+        protected virtual void OnInit()
+        {
+            Damageable = GetComponentInParent<Damageable>();
         }
 
         private void OnHealthChanged()
         {
             if (_maxHealth == 0)
             {
-                if (_damageable.MaxHealth == 0)
+                if (Damageable.MaxHealth == 0)
                     return;
                 else
                 {
-                    _maxHealth = _damageable.MaxHealth;
+                    _maxHealth = Damageable.MaxHealth;
                     _lastHealth = _maxHealth;
                 }
             }
 
-            float targetValue = _damageable.CurrentHealth / (float)_maxHealth;
-            float duration = (_lastHealth - _damageable.CurrentHealth) * AnimationDurationPerUnit;
-            float timeRamin = 0f;
+            _scale.x = Damageable.CurrentHealth / (float)_maxHealth;
+            
+            float targetValue = _scale.x - MainFillerOffse;
 
-            _scale.x = targetValue + MainFillerOffse;
+            if (targetValue < 0)
+                targetValue = 0;
+
+            float duration = (_lastHealth - Damageable.CurrentHealth) * AnimationDurationPerUnit;
+
             _mainFiller.localScale = _scale;
 
-            _lastHealth = _damageable.CurrentHealth;
+            _lastHealth = Damageable.CurrentHealth;
 
             if (_animation != null && _animation.IsActive())
             {
-                timeRamin = _slider.value-targetValue * _animation.position;
+                float timeRamin = _slider.value - targetValue * _animation.position;
                 duration += timeRamin;
-                
+
                 _animation.Kill();
             }
 
@@ -86,7 +97,7 @@ namespace Assets.Scripts.UI
             _scale.x = 1;
             _mainFiller.localScale = _scale;
 
-            _maxHealth = _damageable.MaxHealth;
+            _maxHealth = Damageable.MaxHealth;
             _lastHealth = _maxHealth;
         }
     }
