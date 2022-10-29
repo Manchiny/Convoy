@@ -13,13 +13,17 @@ namespace Assets.Scripts.Units
         private UnitPropertiesDatabase _propertiesDatabase;
         private HashSet<Damageable> _attackTargets = new();
 
+        private int _baseArmor;
+        private int _baseDamage;
+        private float _baseShootDelay;
+
         public virtual Damageable Target { get; protected set; }
         protected UnitData Data { get; private set; }
 
         public sealed override int MaxHealth { get; protected set; }
-        public sealed override int Armor { get; protected set; }
-        public int Damage { get; protected set; }
-        public float ShootDelay { get; protected set; }
+        public override int Armor  => _baseArmor;
+        public virtual int Damage => _baseDamage;
+        public virtual float ShootDelay => _baseShootDelay;
 
         protected UnitPropertiesDatabase PropertiesDatabase => _propertiesDatabase;
 
@@ -33,9 +37,9 @@ namespace Assets.Scripts.Units
 
         public void UpdateDataProperties()
         {
-            Armor = (int)Data.GetPropertyValue(UnitPropertyType.Armor, _propertiesDatabase);
-            Damage = (int)Data.GetPropertyValue(UnitPropertyType.Damage, _propertiesDatabase);
-            ShootDelay = Data.GetPropertyValue(UnitPropertyType.ShootDelay, _propertiesDatabase);
+            _baseArmor = (int)Data.GetPropertyValue(UnitPropertyType.Armor, _propertiesDatabase);
+            _baseDamage = (int)Data.GetPropertyValue(UnitPropertyType.Damage, _propertiesDatabase);
+            _baseShootDelay = Data.GetPropertyValue(UnitPropertyType.ShootDelay, _propertiesDatabase);
             MaxHealth = (int)Data.GetPropertyValue(UnitPropertyType.MaxHealth, _propertiesDatabase);
         }
 

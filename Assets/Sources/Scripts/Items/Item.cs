@@ -1,7 +1,7 @@
+using Assets.Scripts.Units;
 using System;
 using System.Collections;
 using UnityEngine;
-using static Assets.Scripts.Items.Item;
 
 namespace Assets.Scripts.Items
 {
@@ -10,6 +10,8 @@ namespace Assets.Scripts.Items
     {
         public ItemName Name;
 
+        public readonly ItemOwner Owner;
+        public readonly ItemType Type;
         public readonly float Value;
         public readonly float Seconds;
 
@@ -19,12 +21,13 @@ namespace Assets.Scripts.Items
         public bool IsTemporary => Seconds > 0;
         public bool CanUse => IsTemporary == false || _coolDown <= 0;
 
-
-        public Item(ItemName name, float value, float seconds = -1)
+        public Item(ItemName name, ItemOwner owner, float value, ItemType type = ItemType.Defualt, float seconds = -1)
         {
             Name = name;
             Value = value;
             Seconds = seconds;
+            Owner = owner;
+            Type = type;
         }
 
         ~Item()
@@ -33,32 +36,7 @@ namespace Assets.Scripts.Items
                 Game.Instance.StopCoroutine(_effectAction);
         }
 
-        public enum ItemName
-        {
-            BonusBadges,
-
-            PlayerDoubleDamageBoost,
-            PlayerDoubleShootingSpeedBoost,
-            PlayerDoubleArmorBoost,
-
-            PlayerHealHalf,
-            PlayerHealFull,
-
-            PlayerPropertyPoint,
-            PlayerPropertyLevel,
-
-            TankDoubleDamageBoost,
-            TankDoubleShootingSpeedBoost,
-            TankDoubleArmorBoost,
-
-            TankHealHalf,
-            TankHealFull,
-
-            TankPropertyPoint,
-            TankPropertyLevel
-        }
-
-        public void OnUse(Action onEffectEnd)
+        public void Use(Action onEffectEnd)
         {
             if (IsTemporary)
             {
@@ -74,8 +52,18 @@ namespace Assets.Scripts.Items
 
         private IEnumerator StartEffectAction(Action onEnd)
         {
-            yield return Seconds;
+            yield return new WaitForSeconds(Seconds);
             _coolDown = 0;
+
+            IBoostable unit = null;
+
+            if (Owner == ItemOwner.Player)
+                unit = Game.Player;
+            else if (Owner == ItemOwner.Tank)
+                unit = Game.Tank;
+
+            if (unit != null)
+                unit.RemoveBoost(Type);
 
             if (onEnd != null)
                 onEnd?.Invoke();
@@ -87,27 +75,12 @@ namespace Assets.Scripts.Items
     {
         public Item Item;
         public int Count;
-
         public ItemName Name => Item.Name;
-        public bool CanUse => Count > 0 && Item.CanUse;
 
         public ItemCount(Item item, int count)
         {
             Item = item;
             Count = count;
-        }
-
-        public bool TryUse(Action onEffectEnded)
-        {
-            if (CanUse)
-            {
-                Count--;
-                Item.OnUse(onEffectEnded);
-
-                return true;
-            }
-
-            return false;
         }
     }
 
@@ -123,5 +96,45 @@ namespace Assets.Scripts.Items
             Game,
             Real
         }
+    }
+
+    public enum ItemName
+    {
+        BonusBadges,
+
+        PlayerDoubleDamageBoost,
+        PlayerDoubleShootingSpeedBoost,
+        PlayerDoubleArmorBoost,
+
+        PlayerHealHalf,
+        PlayerHealFull,
+
+        PlayerPropertyPoint,
+        PlayerPropertyLevel,
+
+        TankDoubleDamageBoost,
+        TankDoubleShootingSpeedBoost,
+        TankDoubleArmorBoost,
+
+        TankHealHalf,
+        TankHealFull,
+
+        TankPropertyPoint,
+        TankPropertyLevel
+    }
+
+    public enum ItemOwner
+    {
+        Common,
+        Player,
+        Tank
+    }
+
+    public enum ItemType
+    {
+        Defualt,
+        DamageMultyplier,
+        ArmorMultyplier,
+        ShootingDelayDivider,
     }
 }

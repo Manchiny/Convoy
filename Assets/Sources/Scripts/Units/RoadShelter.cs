@@ -15,7 +15,7 @@ namespace Assets.Scripts.Units
 
         public override Team TeamId => Team.Enemy;
         public override int MaxHealth { get; protected set; } = 300;
-        public override int Armor { get; protected set; } = 0;
+        public override int Armor => 0;
 
         public void CreateSolders(int count, LevelConfig config, UnitPropertiesDatabase solderLevelsDatabase)
         {

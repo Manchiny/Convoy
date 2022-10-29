@@ -75,8 +75,6 @@ namespace Assets.Scripts
                 Instance = this;
                 Windows.Loader.gameObject.SetActive(true);
 
-                if(Application.platform == RuntimePlatform.WindowsEditor)
-
                 DontDestroyOnLoad(this);
                 return;
             }
@@ -109,12 +107,12 @@ namespace Assets.Scripts
                 RestartLevel();
 
             if (Input.GetKeyDown(KeyCode.Q) == true)
-                AddItem();
+                AddItemToUser();
         }
 
-        private void AddItem()
+        private void AddItemToUser()
         {
-            Item item = ItemsLibrary.GetItem(Item.ItemName.TankDoubleArmorBoost);
+            Item item = ItemsLibrary.GetItem(ItemName.PlayerDoubleShootingSpeedBoost);
             _userData.AddItem(item);
             Save();
         }
@@ -174,13 +172,26 @@ namespace Assets.Scripts
 
         public bool TryUseItem(Item item, Action onEffectEnded)
         {
-            if(_userData.TryUseItem(item.Name, onEffectEnded))
+            if(_userData.TryUseItem(item, onEffectEnded))
             {
                 ItemsUseHandler.UseItem(item);
+                Save();
+
                 return true;
             }
 
             return false;
+        }
+
+        public void AddBadges(int count)
+        {
+            _userData.AddBadges(count);
+            Save();             
+        }
+
+        private void OnBoostEffectEnded()
+        {
+
         }
 
         private void InitGame(UserData userData)
@@ -195,6 +206,7 @@ namespace Assets.Scripts
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
 
+            _itemsUseHandler = new ItemsUseHandler();
 
             _tank.Completed += OnLevelComplete;
             _tank.Died += OnAnyPlayerUnitDied;

@@ -1,13 +1,16 @@
+using Assets.Scripts.Items;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(PlayerMovement))]
-    public class Player : Unit
+    [RequireComponent(typeof(UnitBoosts))]
+    public class Player : Unit, IBoostable
     {
         [SerializeField] private Transform _badgeHolder;
 
+        private UnitBoosts _boosts;
         private bool _inited;
 
         private HashSet<SolderBadge> _badges = new();
@@ -18,6 +21,10 @@ namespace Assets.Scripts.Units
 
         public PlayerMovement Movement { get; private set; }
         public bool InTankZone { get; private set; } = true;
+
+        public override int Damage => _boosts.TryGetBoostValue(ItemType.DamageMultyplier, out float value) ? base.Damage * (int)value : base.Damage;
+        public override int Armor => _boosts.TryGetBoostValue(ItemType.ArmorMultyplier, out float value) ? base.Armor * (int)value : base.Armor;
+        public override float ShootDelay => _boosts.TryGetBoostValue(ItemType.ShootingDelayDivider, out float value) ? base.ShootDelay / value : base.ShootDelay;
 
         private void Awake()
         {
@@ -64,18 +71,22 @@ namespace Assets.Scripts.Units
 
         public void TakeBadge(SolderBadge badge)
         {
-           badge.MoveToHolder(_badgeHolder, _badges.Count);
+            badge.MoveToHolder(_badgeHolder, _badges.Count);
             _badges.Add(badge);
         }
 
-        public void OnTankZoneLeave()
+        public void OnTankZoneLeave() { InTankZone = false; }
+        public void OnTankZoneEntered() { InTankZone = true; }
+        public void InitUnitBoosts(UnitBoosts boosts) { _boosts = boosts; }
+
+        public void AddBoost(ItemType type, float value) 
         {
-            InTankZone = false;
+            _boosts.TryAddBoost(type, value);
         }
 
-        public void OnTankZoneEntered()
+        public void RemoveBoost(ItemType type)
         {
-            InTankZone = true;
+            _boosts.RemoveBoost(type);
         }
 
         protected override void OnGetDamage()

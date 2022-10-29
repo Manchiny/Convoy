@@ -12,7 +12,7 @@ namespace Assets.Scripts.Units
         public Unit Unit => _unit;
 
         public override int MaxHealth { get; protected set; } = 100;
-        public override int Armor { get; protected set; } = 0;
+        public override int Armor => 0;
         public int Damage => 0;
         public float ShootDelay => 0f;
 

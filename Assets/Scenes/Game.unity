@@ -595,7 +595,7 @@ MonoBehaviour:
   _effect: {fileID: 0}
   _needAnimateOnClick: 1
   _text: {fileID: 0}
-  _itemName: 10
+  _itemName: 2
 --- !u!225 &476184802
 CanvasGroup:
   m_ObjectHideFlags: 0

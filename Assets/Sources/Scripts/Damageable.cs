@@ -19,7 +19,7 @@ namespace Assets.Scripts
         public abstract Team TeamId{ get; }
 
         public abstract int MaxHealth { get; protected set; }
-        public abstract int Armor { get; protected set; }
+        public abstract int Armor { get; }
         public int CurrentHealth { get; protected set; }
 
         public bool IsAlive => CurrentHealth > 0;

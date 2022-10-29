@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Assets.Scripts.Items.Item;
 using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts
@@ -18,10 +17,17 @@ namespace Assets.Scripts
         public UnitData PlayerCharacterData;
         public List<ItemCount> Items;
 
-        public bool TryUseItem(ItemName name, Action onEffetctEnded)
+        public bool TryUseItem(Item realItem, Action onEffetctEnded)
         {
-            if(HasItem(name, out ItemCount itemCount))
-                return itemCount.TryUse(onEffetctEnded);
+            if(HasItem(realItem.Name, out ItemCount itemCount))
+            {
+                if(itemCount.Count > 0 && realItem.CanUse)
+                {
+                    itemCount.Count--;
+                    realItem.Use(onEffetctEnded);
+                    return true;
+                }
+            }
 
             return false;
         }
@@ -46,6 +52,11 @@ namespace Assets.Scripts
                 itemCount.Count += 1;
 
             Debug.Log($"Added item: {item.Name}; Total count: {GetItemCountByName(item.Name).Count}");
+        }
+
+        public void AddBadges(int count)
+        {
+            Badges += count;
         }
 
         public bool HasItem(ItemName name, out ItemCount itemCount)

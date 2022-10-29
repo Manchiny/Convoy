@@ -1,3 +1,4 @@
+using Assets.Scripts.Items;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,16 @@ using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts.Units
 {
-    public class Tank : Unit
+    [RequireComponent(typeof(UnitBoosts))]
+    public class Tank : Unit, IBoostable
     {
         private const float MoveSpeed = 2f;
         private const float RotationSpeed = 50f;
         private const float DestinationDistance = 1f;
 
         private const float TowerRotationSpeed = 12f;
+
+        private UnitBoosts _boosts;
 
         private IReadOnlyList<Vector3> _waypoints;
         private Vector3 _currnentTargetPoint;
@@ -25,6 +29,10 @@ namespace Assets.Scripts.Units
         public override Team TeamId => Team.Player;
         public UnitData GetData => Data;
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
+
+        public override int Damage => _boosts.TryGetBoostValue(ItemType.DamageMultyplier, out float value) ? base.Damage * (int)value : base.Damage;
+        public override int Armor => _boosts.TryGetBoostValue(ItemType.ArmorMultyplier, out float value) ? base.Armor * (int)value : base.Armor;
+        public override float ShootDelay => _boosts.TryGetBoostValue(ItemType.ShootingDelayDivider, out float value) ? base.ShootDelay / value : base.ShootDelay;
 
         private void Update()
         {
@@ -88,15 +96,24 @@ namespace Assets.Scripts.Units
             Completed?.Invoke();
         }
 
-        protected override void Die()
+        public void InitUnitBoosts(UnitBoosts boosts)
         {
-
+            _boosts = boosts;
         }
 
-        protected override void OnGetDamage()
+        public void AddBoost(ItemType type, float value)
         {
-
+            _boosts.TryAddBoost(type, value);
         }
+
+        public void RemoveBoost(ItemType type)
+        {
+            _boosts.RemoveBoost(type);
+        }
+
+        protected override void Die() { }
+
+        protected override void OnGetDamage(){}
 
         protected override void OnDataInited()
         {

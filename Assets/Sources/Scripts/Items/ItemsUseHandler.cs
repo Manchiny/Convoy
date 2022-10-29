@@ -1,16 +1,12 @@
 using Assets.Scripts.Units;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.Items.Item;
 
 namespace Assets.Scripts.Items
 {
     public class ItemsUseHandler
     {
-        private Unit _player;
-        private Unit _tank;
 
         private static Dictionary<ItemName, Action<Item>> Handlers = new Dictionary<ItemName, Action<Item>>
         {
@@ -37,25 +33,28 @@ namespace Assets.Scripts.Items
             {ItemName.TankPropertyLevel, UsePropertyLevel}
     };
 
-        public ItemsUseHandler()
-        {
-            _player = Game.Player;
-            _tank = Game.Tank;
-        }
-
         public static void UseItem(Item item)
         {
-
+            if(Handlers.TryGetValue(item.Name, out Action<Item> action))
+            {
+                action?.Invoke(item);
+                Debug.Log($"Item effect from {item.Name} started!");
+            }
+            else
+            {
+                Debug.LogError($"Item handler not exist {item.Name}!");
+            }
         }
 
         private static void UseBonusBadges(Item item)
         {
-
+            Game.Instance.AddBadges((int)item.Value);
         }
 
         private static void UseBoost(Item item)
         {
-
+            IBoostable unit = item.Owner == ItemOwner.Tank ? Game.Tank : Game.Player;
+            unit.AddBoost(item.Type, item.Value);
         }
 
         private static void UseHealer(Item item)

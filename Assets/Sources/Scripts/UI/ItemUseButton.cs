@@ -1,8 +1,5 @@
 using Assets.Scripts.Items;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.Items.Item;
 
 namespace Assets.Scripts.UI
 {
@@ -28,7 +25,7 @@ namespace Assets.Scripts.UI
 
         private void TryUse()
         {
-            if( Game.Instance.TryUseItem(_item, OnEffectEnded))
+            if(Game.Instance.TryUseItem(_item, OnEffectEnded))
             {
                 Debug.Log($"Boost use: {_item.Name}");
             }
