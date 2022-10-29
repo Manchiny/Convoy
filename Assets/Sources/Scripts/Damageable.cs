@@ -7,7 +7,7 @@ namespace Assets.Scripts
     public abstract class Damageable : MonoBehaviour, IRestartable
     {
         public event Action<Damageable> Died;
-        public event Action Damaged;
+        public event Action HealthChanged;
 
         public enum Team
         {
@@ -48,7 +48,7 @@ namespace Assets.Scripts
                 Died?.Invoke(this);
             }
             else
-                Damaged?.Invoke();
+                HealthChanged?.Invoke();
         }
 
         public virtual void OnRestart()
@@ -56,11 +56,23 @@ namespace Assets.Scripts
             ResetHealth();
         }
 
-        protected void ResetHealth()
+        public void AddHealth(int count)
         {
-            CurrentHealth = MaxHealth;
+            if (IsAlive == false)
+                return;
+
+            Debug.Log($"{name} health befor adding {CurrentHealth}");
+
+            if (CurrentHealth + count > MaxHealth)
+                CurrentHealth = MaxHealth;
+            else
+                CurrentHealth += count;
+
+            Debug.Log($"{name} health after adding: {CurrentHealth}");
+            HealthChanged?.Invoke();
         }
 
+        protected void ResetHealth() => CurrentHealth = MaxHealth;
         protected abstract void Die();
         protected abstract void OnGetDamage();
     }

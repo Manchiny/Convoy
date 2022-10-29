@@ -21,7 +21,7 @@ namespace Assets.Scripts.Units
         protected UnitData Data { get; private set; }
 
         public sealed override int MaxHealth { get; protected set; }
-        public override int Armor  => _baseArmor;
+        public override int Armor => _baseArmor;
         public virtual int Damage => _baseDamage;
         public virtual float ShootDelay => _baseShootDelay;
 
@@ -59,6 +59,18 @@ namespace Assets.Scripts.Units
         {
             base.OnRestart();
             ClearTargets();
+        }
+
+        public void AddPropertyUpgradePoint(UnitPropertyType propertyType)
+        {
+            Data.AddUpgradePoint(propertyType, PropertiesDatabase);
+            Game.Instance.Save();
+        }
+
+        public void AddPropertyLevel(UnitPropertyType propertyType)
+        {
+            Data.UpgradeLevel(propertyType, PropertiesDatabase);
+            Game.Instance.Save();
         }
 
         protected virtual void OnDataInited() { }

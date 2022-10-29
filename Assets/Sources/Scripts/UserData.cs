@@ -128,6 +128,12 @@ namespace Assets.Scripts
             }
         }
 
+        public void UpgradeLevel(UnitPropertyType type, UnitPropertiesDatabase database)
+        {
+            for (int i = 0; i < UnitPropertyValues.MaxUpgradePoints; i++)
+                AddUpgradePoint(type, database);
+        }
+
         private void FillValues()
         {
             if (MaxHealthProperty == null)
@@ -161,7 +167,7 @@ namespace Assets.Scripts
     [Serializable]
     public class UnitPropertyValues
     {
-        private const int MaxUpgradePoints = 3;
+        public const int MaxUpgradePoints = 3;
 
         public int LevelValue;
         public int UpgradePoints;

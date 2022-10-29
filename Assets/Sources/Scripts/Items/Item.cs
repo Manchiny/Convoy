@@ -1,7 +1,9 @@
 using Assets.Scripts.Units;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts.Items
 {
@@ -14,6 +16,13 @@ namespace Assets.Scripts.Items
         public readonly ItemType Type;
         public readonly float Value;
         public readonly float Seconds;
+
+        private static Dictionary<ItemType, UnitPropertyType> UnitPropertiesByItemType = new()
+        {
+            { ItemType.ArmorMultyplier, UnitPropertyType.Armor },
+            { ItemType.DamageMultyplier, UnitPropertyType.Damage },
+            { ItemType.ShootingDelayDivider, UnitPropertyType.ShootDelay }
+        };
 
         private float _coolDown;
         private Coroutine _effectAction;
@@ -34,6 +43,14 @@ namespace Assets.Scripts.Items
         {
             if (_effectAction != null)
                 Game.Instance.StopCoroutine(_effectAction);
+        }
+
+        public static UnitPropertyType UnitPropertyByItemType(ItemType itemType)
+        {
+            if (UnitPropertiesByItemType.TryGetValue(itemType, out UnitPropertyType type) == false)
+                Debug.LogError($"UnitPropertiesByItemType don't content value for {itemType}");
+
+            return type;
         }
 
         public void Use(Action onEffectEnd)

@@ -53,23 +53,49 @@ namespace Assets.Scripts.Items
 
         private static void UseBoost(Item item)
         {
-            IBoostable unit = item.Owner == ItemOwner.Tank ? Game.Tank : Game.Player;
+            IBoostable unit = GetBoostable(item.Owner);
             unit.AddBoost(item.Type, item.Value);
         }
 
         private static void UseHealer(Item item)
         {
-
+            Unit unit = GetBoostableUnit(item.Owner);
+            float count = item.Value * unit.MaxHealth;
+            unit.AddHealth((int)count);
         }
 
         private static void UsePropertyPoint(Item item)
         {
-
+            Unit unit = GetBoostableUnit(item.Owner);
+            unit.AddPropertyUpgradePoint(Item.UnitPropertyByItemType(item.Type));
         }
 
         private static void UsePropertyLevel(Item item)
         {
+            Unit unit = GetBoostableUnit(item.Owner);
+            unit.AddPropertyLevel(Item.UnitPropertyByItemType(item.Type));
+        }
 
+        private static IBoostable GetBoostable(ItemOwner owner)
+        {
+            if (owner == ItemOwner.Tank)
+                return Game.Tank;
+
+            if (owner == ItemOwner.Player)
+                return Game.Player;
+
+            return null;
+        }
+
+        private static Unit GetBoostableUnit(ItemOwner owner)
+        {
+            if (owner == ItemOwner.Tank)
+                return Game.Tank;
+
+            if (owner == ItemOwner.Player)
+                return Game.Player;
+
+            return null;
         }
 
     }

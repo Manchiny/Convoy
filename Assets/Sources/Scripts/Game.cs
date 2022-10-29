@@ -32,8 +32,6 @@ namespace Assets.Scripts
         private UserData _userData;
         private Saver _saver;
 
-        private ItemsUseHandler _itemsUseHandler;
-
         private GameMode _currentMode;
 
         private UserInput _input;
@@ -112,7 +110,7 @@ namespace Assets.Scripts
 
         private void AddItemToUser()
         {
-            Item item = ItemsLibrary.GetItem(ItemName.PlayerDoubleShootingSpeedBoost);
+            Item item = ItemsLibrary.GetItem(ItemName.PlayerHealHalf);
             _userData.AddItem(item);
             Save();
         }
@@ -189,11 +187,6 @@ namespace Assets.Scripts
             Save();             
         }
 
-        private void OnBoostEffectEnded()
-        {
-
-        }
-
         private void InitGame(UserData userData)
         {
             _userData = userData;
@@ -205,8 +198,6 @@ namespace Assets.Scripts
 
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
-
-            _itemsUseHandler = new ItemsUseHandler();
 
             _tank.Completed += OnLevelComplete;
             _tank.Died += OnAnyPlayerUnitDied;

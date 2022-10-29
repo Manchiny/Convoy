@@ -30,7 +30,7 @@ namespace Assets.Scripts.Units
                 _baseColors.Add(material, material.color);
 
             _unit.Died += OnUnitDied;
-            _unit.Damaged += OnUnitDamaged;
+            _unit.HealthChanged += OnUnitDamaged;
         }
 
         private void Start()
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Units
         {
             Game.Restarted -= OnRestart;
             _unit.Died -= OnUnitDied;
-            _unit.Damaged -= OnUnitDamaged;
+            _unit.HealthChanged -= OnUnitDamaged;
         }
 
         public void OnRestart()

@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI
             _slider.minValue = 0;
             _slider.maxValue = 1;
 
-            _damageable.Damaged += OnHealthChanged;
+            _damageable.HealthChanged += OnHealthChanged;
             _damageable.Died += OnDied;
             Game.Restarted += OnRestart;
 
@@ -35,7 +35,7 @@ namespace Assets.Scripts.UI
 
         private void OnDestroy()
         {
-            _damageable.Damaged -= OnHealthChanged;
+            _damageable.HealthChanged -= OnHealthChanged;
             _damageable.Died -= OnDied;
             Game.Restarted -= OnRestart;
         }

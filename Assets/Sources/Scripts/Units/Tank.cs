@@ -39,14 +39,6 @@ namespace Assets.Scripts.Units
             if (!_inited || Data == null || IsAlive == false || _completed)
                 return;
 
-#if UNITY_EDITOR
-            if (Input.GetKeyUp(KeyCode.Space) == true)
-            {
-                Data.AddUpgradePoint(UnitPropertyType.Damage, PropertiesDatabase);
-                Game.Instance.Save();
-            }
-#endif
-
             if (Target != null)
             {
                 if (NeedRotateTower)
