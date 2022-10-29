@@ -1,6 +1,9 @@
+using Assets.Scripts.Items;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.Items.Item;
 using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts
@@ -8,11 +11,43 @@ namespace Assets.Scripts
     [Serializable]
     public class UserData
     {
+        public int LevelId;
+        public int Badges;
+
         public UnitData TankData;
         public UnitData PlayerCharacterData;
 
-        public int LevelId;
-        public int Badges;
+        public List<ItemCount> Items;
+
+        public void AddItemCount(ItemCount item)
+        {
+            ItemCount itemCount = GetItemCountByName(item.Name);
+
+            if (itemCount == null)
+                Items.Add(item);
+            else
+                itemCount.Count += item.Count;
+        }
+
+        public void AddItem(Item item)
+        {
+            ItemCount itemCount = GetItemCountByName(item.Name);
+
+            if (itemCount == null)
+                Items.Add(new ItemCount(item, 1));
+            else
+                itemCount.Count += 1;
+
+            Debug.Log($"Added item: {item.Name}; Total count: {GetItemCountByName(item.Name).Count}");
+        }
+
+        private ItemCount GetItemCountByName(ItemName name)
+        {
+            if (Items == null)
+                Items = new List<ItemCount>();
+
+            return Items.Where(item => item.Name == name).FirstOrDefault();
+        }
     }
 
     [Serializable]

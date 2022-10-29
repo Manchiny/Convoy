@@ -49,8 +49,6 @@ namespace Assets.Scripts
             }
             else
                 Damaged?.Invoke();
-
-            Debug.Log($"{name} take: damage {totalDamage}");
         }
 
         public virtual void OnRestart()

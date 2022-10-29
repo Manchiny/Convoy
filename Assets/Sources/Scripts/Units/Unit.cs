@@ -70,7 +70,6 @@ namespace Assets.Scripts.Units
                 return;
 
             Gun.TryShoot(Target, TeamId);
-            Debug.Log($"{name} shooted: damage {Damage}");
         }
 
         protected Damageable TryGetAnyNewTarget()

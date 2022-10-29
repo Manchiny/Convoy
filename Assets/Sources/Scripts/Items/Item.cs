@@ -1,19 +1,23 @@
 using System;
+using static Assets.Scripts.Items.Item;
 
 namespace Assets.Scripts.Items
 {
     [Serializable]
     public class Item
     {
-        public readonly ItemName Name;
+        public ItemName Name;
+
         public readonly float Value;
         public readonly float Seconds;
 
-        public bool IsTemporary;
+        public bool IsTemporary => Seconds > 0;
 
         public Item(ItemName name, float value, float seconds = -1)
         {
-
+            Name = name;
+            Value = value;
+            Seconds = seconds;
         }
 
         public enum ItemName
@@ -22,7 +26,7 @@ namespace Assets.Scripts.Items
 
             PlayerDoubleDamageBoost,
             PlayerDoubleShootingSpeedBoost,
-            PlayerDoubleArmor,
+            PlayerDoubleArmorBoost,
 
             PlayerHealHalf,
             PlayerHealFull,
@@ -32,7 +36,7 @@ namespace Assets.Scripts.Items
 
             TankDoubleDamageBoost,
             TankDoubleShootingSpeedBoost,
-            TankDoubleArmor,
+            TankDoubleArmorBoost,
 
             TankHealHalf,
             TankHealFull,
@@ -47,8 +51,17 @@ namespace Assets.Scripts.Items
     {
         public Item Item;
         public int Count;
+
+        public ItemName Name => Item.Name;
+
+        public ItemCount(Item item, int count)
+        {
+            Item = item;
+            Count = count;
+        }
     }
 
+    [Serializable]
     public class ShopItem
     {
         public readonly ItemCount[] Items;

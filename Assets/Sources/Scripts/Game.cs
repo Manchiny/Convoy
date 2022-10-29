@@ -1,3 +1,4 @@
+using Assets.Scripts.Items;
 using Assets.Scripts.Levels;
 using Assets.Scripts.Saves;
 using Assets.Scripts.Social;
@@ -52,6 +53,7 @@ namespace Assets.Scripts
 
         public int CurrentLevelId => _userData.LevelId;
         public static Player Player => Instance._player;
+        public static Tank Tank => Instance._tank;
 
         public static WindowsController Windows => Instance._windowsController;
 
@@ -103,7 +105,18 @@ namespace Assets.Scripts
         {
             if (Input.GetKeyDown(KeyCode.Space) == true)
                 RestartLevel();
+
+            if (Input.GetKeyDown(KeyCode.Q) == true)
+                AddItem();
         }
+
+        private void AddItem()
+        {
+            Item item = ItemsLibrary.GetItem(Item.ItemName.TankDoubleArmorBoost);
+            _userData.AddItem(item);
+            Save();
+        }
+
 #endif
         private void OnDestroy()
         {

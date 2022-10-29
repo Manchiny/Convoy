@@ -10,7 +10,7 @@ namespace Assets.Scripts.Items
         {
             {ItemName.BonusBadges, new Item(ItemName.BonusBadges, 25f)},
 
-            {ItemName.PlayerDoubleArmor, new Item(ItemName.PlayerDoubleArmor, 2f, 30f)},
+            {ItemName.PlayerDoubleArmorBoost, new Item(ItemName.PlayerDoubleArmorBoost, 2f, 30f)},
             {ItemName.PlayerDoubleDamageBoost, new Item(ItemName.PlayerDoubleDamageBoost, 2f, 30f)},
             {ItemName.PlayerDoubleShootingSpeedBoost, new Item(ItemName.PlayerDoubleShootingSpeedBoost, 2f, 30f)},
 
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Items
             {ItemName.PlayerPropertyPoint, new Item(ItemName.PlayerPropertyPoint, 1)},
             {ItemName.PlayerPropertyLevel, new Item(ItemName.PlayerPropertyLevel, 1)},
 
-            {ItemName.TankDoubleArmor, new Item(ItemName.TankDoubleArmor, 2f, 30f)},
+            {ItemName.TankDoubleArmorBoost, new Item(ItemName.TankDoubleArmorBoost, 2f, 30f)},
             {ItemName.TankDoubleDamageBoost, new Item(ItemName.TankDoubleDamageBoost, 2f, 30f)},
             {ItemName.TankDoubleShootingSpeedBoost, new Item(ItemName.TankDoubleShootingSpeedBoost, 2f, 30f)},
 
