@@ -16,8 +16,15 @@ namespace Assets.Scripts
 
         public UnitData TankData;
         public UnitData PlayerCharacterData;
-
         public List<ItemCount> Items;
+
+        public bool TryUseItem(ItemName name, Action onEffetctEnded)
+        {
+            if(HasItem(name, out ItemCount itemCount))
+                return itemCount.TryUse(onEffetctEnded);
+
+            return false;
+        }
 
         public void AddItemCount(ItemCount item)
         {
@@ -39,6 +46,12 @@ namespace Assets.Scripts
                 itemCount.Count += 1;
 
             Debug.Log($"Added item: {item.Name}; Total count: {GetItemCountByName(item.Name).Count}");
+        }
+
+        public bool HasItem(ItemName name, out ItemCount itemCount)
+        {
+            itemCount = GetItemCountByName(name);
+            return (itemCount != null && itemCount.Count > 0);
         }
 
         private ItemCount GetItemCountByName(ItemName name)

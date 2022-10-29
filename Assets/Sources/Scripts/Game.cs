@@ -32,6 +32,8 @@ namespace Assets.Scripts
         private UserData _userData;
         private Saver _saver;
 
+        private ItemsUseHandler _itemsUseHandler;
+
         private GameMode _currentMode;
 
         private UserInput _input;
@@ -168,6 +170,17 @@ namespace Assets.Scripts
             _userData.PlayerCharacterData = _player.GetData;
 
             _saver.Save(_userData);
+        }
+
+        public bool TryUseItem(Item item, Action onEffectEnded)
+        {
+            if(_userData.TryUseItem(item.Name, onEffectEnded))
+            {
+                ItemsUseHandler.UseItem(item);
+                return true;
+            }
+
+            return false;
         }
 
         private void InitGame(UserData userData)
