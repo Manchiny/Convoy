@@ -22,10 +22,10 @@ namespace Assets.Scripts
         [Space]
         [SerializeField] private Transform _sceneGarbageHolder;
         [Space]
-        [SerializeField] private YandexSocialAdapter _yandexAdapter;
         [SerializeField] private UnitPropertiesDatabase _tankPropertiesDatabase;
         [SerializeField] private UnitPropertiesDatabase _playerCharacterPropertiesDatabase;
 
+        private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
 
         private UserData _userData;
@@ -82,18 +82,18 @@ namespace Assets.Scripts
 
         private IEnumerator Start()
         {
-#if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
-            yield return StartCoroutine(_yandexAdapter.Init());
+            _yandexAdapter = FindObjectOfType<YandexSocialAdapter>();
 
-            _adverts = new YandexAdvertisingAdapter();
-            _adverts.Init(_yandexAdapter);
-#endif
-            yield return null;
-
-            if (_yandexAdapter.IsInited)
+            if(_yandexAdapter != null && _yandexAdapter.IsInited)
+            {
+                _adverts = new YandexAdvertisingAdapter();
+                _adverts.Init(_yandexAdapter);
                 _saver = new YandexSaver();
+            }
             else
                 _saver = new LocalJSONSaver();
+
+            yield return null;
 
             _saver.LoadUserData(InitGame);
         }
