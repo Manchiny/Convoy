@@ -10,6 +10,7 @@ using Assets.Scripts.UserInputSystem;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Assets.Scripts
 {
@@ -31,6 +32,8 @@ namespace Assets.Scripts
 
         private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
+
+        private GameConfiguration _gameConfiguration;
 
         private UserData _userData;
         private Saver _saver;
@@ -68,6 +71,7 @@ namespace Assets.Scripts
         public static UnitPropertiesDatabase CharacterProperties => Instance._playerCharacterPropertiesDatabase;
 
         public static GameLocalization Localization => Instance?._gameLocalization;
+        public static GameConfiguration Configuration => Instance?._gameConfiguration;
 
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
@@ -101,7 +105,7 @@ namespace Assets.Scripts
 
             yield return null;
 
-            _saver.LoadUserData(InitGame);
+            _saver.LoadUserData(InitData);
         }
 
 #if UNITY_EDITOR
@@ -203,16 +207,59 @@ namespace Assets.Scripts
             _userData.SavedLocale = GameLocalization.CurrentLocale;
         }
 
-        private void InitGame(UserData userData)
+        private void InitData(UserData userData)
         {
             _userData = userData;
 
             _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
             _player.InitData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
 
+            LoadConfiguration();
+        }
+
+        private void LoadConfiguration()
+        {
+            StartCoroutine(LoadTextFromServer(GameConstants.GameConfigConnectionURL, OnComplete, OnError));
+
+            void OnComplete(string result)
+            {
+                if (result.IsNullOrEmpty())
+                {
+                    OnError("Loaded GameConfigurations is null!");
+                    return;
+                }
+                else
+                {
+                    try
+                    {
+                        _gameConfiguration = JsonUtility.FromJson<GameConfiguration>(result);
+                    }
+                    catch
+                    {
+                        OnError("Loaded GameConfigurations is null!");
+                        return;
+                    }                
+                }    
+                   
+                InitGame();
+            }
+
+            void OnError(string error)
+            {
+                Debug.Log(error + "\nThe default settings will be used.");
+                _gameConfiguration = new GameConfiguration();
+
+                InitGame();
+            }
+        }
+
+        private void InitGame()
+        {
+            _levelLoader.Init(_gameConfiguration);
+
             InitLocalization();
 
-            Windows.HUD.Init(userData);
+            Windows.HUD.Init(_userData);
 
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
@@ -293,6 +340,35 @@ namespace Assets.Scripts
         private void Unpause()
         {
             Time.timeScale = 1;
+        }
+
+        private IEnumerator LoadTextFromServer(string url, Action<string> onSucces, Action<string> onError)
+        {
+            UnityWebRequest request = null;
+
+            try
+            {
+                request = UnityWebRequest.Get(url);
+            }
+            catch
+            {
+                onError?.Invoke("Error connection!");
+                yield break;
+            }
+
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.DataProcessingError || request.result != UnityWebRequest.Result.ProtocolError && request.result != UnityWebRequest.Result.ConnectionError)
+            {
+                onSucces?.Invoke(request.downloadHandler.text);
+            }
+            else
+            {
+                Debug.LogErrorFormat("error request [{0}, {1}]", url, request.error);
+                onError?.Invoke(request.error);
+            }
+
+            request.Dispose();
         }
     }
 }

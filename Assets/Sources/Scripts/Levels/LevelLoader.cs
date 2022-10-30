@@ -34,13 +34,18 @@ namespace Assets.Scripts.Levels
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
 
+        public void Init(GameConfiguration gameConfig)
+        {
+            _levelsDatabase.Init(gameConfig.Levels);
+        }
+
         public void LoadLevel(int levelId)
         {
-            LevelConfig config = _levelsDatabase.GetLevelConfig(levelId);
+            LevelConfigData config = _levelsDatabase.GetLevelConfig(levelId);
             Configure(config);
         }
 
-        private void Configure(LevelConfig config)
+        private void Configure(LevelConfigData config)
         {
             RemoveOldRoad();
             CreateRoad(config);
@@ -55,7 +60,7 @@ namespace Assets.Scripts.Levels
             _borderEnd.position = _currentRoad.Last().EndConnectorPosition;
         }
 
-        private void CreateRoad(LevelConfig config)
+        private void CreateRoad(LevelConfigData config)
         {
             var firstRoadPart = Instantiate(_roadPrefabs[0], _roadContainer);
             firstRoadPart.transform.position = Vector3.zero;
@@ -71,7 +76,7 @@ namespace Assets.Scripts.Levels
             _currentRoad.Clear();
         }
 
-        private void CreateEnemyies(LevelConfig config)
+        private void CreateEnemyies(LevelConfigData config)
         {
             for (int i = 1; i < _currentRoad.Count - 1; i++)
             {
@@ -106,7 +111,7 @@ namespace Assets.Scripts.Levels
             }
         }
 
-        private void CreateEnemy(EnemyType type, Damageable prefab, RoadPart road, LevelConfig config, bool needDoubleSide = false, bool needCountLastOffset = false)
+        private void CreateEnemy(EnemyType type, Damageable prefab, RoadPart road, LevelConfigData config, bool needDoubleSide = false, bool needCountLastOffset = false)
         {
             switch (type)
             {
@@ -136,7 +141,7 @@ namespace Assets.Scripts.Levels
             _currentRoad.Add(newRoadPart);
         }
 
-        private void CreateMovableGroup(LevelConfig config, RoadPart road, Damageable prefab)
+        private void CreateMovableGroup(LevelConfigData config, RoadPart road, Damageable prefab)
         {
             int count = config.GetRandomMovableEnimiesInGroupCount;
             float maxRandomPositionDistance = 5f;
@@ -169,7 +174,7 @@ namespace Assets.Scripts.Levels
             }
         }
 
-        private void CreateTower(LevelConfig config, RoadPart road, Damageable prefab, bool needDoubleSide = false, bool needCountLastOffset = false)
+        private void CreateTower(LevelConfigData config, RoadPart road, Damageable prefab, bool needDoubleSide = false, bool needCountLastOffset = false)
         {
             int random = _systemRandom.Next(0, 100);
             float offsetX = random < 50 ? -RoadPart.TowerOffset : RoadPart.TowerOffset;
@@ -198,7 +203,7 @@ namespace Assets.Scripts.Levels
             _lastOffsetXOnRoad = offsetX;
         }
 
-        private void CreateRoadShelter(LevelConfig config, RoadPart road, Damageable prefab)
+        private void CreateRoadShelter(LevelConfigData config, RoadPart road, Damageable prefab)
         {
             int soldersCount = config.GetRandomInShelterEnemiesInGroupCount;
 
@@ -216,7 +221,7 @@ namespace Assets.Scripts.Levels
                 Debug.LogError("You are trying to create enemy group, but prefab is not IEnemyGroupable!");
         }
 
-        private void TryLoadUnitData(Damageable enemy, LevelConfig config)
+        private void TryLoadUnitData(Damageable enemy, LevelConfigData config)
         {
             if (enemy is Unit)
             {

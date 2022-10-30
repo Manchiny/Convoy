@@ -17,7 +17,7 @@ namespace Assets.Scripts.Units
         public override int MaxHealth { get; protected set; } = 300;
         public override int Armor => 0;
 
-        public void CreateSolders(int count, LevelConfig config, UnitPropertiesDatabase solderLevelsDatabase)
+        public void CreateSolders(int count, LevelConfigData config, UnitPropertiesDatabase solderLevelsDatabase)
         {
             if (count > _spwanPoints.Count)
             {
