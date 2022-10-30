@@ -16,8 +16,7 @@ namespace Assets.Scripts.Items
             {ItemName.PlayerDoubleDamageBoost, UseBoost},
             {ItemName.PlayerDoubleShootingSpeedBoost,UseBoost},
 
-            {ItemName.PlayerHealHalf, UseHealer},
-            {ItemName.PlayerHealFull, UseHealer},
+            {ItemName.PlayerHeal20, UseHealer},
 
             {ItemName.PlayerPropertyPoint, UsePropertyPoint},
             {ItemName.PlayerPropertyLevel, UsePropertyLevel},
@@ -26,8 +25,7 @@ namespace Assets.Scripts.Items
             {ItemName.TankDoubleDamageBoost, UseBoost},
             {ItemName.TankDoubleShootingSpeedBoost, UseBoost},
 
-            {ItemName.TankHealHalf, UseHealer},
-            {ItemName.TankHealFull, UseHealer},
+            {ItemName.TankHeal20, UseHealer},
 
             {ItemName.TankPropertyPoint, UsePropertyPoint},
             {ItemName.TankPropertyLevel, UsePropertyLevel}

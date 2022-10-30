@@ -16,8 +16,7 @@ namespace Assets.Scripts.Items
             {ItemName.PlayerDoubleDamageBoost, new Item(ItemName.PlayerDoubleDamageBoost,ItemOwner.Player, 2f, ItemType.DamageMultyplier, BoostEffectTime)},
             {ItemName.PlayerDoubleShootingSpeedBoost, new Item(ItemName.PlayerDoubleShootingSpeedBoost, ItemOwner.Player, 2f, ItemType.ShootingDelayDivider, BoostEffectTime)},
 
-            {ItemName.PlayerHealHalf, new Item(ItemName.PlayerHealHalf, ItemOwner.Player, 0.5f)},
-            {ItemName.PlayerHealFull, new Item(ItemName.PlayerHealFull, ItemOwner.Player, 1f)},
+            {ItemName.PlayerHeal20, new Item(ItemName.PlayerHeal20, ItemOwner.Player, 0.2f)},
 
             {ItemName.PlayerPropertyPoint, new Item(ItemName.PlayerPropertyPoint, ItemOwner.Player, 1)},
             {ItemName.PlayerPropertyLevel, new Item(ItemName.PlayerPropertyLevel, ItemOwner.Player, 1)},
@@ -26,8 +25,7 @@ namespace Assets.Scripts.Items
             {ItemName.TankDoubleDamageBoost, new Item(ItemName.TankDoubleDamageBoost, ItemOwner.Tank, 2f, ItemType.DamageMultyplier,BoostEffectTime)},
             {ItemName.TankDoubleShootingSpeedBoost, new Item(ItemName.TankDoubleShootingSpeedBoost, ItemOwner.Tank, 2f, ItemType.ShootingDelayDivider, BoostEffectTime)},
 
-            {ItemName.TankHealHalf, new Item(ItemName.TankHealHalf, ItemOwner.Tank, 0.5f)},
-            {ItemName.TankHealFull, new Item(ItemName.TankHealFull,ItemOwner.Tank, 1f)},
+            {ItemName.TankHeal20, new Item(ItemName.TankHeal20, ItemOwner.Tank, 0.5f)},
 
             {ItemName.TankPropertyPoint, new Item(ItemName.TankPropertyPoint, ItemOwner.Tank, 1f)},
             {ItemName.TankPropertyLevel, new Item(ItemName.TankPropertyLevel, ItemOwner.Tank, 1f)}

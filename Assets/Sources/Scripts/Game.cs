@@ -116,7 +116,7 @@ namespace Assets.Scripts
 
         private void AddItemToUser()
         {
-            Item item = ItemsLibrary.GetItem(ItemName.PlayerHealHalf);
+            Item item = ItemsLibrary.GetItem(ItemName.PlayerHeal20);
             _userData.AddItem(item);
             Save();
         }

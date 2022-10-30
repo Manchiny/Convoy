@@ -123,8 +123,7 @@ namespace Assets.Scripts.Items
         PlayerDoubleShootingSpeedBoost,
         PlayerDoubleArmorBoost,
 
-        PlayerHealHalf,
-        PlayerHealFull,
+        PlayerHeal20,
 
         PlayerPropertyPoint,
         PlayerPropertyLevel,
@@ -133,8 +132,7 @@ namespace Assets.Scripts.Items
         TankDoubleShootingSpeedBoost,
         TankDoubleArmorBoost,
 
-        TankHealHalf,
-        TankHealFull,
+        TankHeal20,
 
         TankPropertyPoint,
         TankPropertyLevel

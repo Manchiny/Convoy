@@ -1,6 +1,7 @@
 using Assets.Scripts.UI;
 using DG.Tweening;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +11,17 @@ namespace Assets.Scripts.Units
     {
         [SerializeField] private RectTransform _openingIndicator;
         [SerializeField] private Image _filler;
+        [SerializeField] private TextMeshProUGUI _upgrageTankText;
 
+        private const string UpgradeTankLocalizationKey = "upgrade_tank";
         private const float DelayTime = 2f;
 
         private Tween _fillerAnimation;
+
+        private void Awake()
+        {
+            Game.Inited += Init;
+        }
 
         private void Start()
         {
@@ -30,6 +38,17 @@ namespace Assets.Scripts.Units
         {
             if (other.TryGetComponent(out Player player) == true)
                 StopWaiting();
+        }
+
+        private void OnDestroy()
+        {
+            Game.Inited -= Init;
+        }
+
+        private void Init()
+        {
+            Game.Inited -= Init;
+            _upgrageTankText.text = UpgradeTankLocalizationKey.Localize();
         }
 
         private void ShowIndicator()
