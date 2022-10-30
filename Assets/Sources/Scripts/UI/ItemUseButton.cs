@@ -1,6 +1,8 @@
 using Assets.Scripts.Items;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
@@ -8,12 +10,14 @@ namespace Assets.Scripts.UI
     {
         [SerializeField] private ItemName _itemName;
         [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private Image _coodawnFiller;
 
         private UserData _user;
 
         private Item _item;
         private bool _hasCount;
 
+        private Tween _fillerAnimation;
         private bool _locked;
 
         protected override void OnDestroy()
@@ -51,6 +55,12 @@ namespace Assets.Scripts.UI
         {
             if(Game.Instance.TryUseItem(_item, OnEffectEnded))
             {
+                if(_item.IsTemporary)
+                {
+                    Disable(true);
+                    ShowCooldawnAnimation(_item.Seconds);
+                }
+
                 Debug.Log($"Boost use: {_item.Name}");
             }
 
@@ -60,6 +70,22 @@ namespace Assets.Scripts.UI
         private void OnEffectEnded()
         {
             Debug.Log("Boost effect ended! ");
+            Disable(false);
+        }
+
+        private void Disable(bool value)
+        {
+            SetLock(value);
+        }
+
+        private void ShowCooldawnAnimation(float cooldawn)
+        {
+            if (_fillerAnimation != null && _fillerAnimation.IsActive())
+                _fillerAnimation.Kill();
+
+            _coodawnFiller.fillAmount = 0;
+
+            _fillerAnimation = _coodawnFiller.DOFillAmount(1, cooldawn).SetLink(gameObject).SetEase(Ease.Linear);
         }
     }
 }

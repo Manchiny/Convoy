@@ -116,7 +116,7 @@ namespace Assets.Scripts
 
         private void AddItemToUser()
         {
-            Item item = ItemsLibrary.GetItem(ItemName.PlayerHeal20);
+            Item item = ItemsLibrary.GetItem(ItemName.PlayerDoubleArmorBoost);
             _userData.AddItem(item);
             Save();
         }
