@@ -25,6 +25,5 @@ namespace Assets.Scripts.UI
             else
                 _boosts.Show();
         }
-
     }
 }
