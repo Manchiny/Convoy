@@ -33,6 +33,7 @@ namespace Assets.Scripts.Levels
         public IReadOnlyList<Vector3> Waypoints => _currentRoad.Select(road => road.Center).ToList();
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
+        public float DatabaseVesrsion => _levelsDatabase.Version;
 
         public void Init(GameConfiguration gameConfig)
         {

@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using static Assets.Scripts.Units.Enemy;
 
 namespace Assets.Scripts.Levels
 {
+    [Serializable]
     public class LevelConfigData
     {
         private const int MaxChanse = 100;
@@ -22,15 +24,15 @@ namespace Assets.Scripts.Levels
 
         public List<EnemiesFullness> EnemiesFullness;
 
-        private System.Random _random = new System.Random();
+        private Random _systemRandom = new Random();
 
-        public int GetRandomMovableEnimiesInGroupCount => _random.Next(MinMovableEnemyiesInGroup, MaxMovableEnemyiesInGroup);
-        public int GetRandomInShelterEnemiesInGroupCount => _random.Next(MinOnShelterEnemiesInGroup, MaxOnShelterEnemiesInGroup);
-        public int GetRandomUnitLevel => _random.Next(MinSolderLevel, MaxSolderLevel);
+        public int GetRandomMovableEnimiesInGroupCount => _systemRandom.Next(MinMovableEnemyiesInGroup, MaxMovableEnemyiesInGroup);
+        public int GetRandomInShelterEnemiesInGroupCount => _systemRandom.Next(MinOnShelterEnemiesInGroup, MaxOnShelterEnemiesInGroup);
+        public int GetRandomUnitLevel => _systemRandom.Next(MinSolderLevel, MaxSolderLevel);
 
         public EnemyType GetRandomEnemyType()
         {
-            int random = _random.Next(0, MaxChanse);
+            int random = _systemRandom.Next(0, MaxChanse);
 
             int chanseCounter = 0;
 
@@ -82,7 +84,7 @@ namespace Assets.Scripts.Levels
                 if (enemieFullnes.Contains(enemy))
                     maxChance += enemy.Chance;
 
-            int random = _random.Next(0, maxChance);
+            int random = _systemRandom.Next(0, maxChance);
 
             int chanseCounter = 0;
 

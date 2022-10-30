@@ -14,11 +14,12 @@ namespace Assets.Scripts.Levels
         private List<LevelConfigData> _levels;
 
         public UnitPropertiesDatabase SolderLevelDatabase => _enemySolderLevelsDatabase;
+        public float Version => _dataBaseVersion;
 
         public void Init(List<LevelConfigData> levelData)
         {
             if (levelData == null || levelData.Count == 0)
-                _levels = CreateDefaultLevelsData();
+                _levels = GetDefaultLevelsData();
             else
                 _levels = levelData;
         }
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Levels
             return _levels[levelId];
         }
 
-        private List<LevelConfigData> CreateDefaultLevelsData()
+        public List<LevelConfigData> GetDefaultLevelsData()
         {
             List<LevelConfigData> levelConfigs = new();
 

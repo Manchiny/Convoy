@@ -233,6 +233,11 @@ namespace Assets.Scripts
                     try
                     {
                         _gameConfiguration = JsonUtility.FromJson<GameConfiguration>(result);
+
+                        if (_gameConfiguration.NeedUpdatedLevels(_levelLoader.DatabaseVesrsion) == false)
+                            _gameConfiguration.Levels = null; // TODO: вынести уровни в отдельный файл и загружать их или нет, по необходимости;
+                        // и аналогично для переводов
+
                     }
                     catch
                     {

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9f4a3b8d7600e459e7a78cb35e771d, type: 3}
   m_Name: Levels_Database
   m_EditorClassIdentifier: 
+  _dataBaseVersion: 0.1
   _enemySolderLevelsDatabase: {fileID: 11400000, guid: d382496e0b6ff7742a644392c4886ba4, type: 2}
   _levelConfigs:
   - {fileID: 11400000, guid: e5fa6140213cf894aa06abfe3792ff49, type: 2}
