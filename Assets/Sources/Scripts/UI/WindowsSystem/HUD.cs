@@ -37,10 +37,10 @@ namespace Assets.Scripts.UI
 
         private void OnDestroy()
         {
-            //Game.User.MoneyChanged -= OnMoneyChanged;
+            Game.Player.BadgesChanged -= OnBadgesChanged;
             //Game.Localization.LanguageChanged -= OnLocalizationChanged;
 
-           // _settingsButton.RemoveListener(OnSettingsButtonClick);
+            // _settingsButton.RemoveListener(OnSettingsButtonClick);
         }
 
         public void Init(UserData userData, bool isReinit = false)
@@ -56,10 +56,10 @@ namespace Assets.Scripts.UI
 
             if (isReinit == false)
             {
-               // _settingsButton.AddListener(OnSettingsButtonClick);
+                // _settingsButton.AddListener(OnSettingsButtonClick);
                 // _leaderboardButton.AddListener(OnLeaderboardButtonClick);
 
-                //Game.User.MoneyChanged += OnMoneyChanged;
+                Game.Player.BadgesChanged += OnBadgesChanged;
                 //Game.Localization.LanguageChanged += OnLocalizationChanged;
             }
             //else
@@ -104,18 +104,18 @@ namespace Assets.Scripts.UI
           //  _levelText.text = LevelLocalizationKey.Localize() + $" {level + 1}";
         }
 
-        private void OnMoneyChanged(int totalMoney)
+        private void OnBadgesChanged(int badgesCount)
         {
-            SetMoneyText(totalMoney);
-            PlayMoneyPanelAnimation();
+            SetBadgesText(badgesCount);
+            PlayBadgesPanelAnimation();
         }
 
-        private void SetMoneyText(int moneyCount)
+        private void SetBadgesText(int badgesCount)
         {
-            _badgesText.text = $"${moneyCount}";
+            _badgesText.text = badgesCount.ToString();
         }
 
-        private void PlayMoneyPanelAnimation()
+        private void PlayBadgesPanelAnimation()
         {
             if (_badgePanelAnimationTween != null)
                 _badgePanelAnimationTween.Kill();

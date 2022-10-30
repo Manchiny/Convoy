@@ -1,4 +1,5 @@
 using Assets.Scripts.Items;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Assets.Scripts.Units
         private bool _inited;
 
         private HashSet<SolderBadge> _badges = new();
+
+        public event Action<int> BadgesChanged;
 
         public override Team TeamId => Team.Player;
 
@@ -63,7 +66,12 @@ namespace Assets.Scripts.Units
             ResetHealth();
             InTankZone = true;
 
-            // _badges.Clear();
+            foreach (var badge in _badges)
+                Destroy(badge.gameObject);
+
+             _badges.Clear();
+            BadgesChanged?.Invoke(_badges.Count);
+
             ClearTargets();
 
             _inited = true;
@@ -73,6 +81,7 @@ namespace Assets.Scripts.Units
         {
             badge.MoveToHolder(_badgeHolder, _badges.Count);
             _badges.Add(badge);
+            BadgesChanged?.Invoke(_badges.Count);
         }
 
         public void OnTankZoneLeave() { InTankZone = false; }
