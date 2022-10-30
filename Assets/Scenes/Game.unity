@@ -2064,7 +2064,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7992570029891538275, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: _itemName
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7992570029891538300, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: m_Pivot.x
@@ -2325,7 +2325,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7992570029891538275, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: _itemName
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7992570029891538300, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: m_Pivot.x
@@ -2784,6 +2784,8 @@ MonoBehaviour:
   _badgesPanelContent: {fileID: 0}
   _settingsButton: {fileID: 0}
   _leaderboardButton: {fileID: 0}
+  _playerBoostsPanel: {fileID: 506682521}
+  _tankBoostsPanel: {fileID: 57087326}
 --- !u!225 &973615429
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3541,7 +3543,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7992570029891538275, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: _itemName
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7992570029891538300, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: m_Pivot.x
@@ -3791,7 +3793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6417676323630499750, guid: 009677379809aaf40a02c7a0481b7433, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.300003
+      value: 3.2999878
       objectReference: {fileID: 0}
     - target: {fileID: 6417676323630499751, guid: 009677379809aaf40a02c7a0481b7433, type: 3}
       propertyPath: m_Sprite
@@ -5155,14 +5157,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6417676323029095636, guid: 009677379809aaf40a02c7a0481b7433, type: 3}
-      propertyPath: _itemName
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6417676324842631928, guid: 009677379809aaf40a02c7a0481b7433, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 16.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 009677379809aaf40a02c7a0481b7433, type: 3}
 --- !u!1001 &6691206881585144272
@@ -5242,10 +5236,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1062325455}
     m_Modifications:
-    - target: {fileID: 7992570029891538275, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
-      propertyPath: _itemName
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 7992570029891538300, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5333,14 +5323,6 @@ PrefabInstance:
     - target: {fileID: 7992570029891538301, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: m_Name
       value: BoostButtonTank_Armor
-      objectReference: {fileID: 0}
-    - target: {fileID: 7992570030911233553, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -2.4500122
-      objectReference: {fileID: 0}
-    - target: {fileID: 7992570031838210895, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 16.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}

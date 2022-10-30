@@ -8,9 +8,14 @@ namespace Assets.Scripts.UI
         [SerializeField] private BasicButton _openBoostsButton;
         [SerializeField] private DropDawnPanel _boosts;
 
-        private void Start()
+        public void Init(UserData userData)
         {
             _openBoostsButton.AddListener(ShowHideBoosts);
+
+            var boostButtons = _boosts.GetComponentsInChildren<ItemUseButton>();
+
+            foreach (var button in boostButtons)
+                button.Init(userData);
         }
 
         private void ShowHideBoosts()

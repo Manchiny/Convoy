@@ -212,6 +212,8 @@ namespace Assets.Scripts
 
             InitLocalization();
 
+            Windows.HUD.Init(userData);
+
             StartLevel(_userData.LevelId);
             _currentMode = GameMode.Game;
 

@@ -18,6 +18,8 @@ namespace Assets.Scripts
         public UnitData PlayerCharacterData;
         public List<ItemCount> Items;
 
+        public event Action<ItemName> ItemsChanged;
+
         public bool TryUseItem(Item realItem, Action onEffetctEnded)
         {
             if(HasItem(realItem.Name, out ItemCount itemCount))
@@ -26,6 +28,9 @@ namespace Assets.Scripts
                 {
                     itemCount.Count--;
                     realItem.Use(onEffetctEnded);
+
+                    ItemsChanged?.Invoke(realItem.Name);
+
                     return true;
                 }
             }
@@ -41,6 +46,8 @@ namespace Assets.Scripts
                 Items.Add(item);
             else
                 itemCount.Count += item.Count;
+
+            ItemsChanged?.Invoke(item.Name);
         }
 
         public void AddItem(Item item)
@@ -53,6 +60,7 @@ namespace Assets.Scripts
                 itemCount.Count += 1;
 
             Debug.Log($"Added item: {item.Name}; Total count: {GetItemCountByName(item.Name).Count}");
+            ItemsChanged?.Invoke(item.Name);
         }
 
         public void AddBadges(int count)

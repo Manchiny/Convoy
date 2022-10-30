@@ -15,6 +15,9 @@ namespace Assets.Scripts.UI
         [Space]
         [SerializeField] private BasicButton _settingsButton;
         [SerializeField] private BasicButton _leaderboardButton;
+        [Space]
+        [SerializeField] private BoostsPanel _playerBoostsPanel;
+        [SerializeField] private BoostsPanel _tankBoostsPanel;
 
         private const string LevelLocalizationKey = "level";
 
@@ -40,9 +43,12 @@ namespace Assets.Scripts.UI
            // _settingsButton.RemoveListener(OnSettingsButtonClick);
         }
 
-        public void Init(bool isReinit)
+        public void Init(UserData userData, bool isReinit = false)
         {
             _canvas.alpha = 0;
+
+            _playerBoostsPanel.Init(userData);
+            _tankBoostsPanel.Init(userData);
 
             //_leaderboardButton.gameObject.SetActive(Game.Social != null && Game.Social.IsInited && Game.Social.IsAuthorized);
 
@@ -50,8 +56,8 @@ namespace Assets.Scripts.UI
 
             if (isReinit == false)
             {
-                _settingsButton.AddListener(OnSettingsButtonClick);
-                _leaderboardButton.AddListener(OnLeaderboardButtonClick);
+               // _settingsButton.AddListener(OnSettingsButtonClick);
+                // _leaderboardButton.AddListener(OnLeaderboardButtonClick);
 
                 //Game.User.MoneyChanged += OnMoneyChanged;
                 //Game.Localization.LanguageChanged += OnLocalizationChanged;
