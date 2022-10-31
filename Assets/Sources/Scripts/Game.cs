@@ -10,7 +10,6 @@ using Assets.Scripts.UserInputSystem;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts
 {
@@ -94,7 +93,7 @@ namespace Assets.Scripts
         {
             _yandexAdapter = FindObjectOfType<YandexSocialAdapter>();
 
-            if(_yandexAdapter != null && _yandexAdapter.IsInited)
+            if (_yandexAdapter != null && _yandexAdapter.IsInited)
             {
                 _adverts = new YandexAdvertisingAdapter();
                 _adverts.Init(_yandexAdapter);
@@ -132,8 +131,6 @@ namespace Assets.Scripts
             _tank.Died -= OnAnyPlayerUnitDied;
             _player.Died -= OnAnyPlayerUnitDied;
         }
-
-        public static string Localize(string key, params string[] parameters) => Localization?.Localize(key, parameters) ?? key;
 
         public void SetInputSystem(UserInput input)
         {
@@ -182,7 +179,7 @@ namespace Assets.Scripts
 
         public bool TryUseItem(Item item, Action onEffectEnded)
         {
-            if(_userData.TryUseItem(item, onEffectEnded))
+            if (_userData.TryUseItem(item, onEffectEnded))
             {
                 ItemsUseHandler.UseItem(item);
                 Save();
@@ -196,7 +193,7 @@ namespace Assets.Scripts
         public void AddBadges(int count)
         {
             _userData.AddBadges(count);
-            Save();             
+            Save();
         }
 
         public void ChangeLocale(string local)
@@ -207,6 +204,8 @@ namespace Assets.Scripts
             _gameLocalization.LoadKeys(local, _localizationDatabase.LocalizationKeys);
             _userData.SavedLocale = GameLocalization.CurrentLocale;
         }
+
+        public static string Localize(string key, params string[] parameters) => Localization?.Localize(key, parameters) ?? key;
 
         private void InitData(UserData userData)
         {
@@ -220,18 +219,18 @@ namespace Assets.Scripts
 
         private IEnumerator LoadGameConfiguration()
         {
-            yield return StartCoroutine(LoadTextFromServer(GameConstants.GameConfigURL, (result) => ParseToDataOrCreateNew(result, out _gameConfiguration)));
+            yield return StartCoroutine(Utils.LoadTextFromServer(GameConstants.GameConfigURL, (result) => Utils.ParseToDataOrCreateNew(result, out _gameConfiguration)));
             yield return _gameConfiguration != null;
 
             if (_gameConfiguration.NeedUpdatedLevels(_levelLoader.DatabaseVesrsion))
             {
-                yield return StartCoroutine(LoadTextFromServer(GameConstants.LevelsDataURL, (result) => ParseToDataOrCreateNew(result, out _gameConfiguration.LevelsDatabaseData)));
+                yield return StartCoroutine(Utils.LoadTextFromServer(GameConstants.LevelsDataURL, (result) => Utils.ParseToDataOrCreateNew(result, out _gameConfiguration.LevelsDatabaseData)));
                 yield return _gameConfiguration.LevelsDatabaseData != null;
             }
 
             if (_gameConfiguration.NeedUpdateLocalizations(_localizationDatabase.Version))
             {
-                yield return StartCoroutine(LoadTextFromServer(GameConstants.LocalizationsURL, (result) => ParseToDataOrCreateNew(result, out _gameConfiguration.LocalizationData)));
+                yield return StartCoroutine(Utils.LoadTextFromServer(GameConstants.LocalizationsURL, (result) => Utils.ParseToDataOrCreateNew(result, out _gameConfiguration.LocalizationData)));
                 yield return _gameConfiguration.LocalizationData != null;
             }
 
@@ -325,51 +324,6 @@ namespace Assets.Scripts
         private void Unpause()
         {
             Time.timeScale = 1;
-        }
-
-        private void ParseToDataOrCreateNew<T>(string parseText, out T resultOut) where T : class, new()
-        {
-            try
-            {
-                T result = JsonUtility.FromJson<T>(parseText);
-                resultOut = result;
-            }
-            catch
-            {
-                Debug.Log($"Error parse data to {typeof(T)}");
-                resultOut = new T();
-            }
-        }
-
-        private IEnumerator LoadTextFromServer(string url, Action<string> onComplete)
-        {
-            UnityWebRequest request = null;
-
-            try
-            {
-                request = UnityWebRequest.Get(url);
-            }
-            catch
-            {
-                Debug.LogError("[Game] Error connection!");
-                onComplete?.Invoke(null);
-
-                yield break;
-            }
-
-            yield return request.SendWebRequest();
-
-            if (request.result != UnityWebRequest.Result.DataProcessingError || request.result != UnityWebRequest.Result.ProtocolError && request.result != UnityWebRequest.Result.ConnectionError)
-            {
-                onComplete?.Invoke(request.downloadHandler.text);
-            }
-            else
-            {
-                Debug.LogErrorFormat($"[Game] error request {url}, { request.error}");
-                onComplete?.Invoke(null);
-            }
-
-            request.Dispose();
         }
     }
 }

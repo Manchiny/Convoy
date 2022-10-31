@@ -1,8 +1,10 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public static class Utils
@@ -90,13 +92,57 @@ public static class Utils
         return result.ToArray();
     }
 
-
-
     public static bool IsNullOrEmpty(this string str)
     {
         if (str == null || str.Length == 0)
             return true;
 
         return false;
+    }
+
+
+    public static void ParseToDataOrCreateNew<T>(string parseText, out T resultOut) where T : class, new()
+    {
+        try
+        {
+            T result = JsonUtility.FromJson<T>(parseText);
+            resultOut = result;
+        }
+        catch
+        {
+            Debug.Log($"Error parse data to {typeof(T)}");
+            resultOut = new T();
+        }
+    }
+
+    public static IEnumerator LoadTextFromServer(string url, Action<string> onComplete)
+    {
+        UnityWebRequest request = null;
+
+        try
+        {
+            request = UnityWebRequest.Get(url);
+        }
+        catch
+        {
+            Debug.LogError("[Game] Error connection!");
+            onComplete?.Invoke(null);
+
+            yield break;
+        }
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.DataProcessingError || request.result != UnityWebRequest.Result.ProtocolError && request.result != UnityWebRequest.Result.ConnectionError)
+        {
+            onComplete?.Invoke(request.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogErrorFormat($"[Game] error request {url}, { request.error}");
+            onComplete?.Invoke(null);
+        }
+
+        request.Dispose();
     }
 }

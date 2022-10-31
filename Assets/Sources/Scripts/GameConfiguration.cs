@@ -1,7 +1,6 @@
 using Assets.Scripts.Levels;
 using Assets.Scripts.Localization;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +33,7 @@ namespace Assets.Scripts
 
             bool needUpdate = appVersionCorrect && isBuildLevelsVersionLower;
 
-            Debug.Log($"Need update levels = {needUpdate}. App version = {Application.version}, min app version for updating levels = {MinAppVersionForThisLevels}. Current db version = {buildLevelsDBVersion}, Server db versiom = {LevelsDataBaseVersion}");
+            Debug.Log($"Need update levels = {needUpdate}. App version = {Application.version}, min app version for updating levels = {MinAppVersionForThisLevels}. Current levels db version = {buildLevelsDBVersion}, Server levels db version = {LevelsDataBaseVersion}");
             return needUpdate;
         }
 

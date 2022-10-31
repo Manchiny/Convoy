@@ -23,6 +23,7 @@ public class EditorBuildMenu
         CreateLevelesDataFile(folderPath);
     }
 
+    #region Creating Build Data
     private static void CreateMainConfigurationFile(string folderPath)
     {
         GameConfiguration config = GameConfiguration.CreateActualConfiguration();
@@ -88,4 +89,5 @@ public class EditorBuildMenu
         else
             Debug.Log("Parse false: File not founded;");
     }
+    #endregion Creating Build Data
 }
