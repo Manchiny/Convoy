@@ -69,24 +69,41 @@ namespace Assets.Scripts
             Badges += count;
         }
             
-        public void SpendBadges(int count)
+        public bool TryBuyItem(ShopItem shopItem)
         {
-            if (Badges - count >= 0)
+            if(HasEnoughMoney(shopItem))
             {
-                Badges -= count;
+                Debug.LogError("[GAME]: Error buy item! Not enough money!");
+                return false;
+            }
 
+            if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft)
+                Badges -= shopItem.Cost;
+
+            return true;
                 //TODO string type - тип траты (например на буст скорости)
                 //GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "badges", itemCost, itemType, itemName);
                 //                string name -имя товара, уровень улучшения
                 //int amount -стоимость товара
                 //int count -суммарное количество потраченной валюты
-            }
+            
         }
 
         public bool HasItem(ItemName name, out ItemCount itemCount)
         {
             itemCount = GetItemCountByName(name);
             return (itemCount != null && itemCount.Count > 0);
+        }
+
+        public bool HasEnoughMoney(ShopItem shopItem)
+        {
+            if (shopItem.MoneyType == ShopItem.MoneyTypes.Ads)
+                return true;
+
+            if (shopItem.Cost > Badges)
+                return false;
+
+            return true;
         }
 
         private ItemCount GetItemCountByName(ItemName name)

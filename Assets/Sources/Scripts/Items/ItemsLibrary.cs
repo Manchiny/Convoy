@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.Items.Item;
 
 namespace Assets.Scripts.Items
 {
@@ -18,8 +17,15 @@ namespace Assets.Scripts.Items
 
             {ItemName.PlayerHeal20, new Item(ItemName.PlayerHeal20, ItemOwner.Player, 0.2f)},
 
-            {ItemName.PlayerPropertyPoint, new Item(ItemName.PlayerPropertyPoint, ItemOwner.Player, 1)},
-            {ItemName.PlayerPropertyLevel, new Item(ItemName.PlayerPropertyLevel, ItemOwner.Player, 1)},
+            {ItemName.PlayerPropertyPointMaxHealth, new Item(ItemName.PlayerPropertyPointMaxHealth, ItemOwner.Player, 1, ItemType.MaxHealth)},
+            {ItemName.PlayerPropertyPointArmor, new Item(ItemName.PlayerPropertyPointArmor, ItemOwner.Player, 1, ItemType.Armor)},
+            {ItemName.PlayerPropertyPointDamage, new Item(ItemName.PlayerPropertyPointDamage, ItemOwner.Player, 1, ItemType.Damage)},
+            {ItemName.PlayerPropertyPointShootingSpeed, new Item(ItemName.PlayerPropertyPointShootingSpeed, ItemOwner.Player, 1, ItemType.ShootingDelay)},
+
+            {ItemName.PlayerPropertyLevelMaxHealth, new Item(ItemName.PlayerPropertyLevelMaxHealth, ItemOwner.Player, 1, ItemType.MaxHealth)},
+            {ItemName.PlayerPropertyLevelArmor, new Item(ItemName.PlayerPropertyLevelArmor, ItemOwner.Player, 1, ItemType.Armor)},
+            {ItemName.PlayerPropertyLevelDamage, new Item(ItemName.PlayerPropertyLevelDamage, ItemOwner.Player, 1, ItemType.Damage)},
+            {ItemName.PlayerPropertyLevelShootingSpeed, new Item(ItemName.PlayerPropertyLevelShootingSpeed, ItemOwner.Player, 1, ItemType.ShootingDelay)},
 
             {ItemName.TankDoubleArmorBoost, new Item(ItemName.TankDoubleArmorBoost, ItemOwner.Tank,2f, ItemType.ArmorMultyplier, BoostEffectTime)},
             {ItemName.TankDoubleDamageBoost, new Item(ItemName.TankDoubleDamageBoost, ItemOwner.Tank, 2f, ItemType.DamageMultyplier,BoostEffectTime)},
@@ -27,8 +33,15 @@ namespace Assets.Scripts.Items
 
             {ItemName.TankHeal20, new Item(ItemName.TankHeal20, ItemOwner.Tank, 0.5f)},
 
-            {ItemName.TankPropertyPoint, new Item(ItemName.TankPropertyPoint, ItemOwner.Tank, 1f)},
-            {ItemName.TankPropertyLevel, new Item(ItemName.TankPropertyLevel, ItemOwner.Tank, 1f)}
+            {ItemName.TankPropertyPointMaxHealth, new Item(ItemName.PlayerPropertyPointMaxHealth, ItemOwner.Tank, 1, ItemType.MaxHealth)},
+            {ItemName.TankPropertyPointArmor, new Item(ItemName.PlayerPropertyPointArmor, ItemOwner.Tank, 1, ItemType.Armor)},
+            {ItemName.TankPropertyPointDamage, new Item(ItemName.PlayerPropertyPointDamage, ItemOwner.Tank, 1, ItemType.Damage)},
+            {ItemName.TankPropertyPointShootingSpeed, new Item(ItemName.PlayerPropertyPointShootingSpeed, ItemOwner.Tank, 1, ItemType.ShootingDelay)},
+
+            {ItemName.TankPropertyLevelMaxHealth, new Item(ItemName.TankPropertyLevelMaxHealth, ItemOwner.Tank, 1, ItemType.MaxHealth)},
+            {ItemName.TankPropertyLevelArmor, new Item(ItemName.TankPropertyLevelArmor, ItemOwner.Tank, 1, ItemType.Armor)},
+            {ItemName.TankPropertyLevelDamage, new Item(ItemName.TankPropertyLevelDamage, ItemOwner.Tank, 1, ItemType.Damage)},
+            {ItemName.TankPropertyLevelShootingSpeed, new Item(ItemName.TankPropertyLevelShootingSpeed, ItemOwner.Tank, 1, ItemType.ShootingDelay)},
         };
 
         public static Item GetItem(ItemName name)

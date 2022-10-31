@@ -18,8 +18,15 @@ namespace Assets.Scripts.Items
 
             {ItemName.PlayerHeal20, UseHealer},
 
-            {ItemName.PlayerPropertyPoint, UsePropertyPoint},
-            {ItemName.PlayerPropertyLevel, UsePropertyLevel},
+            {ItemName.PlayerPropertyPointMaxHealth, UsePropertyPoint},
+            {ItemName.PlayerPropertyPointArmor, UsePropertyPoint},
+            {ItemName.PlayerPropertyPointDamage, UsePropertyPoint},
+            {ItemName.PlayerPropertyPointShootingSpeed, UsePropertyPoint},
+
+            {ItemName.PlayerPropertyLevelMaxHealth, UsePropertyLevel},
+            {ItemName.PlayerPropertyLevelArmor, UsePropertyLevel},
+            {ItemName.PlayerPropertyLevelDamage, UsePropertyLevel},
+            {ItemName.PlayerPropertyLevelShootingSpeed, UsePropertyLevel},
 
             {ItemName.TankDoubleArmorBoost, UseBoost},
             {ItemName.TankDoubleDamageBoost, UseBoost},
@@ -27,8 +34,15 @@ namespace Assets.Scripts.Items
 
             {ItemName.TankHeal20, UseHealer},
 
-            {ItemName.TankPropertyPoint, UsePropertyPoint},
-            {ItemName.TankPropertyLevel, UsePropertyLevel}
+            {ItemName.TankPropertyPointMaxHealth, UsePropertyPoint},
+            {ItemName.TankPropertyPointArmor, UsePropertyPoint},
+            {ItemName.TankPropertyPointDamage, UsePropertyPoint},
+            {ItemName.TankPropertyPointShootingSpeed, UsePropertyPoint},
+
+            {ItemName.TankPropertyLevelMaxHealth, UsePropertyLevel},
+            {ItemName.TankPropertyLevelArmor, UsePropertyLevel},
+            {ItemName.TankPropertyLevelDamage, UsePropertyLevel},
+            {ItemName.TankPropertyLevelShootingSpeed, UsePropertyLevel}
     };
 
         public static void UseItem(Item item)

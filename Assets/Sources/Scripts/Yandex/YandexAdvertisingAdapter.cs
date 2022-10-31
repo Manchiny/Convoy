@@ -53,10 +53,13 @@ namespace Assets.Scripts.Social.Adverts
             ShowInterstitial(OnInterstitialOpen, OnInterstitilaClose, OnInterstitiaError, OnIntersitialOffline);
         }
 
-        public void TryShowRewardedVideo(Action onOpen, Action onRewarded, Action onClose, Action onError)
+        public bool TryShowRewardedVideo(Action onOpen,Action onRewarded, Action onClose, Action onError)
         {
             if (_socialAdapter == null || _socialAdapter.IsInited == false)
-                return;
+            {
+                Debug.Log($"{Tag}: social adapter is not inited");
+                return false;
+            }
 
             RevardedAdsOpened = onOpen;
             Rewarded = onRewarded;
@@ -64,6 +67,8 @@ namespace Assets.Scripts.Social.Adverts
             RewardAdsError = onError;
 
             ShowRewarded(OnRewardedOpen, OnRewarded, OnRewardedClose, OnRewardedError);
+
+            return true;
         }
 
         private void OnInterstitilaClose(bool close)

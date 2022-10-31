@@ -44,7 +44,7 @@ namespace Assets.Scripts.UI
             OnStart();
             IsOpening = true;
 
-            //Game.Localization.LanguageChanged += SetText;
+            Game.Localization.LanguageChanged += SetText;
 
             //if(NeedCloseOnOutOfClick)
             //    Game.UserInput.Touched += OnOutOfClick;
@@ -63,7 +63,7 @@ namespace Assets.Scripts.UI
             //if (NeedCloseOnOutOfClick)
             //    Game.UserInput.Touched -= OnOutOfClick;
 
-            //Game.Localization.LanguageChanged -= SetText;
+            Game.Localization.LanguageChanged -= SetText;
 
             if (AnimatedClose == true)
             {
@@ -101,10 +101,10 @@ namespace Assets.Scripts.UI
 
             OnUnhide();
 
-            //if (NeedHideHudOnShow)
-            //    Game.Windows.HUD.Hide();
-            //else
-            //    Game.Windows.HUD.Show();
+            if (NeedHideHudOnShow)
+                Game.Windows.HUD.Hide();
+            else
+                Game.Windows.HUD.Show();
 
             CanvasGroup.interactable = true;
             CanvasGroup.blocksRaycasts = true;

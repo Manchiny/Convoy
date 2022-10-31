@@ -34,6 +34,7 @@ namespace Assets.Scripts
         private YandexAdvertisingAdapter _adverts;
 
         private GameConfiguration _gameConfiguration;
+        private Shop _shop;
 
         private UserData _userData;
         private Saver _saver;
@@ -69,6 +70,7 @@ namespace Assets.Scripts
         public int CurrentLevelId => _userData.LevelId;
         public static Player Player => Instance._player;
         public static Tank Tank => Instance._tank;
+        public static Shop Shop => Instance._shop;
 
         public static WindowsController Windows => Instance._windowsController;
 
@@ -125,19 +127,9 @@ namespace Assets.Scripts
         {
             if (Input.GetKeyDown(KeyCode.Space) == true)
                 Debug.Log("Time: " + Time.time);
-
-            if (Input.GetKeyDown(KeyCode.Q) == true)
-                AddItemToUser();
         }
-
-        private void AddItemToUser()
-        {
-            Item item = ItemsLibrary.GetItem(ItemName.PlayerDoubleArmorBoost);
-            _userData.AddItem(item);
-            Save();
-        }
-
 #endif
+
         private void OnDestroy()
         {
             _tank.Completed -= OnLevelComplete;
@@ -254,6 +246,8 @@ namespace Assets.Scripts
         {
             InitLocalization();
             _levelLoader.InitData(_gameConfiguration.LevelsDatabaseData);
+
+            _shop = new Shop(_userData);
 
             Windows.HUD.Init(_userData);
 

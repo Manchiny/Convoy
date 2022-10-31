@@ -21,7 +21,12 @@ namespace Assets.Scripts.Items
         {
             { ItemType.ArmorMultyplier, UnitPropertyType.Armor },
             { ItemType.DamageMultyplier, UnitPropertyType.Damage },
-            { ItemType.ShootingDelayDivider, UnitPropertyType.ShootDelay }
+            { ItemType.ShootingDelayDivider, UnitPropertyType.ShootDelay },
+
+            { ItemType.MaxHealth, UnitPropertyType.MaxHealth },
+            { ItemType.Armor, UnitPropertyType.Armor },
+            { ItemType.Damage, UnitPropertyType.Damage },
+            { ItemType.ShootingDelay, UnitPropertyType.ShootDelay }
         };
 
         private float _coolDown;
@@ -101,20 +106,6 @@ namespace Assets.Scripts.Items
         }
     }
 
-    [Serializable]
-    public class ShopItem
-    {
-        public readonly ItemCount[] Items;
-        public readonly int Cost;
-        public readonly MoneyTypes MoneyType;
-
-        public enum MoneyTypes
-        {
-            Game,
-            Real
-        }
-    }
-
     public enum ItemName
     {
         BonusBadges,
@@ -125,8 +116,15 @@ namespace Assets.Scripts.Items
 
         PlayerHeal20,
 
-        PlayerPropertyPoint,
-        PlayerPropertyLevel,
+        PlayerPropertyPointMaxHealth,
+        PlayerPropertyPointArmor,
+        PlayerPropertyPointDamage,
+        PlayerPropertyPointShootingSpeed,
+
+        PlayerPropertyLevelMaxHealth,
+        PlayerPropertyLevelArmor,
+        PlayerPropertyLevelDamage,
+        PlayerPropertyLevelShootingSpeed,
 
         TankDoubleDamageBoost,
         TankDoubleShootingSpeedBoost,
@@ -134,8 +132,15 @@ namespace Assets.Scripts.Items
 
         TankHeal20,
 
-        TankPropertyPoint,
-        TankPropertyLevel
+        TankPropertyPointMaxHealth,
+        TankPropertyPointArmor,
+        TankPropertyPointDamage,
+        TankPropertyPointShootingSpeed,
+
+        TankPropertyLevelMaxHealth,
+        TankPropertyLevelArmor,
+        TankPropertyLevelDamage,
+        TankPropertyLevelShootingSpeed,
     }
 
     public enum ItemOwner
@@ -151,5 +156,10 @@ namespace Assets.Scripts.Items
         DamageMultyplier,
         ArmorMultyplier,
         ShootingDelayDivider,
+
+        Armor,
+        MaxHealth,
+        ShootingDelay,
+        Damage,
     }
 }
