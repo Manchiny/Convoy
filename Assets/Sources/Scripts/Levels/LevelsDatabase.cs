@@ -8,9 +8,10 @@ namespace Assets.Scripts.Levels
     {
         [SerializeField] private float _dataBaseVersion = 0;
         [SerializeField] private UnitPropertiesDatabase _enemySolderLevelsDatabase;
-        [SerializeField] private List<LevelConfig> _levelConfigs;
+        [SerializeField] private List<LevelConfig> _levelConfigs; // defualt;
 
         private const string Tag = "[LevelDatatabse]";
+
         private List<LevelConfigData> _levels;
 
         public UnitPropertiesDatabase SolderLevelDatabase => _enemySolderLevelsDatabase;
@@ -21,12 +22,15 @@ namespace Assets.Scripts.Levels
             if (levelData == null || levelData.Count == 0)
                 _levels = GetDefaultLevelsData();
             else
+            {
                 _levels = levelData;
+                Debug.Log($"{Tag}: levels updated;");
+            }
         }
 
         public LevelConfigData GetLevelConfig(int levelId)
         {
-            if(levelId >= _levels.Count)
+            if (levelId >= _levels.Count)
                 levelId = Random.Range(Game.Configuration.MinLevelForRandom, _levels.Count - 1);
 
             return _levels[levelId];

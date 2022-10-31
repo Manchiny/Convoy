@@ -7,9 +7,30 @@ namespace Assets.Scripts.Localization
     [CreateAssetMenu]
     public class LocalizationDatabase : ScriptableObject
     {
+        [SerializeField] private float _version = 0;
         [SerializeField] private List<LocalizationKey> _localizationKeys;
 
-        public IReadOnlyList<LocalizationKey> LocalizationKeys => _localizationKeys;
+        private List<LocalizationKey> _actualLicalizationKeys;
+
+        public IReadOnlyList<LocalizationKey> LocalizationKeys => _actualLicalizationKeys;
+        public float Version => _version;
+
+        public void Init(List<LocalizationKey> localizationKeys)
+        {
+            if (localizationKeys == null || localizationKeys.Count == 0)
+            {
+                _actualLicalizationKeys = _localizationKeys;
+                Debug.Log("Localization keys loaded defualt;");
+            }
+            else
+            {
+                _actualLicalizationKeys = localizationKeys;
+                Debug.Log("Localization keys updated by server;");
+            }
+        }
+#if UNITY_EDITOR
+        public IReadOnlyList<LocalizationKey> GetKeysData() => _localizationKeys;
+#endif
     }
 
     [Serializable]

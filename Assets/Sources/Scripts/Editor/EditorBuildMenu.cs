@@ -31,6 +31,8 @@ public class EditorBuildMenu
             writer.WriteLine(dataString);
             writer.Close();
             Debug.Log($"Data created in path: {fullPath}");
+
+            TryParseSaved(fullPath);
         }
     }
 
@@ -43,5 +45,18 @@ public class EditorBuildMenu
         }
 
         return true;
+    }
+
+    private static void TryParseSaved(string fullPath)
+    {
+        GameConfiguration data = new GameConfiguration();
+
+        if (File.Exists(fullPath))
+        {
+            data = JsonUtility.FromJson<GameConfiguration>(File.ReadAllText(fullPath));
+            Debug.Log($"Parse config - LevelsVersion: {data.LevelsDataBaseVersion}, LocalVersion: {data.LocalizationsVersion}");
+        }
+        else
+            Debug.Log("Parse false: File not founded;");
     }
 }

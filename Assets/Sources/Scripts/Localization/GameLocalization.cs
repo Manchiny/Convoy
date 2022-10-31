@@ -43,14 +43,14 @@ namespace Assets.Scripts.Localization
 
         public event Action LanguageChanged;
 
-        public void LoadKeys(string locale, LocalizationDatabase database)
+        public void LoadKeys(string locale, IReadOnlyList<LocalizationKey> localizationKeys)
         {
             if (_availableLocals.Contains(locale) == false)
                 locale = Locale.EN;
 
             Dictionary<string, string> pairs = new();
 
-            foreach (var key in database.LocalizationKeys)
+            foreach (var key in localizationKeys)
             {
                 foreach (var value in key.Values)
                 {

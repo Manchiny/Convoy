@@ -9,6 +9,7 @@ using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -203,7 +204,7 @@ namespace Assets.Scripts
             if (local == GameLocalization.CurrentLocale)
                 return;
 
-            _gameLocalization.LoadKeys(local, _localizationDatabase);
+            _gameLocalization.LoadKeys(local, _localizationDatabase.LocalizationKeys);
             _userData.SavedLocale = GameLocalization.CurrentLocale;
         }
 
@@ -238,6 +239,8 @@ namespace Assets.Scripts
                             _gameConfiguration.Levels = null; // TODO: вынести уровни в отдельный файл и загружать их или нет, по необходимости;
                         // и аналогично для переводов
 
+                        if (_gameConfiguration.NeedUpdateLocalizations(_localizationDatabase.Version) == false)
+                            _gameConfiguration.LocalizationKeys = null;
                     }
                     catch
                     {
@@ -262,7 +265,7 @@ namespace Assets.Scripts
         {
             _levelLoader.Init(_gameConfiguration);
 
-            InitLocalization();
+            InitLocalization(_gameConfiguration.LocalizationKeys);
 
             Windows.HUD.Init(_userData);
 
@@ -277,8 +280,9 @@ namespace Assets.Scripts
             Inited?.Invoke();
         }
 
-        private void InitLocalization()
+        private void InitLocalization(List<LocalizationKey> localizationKeys)
         {
+            _localizationDatabase.Init(localizationKeys);
             _gameLocalization = new GameLocalization();
 
             string locale = _userData.SavedLocale;
@@ -289,7 +293,7 @@ namespace Assets.Scripts
                 _userData.SavedLocale = locale;
             }
 
-            _gameLocalization.LoadKeys(locale, _localizationDatabase);
+            _gameLocalization.LoadKeys(locale, _localizationDatabase.LocalizationKeys);
         }
 
         private void StartLevel(int levelId, bool restart = false)
