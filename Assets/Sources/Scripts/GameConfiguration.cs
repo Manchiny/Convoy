@@ -10,12 +10,19 @@ namespace Assets.Scripts
     [Serializable]
     public class GameConfiguration
     {
+        public bool NeedSowInterstitialAfterLevelsComplete = true;
+        public int LevelsCompletedCountForShowInterstitial;
+
+        public bool NeedShowInterstitialOnRestartLevel = true;
+        public int LevelFailsCountForShowInterstitial = 3;
+
+        public float LocalizationsVersion;
+
         public int MinLevelForRandom = 1;
 
-        public float LevelsDataBaseVersion = 0;
+        public float LevelsDataBaseVersion;
         public float MinAppVersionForThisLevels = 0.1f;
 
-        public float LocalizationsVersion = 0.1f;
 
         [NonSerialized]
         public LocalizationsData LocalizationData;
