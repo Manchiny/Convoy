@@ -17,13 +17,13 @@ namespace Assets.Scripts.Levels
         public UnitPropertiesDatabase SolderLevelDatabase => _enemySolderLevelsDatabase;
         public float Version => _dataBaseVersion;
 
-        public void Init(List<LevelConfigData> levelData)
+        public void Init(LevelsDatabaseData data)
         {
-            if (levelData == null || levelData.Count == 0)
+            if (data == null || data.Levels == null || data.Levels.Count == 0)
                 _levels = GetDefaultLevelsData();
             else
             {
-                _levels = levelData;
+                _levels = data.Levels;
                 Debug.Log($"{Tag}: levels updated;");
             }
         }

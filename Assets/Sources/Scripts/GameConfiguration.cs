@@ -18,8 +18,11 @@ namespace Assets.Scripts
 
         public float LocalizationsVersion = 0.1f;
 
-        public List<LevelConfigData> Levels;
-        public List<LocalizationKey> LocalizationKeys;
+        [NonSerialized]
+        public LocalizationsData LocalizationData;
+
+        [NonSerialized]
+        public LevelsDatabaseData LevelsDatabaseData;
 
         public bool NeedUpdateLocalizations(float buildLocalizationsVersion) => buildLocalizationsVersion < LocalizationsVersion;
         public bool NeedUpdatedLevels(float buildLevelsDBVersion)
@@ -39,32 +42,48 @@ namespace Assets.Scripts
         public static GameConfiguration CreateActualConfiguration()
         {
             GameConfiguration config = new GameConfiguration();
-            WriteLevelsDatabase(config);
-            WriteLocalizationKeys(config);
+
+            config.LocalizationsVersion = GetCurrentLocalizationDatabase().Version;
+            config.LevelsDataBaseVersion = GetCurrentLevelsDatabase().Version;
 
             return config;
         }
 
-        private static void WriteLevelsDatabase(GameConfiguration config)
+        public static LevelsDatabaseData GetLevelsDatabaseData()
         {
-            var levelDataBases = Resources.FindObjectsOfTypeAll<LevelsDatabase>();
+            LevelsDatabaseData data = null;
+            LevelsDatabase database = GetCurrentLevelsDatabase();
 
-            if (levelDataBases == null || levelDataBases.Length == 0)
-                Debug.Log("Dont't finded levels database!");
-            else if (levelDataBases.Length > 1)
-                Debug.Log("Finded more then one level databases!");
-            else
+            if(database != null)
             {
-                LevelsDatabase database = levelDataBases.First();
-                Debug.Log($"Level database getted. Version: {database.Version}");
-
-                config.Levels = database.GetDefaultLevelsData();
-                config.LevelsDataBaseVersion = database.Version;
+                data = new LevelsDatabaseData();
+                data.Version = database.Version;           
+                data.Levels = database.GetDefaultLevelsData();
             }
+
+            return data;
         }
 
-        private static void WriteLocalizationKeys(GameConfiguration config)
+        public static LocalizationsData GetLocalizationKeysData()
         {
+            LocalizationsData data = null;
+
+            LocalizationDatabase database = GetCurrentLocalizationDatabase();
+            
+            if (database != null)
+            {
+                data = new LocalizationsData();
+                data.Version = database.Version;
+                data.LocalizationKeys = database.GetKeysData().ToList();
+            }
+
+            return data;
+        }
+
+        private static LocalizationDatabase GetCurrentLocalizationDatabase()
+        {
+            LocalizationDatabase database = null;
+
             var localizationDatabases = Resources.FindObjectsOfTypeAll<LocalizationDatabase>();
 
             if (localizationDatabases == null || localizationDatabases.Length == 0)
@@ -73,12 +92,30 @@ namespace Assets.Scripts
                 Debug.Log("Finded more then one localizations databases!");
             else
             {
-                LocalizationDatabase database = localizationDatabases.First();
+                database = localizationDatabases.First();
                 Debug.Log($"Localizations database getted. Version: {database.Version}");
-
-                config.LocalizationKeys = database.GetKeysData().ToList();
-                config.LocalizationsVersion = database.Version;
             }
+
+            return database;
+        }
+
+        private static LevelsDatabase GetCurrentLevelsDatabase()
+        {
+            LevelsDatabase database = null;
+
+            var levelDataBases = Resources.FindObjectsOfTypeAll<LevelsDatabase>();
+
+            if (levelDataBases == null || levelDataBases.Length == 0)
+                Debug.Log("Dont't finded levels database!");
+            else if (levelDataBases.Length > 1)
+                Debug.Log("Finded more then one level databases!");
+            else
+            {
+                database = levelDataBases.First();
+                Debug.Log($"Level database getted. Version: {database.Version}");
+            }
+
+            return database;
         }
 #endif
     }

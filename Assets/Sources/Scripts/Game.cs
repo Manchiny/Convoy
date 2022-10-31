@@ -9,7 +9,6 @@ using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -135,6 +134,7 @@ namespace Assets.Scripts
         }
 
         public static string Localize(string key, params string[] parameters) => Localization?.Localize(key, parameters) ?? key;
+
         public void SetInputSystem(UserInput input)
         {
             Debug.Log($"Device type = {SystemInfo.deviceType}");
@@ -215,57 +215,33 @@ namespace Assets.Scripts
             _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
             _player.InitData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
 
-            LoadConfiguration();
+            StartCoroutine(LoadGameConfiguration());
         }
 
-        private void LoadConfiguration()
+        private IEnumerator LoadGameConfiguration()
         {
-            StartCoroutine(LoadTextFromServer(GameConstants.GameConfigConnectionURL, OnComplete, OnError));
+            yield return StartCoroutine(LoadTextFromServer(GameConstants.GameConfigURL, (result) => ParseToDataOrCreateNew(result, out _gameConfiguration)));
+            yield return _gameConfiguration != null;
 
-            void OnComplete(string result)
+            if (_gameConfiguration.NeedUpdatedLevels(_levelLoader.DatabaseVesrsion))
             {
-                if (result.IsNullOrEmpty())
-                {
-                    OnError("Loaded GameConfigurations is null!");
-                    return;
-                }
-                else
-                {
-                    try
-                    {
-                        _gameConfiguration = JsonUtility.FromJson<GameConfiguration>(result);
-
-                        if (_gameConfiguration.NeedUpdatedLevels(_levelLoader.DatabaseVesrsion) == false)
-                            _gameConfiguration.Levels = null; // TODO: вынести уровни в отдельный файл и загружать их или нет, по необходимости;
-                        // и аналогично для переводов
-
-                        if (_gameConfiguration.NeedUpdateLocalizations(_localizationDatabase.Version) == false)
-                            _gameConfiguration.LocalizationKeys = null;
-                    }
-                    catch
-                    {
-                        OnError("Loaded GameConfigurations is null!");
-                        return;
-                    }                
-                }    
-                   
-                InitGame();
+                yield return StartCoroutine(LoadTextFromServer(GameConstants.LevelsDataURL, (result) => ParseToDataOrCreateNew(result, out _gameConfiguration.LevelsDatabaseData)));
+                yield return _gameConfiguration.LevelsDatabaseData != null;
             }
 
-            void OnError(string error)
+            if (_gameConfiguration.NeedUpdateLocalizations(_localizationDatabase.Version))
             {
-                Debug.Log(error + "\nThe default settings will be used.");
-                _gameConfiguration = new GameConfiguration();
-
-                InitGame();
+                yield return StartCoroutine(LoadTextFromServer(GameConstants.LocalizationsURL, (result) => ParseToDataOrCreateNew(result, out _gameConfiguration.LocalizationData)));
+                yield return _gameConfiguration.LocalizationData != null;
             }
+
+            InitGame();
         }
 
         private void InitGame()
         {
-            _levelLoader.Init(_gameConfiguration);
-
-            InitLocalization(_gameConfiguration.LocalizationKeys);
+            InitLocalization();
+            _levelLoader.InitData(_gameConfiguration.LevelsDatabaseData);
 
             Windows.HUD.Init(_userData);
 
@@ -280,9 +256,9 @@ namespace Assets.Scripts
             Inited?.Invoke();
         }
 
-        private void InitLocalization(List<LocalizationKey> localizationKeys)
+        private void InitLocalization()
         {
-            _localizationDatabase.Init(localizationKeys);
+            _localizationDatabase.InitData(_gameConfiguration.LocalizationData);
             _gameLocalization = new GameLocalization();
 
             string locale = _userData.SavedLocale;
@@ -351,7 +327,21 @@ namespace Assets.Scripts
             Time.timeScale = 1;
         }
 
-        private IEnumerator LoadTextFromServer(string url, Action<string> onSucces, Action<string> onError)
+        private void ParseToDataOrCreateNew<T>(string parseText, out T resultOut) where T : class, new()
+        {
+            try
+            {
+                T result = JsonUtility.FromJson<T>(parseText);
+                resultOut = result;
+            }
+            catch
+            {
+                Debug.Log($"Error parse data to {typeof(T)}");
+                resultOut = new T();
+            }
+        }
+
+        private IEnumerator LoadTextFromServer(string url, Action<string> onComplete)
         {
             UnityWebRequest request = null;
 
@@ -361,7 +351,9 @@ namespace Assets.Scripts
             }
             catch
             {
-                onError?.Invoke("Error connection!");
+                Debug.LogError("[Game] Error connection!");
+                onComplete?.Invoke(null);
+
                 yield break;
             }
 
@@ -369,12 +361,12 @@ namespace Assets.Scripts
 
             if (request.result != UnityWebRequest.Result.DataProcessingError || request.result != UnityWebRequest.Result.ProtocolError && request.result != UnityWebRequest.Result.ConnectionError)
             {
-                onSucces?.Invoke(request.downloadHandler.text);
+                onComplete?.Invoke(request.downloadHandler.text);
             }
             else
             {
-                Debug.LogErrorFormat("error request [{0}, {1}]", url, request.error);
-                onError?.Invoke(request.error);
+                Debug.LogErrorFormat($"[Game] error request {url}, { request.error}");
+                onComplete?.Invoke(null);
             }
 
             request.Dispose();

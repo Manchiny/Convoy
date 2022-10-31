@@ -1,4 +1,6 @@
 using Assets.Scripts;
+using Assets.Scripts.Levels;
+using Assets.Scripts.Localization;
 using System;
 using System.IO;
 using UnityEditor;
@@ -6,41 +8,68 @@ using UnityEngine;
 
 public class EditorBuildMenu
 {
-    private const string BuildDataFileName = "GameConfiguration.json";
-    private static string BuildDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),$"{Application.productName}Data", $"Data_{DateTime.Now.ToString("dd_MM_yyyy")}");
+    private const string MainGameConfigFileName = "GameConfiguration.json";
+    private const string LocalizationsFileName = "LocalizationsData.json";
+    private const string LevelsFileName = "LevelsData.json";
+    private static string BuildDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{Application.productName}Data", $"Data_{DateTime.Now.ToString("dd_MM_yyyy")}");
 
     [MenuItem("Build/Create Build Data")]
     public static void CreateBuildData()
     {
+        string folderPath = BuildDataFolderPath;
+
+        CreateMainConfigurationFile(folderPath);
+        CreateLocalizationsDataFile(folderPath);
+        CreateLevelesDataFile(folderPath);
+    }
+
+    private static void CreateMainConfigurationFile(string folderPath)
+    {
         GameConfiguration config = GameConfiguration.CreateActualConfiguration();
-
-        if (CheckValid(config) == false)
-            return;
-
         string dataString = JsonUtility.ToJson(config);
+        CreateFile(folderPath, MainGameConfigFileName, dataString);
+    }
 
-        if (Directory.Exists(BuildDataFolderPath) == false)
-            Directory.CreateDirectory(BuildDataFolderPath);
+    private static void CreateLocalizationsDataFile(string folderPath)
+    {
+        LocalizationsData data = GameConfiguration.GetLocalizationKeysData();
+        string dataString = JsonUtility.ToJson(data);
+        CreateFile(folderPath, LocalizationsFileName, dataString);
+    }
 
-        string fullPath = Path.Combine(BuildDataFolderPath, BuildDataFileName);
+    private static void CreateLevelesDataFile(string folderPath)
+    {
+        LevelsDatabaseData data = GameConfiguration.GetLevelsDatabaseData();
+
+        if (CheckValidLevels(data))
+        {
+            string dataString = JsonUtility.ToJson(data);
+            CreateFile(folderPath, LevelsFileName, dataString);
+        }
+    }
+
+    private static void CreateFile(string folderPath, string fileName, string data)
+    {
+        if (Directory.Exists(folderPath) == false)
+            Directory.CreateDirectory(folderPath);
+
+        string fullPath = Path.Combine(folderPath, fileName);
 
         File.CreateText(fullPath).Dispose();
 
         using (TextWriter writer = new StreamWriter(fullPath, false))
         {
-            writer.WriteLine(dataString);
+            writer.WriteLine(data);
             writer.Close();
             Debug.Log($"Data created in path: {fullPath}");
-
-            TryParseSaved(fullPath);
         }
     }
 
-    private static bool CheckValid(GameConfiguration config)
+    private static bool CheckValidLevels(LevelsDatabaseData data)
     {
-        if(config == null || config.Levels == null || config.Levels.Count == 0)
+        if (data == null || data.Levels == null || data.Levels.Count == 0)
         {
-            Debug.LogError("Data is wrong!");
+            Debug.LogError("Levels data is wrong!");
             return false;
         }
 

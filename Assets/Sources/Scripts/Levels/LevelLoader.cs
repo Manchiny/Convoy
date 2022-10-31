@@ -35,9 +35,9 @@ namespace Assets.Scripts.Levels
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
         public float DatabaseVesrsion => _levelsDatabase.Version;
 
-        public void Init(GameConfiguration gameConfig)
+        public void InitData(LevelsDatabaseData data)
         {
-            _levelsDatabase.Init(gameConfig.Levels);
+            _levelsDatabase.Init(data);
         }
 
         public void LoadLevel(int levelId)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Localization
@@ -15,19 +16,20 @@ namespace Assets.Scripts.Localization
         public IReadOnlyList<LocalizationKey> LocalizationKeys => _actualLicalizationKeys;
         public float Version => _version;
 
-        public void Init(List<LocalizationKey> localizationKeys)
+        public void InitData(LocalizationsData data)
         {
-            if (localizationKeys == null || localizationKeys.Count == 0)
+            if (data == null || data.LocalizationKeys.Count == 0)
             {
                 _actualLicalizationKeys = _localizationKeys;
                 Debug.Log("Localization keys loaded defualt;");
             }
             else
             {
-                _actualLicalizationKeys = localizationKeys;
-                Debug.Log("Localization keys updated by server;");
+                _actualLicalizationKeys = data.LocalizationKeys.ToList();
+                Debug.Log($"Localization keys updated by server; Count: {_actualLicalizationKeys.Count}; Version: {data.Version}");
             }
         }
+
 #if UNITY_EDITOR
         public IReadOnlyList<LocalizationKey> GetKeysData() => _localizationKeys;
 #endif
