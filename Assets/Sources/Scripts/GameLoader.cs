@@ -12,7 +12,6 @@ namespace Assets.Scripts
         private IEnumerator Start()
         {
 #if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
-            _yandexAdapter = new YandexSocialAdapter();
             yield return StartCoroutine(_yandexAdapter.Init());
 #endif
             yield return null;
