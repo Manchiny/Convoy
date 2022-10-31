@@ -7,6 +7,7 @@ using Assets.Scripts.Social.Adverts;
 using Assets.Scripts.UI;
 using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
+using GameAnalyticsSDK;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace Assets.Scripts
         private Saver _saver;
         private GameLocalization _gameLocalization;
 
+        private float _startLevelTime;
+
         private GameMode _currentMode;
 
         private UserInput _input;
@@ -53,6 +56,12 @@ namespace Assets.Scripts
         {
             Game,
             TankUpgrade
+        }
+
+        private enum LoosReason
+        {
+            Player_died,
+            Tank_died
         }
 
         public static Game Instance { get; private set; }
@@ -91,6 +100,7 @@ namespace Assets.Scripts
 
         private IEnumerator Start()
         {
+            GameAnalytics.NewDesignEvent("game_start");
             _yandexAdapter = FindObjectOfType<YandexSocialAdapter>();
 
             if (_yandexAdapter != null && _yandexAdapter.IsInited)
@@ -111,7 +121,7 @@ namespace Assets.Scripts
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space) == true)
-                RestartLevel();
+                Debug.Log("Time: " + Time.time);
 
             if (Input.GetKeyDown(KeyCode.Q) == true)
                 AddItemToUser();
@@ -273,8 +283,13 @@ namespace Assets.Scripts
 
         private void StartLevel(int levelId, bool restart = false)
         {
+            _startLevelTime = Time.time;
+
             if (restart == false)
+            {
                 _levelLoader.LoadLevel(levelId);
+                GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_start", levelId);
+            }
 
             _tank.OnLevelStarted(_levelLoader.TankSpawnPoint.position, _levelLoader.Waypoints);
             _player.OnLevelStarted(_levelLoader.PlayerSpawnPoint.position);
@@ -291,6 +306,12 @@ namespace Assets.Scripts
 
             _winLooseProcess = true;
 
+            float currentTime = Time.time;
+            int elapsedTime = (int)(currentTime - _startLevelTime);
+            LoosReason reason = unit is Tank ? LoosReason.Tank_died : LoosReason.Player_died;
+
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelId.ToString(), reason.ToString(), elapsedTime);
+
             Debug.Log($"Level {CurrentLevelId + 1} loosed!");
             RestartLevel();
         }
@@ -302,6 +323,8 @@ namespace Assets.Scripts
 
             _winLooseProcess = true;
 
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", CurrentLevelId);
+
             Debug.Log($"Level {CurrentLevelId + 1} completed!");
 
             _userData.LevelId++;
@@ -312,6 +335,7 @@ namespace Assets.Scripts
 
         private void RestartLevel()
         {
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "restart", CurrentLevelId);
             StartLevel(CurrentLevelId, true);
             Restarted?.Invoke();
         }

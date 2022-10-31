@@ -1,4 +1,5 @@
 using Assets.Scripts.Items;
+using GameAnalyticsSDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,20 @@ namespace Assets.Scripts
         public void AddBadges(int count)
         {
             Badges += count;
+        }
+            
+        public void SpendBadges(int count)
+        {
+            if (Badges - count >= 0)
+            {
+                Badges -= count;
+
+                //TODO string type - тип траты (например на буст скорости)
+                //GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "badges", itemCost, itemType, itemName);
+                //                string name -имя товара, уровень улучшения
+                //int amount -стоимость товара
+                //int count -суммарное количество потраченной валюты
+            }
         }
 
         public bool HasItem(ItemName name, out ItemCount itemCount)
