@@ -700,7 +700,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 1
   scriptingDefineSymbols:
-    WebGL: YANDEX_GAMES
+    WebGL: YANDEX_GAMES;GAME_ANALYTICS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

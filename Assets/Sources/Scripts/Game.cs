@@ -100,7 +100,10 @@ namespace Assets.Scripts
 
         private IEnumerator Start()
         {
+#if GAME_ANALYTICS
+            GameAnalytics.Initialize();
             GameAnalytics.NewDesignEvent("game_start");
+#endif
             _yandexAdapter = FindObjectOfType<YandexSocialAdapter>();
 
             if (_yandexAdapter != null && _yandexAdapter.IsInited)
@@ -288,7 +291,9 @@ namespace Assets.Scripts
             if (restart == false)
             {
                 _levelLoader.LoadLevel(levelId);
+#if GAME_ANALYTICS
                 GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_start", levelId);
+# endif
             }
 
             _tank.OnLevelStarted(_levelLoader.TankSpawnPoint.position, _levelLoader.Waypoints);
@@ -310,8 +315,9 @@ namespace Assets.Scripts
             int elapsedTime = (int)(currentTime - _startLevelTime);
             LoosReason reason = unit is Tank ? LoosReason.Tank_died : LoosReason.Player_died;
 
+#if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelId.ToString(), reason.ToString(), elapsedTime);
-
+#endif
             Debug.Log($"Level {CurrentLevelId + 1} loosed!");
             RestartLevel();
         }
@@ -323,8 +329,9 @@ namespace Assets.Scripts
 
             _winLooseProcess = true;
 
+#if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", CurrentLevelId);
-
+#endif
             Debug.Log($"Level {CurrentLevelId + 1} completed!");
 
             _userData.LevelId++;
@@ -335,7 +342,9 @@ namespace Assets.Scripts
 
         private void RestartLevel()
         {
+#if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "restart", CurrentLevelId);
+#endif
             StartLevel(CurrentLevelId, true);
             Restarted?.Invoke();
         }

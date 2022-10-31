@@ -25,6 +25,6 @@ MonoBehaviour:
   - _type: 0
     _chance: 15
   - _type: 1
-    _chance: 25
+    _chance: 40
   - _type: 2
-    _chance: 60
+    _chance: 0
