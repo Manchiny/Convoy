@@ -8,17 +8,22 @@ namespace Assets.Scripts.Items
     [Serializable]
     public class ShopItem 
     {
-        public readonly ShopItemName Name;
-        public readonly ItemCount[] Items;
-        public readonly int Cost;
-        public readonly MoneyTypes MoneyType;
+        [SerializeField] private ShopItemName _name;
+        [SerializeField] private MoneyTypes _moneyType;
+        [SerializeField] private int _cost;
+        [SerializeField] private List<ItemCount> _items;
 
-        public ShopItem(ShopItemName name, int cost, MoneyTypes moneyType, ItemCount[] items)
+        public ShopItemName Name => _name;
+        public MoneyTypes MoneyType => _moneyType;
+        public int Cost => _cost;
+        public IReadOnlyList<ItemCount> Items => _items;
+
+        public ShopItem(ShopItemName name, int cost, MoneyTypes moneyType, List<ItemCount> items)
         {
-            Items = items;
-            Cost = cost;
-            MoneyType = moneyType;
-            Name = name;
+            _name = name;
+            _moneyType = moneyType;
+            _cost = cost;
+            _items = items;
         }
 
         public enum MoneyTypes

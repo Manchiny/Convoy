@@ -2,13 +2,18 @@ using Assets.Scripts.Items;
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Items
 {
-    public class Shop
+    public class Shop : MonoBehaviour
     {
-        private UserData _user;
+        [SerializeField] private ItemsDatabase _itemsDatabase;
+        [SerializeField] private ShopItemsDatabase _shopItemsDatabase;
 
-        public Shop(UserData userData)
+        private UserData _user;
+        public ItemsDatabase ItemsDatabase => _itemsDatabase;
+        public ShopItemsDatabase ShopItemsDatabase => _shopItemsDatabase;
+
+        public void Init (UserData userData)
         {
             _user = userData;
         }

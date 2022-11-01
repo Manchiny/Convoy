@@ -28,7 +28,7 @@ namespace Assets.Scripts.UI
 
         public void Init(UserData data)
         {
-            _item = ItemsLibrary.GetItem(_itemName);
+            _item = Game.Shop.ItemsDatabase.GetItem(_itemName);
             SetOnClick(TryUse);
 
             _user = data;
@@ -58,7 +58,7 @@ namespace Assets.Scripts.UI
                 if(_item.IsTemporary)
                 {
                     Disable(true);
-                    ShowCooldawnAnimation(_item.Seconds);
+                    ShowCooldawnAnimation(_item.BoostSeconds);
                 }
 
                 Debug.Log($"Boost use: {_item.Name}");

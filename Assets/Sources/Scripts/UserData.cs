@@ -44,7 +44,7 @@ namespace Assets.Scripts
             ItemCount itemCount = GetItemCountByName(item.Name);
 
             if (itemCount == null)
-                Items.Add(new ItemCount(item.Item, item.Count));
+                Items.Add(new ItemCount(item.Name, item.Count));
             else
                 itemCount.Count += item.Count;
 
@@ -56,7 +56,7 @@ namespace Assets.Scripts
             ItemCount itemCount = GetItemCountByName(item.Name);
 
             if (itemCount == null)
-                Items.Add(new ItemCount(item, 1));
+                Items.Add(new ItemCount(item.Name, 1));
             else
                 itemCount.Count += 1;
 

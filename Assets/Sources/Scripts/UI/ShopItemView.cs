@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI
 
         public virtual void Init(Unit unit)
         {
-            ShopItem = ShopItemsLibrary.GetShopItemByName(_shopItemName);
+            ShopItem = Game.Shop.ShopItemsDatabase.GetShopItemByName(_shopItemName);
 
             if (ShopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
@@ -42,6 +42,12 @@ namespace Assets.Scripts.UI
             SetText();
 
             _buyButton.SetOnClick(OnButtonBuyClicked);
+        }
+
+        public virtual void InitFromShop(ShopItem item)
+        {
+            _shopItemName = item.Name;
+            Init(null);
         }
 
         protected void OnButtonBuyClicked()

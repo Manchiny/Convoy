@@ -10,12 +10,25 @@ namespace Assets.Scripts.Items
     [Serializable]
     public class Item
     {
-        public ItemName Name;
+        [SerializeField] private ItemName _name;
+        [SerializeField] private ItemOwner _owner;
+        [SerializeField] private ItemType _type;
+        [Space]
+        [SerializeField] private float _value;
+        [SerializeField] private float _boostSeconds;
+        [Space]
+        [SerializeField] private Sprite _icon;
+        [SerializeField] private string _description;
 
-        public readonly ItemOwner Owner;
-        public readonly ItemType Type;
-        public readonly float Value;
-        public readonly float Seconds;
+        public ItemType Type => _type;
+        public ItemName Name => _name;
+        public ItemOwner Owner => _owner;
+
+        public float Value => _value;
+        public float BoostSeconds => _boostSeconds;
+        public Sprite Icon => _icon;
+        public string Description => _description;
+
 
         private static Dictionary<ItemType, UnitPropertyType> UnitPropertiesByItemType = new()
         {
@@ -32,16 +45,16 @@ namespace Assets.Scripts.Items
         private float _coolDown;
         private Coroutine _effectAction;
 
-        public bool IsTemporary => Seconds > 0;
+        public bool IsTemporary => BoostSeconds > 0;
         public bool CanUse => IsTemporary == false || _coolDown <= 0;
 
         public Item(ItemName name, ItemOwner owner, float value, ItemType type = ItemType.Defualt, float seconds = -1)
         {
-            Name = name;
-            Value = value;
-            Seconds = seconds;
-            Owner = owner;
-            Type = type;
+            //Name = name;
+            //Value = value;
+            //BoostSeconds = seconds;
+            //Owner = owner;
+            //Type = type;
         }
 
         ~Item()
@@ -62,7 +75,7 @@ namespace Assets.Scripts.Items
         {
             if (IsTemporary)
             {
-                _coolDown = Seconds;
+                _coolDown = BoostSeconds;
                 _effectAction = Game.Instance.StartCoroutine(StartEffectAction(onEffectEnd));
             }
             else
@@ -74,7 +87,7 @@ namespace Assets.Scripts.Items
 
         private IEnumerator StartEffectAction(Action onEnd)
         {
-            yield return new WaitForSeconds(Seconds);
+            yield return new WaitForSeconds(BoostSeconds);
             _coolDown = 0;
 
             IBoostable unit = null;
@@ -95,13 +108,16 @@ namespace Assets.Scripts.Items
     [Serializable]
     public class ItemCount
     {
-        public Item Item;
+        [SerializeField] private ItemName _name;
         public int Count;
-        public ItemName Name => Item.Name;
 
-        public ItemCount(Item item, int count)
+        public Item Item => Game.Shop.ItemsDatabase.GetItem(_name);
+
+        public ItemName Name => _name;
+
+        public ItemCount(ItemName name, int count)
         {
-            Item = item;
+            _name = name;
             Count = count;
         }
     }
@@ -153,6 +169,7 @@ namespace Assets.Scripts.Items
     public enum ItemType
     {
         Defualt,
+
         DamageMultyplier,
         ArmorMultyplier,
         ShootingDelayDivider,

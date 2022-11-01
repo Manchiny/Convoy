@@ -29,12 +29,12 @@ namespace Assets.Scripts
         [SerializeField] private UnitPropertiesDatabase _playerCharacterPropertiesDatabase;
         [Space]
         [SerializeField] private LocalizationDatabase _localizationDatabase;
+        [SerializeField] private Shop _shop;
 
         private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
 
         private GameConfiguration _gameConfiguration;
-        private Shop _shop;
 
         private UserData _userData;
         private Saver _saver;
@@ -250,7 +250,7 @@ namespace Assets.Scripts
             InitLocalization();
             _levelLoader.InitData(_gameConfiguration.LevelsDatabaseData);
 
-            _shop = new Shop(_userData);
+            _shop.Init(_userData);
 
             Windows.HUD.Init(_userData);
 
