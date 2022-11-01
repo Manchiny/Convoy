@@ -26,8 +26,7 @@ namespace Assets.Scripts.UI
 
             _item = ShopItem.Items.First().Item;
             _propertyType = Item.UnitPropertyByItemType(_item.Type);
-            _data = Game.Tank.GetData;
-
+            
             UpdateView();
         }
 
@@ -44,6 +43,8 @@ namespace Assets.Scripts.UI
 
         private void UpdateView()
         {
+            _data = Game.Tank.GetData;
+
             _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, Game.Tank.PropertiesDatabase);
             _currentPropertyLevel = _data.GetUserPropertyLevel(_propertyType);
             _currentPropertyPoints = _data.CurrentPropertyPoints(_propertyType);

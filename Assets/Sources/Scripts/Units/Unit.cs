@@ -64,13 +64,11 @@ namespace Assets.Scripts.Units
         public void AddPropertyUpgradePoint(UnitPropertyType propertyType)
         {
             Data.AddUpgradePoint(propertyType, PropertiesDatabase);
-            Game.Instance.Save();
         }
 
         public void AddPropertyLevel(UnitPropertyType propertyType)
         {
             Data.UpgradeLevel(propertyType, PropertiesDatabase);
-            Game.Instance.Save();
         }
 
         protected virtual void OnDataInited() { }

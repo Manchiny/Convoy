@@ -23,13 +23,10 @@ namespace Assets.Scripts.UI
             Game.Localization.LanguageChanged -= SetText;
         }
 
-        private void Awake()
-        {
-            ShopItem = ShopItemsLibrary.GetShopItemByName(_shopItemName);
-        }
-
         public virtual void Init()
         {
+            ShopItem = ShopItemsLibrary.GetShopItemByName(_shopItemName);
+
             if (ShopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
                 Game.Localization.LanguageChanged += SetText;
@@ -48,18 +45,22 @@ namespace Assets.Scripts.UI
 
         protected void OnButtonBuyClicked()
         {
+            Debug.Log("[ItemView] button buy clicked;");
             _buyButton.SetLock(true);
+
             Game.Shop.TryBuyItem(ShopItem, OnSuccesBuy, OnBuyFail);
         }
 
         protected virtual void OnSuccesBuy()
         {
             _buyButton.SetLock(false);
+            Debug.Log("[ItemView] on succes buy");
         }
 
         protected virtual void OnBuyFail()
         {
             _buyButton.SetLock(false);
+            Debug.Log("[ItemView] on succes fail");
         }
 
         private void SetText()

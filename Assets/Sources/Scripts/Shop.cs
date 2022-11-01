@@ -39,6 +39,8 @@ namespace Assets.Scripts
 
             void TryAddRewardedItems()
             {
+                Debug.Log("[Shop] Try add items. Rewarde = " + rewarded);
+
                 if (rewarded)
                 {
                     AddItems(shopItem);
@@ -62,8 +64,6 @@ namespace Assets.Scripts
             {
                 _user.AddItemCount(item);
             }
-
-            Game.Instance.Save();
         }
 
         //private void AddItemToUser()

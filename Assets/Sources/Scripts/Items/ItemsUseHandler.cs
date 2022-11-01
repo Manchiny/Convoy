@@ -50,7 +50,7 @@ namespace Assets.Scripts.Items
             if(Handlers.TryGetValue(item.Name, out Action<Item> action))
             {
                 action?.Invoke(item);
-                Debug.Log($"Item effect from {item.Name} started!");
+                Debug.Log($"Item used {item.Name}!");
             }
             else
             {
