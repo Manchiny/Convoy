@@ -16,6 +16,7 @@ namespace Assets.Scripts.UI
         private const string LevelLocalizationKey = "level";
         private const string PlayLocalizationKey = "play";
         private const string UgradePlayerLocalizationKey = "upgrade_player";
+        private const string ShopLocalizationKey = "shop";
 
         private int _userBadgesCount;
 
@@ -35,6 +36,7 @@ namespace Assets.Scripts.UI
 
             _startLevelButton.Text = PlayLocalizationKey.Localize();
             _upgradePlayerButton.Text = UgradePlayerLocalizationKey.Localize();
+            _shopButton.Text = ShopLocalizationKey.Localize();
         }
 
         private void Init(int userBadgesCount, Action onStartClick)
