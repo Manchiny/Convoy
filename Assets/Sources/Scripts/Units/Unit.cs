@@ -25,7 +25,7 @@ namespace Assets.Scripts.Units
         public virtual int Damage => _baseDamage;
         public virtual float ShootDelay => _baseShootDelay;
 
-        protected UnitPropertiesDatabase PropertiesDatabase => _propertiesDatabase;
+        public UnitPropertiesDatabase PropertiesDatabase => _propertiesDatabase;
 
         public void InitData(UnitData data, UnitPropertiesDatabase propertiesDatabase)
         {

@@ -23,9 +23,9 @@ namespace Assets.Scripts
 
         public bool TryUseItem(Item realItem, Action onEffetctEnded)
         {
-            if(HasItem(realItem.Name, out ItemCount itemCount))
+            if (HasItem(realItem.Name, out ItemCount itemCount))
             {
-                if(itemCount.Count > 0 && realItem.CanUse)
+                if (itemCount.Count > 0 && realItem.CanUse)
                 {
                     itemCount.Count--;
                     realItem.Use(onEffetctEnded);
@@ -68,10 +68,10 @@ namespace Assets.Scripts
         {
             Badges += count;
         }
-            
+
         public bool TryBuyItem(ShopItem shopItem)
         {
-            if(HasEnoughMoney(shopItem))
+            if (HasEnoughMoney(shopItem))
             {
                 Debug.LogError("[GAME]: Error buy item! Not enough money!");
                 return false;
@@ -81,12 +81,12 @@ namespace Assets.Scripts
                 Badges -= shopItem.Cost;
 
             return true;
-                //TODO string type - тип траты (например на буст скорости)
-                //GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "badges", itemCost, itemType, itemName);
-                //                string name -имя товара, уровень улучшения
-                //int amount -стоимость товара
-                //int count -суммарное количество потраченной валюты
-            
+            //TODO string type - тип траты (например на буст скорости)
+            //GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "badges", itemCost, itemType, itemName);
+            //                string name -имя товара, уровень улучшения
+            //int amount -стоимость товара
+            //int count -суммарное количество потраченной валюты
+
         }
 
         public bool HasItem(ItemName name, out ItemCount itemCount)
@@ -155,13 +155,13 @@ namespace Assets.Scripts
         {
             if (TryGetUserPropertyByType(type, out UnitPropertyValues property))
             {
-                if(database.LevelsCount(type) < property.LevelValue)
+                if (database.LevelsCount(type) > property.LevelValue)
                 {
                     property.AddUpgradePoint();
                     Changed?.Invoke();
                 }
                 else
-                    Debug.LogError($"Error upgrade {type} property! Propery has max value in database!");
+                    Debug.LogError($"Error upgrade {type} property! Propery has max value!");
             }
             else
             {
@@ -173,6 +173,24 @@ namespace Assets.Scripts
         {
             for (int i = 0; i < UnitPropertyValues.MaxUpgradePoints; i++)
                 AddUpgradePoint(type, database);
+        }
+
+        public int MaxPropertyLevel(UnitPropertyType type, UnitPropertiesDatabase database) => database.LevelsCount(type);
+
+        public int CurrentPropertyPoints(UnitPropertyType type)
+        {
+            if (TryGetUserPropertyByType(type, out UnitPropertyValues property))
+                return property.UpgradePoints;
+
+            return 0;
+        }
+
+        public int GetUserPropertyLevel(UnitPropertyType type)
+        {
+            if (TryGetUserPropertyByType(type, out UnitPropertyValues property))
+                return property.LevelValue;
+
+            return 0;
         }
 
         private void FillValues()
@@ -192,14 +210,6 @@ namespace Assets.Scripts
             _values.Add(UnitPropertyType.Armor, ArmorProperty);
             _values.Add(UnitPropertyType.Damage, DamageProperty);
             _values.Add(UnitPropertyType.ShootDelay, ShootDelayProperty);
-        }
-
-        private int GetUserPropertyLevel(UnitPropertyType type)
-        {
-            if(TryGetUserPropertyByType(type, out UnitPropertyValues property))
-                return property.LevelValue;
-
-            return 0;
         }
 
         private bool TryGetUserPropertyByType(UnitPropertyType type, out UnitPropertyValues property) => _values.TryGetValue(type, out property);

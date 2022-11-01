@@ -20,11 +20,21 @@ namespace Assets.Scripts
             if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft && _user.TryBuyItem(shopItem))
             {
                 AddItems(shopItem);
-                onSucces?.Invoke();
+
+                if(onSucces !=null)
+                    onSucces?.Invoke();
             }
-            else if (shopItem.MoneyType == ShopItem.MoneyTypes.Ads && Game.Adverts != null)
+            else if (shopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
-                Game.Adverts.TryShowRewardedVideo(null, () => rewarded = true, TryAddRewardedItems, null);
+#if UNITY_EDITOR
+                rewarded = true;
+                TryAddRewardedItems();
+#else
+                if (Game.Adverts != null)
+                {
+                     Game.Adverts.TryShowRewardedVideo(null, () => rewarded = true, TryAddRewardedItems, null);
+                }
+#endif
             }
 
             void TryAddRewardedItems()
@@ -32,12 +42,16 @@ namespace Assets.Scripts
                 if (rewarded)
                 {
                     AddItems(shopItem);
-                    onSucces?.Invoke();
+
+                    if (onSucces != null)
+                        onSucces?.Invoke();
                 }
                 else
                 {
                     Debug.Log("Rewarded video not watched");
-                    onFail?.Invoke();
+
+                    if (onFail != null)
+                        onFail?.Invoke();
                 }
             }
         }

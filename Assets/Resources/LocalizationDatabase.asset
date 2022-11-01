@@ -26,3 +26,15 @@ MonoBehaviour:
       _value: "\u0423\u041B\u0423\u0427\u0428\u0418\u0422\u042C \u0422\u0410\u041D\u041A"
     - _language: 10
       _value: UPGRADE TANK
+  - _key: free
+    _values:
+    - _language: 30
+      _value: "\u0411\u0415\u0421\u041F\u041B\u0410\u0422\u041D\u041E"
+    - _language: 10
+      _value: FREE
+  - _key: ad
+    _values:
+    - _language: 30
+      _value: "\u0420\u0435\u043A\u043B\u0430\u043C\u0430"
+    - _language: 10
+      _value: Ad

@@ -15,26 +15,26 @@ namespace Assets.Scripts.UI
         private const string FreeLocalizationKey = "free";
         private const string AdsLockalizationKey = "ad";
 
-        private ShopItem _shopItem;
+        protected ShopItem ShopItem { get; private set; }
 
         private void OnDestroy()
         {
             Game.Localization.LanguageChanged -= SetText;
         }
 
-        private void Start()
+        private void Awake()
         {
-            _shopItem = ShopItemsLibrary.GetShopItemByName(_shopItemName);
+            ShopItem = ShopItemsLibrary.GetShopItemByName(_shopItemName);
         }
 
-        public void Init()
+        public virtual void Init()
         {
-            if (_shopItem.MoneyType == ShopItem.MoneyTypes.Ads)
+            if (ShopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
                 Game.Localization.LanguageChanged += SetText;
                 _moneyImage.gameObject.SetActive(false);
             }
-            else if (_shopItem.MoneyType == ShopItem.MoneyTypes.Soft)
+            else if (ShopItem.MoneyType == ShopItem.MoneyTypes.Soft)
             {
                 _moneyImage.gameObject.SetActive(true);
                 _adsText.gameObject.SetActive(false);
@@ -47,30 +47,30 @@ namespace Assets.Scripts.UI
 
         protected void OnButtonBuyClicked()
         {
-            Game.Shop.TryBuyItem(_shopItem, OnSuccesBuy, OnBuyFail);
             _buyButton.SetLock(true);
+            Game.Shop.TryBuyItem(ShopItem, OnSuccesBuy, OnBuyFail);
         }
 
         protected virtual void OnSuccesBuy()
         {
-            _buyButton.SetLock(true);
+            _buyButton.SetLock(false);
         }
 
         protected virtual void OnBuyFail()
         {
-            _buyButton.SetLock(true);
+            _buyButton.SetLock(false);
         }
 
         private void SetText()
         {
-            if (_shopItem.MoneyType == ShopItem.MoneyTypes.Ads)
+            if (ShopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
                 _buyButton.Text = FreeLocalizationKey.Localize();
                 _adsText.text = AdsLockalizationKey.Localize();
             }
             else
             {
-                _buyButton.Text = _shopItem.Cost.ToString();
+                _buyButton.Text = ShopItem.Cost.ToString();
             }
         }
     }
