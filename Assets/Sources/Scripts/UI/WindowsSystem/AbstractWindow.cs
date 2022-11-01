@@ -7,7 +7,7 @@ namespace Assets.Scripts.UI
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class AbstractWindow : MonoBehaviour
     {
-        private const float FadeDuration = 2f;
+        private const float FadeDuration = 1.2f;
 
         private const float CloseAnimationMoveDownDuration = 0.1f;
         private const float CloseAnimationMoveUpDuration = 0.3f;
@@ -109,7 +109,7 @@ namespace Assets.Scripts.UI
             CanvasGroup.interactable = true;
             CanvasGroup.blocksRaycasts = true;
 
-            _showHideAnimation = CanvasGroup.DOFade(1, FadeDuration).SetLink(gameObject);
+            _showHideAnimation = CanvasGroup.DOFade(1, FadeDuration).SetLink(gameObject).SetUpdate(true);
         }
 
         public void ForceHide()

@@ -14,6 +14,7 @@ namespace Assets.Scripts.UI
         private List<UpgradeUnitPropertyView> _propertyViews;
 
         public override string LockKey => "UpgradeTankWindow";
+        public override bool AnimatedClose => true;
 
         public static UpgradeTankWindow Show() =>
                        Game.Windows.ScreenChange<UpgradeTankWindow>(true, w => w.Init());

@@ -14,6 +14,7 @@ namespace Assets.Scripts.UI
         private List<UpgradeUnitPropertyView> _propertyViews;
 
         public override string LockKey => "UpgradePlayerWindow";
+        public override bool AnimatedClose => true;
 
         public static UpgradePlayerWindow Show() =>
                        Game.Windows.ScreenChange<UpgradePlayerWindow>(false, w => w.Init());
