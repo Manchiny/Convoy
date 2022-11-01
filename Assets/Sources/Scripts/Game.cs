@@ -176,8 +176,8 @@ namespace Assets.Scripts
 
         public void Save()
         {
-            _userData.TankData = _tank.GetData;
-            _userData.PlayerCharacterData = _player.GetData;
+            _userData.TankData = _tank.Data;
+            _userData.PlayerCharacterData = _player.Data;
 
             _saver.Save(_userData);
         }

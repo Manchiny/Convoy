@@ -1,4 +1,5 @@
 using Assets.Scripts.Items;
+using Assets.Scripts.Units;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -6,7 +7,7 @@ using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts.UI
 {
-    public class UpgradeTankPropertyView : ShopItemView
+    public class UpgradeUnitPropertyView : ShopItemView
     {
         [SerializeField] private PropertyProgressPanel _progresPanel;
         [SerializeField] private TextMeshProUGUI _levelsCountText;
@@ -14,15 +15,17 @@ namespace Assets.Scripts.UI
         private UnitPropertyType _propertyType;
         private Item _item;
 
+        private Unit _unit;
         private UnitData _data;
 
         private int _maxPropertyLevel;
         private int _currentPropertyLevel;
         private int _currentPropertyPoints;
 
-        public override void Init()
+        public override void Init(Unit unit)
         {
-            base.Init();
+            base.Init(unit);
+            _unit = unit;
 
             _item = ShopItem.Items.First().Item;
             _propertyType = Item.UnitPropertyByItemType(_item.Type);
@@ -43,9 +46,9 @@ namespace Assets.Scripts.UI
 
         private void UpdateView()
         {
-            _data = Game.Tank.GetData;
+            _data = _unit.Data;
 
-            _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, Game.Tank.PropertiesDatabase);
+            _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, _unit.PropertiesDatabase);
             _currentPropertyLevel = _data.GetUserPropertyLevel(_propertyType);
             _currentPropertyPoints = _data.CurrentPropertyPoints(_propertyType);
 

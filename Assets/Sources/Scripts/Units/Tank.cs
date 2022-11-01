@@ -2,7 +2,6 @@ using Assets.Scripts.Items;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.UnitPropertyLevels;
 
 namespace Assets.Scripts.Units
 {
@@ -27,7 +26,6 @@ namespace Assets.Scripts.Units
         public event Action Completed;
 
         public override Team TeamId => Team.Player;
-        public UnitData GetData => Data;
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
 
         public override int Damage => _boosts.TryGetBoostValue(ItemType.DamageMultyplier, out float value) ? base.Damage * (int)value : base.Damage;

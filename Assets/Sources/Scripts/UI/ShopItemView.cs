@@ -1,4 +1,5 @@
 using Assets.Scripts.Items;
+using Assets.Scripts.Units;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ namespace Assets.Scripts.UI
             Game.Localization.LanguageChanged -= SetText;
         }
 
-        public virtual void Init()
+        public virtual void Init(Unit unit)
         {
             ShopItem = ShopItemsLibrary.GetShopItemByName(_shopItemName);
 

@@ -12,7 +12,7 @@ namespace Assets.Scripts.UI
         public const string UpgradeTankLocalizationKey = "upgrade_tank";
         private const float FadeDuration = 1f;
         
-        private List<UpgradeTankPropertyView> _propertyViews;
+        private List<UpgradeUnitPropertyView> _propertyViews;
 
         public override string LockKey => "UpgradeTankWindow";
 
@@ -22,7 +22,7 @@ namespace Assets.Scripts.UI
         protected override void OnAwake()
         {
             base.OnAwake();
-            _propertyViews = GetComponentsInChildren<UpgradeTankPropertyView>().ToList();
+            _propertyViews = GetComponentsInChildren<UpgradeUnitPropertyView>().ToList();
         }
 
         protected void Init()
@@ -32,7 +32,7 @@ namespace Assets.Scripts.UI
 
             foreach (var view in _propertyViews)
             {
-                view.Init();
+                view.Init(Game.Tank);
             }
         }
 

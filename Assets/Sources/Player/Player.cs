@@ -19,8 +19,6 @@ namespace Assets.Scripts.Units
         public event Action<int> BadgesChanged;
 
         public override Team TeamId => Team.Player;
-
-        public UnitData GetData => Data;
         public int Badges => _badges.Count;
 
         public PlayerMovement Movement { get; private set; }

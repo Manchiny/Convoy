@@ -18,7 +18,7 @@ namespace Assets.Scripts.Units
         private float _baseShootDelay;
 
         public virtual Damageable Target { get; protected set; }
-        protected UnitData Data { get; private set; }
+        public UnitData Data { get; private set; }
 
         public sealed override int MaxHealth { get; protected set; }
         public override int Armor => _baseArmor;
