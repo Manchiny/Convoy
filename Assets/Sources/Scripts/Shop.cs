@@ -13,16 +13,23 @@ namespace Assets.Scripts
             _user = userData;
         }
 
-        public void TryBuyItem(ShopItem shopItem, Action onSucces = null, Action onFail = null)
+        public void TryBuyItem(ShopItem shopItem, Action onSucces = null, Action<string> onFail = null)
         {
             bool rewarded = false;
 
-            if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft && _user.TryBuyItem(shopItem))
+            if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft)
             {
-                AddItems(shopItem);
+                if(_user.TryBuyItem(shopItem))
+                {
+                    AddItems(shopItem);
 
-                if(onSucces !=null)
-                    onSucces?.Invoke();
+                    if (onSucces != null)
+                        onSucces?.Invoke();
+                }
+                else
+                {
+                    onFail.Invoke("not enough badges");
+                }
             }
             else if (shopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
@@ -53,7 +60,7 @@ namespace Assets.Scripts
                     Debug.Log("Rewarded video not watched");
 
                     if (onFail != null)
-                        onFail?.Invoke();
+                        onFail?.Invoke("Rewarded video not watched");
                 }
             }
         }

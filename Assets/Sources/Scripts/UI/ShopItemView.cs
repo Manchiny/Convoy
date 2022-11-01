@@ -58,10 +58,10 @@ namespace Assets.Scripts.UI
             Debug.Log("[ItemView] on succes buy");
         }
 
-        protected virtual void OnBuyFail()
+        protected virtual void OnBuyFail(string reason)
         {
             _buyButton.SetLock(false);
-            Debug.Log("[ItemView] on succes fail");
+            Debug.Log("[ItemView] on buy fail: " + reason);
         }
 
         private void SetText()

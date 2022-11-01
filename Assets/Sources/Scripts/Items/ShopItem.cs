@@ -39,5 +39,10 @@ namespace Assets.Scripts.Items
         TankArmorPropertyPointAds,
         TankDamagePropertyPointAds,
         TankShootingSpeedPropertyAds,
+
+        PlayerMaxHealthPropertyPointSoft,
+        PlayerArmorPropertyPointSoft,
+        PlayerDamagePropertyPointSoft,
+        PlyaerShootingSpeedPropertySoft,
     }
 }

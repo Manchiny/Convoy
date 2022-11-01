@@ -6,7 +6,7 @@ namespace Assets.Scripts.Items
 {
     public class ShopItemsLibrary
     {
-        public static ItemsLibrary library;
+        private const int PlayerPropertyCostSoft = 50;
 
         private static readonly List<ShopItem> ShopItems = new List<ShopItem>
         {
@@ -27,6 +27,28 @@ namespace Assets.Scripts.Items
                     )},
 
             {new ShopItem(ShopItemName.PlyaerShootingSpeedPropertyAds, 0, MoneyTypes.Ads,
+                new ItemCount[]
+                    {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointShootingSpeed), 1)}
+                    )},
+#endregion
+
+#region Player Property points by badges
+            {new ShopItem(ShopItemName.PlayerArmorPropertyPointSoft, PlayerPropertyCostSoft, MoneyTypes.Soft,
+                new ItemCount[]
+                    {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointArmor), 1)}
+                    )},
+
+            {new ShopItem(ShopItemName.PlayerMaxHealthPropertyPointSoft, PlayerPropertyCostSoft, MoneyTypes.Soft,
+                new ItemCount[]
+                    {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointMaxHealth), 1)}
+                    )},
+
+             {new ShopItem(ShopItemName.PlayerDamagePropertyPointSoft, PlayerPropertyCostSoft, MoneyTypes.Soft,
+                new ItemCount[]
+                    {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointDamage), 1)}
+                    )},
+
+            {new ShopItem(ShopItemName.PlyaerShootingSpeedPropertySoft, PlayerPropertyCostSoft, MoneyTypes.Soft,
                 new ItemCount[]
                     {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointShootingSpeed), 1)}
                     )},

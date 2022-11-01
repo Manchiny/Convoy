@@ -73,20 +73,20 @@ namespace Assets.Scripts
         {
             if (HasEnoughMoney(shopItem))
             {
-                Debug.LogError("[GAME]: Error buy item! Not enough money!");
-                return false;
+                if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft)
+                    Badges -= shopItem.Cost;
+
+                return true;
             }
 
-            if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft)
-                Badges -= shopItem.Cost;
+            Debug.LogError("[GAME]: Error buy item! Not enough money!");
+            return false;
 
-            return true;
             //TODO string type - тип траты (например на буст скорости)
             //GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "badges", itemCost, itemType, itemName);
             //                string name -имя товара, уровень улучшения
             //int amount -стоимость товара
             //int count -суммарное количество потраченной валюты
-
         }
 
         public bool HasItem(ItemName name, out ItemCount itemCount)

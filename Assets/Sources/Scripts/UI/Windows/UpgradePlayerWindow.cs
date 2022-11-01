@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
-    public class UpgradeTankWindow : AbstractWindow
+    public class UpgradePlayerWindow : AbstractWindow
     {
         [SerializeField] private TextMeshProUGUI _textTitle;
 
-        public const string UpgradeTankLocalizationKey = "upgrade_tank";
-        
+        public const string UpgradePlayerLocalizationKey = "upgrade_player";
+
         private List<UpgradeUnitPropertyView> _propertyViews;
 
-        public override string LockKey => "UpgradeTankWindow";
+        public override string LockKey => "UpgradePlayerWindow";
 
-        public static UpgradeTankWindow Show() =>
-                       Game.Windows.ScreenChange<UpgradeTankWindow>(true, w => w.Init());
+        public static UpgradePlayerWindow Show() =>
+                       Game.Windows.ScreenChange<UpgradePlayerWindow>(false, w => w.Init());
 
         protected override void OnAwake()
         {
@@ -26,23 +26,17 @@ namespace Assets.Scripts.UI
 
         protected void Init()
         {
-            Game.Instance.SetMode(Game.GameMode.Puase);
             SetText();
 
             foreach (var view in _propertyViews)
             {
-                view.Init(Game.Tank);
+                view.Init(Game.Player);
             }
-        }
-
-        protected override void OnClose()
-        {
-            Game.Instance.SetMode(Game.GameMode.Game);
         }
 
         protected override void SetText()
         {
-            _textTitle.text = UpgradeTankLocalizationKey.Localize();
+            _textTitle.text = UpgradePlayerLocalizationKey.Localize();
         }
     }
 }

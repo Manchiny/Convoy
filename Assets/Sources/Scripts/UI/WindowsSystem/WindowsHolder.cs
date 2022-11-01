@@ -9,7 +9,8 @@ namespace Assets.Scripts.UI
         {
             [typeof(UpgradeTankWindow)] = "Windows/UpgradeTankWindow",
             [typeof(LevelCompleteWindow)] = "Windows/LevelCompleteWindow",
-            [typeof(StartLevelWindow)] = "Windows/StartLevelWindow"
+            [typeof(StartLevelWindow)] = "Windows/StartLevelWindow",
+            [typeof(UpgradePlayerWindow)] = "Windows/UpgradePlayerWindow",
             //[typeof(LevelCompleteWindow)] = "Windows/LevelCompleteWindow",
             //[typeof(SettingsWindow)] = "Windows/SettingsWindow",
             //[typeof(LeaderboardWindow)] = "Windows/LeaderboardWindow"

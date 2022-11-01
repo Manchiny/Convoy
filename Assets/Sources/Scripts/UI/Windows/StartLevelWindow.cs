@@ -64,7 +64,7 @@ namespace Assets.Scripts.UI
 
         private void OnUpgradePlayerButtonClick()
         {
-
+            UpgradePlayerWindow.Show();
         }
     }
 }
