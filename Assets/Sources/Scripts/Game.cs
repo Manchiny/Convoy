@@ -254,7 +254,7 @@ namespace Assets.Scripts
 
             Windows.HUD.Init(_userData);
 
-            StartLevel(_userData.LevelId);
+            StartLevel(CurrentLevelId);
             _currentMode = GameMode.Game;
 
             _tank.Completed += OnLevelComplete;
@@ -299,6 +299,9 @@ namespace Assets.Scripts
             Debug.Log($"Level {levelId + 1} started");
 
             _winLooseProcess = false;
+
+            SetMode(GameMode.Puase);
+            StartLevelWindow.Show(_userData.Badges, () => SetMode(GameMode.Game));
         }
 
         private void OnAnyPlayerUnitDied(Damageable unit)

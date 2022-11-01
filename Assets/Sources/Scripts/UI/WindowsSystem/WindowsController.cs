@@ -100,7 +100,7 @@ namespace Assets.Scripts.UI
 
             if (_windows.Count > 0)
             {
-                while (CurrentWindow == null && _windows.Count > 0)
+                if (CurrentWindow == window)
                     _windows.Pop();
 
                 if (CurrentWindow != null)
@@ -108,7 +108,8 @@ namespace Assets.Scripts.UI
                 else
                     _hud.Show();
             }
-            else
+
+            if (_windows.Count == 0)
                 _hud.Show();
         }
     }
