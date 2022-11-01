@@ -50,7 +50,7 @@ namespace Assets.Scripts
                 case GameMode.Game:
                     SetupOnGame();
                     break;
-                case GameMode.TankUpgrade:
+                case GameMode.Puase:
                     SetupOnTankUpgrade();
                     break;
             }

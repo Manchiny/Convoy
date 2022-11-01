@@ -21,6 +21,7 @@ namespace Assets.Scripts.Units
         public override Team TeamId => Team.Player;
 
         public UnitData GetData => Data;
+        public int Badges => _badges.Count;
 
         public PlayerMovement Movement { get; private set; }
         public bool InTankZone { get; private set; } = true;

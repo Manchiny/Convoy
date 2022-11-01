@@ -8,9 +8,12 @@ namespace Assets.Scripts.UI
     public class UpgradeTankWindow : AbstractWindow
     {
         [SerializeField] private TextMeshProUGUI _textTitle;
+
+        public const string UpgradeTankLocalizationKey = "upgrade_tank";
+        private const float FadeDuration = 1f;
+        
         private List<UpgradeTankPropertyView> _propertyViews;
 
-        private const float FadeDuration = 1f;
         public override string LockKey => "UpgradeTankWindow";
 
         public static UpgradeTankWindow Show() =>
@@ -24,7 +27,7 @@ namespace Assets.Scripts.UI
 
         protected void Init()
         {
-            Game.Instance.SetMode(Game.GameMode.TankUpgrade);
+            Game.Instance.SetMode(Game.GameMode.Puase);
             SetText();
 
             foreach (var view in _propertyViews)
@@ -40,7 +43,7 @@ namespace Assets.Scripts.UI
 
         protected override void SetText()
         {
-            //_infoText.text = TapToStartKey.Localize();
+            _textTitle.text = UpgradeTankLocalizationKey.Localize();
         }
     }
 }

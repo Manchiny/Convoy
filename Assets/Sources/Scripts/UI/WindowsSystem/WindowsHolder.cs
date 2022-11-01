@@ -8,6 +8,7 @@ namespace Assets.Scripts.UI
         public static readonly Dictionary<Type, string> Windows = new Dictionary<Type, string>
         {
             [typeof(UpgradeTankWindow)] = "Windows/UpgradeTankWindow",
+            [typeof(LevelCompleteWindow)] = "Windows/LevelCompleteWindow"
             //[typeof(LevelCompleteWindow)] = "Windows/LevelCompleteWindow",
             //[typeof(SettingsWindow)] = "Windows/SettingsWindow",
             //[typeof(LeaderboardWindow)] = "Windows/LeaderboardWindow"

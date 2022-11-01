@@ -56,7 +56,7 @@ namespace Assets.Scripts
         public enum GameMode
         {
             Game,
-            TankUpgrade
+            Puase
         }
 
         private enum LoosReason
@@ -166,7 +166,7 @@ namespace Assets.Scripts
                 case GameMode.Game:
                     Unpause();
                     break;
-                case GameMode.TankUpgrade:
+                case GameMode.Puase:
                     Pause();
                     break;
             }
@@ -329,12 +329,10 @@ namespace Assets.Scripts
 #if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", CurrentLevelId);
 #endif
-            Debug.Log($"Level {CurrentLevelId + 1} completed!");
+            LevelCompleteWindow.Show(CurrentLevelId, Player.Badges, () => StartLevel(CurrentLevelId));
 
             _userData.LevelId++;
             Save();
-
-            StartLevel(CurrentLevelId);
         }
 
         private void RestartLevel()
