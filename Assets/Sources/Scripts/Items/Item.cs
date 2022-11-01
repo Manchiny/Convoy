@@ -58,7 +58,7 @@ namespace Assets.Scripts.Items
             return type;
         }
 
-        public void Use(Action onEffectEnd)
+        public void OnUse(Action onEffectEnd)
         {
             if (IsTemporary)
             {

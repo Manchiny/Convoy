@@ -15,6 +15,7 @@ namespace Assets.Scripts.UI
         private const string FreeLocalizationKey = "free";
         private const string AdsLockalizationKey = "ad";
 
+        protected BasicButton BuyButton => _buyButton;
         protected ShopItem ShopItem { get; private set; }
 
         private void OnDestroy()

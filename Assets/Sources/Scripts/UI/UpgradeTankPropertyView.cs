@@ -33,9 +33,13 @@ namespace Assets.Scripts.UI
 
         protected override void OnSuccesBuy()
         {
-            Game.Instance.TryUseItem(_item, null);
-            UpdateView();
-            base.OnSuccesBuy();
+            Game.Instance.TryUseItem(_item, null, OnUse);
+
+            void OnUse()
+            {
+                base.OnSuccesBuy();
+                UpdateView();
+            }
         }
 
         private void UpdateView()
@@ -48,7 +52,10 @@ namespace Assets.Scripts.UI
 
 
             if (_currentPropertyLevel == _maxPropertyLevel)
+            {
                 _progresPanel.SetMax();
+                BuyButton.SetLock(true);
+            }
             else
                 _progresPanel.SetProgress(_currentPropertyPoints);
         }

@@ -23,7 +23,7 @@ namespace Assets.Scripts.Items
 
              {new ShopItem(ShopItemName.PlayerDamagePropertyPointAds, 0, MoneyTypes.Ads,
                 new ItemCount[]
-                    {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointArmor), 1)}
+                    {new ItemCount(ItemsLibrary.GetItem(ItemName.PlayerPropertyPointDamage), 1)}
                     )},
 
             {new ShopItem(ShopItemName.PlyaerShootingSpeedPropertyAds, 0, MoneyTypes.Ads,
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Items
 
              {new ShopItem(ShopItemName.TankDamagePropertyPointAds, 0, MoneyTypes.Ads,
                 new ItemCount[]
-                    {new ItemCount(ItemsLibrary.GetItem(ItemName.TankPropertyPointArmor), 1)}
+                    {new ItemCount(ItemsLibrary.GetItem(ItemName.TankPropertyPointDamage), 1)}
                     )},
 
             {new ShopItem(ShopItemName.TankShootingSpeedPropertyAds, 0, MoneyTypes.Ads,

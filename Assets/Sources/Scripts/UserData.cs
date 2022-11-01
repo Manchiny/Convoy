@@ -28,7 +28,7 @@ namespace Assets.Scripts
                 if (itemCount.Count > 0 && realItem.CanUse)
                 {
                     itemCount.Count--;
-                    realItem.Use(onEffetctEnded);
+                    realItem.OnUse(onEffetctEnded);
 
                     ItemsChanged?.Invoke(realItem.Name);
 

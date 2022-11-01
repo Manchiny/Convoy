@@ -53,7 +53,7 @@ namespace Assets.Scripts.UI
 
         private void TryUse()
         {
-            if(Game.Instance.TryUseItem(_item, OnEffectEnded))
+            if(Game.Instance.TryUseItem(_item, OnEffectEnded, null))
             {
                 if(_item.IsTemporary)
                 {

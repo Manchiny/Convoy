@@ -182,13 +182,16 @@ namespace Assets.Scripts
             _saver.Save(_userData);
         }
 
-        public bool TryUseItem(Item item, Action onEffectEnded)
+        public bool TryUseItem(Item item, Action onEffectEnded, Action onUse)
         {
             if (_userData.TryUseItem(item, onEffectEnded))
             {
                 ItemsUseHandler.UseItem(item);
-                Save();
 
+                if(onUse != null)
+                    onUse?.Invoke();
+
+                Save();
                 return true;
             }
 
