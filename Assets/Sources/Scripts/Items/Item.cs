@@ -10,6 +10,7 @@ namespace Assets.Scripts.Items
     [Serializable]
     public class Item
     {
+        [SerializeField] private bool _isAutoUse = false;
         [SerializeField] private ItemName _name;
         [SerializeField] private ItemOwner _owner;
         [SerializeField] private ItemType _type;
@@ -18,17 +19,7 @@ namespace Assets.Scripts.Items
         [SerializeField] private float _boostSeconds;
         [Space]
         [SerializeField] private Sprite _icon;
-        [SerializeField] private string _description;
-
-        public ItemType Type => _type;
-        public ItemName Name => _name;
-        public ItemOwner Owner => _owner;
-
-        public float Value => _value;
-        public float BoostSeconds => _boostSeconds;
-        public Sprite Icon => _icon;
-        public string Description => _description;
-
+        [SerializeField] private string _descriptionLocalizationKey;
 
         private static Dictionary<ItemType, UnitPropertyType> UnitPropertiesByItemType = new()
         {
@@ -45,23 +36,23 @@ namespace Assets.Scripts.Items
         private float _coolDown;
         private Coroutine _effectAction;
 
-        public bool IsTemporary => BoostSeconds > 0;
-        public bool CanUse => IsTemporary == false || _coolDown <= 0;
-
-        public Item(ItemName name, ItemOwner owner, float value, ItemType type = ItemType.Defualt, float seconds = -1)
-        {
-            //Name = name;
-            //Value = value;
-            //BoostSeconds = seconds;
-            //Owner = owner;
-            //Type = type;
-        }
-
         ~Item()
         {
             if (_effectAction != null)
                 Game.Instance.StopCoroutine(_effectAction);
         }
+
+        public ItemType Type => _type;
+        public ItemName Name => _name;
+        public ItemOwner Owner => _owner;
+
+        public float Value => _value;
+        public float BoostSeconds => _boostSeconds;
+        public Sprite Icon => _icon;
+        public string Description => _descriptionLocalizationKey.Localize();
+        public bool IsTemporary => BoostSeconds > 0;
+        public bool CanUse => IsTemporary == false || _coolDown <= 0;
+        public bool IsAutoUse => _isAutoUse;
 
         public static UnitPropertyType UnitPropertyByItemType(ItemType itemType)
         {

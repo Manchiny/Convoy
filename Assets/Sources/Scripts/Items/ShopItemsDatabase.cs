@@ -13,5 +13,7 @@ namespace Assets.Scripts.Items
         {
             return _shopItems.Where(item => item.Name == name).FirstOrDefault();
         }
+
+        public List<ShopItem> GetItemsForShop() => _shopItems.Where(item => item.ShowInShop == true).ToList();
     }
 }

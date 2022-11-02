@@ -48,6 +48,9 @@ namespace Assets.Scripts
             else
                 itemCount.Count += item.Count;
 
+            if (item.Item.IsAutoUse)
+                 Game.Instance.TryUseItem(item.Item, null, null);
+
             ItemsChanged?.Invoke(item.Name);
         }
 

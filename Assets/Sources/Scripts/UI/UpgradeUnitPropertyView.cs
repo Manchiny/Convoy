@@ -22,6 +22,11 @@ namespace Assets.Scripts.UI
         private int _currentPropertyLevel;
         private int _currentPropertyPoints;
 
+        private void OnDestroy()
+        {
+            _data.Changed -= UpdateView;
+        }
+
         public override void Init(Unit unit)
         {
             base.Init(unit);
@@ -29,31 +34,20 @@ namespace Assets.Scripts.UI
 
             _item = ShopItem.Items.First().Item;
             _propertyType = Item.UnitPropertyByItemType(_item.Type);
-            
+
+            _data = _unit.Data;
+            _data.Changed += UpdateView;
+
             UpdateView();
-        }
-
-        protected override void OnSuccesBuy()
-        {
-            Game.Instance.TryUseItem(_item, null, OnUse);
-
-            void OnUse()
-            {
-                base.OnSuccesBuy();
-                UpdateView();
-            }
         }
 
         private void UpdateView()
         {
-            _data = _unit.Data;
-
             _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, _unit.PropertiesDatabase);
             _currentPropertyLevel = _data.GetUserPropertyLevel(_propertyType);
             _currentPropertyPoints = _data.CurrentPropertyPoints(_propertyType);
 
             _levelsCountText.text = $"{_currentPropertyLevel}/{_maxPropertyLevel}";
-
 
             if (_currentPropertyLevel == _maxPropertyLevel)
             {
