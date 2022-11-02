@@ -12,6 +12,7 @@ namespace Assets.Scripts.UI
             [typeof(StartLevelWindow)] = "Windows/StartLevelWindow",
             [typeof(UpgradePlayerWindow)] = "Windows/UpgradePlayerWindow",
             [typeof(ShopWindow)] = "Windows/ShopWindow",
+            [typeof(LevelFailedWindow)] = "Windows/LevelFailedWindow"
         };
     }
 }

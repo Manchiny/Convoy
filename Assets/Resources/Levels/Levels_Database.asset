@@ -15,6 +15,6 @@ MonoBehaviour:
   _dataBaseVersion: 0.1
   _enemySolderLevelsDatabase: {fileID: 11400000, guid: d382496e0b6ff7742a644392c4886ba4, type: 2}
   _levelConfigs:
-  - {fileID: 11400000, guid: e5fa6140213cf894aa06abfe3792ff49, type: 2}
+  - {fileID: 11400000, guid: 9c9e2a9b7d9c11849b22b50411965987, type: 2}
   - {fileID: 11400000, guid: 93d221043804ac349ad1ae698ed4851f, type: 2}
   - {fileID: 11400000, guid: 81d47a3a73386c0418941376b1597a50, type: 2}

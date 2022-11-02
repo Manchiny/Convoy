@@ -320,7 +320,7 @@ namespace Assets.Scripts
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelId.ToString(), reason.ToString(), elapsedTime);
 #endif
             Debug.Log($"Level {CurrentLevelId + 1} loosed!");
-            RestartLevel();
+            LevelFailedWindow.Show(RestartLevel);
         }
 
         private void OnLevelComplete()

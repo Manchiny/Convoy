@@ -98,3 +98,9 @@ MonoBehaviour:
       _value: "\u0421\u0415\u041A."
     - _language: 10
       _value: SEC.
+  - _key: failed
+    _values:
+    - _language: 30
+      _value: "\u041F\u0420\u041E\u0412\u0410\u041B\u0415\u041D"
+    - _language: 10
+      _value: FAILED
