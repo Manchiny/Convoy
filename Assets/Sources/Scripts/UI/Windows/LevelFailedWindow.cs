@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI
 
         protected override void SetText()
         {
-            _levelText.text = LevelLocalizationKey.Localize() + $" {Game.Instance.CurrentLevelId}";
+            _levelText.text = LevelLocalizationKey.Localize() + $" {Game.Instance.CurrentLevelId + 1}";
             _failedText.text = FailedLocalizationKey.Localize() + "!";
             _continueButton.Text = ContinueLocalizationKey.Localize();
         }

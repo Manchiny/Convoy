@@ -17,8 +17,9 @@ namespace Assets.Scripts.Units
         private Dictionary<Material, Color> _baseColors = new();
         private HashSet<Material> _materials;
 
-        private Tween _coloreChanging;
+        private Sequence _coloreChanging;
         private bool _died;
+
 
         private void Awake()
         {
@@ -52,8 +53,7 @@ namespace Assets.Scripts.Units
 
             _died = false;
 
-            foreach (var material in _materials)
-                SetColorToBase(material);
+            SetColorToBase();
         }
 
         private void OnUnitDied(Damageable damageable)
@@ -63,50 +63,81 @@ namespace Assets.Scripts.Units
 
             _died = true;
 
-            foreach (var material in _materials)
-                SetMaterialColorGray(material);
+            SetMaterialColorGray();
         }
-        
+
         private void OnUnitDamaged()
         {
-            if (_died)
+            if (gameObject == null || _died)
                 return;
+
+            List<Tween> tweens = new();
 
             foreach (var material in _materials)
-                SetColorToDamaged(material);
+                tweens.Add(SetColorToDamaged(material));
+
+            StartNewColorChanging(tweens, () => SetColorToBase());
         }
 
-        private void SetColorToDamaged(Material material)
+        private Tween SetColorToDamaged(Material material)
         {
-            SetColor(material, _damagedColor, SetColorDuration, () => SetColorToBase(material));
+            return SetColor(material, _damagedColor, SetColorDuration);
         }
 
-        private void SetColorToBase(Material material)
+        private void SetColorToBase()
         {
-            if (_died)
+            if (gameObject == null || _died)
                 return;
 
-            Color baseColor = _baseColors[material];
-            SetColor(material, baseColor, SetColorDuration);
+            List<Tween> tweens = new();
+
+            foreach (var material in _materials)
+            {
+                Color baseColor = _baseColors[material];
+                tweens.Add(SetColor(material, baseColor, SetColorDuration));
+            }
+
+            StartNewColorChanging(tweens);
         }
 
-        private void SetMaterialColorGray(Material material)
+        private void SetMaterialColorGray()
         {
-            Color baseColor = _baseColors[material];
-            Color color = Color.white * baseColor.grayscale;
-            color.a = 1;
+            List<Tween> tweens = new();
 
-            SetColor(material, color, SetColorDuration);
+            foreach (var material in _materials)
+            {
+                Color baseColor = _baseColors[material];
+                Color color = Color.white * baseColor.grayscale;
+                color.a = 1;
+
+                tweens.Add(SetColor(material, color, SetColorDuration));
+            }
+
+            StartNewColorChanging(tweens);
         }
 
-        private void SetColor(Material material, Color color, float duration, Action onComplete = null)
+        private Tween SetColor(Material material, Color color, float duration) => material.DOColor(color, duration);
+
+        private void StartNewColorChanging(List<Tween> tweens, Action onComplete = null)
         {
-            _coloreChanging = material.DOColor(color, duration).SetEase(Ease.Linear).SetLink(gameObject).SetUpdate(true)
-                                        .OnComplete(() =>
-                                        {
-                                            if (onComplete != null)
-                                                onComplete?.Invoke();
-                                        });
+            if (gameObject == null)
+                return;
+
+            if (_coloreChanging != null && _coloreChanging.active == true)
+                _coloreChanging.Kill();
+
+            _coloreChanging = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).SetUpdate(true).OnComplete(() =>
+                    {
+                        if (onComplete != null)
+                            onComplete?.Invoke();
+                    });
+
+            _coloreChanging.Append(tweens[0]);
+
+            for (int i = 1; i < tweens.Count; i++)
+                _coloreChanging.Insert(0, tweens[i]);
+
+            _coloreChanging.Play();
         }
     }
 }
