@@ -32,7 +32,7 @@ namespace Assets.Scripts.Items
             { ItemType.ShootingDelayProperty, UnitPropertyType.ShootDelay }
         };
 
-        private float _coolDown;
+        [NonSerialized] private float _coolDown;
         private Coroutine _effectAction;
 
         ~Item()
@@ -117,7 +117,6 @@ namespace Assets.Scripts.Items
         public int Count;
 
         public Item Item => Game.Shop.ItemsDatabase.GetItem(_name);
-
         public ItemName Name => _name;
 
         public ItemCount(ItemName name, int count)

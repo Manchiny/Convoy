@@ -64,7 +64,7 @@ namespace Assets.Scripts.UI
 
         protected void OnButtonBuyClicked()
         {
-            Debug.Log("[ItemView] button buy clicked;");
+            Debug.Log($"[Item] {ShopItem.Name} button buy clicked;");
             _buyButton.SetLock(true);
 
             Game.Shop.TryBuyItem(ShopItem, OnSuccesBuy, OnBuyFail);
@@ -73,13 +73,13 @@ namespace Assets.Scripts.UI
         protected virtual void OnSuccesBuy()
         {
             _buyButton.SetLock(false);
-            Debug.Log("[ItemView] on succes buy");
+            Debug.Log($"[Item] {ShopItem.Name} on succes buy");
         }
 
         protected virtual void OnBuyFail(string reason)
         {
             _buyButton.SetLock(false);
-            Debug.Log("[ItemView] on buy fail: " + reason);
+            Debug.Log($"[Item] {ShopItem.Name} on buy fail: " + reason);
         }
 
         private void SetText()

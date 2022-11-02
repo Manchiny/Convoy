@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 10
+  m_MinWidth: 0
   m_MinHeight: 70
   m_PreferredWidth: -1
   m_PreferredHeight: -1
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
   maxHeight: 70
-  maxWidth: 10
+  maxWidth: 0
   useMaxWidth: 1
   useMaxHeight: 1
 --- !u!1 &2756174335831356031

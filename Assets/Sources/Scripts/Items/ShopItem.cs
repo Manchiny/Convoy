@@ -44,5 +44,18 @@ namespace Assets.Scripts.Items
         PlayerArmorPropertyPointSoft,
         PlayerDamagePropertyPointSoft,
         PlyaerShootingSpeedPropertySoft,
+
+        PlayerDoubleArmoreBoostSoft,
+        PlayerDobleDamageBoostSoft,
+        PlayerDounleShootingSpeedSoft,
+
+        TankDoubleArmorBoostSoft,
+        TankDobleDamageBoostSoft,
+        TankDounleShootingSpeedSoft,
+
+        PlayerHeal20Soft,
+        TankHeal20Soft,
+
+        BadgesAds,
     }
 }

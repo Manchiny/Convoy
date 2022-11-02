@@ -61,10 +61,11 @@ namespace Assets.Scripts.UI
                     ShowCooldawnAnimation(_item.BoostSeconds);
                 }
 
-                Debug.Log($"Boost use: {_item.Name}");
+                Debug.Log($"Item used: {_item.Name}");
+                return;
             }
 
-            Debug.Log($"Boost use failed: {_item.Name}!");
+            Debug.Log($"Item use failed: {_item.Name}!");
         }
 
         private void OnEffectEnded()

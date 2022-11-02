@@ -52,6 +52,11 @@ namespace Assets.Scripts.UI
             _titleText.text = ShopLocalizationKey.Localize();
         }
 
+        protected override void OnClose()
+        {
+            Game.Instance.Save();
+        }
+
         private void OnBadgesCountChanged(int count)
         {
             _badgesCount.text = count.ToString();
