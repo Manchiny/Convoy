@@ -9,13 +9,13 @@ namespace Assets.Scripts.UI
 {
     public class UpgradeUnitPropertyView : ShopItemView
     {
+        [SerializeField] private ShopItemName _shopItemName;
         [SerializeField] private PropertyProgressPanel _progresPanel;
         [SerializeField] private TextMeshProUGUI _levelsCountText;
 
         private UnitPropertyType _propertyType;
         private Item _item;
 
-        private Unit _unit;
         private UnitData _data;
 
         private int _maxPropertyLevel;
@@ -27,15 +27,16 @@ namespace Assets.Scripts.UI
             _data.Changed -= UpdateView;
         }
 
-        public override void Init(Unit unit)
+        public override void Init(ShopItem shopItem, Unit unit)
         {
-            base.Init(unit);
-            _unit = unit;
+            ShopItem = Game.Shop.ShopItemsDatabase.GetShopItemByName(_shopItemName);
+
+            base.Init(null, unit);
 
             _item = ShopItem.Items.First().Item;
             _propertyType = Item.UnitPropertyByItemType(_item.Type);
 
-            _data = _unit.Data;
+            _data = Unit.Data;
             _data.Changed += UpdateView;
 
             UpdateView();
@@ -43,7 +44,7 @@ namespace Assets.Scripts.UI
 
         private void UpdateView()
         {
-            _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, _unit.PropertiesDatabase);
+            _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, Unit.PropertiesDatabase);
             _currentPropertyLevel = _data.GetUserPropertyLevel(_propertyType);
             _currentPropertyPoints = _data.CurrentPropertyPoints(_propertyType);
 

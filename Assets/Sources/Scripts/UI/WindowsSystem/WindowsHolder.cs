@@ -11,9 +11,7 @@ namespace Assets.Scripts.UI
             [typeof(LevelCompleteWindow)] = "Windows/LevelCompleteWindow",
             [typeof(StartLevelWindow)] = "Windows/StartLevelWindow",
             [typeof(UpgradePlayerWindow)] = "Windows/UpgradePlayerWindow",
-            //[typeof(LevelCompleteWindow)] = "Windows/LevelCompleteWindow",
-            //[typeof(SettingsWindow)] = "Windows/SettingsWindow",
-            //[typeof(LeaderboardWindow)] = "Windows/LeaderboardWindow"
+            [typeof(ShopWindow)] = "Windows/ShopWindow",
         };
     }
 }

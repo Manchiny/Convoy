@@ -1,5 +1,6 @@
 using Assets.Scripts.Items;
 using Assets.Scripts.Units;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,10 @@ namespace Assets.Scripts.UI
 {
     public class ShopItemView : MonoBehaviour
     {
-        [SerializeField] private ShopItemName _shopItemName;
+        [Header("Will be ignore if null")]
+        [SerializeField] private ItemView _itemViewPrefab;
+        [SerializeField] private RectTransform _itemViewContainer;
+        [Space]
         [SerializeField] private BasicButton _buyButton;
         [SerializeField] private TextMeshProUGUI _adsText;
         [SerializeField] private Image _moneyImage;
@@ -16,17 +20,21 @@ namespace Assets.Scripts.UI
         private const string FreeLocalizationKey = "free";
         private const string AdsLockalizationKey = "ad";
 
+        protected ShopItem ShopItem { get; set; }
+        protected Unit Unit { get; private set; }
         protected BasicButton BuyButton => _buyButton;
-        protected ShopItem ShopItem { get; private set; }
 
         private void OnDestroy()
         {
             Game.Localization.LanguageChanged -= SetText;
         }
 
-        public virtual void Init(Unit unit)
+        public virtual void Init(ShopItem shopItem, Unit unit)
         {
-            ShopItem = Game.Shop.ShopItemsDatabase.GetShopItemByName(_shopItemName);
+            if (shopItem != null)
+                ShopItem = shopItem;
+
+            Unit = unit;
 
             if (ShopItem.MoneyType == ShopItem.MoneyTypes.Ads)
             {
@@ -39,15 +47,19 @@ namespace Assets.Scripts.UI
                 _adsText.gameObject.SetActive(false);
             }
 
+            if(_itemViewContainer != null && _itemViewPrefab != null)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    ItemCount item = shopItem.Items[i];
+                    var itemView = Instantiate(_itemViewPrefab, _itemViewContainer);
+                    itemView.Init(item);
+                }
+            }
+
             SetText();
 
             _buyButton.SetOnClick(OnButtonBuyClicked);
-        }
-
-        public virtual void InitFromShop(ShopItem item)
-        {
-            _shopItemName = item.Name;
-            Init(null);
         }
 
         protected void OnButtonBuyClicked()

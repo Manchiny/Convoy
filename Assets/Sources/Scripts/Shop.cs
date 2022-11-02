@@ -1,5 +1,6 @@
 using Assets.Scripts.Items;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Items
@@ -26,7 +27,7 @@ namespace Assets.Scripts.Items
             {
                 if(_user.TryBuyItem(shopItem))
                 {
-                    AddItems(shopItem);
+                    AddItemsToUser(shopItem);
 
                     if (onSucces != null)
                         onSucces?.Invoke();
@@ -55,7 +56,7 @@ namespace Assets.Scripts.Items
 
                 if (rewarded)
                 {
-                    AddItems(shopItem);
+                    AddItemsToUser(shopItem);
 
                     if (onSucces != null)
                         onSucces?.Invoke();
@@ -70,24 +71,12 @@ namespace Assets.Scripts.Items
             }
         }
 
-        private void AddItems(ShopItem shopItem)
+        private void AddItemsToUser(ShopItem shopItem)
         {
             foreach (var item in shopItem.Items)
             {
                 _user.AddItemCount(item);
             }
-        }
-
-        //private void AddItemToUser()
-        //{
-        //    Item item = ItemsLibrary.GetItem(ItemName.PlayerDoubleArmorBoost);
-        //    _userData.AddItem(item);
-        //    Save();
-        //}
-
-        private void OnRewardeBuyFailed()
-        {
-
         }
     }
 }

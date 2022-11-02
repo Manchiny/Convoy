@@ -32,7 +32,7 @@ namespace Assets.Scripts.UI
 
             foreach (var view in _propertyViews)
             {
-                view.Init(Game.Tank);
+                view.Init(null, Game.Tank);
             }
         }
 

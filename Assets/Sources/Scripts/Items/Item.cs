@@ -19,7 +19,6 @@ namespace Assets.Scripts.Items
         [SerializeField] private float _boostSeconds;
         [Space]
         [SerializeField] private Sprite _icon;
-        [SerializeField] private string _descriptionLocalizationKey;
 
         private static Dictionary<ItemType, UnitPropertyType> UnitPropertiesByItemType = new()
         {
@@ -27,10 +26,10 @@ namespace Assets.Scripts.Items
             { ItemType.DamageMultyplier, UnitPropertyType.Damage },
             { ItemType.ShootingDelayDivider, UnitPropertyType.ShootDelay },
 
-            { ItemType.MaxHealth, UnitPropertyType.MaxHealth },
-            { ItemType.Armor, UnitPropertyType.Armor },
-            { ItemType.Damage, UnitPropertyType.Damage },
-            { ItemType.ShootingDelay, UnitPropertyType.ShootDelay }
+            { ItemType.MaxHealthProperty, UnitPropertyType.MaxHealth },
+            { ItemType.ArmorProperty, UnitPropertyType.Armor },
+            { ItemType.DamageProperty, UnitPropertyType.Damage },
+            { ItemType.ShootingDelayProperty, UnitPropertyType.ShootDelay }
         };
 
         private float _coolDown;
@@ -49,7 +48,6 @@ namespace Assets.Scripts.Items
         public float Value => _value;
         public float BoostSeconds => _boostSeconds;
         public Sprite Icon => _icon;
-        public string Description => _descriptionLocalizationKey.Localize();
         public bool IsTemporary => BoostSeconds > 0;
         public bool CanUse => IsTemporary == false || _coolDown <= 0;
         public bool IsAutoUse => _isAutoUse;
@@ -60,6 +58,18 @@ namespace Assets.Scripts.Items
                 Debug.LogError($"UnitPropertiesByItemType don't content value for {itemType}");
 
             return type;
+        }
+
+        public string GetValueFormatedString()
+        {
+            if (IsHealer)
+                return $"+{Value}%";
+            else if (IsBoost)
+                return $"x{Value}";
+            else if (IsPropertyPoint)
+                return $"1 {"property_point".Localize()}";
+            else
+                return "";
         }
 
         public void OnUse(Action onEffectEnd)
@@ -75,6 +85,10 @@ namespace Assets.Scripts.Items
                     onEffectEnd?.Invoke();
             }
         }
+
+        public bool IsHealer => Type == ItemType.Healer;
+        public bool IsBoost => Type == ItemType.ArmorMultyplier || Type == ItemType.DamageMultyplier || Type == ItemType.ShootingDelayDivider;
+        public bool IsPropertyPoint => Type == ItemType.MaxHealthProperty || Type == ItemType.DamageProperty || Type == ItemType.ArmorProperty || Type == ItemType.ShootingDelayProperty;
 
         private IEnumerator StartEffectAction(Action onEnd)
         {
@@ -128,11 +142,6 @@ namespace Assets.Scripts.Items
         PlayerPropertyPointDamage,
         PlayerPropertyPointShootingSpeed,
 
-        PlayerPropertyLevelMaxHealth,
-        PlayerPropertyLevelArmor,
-        PlayerPropertyLevelDamage,
-        PlayerPropertyLevelShootingSpeed,
-
         TankDoubleDamageBoost,
         TankDoubleShootingSpeedBoost,
         TankDoubleArmorBoost,
@@ -143,11 +152,6 @@ namespace Assets.Scripts.Items
         TankPropertyPointArmor,
         TankPropertyPointDamage,
         TankPropertyPointShootingSpeed,
-
-        TankPropertyLevelMaxHealth,
-        TankPropertyLevelArmor,
-        TankPropertyLevelDamage,
-        TankPropertyLevelShootingSpeed,
     }
 
     public enum ItemOwner
@@ -159,15 +163,17 @@ namespace Assets.Scripts.Items
 
     public enum ItemType
     {
-        Defualt,
+        Unknown,
+        Badges,
+        Healer,
 
         DamageMultyplier,
         ArmorMultyplier,
         ShootingDelayDivider,
 
-        Armor,
-        MaxHealth,
-        ShootingDelay,
-        Damage,
+        ArmorProperty,
+        MaxHealthProperty,
+        ShootingDelayProperty,
+        DamageProperty,
     }
 }

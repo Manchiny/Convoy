@@ -71,6 +71,7 @@ namespace Assets.Scripts
         public static Player Player => Instance._player;
         public static Tank Tank => Instance._tank;
         public static Shop Shop => Instance._shop;
+        public static UserData User => Instance._userData; 
 
         public static WindowsController Windows => Instance._windowsController;
 

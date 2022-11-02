@@ -16,200 +16,119 @@ MonoBehaviour:
   - _isAutoUse: 1
     _name: 0
     _owner: 0
-    _type: 0
+    _type: 1
     _value: 25
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 0
     _name: 1
     _owner: 1
-    _type: 2
+    _type: 3
     _value: 2
     _boostSeconds: 30
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 0
     _name: 2
     _owner: 1
-    _type: 3
+    _type: 5
     _value: 2
     _boostSeconds: 30
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 0
     _name: 3
     _owner: 1
-    _type: 2
+    _type: 4
     _value: 2
     _boostSeconds: 30
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 0
     _name: 4
     _owner: 1
-    _type: 0
+    _type: 2
     _value: 20
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 1
     _name: 5
     _owner: 1
-    _type: 5
+    _type: 7
     _value: 1
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 1
     _name: 6
     _owner: 1
-    _type: 4
+    _type: 6
     _value: 1
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 1
     _name: 7
     _owner: 1
-    _type: 7
+    _type: 9
     _value: 1
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 1
     _name: 8
     _owner: 1
-    _type: 6
+    _type: 8
     _value: 1
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 1
-    _name: 9
-    _owner: 1
-    _type: 5
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 10
-    _owner: 1
-    _type: 4
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 11
-    _owner: 1
+    _name: 13
+    _owner: 2
     _type: 7
     _value: 1
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 1
-    _name: 12
-    _owner: 1
+    _name: 14
+    _owner: 2
     _type: 6
     _value: 1
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 0
-    _name: 13
+  - _isAutoUse: 1
+    _name: 15
     _owner: 2
-    _type: 1
-    _value: 2
-    _boostSeconds: 30
+    _type: 9
+    _value: 1
+    _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
+  - _isAutoUse: 1
+    _name: 16
+    _owner: 2
+    _type: 8
+    _value: 1
+    _boostSeconds: 0
+    _icon: {fileID: 0}
   - _isAutoUse: 0
-    _name: 14
+    _name: 9
     _owner: 2
     _type: 3
     _value: 2
     _boostSeconds: 30
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 0
-    _name: 15
+    _name: 10
     _owner: 2
-    _type: 2
+    _type: 5
     _value: 2
     _boostSeconds: 30
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
   - _isAutoUse: 0
-    _name: 16
+    _name: 11
     _owner: 2
-    _type: 0
+    _type: 4
+    _value: 2
+    _boostSeconds: 30
+    _icon: {fileID: 0}
+  - _isAutoUse: 0
+    _name: 12
+    _owner: 2
+    _type: 2
     _value: 20
     _boostSeconds: 0
     _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 17
-    _owner: 2
-    _type: 5
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 18
-    _owner: 2
-    _type: 4
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 19
-    _owner: 2
-    _type: 7
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 20
-    _owner: 2
-    _type: 6
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 21
-    _owner: 2
-    _type: 5
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 22
-    _owner: 2
-    _type: 4
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 23
-    _owner: 2
-    _type: 7
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 
-  - _isAutoUse: 1
-    _name: 24
-    _owner: 2
-    _type: 6
-    _value: 1
-    _boostSeconds: 0
-    _icon: {fileID: 0}
-    _descriptionLocalizationKey: 

@@ -20,6 +20,7 @@ namespace Assets.Scripts
         public List<ItemCount> Items;
 
         public event Action<ItemName> ItemsChanged;
+        public event Action<int> BadgesChaged;
 
         public bool TryUseItem(Item realItem, Action onEffetctEnded)
         {
@@ -70,6 +71,7 @@ namespace Assets.Scripts
         public void AddBadges(int count)
         {
             Badges += count;
+            BadgesChaged?.Invoke(Badges);
         }
 
         public bool TryBuyItem(ShopItem shopItem)
@@ -77,7 +79,10 @@ namespace Assets.Scripts
             if (HasEnoughMoney(shopItem))
             {
                 if (shopItem.MoneyType == ShopItem.MoneyTypes.Soft)
+                { 
                     Badges -= shopItem.Cost;
+                    BadgesChaged?.Invoke(Badges);
+                }
 
                 return true;
             }
@@ -170,12 +175,6 @@ namespace Assets.Scripts
             {
                 Debug.LogError($"You are trying to add points for {type} property, but it's no exist in data!");
             }
-        }
-
-        public void UpgradeLevel(UnitPropertyType type, UnitPropertiesDatabase database)
-        {
-            for (int i = 0; i < UnitPropertyValues.MaxUpgradePoints; i++)
-                AddUpgradePoint(type, database);
         }
 
         public int MaxPropertyLevel(UnitPropertyType type, UnitPropertiesDatabase database) => database.LevelsCount(type);

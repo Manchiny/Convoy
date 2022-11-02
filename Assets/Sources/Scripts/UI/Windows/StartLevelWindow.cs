@@ -59,7 +59,7 @@ namespace Assets.Scripts.UI
 
         private void OnShopButtonClick()
         {
-
+            ShopWindow.Show();
         }
 
         private void OnUpgradePlayerButtonClick()

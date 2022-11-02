@@ -8,46 +8,25 @@ namespace Assets.Scripts.Items
     public class ItemsUseHandler
     {
 
-        private static Dictionary<ItemName, Action<Item>> Handlers = new Dictionary<ItemName, Action<Item>>
+        private static Dictionary<ItemType, Action<Item>> Handlers = new Dictionary<ItemType, Action<Item>>
         {
-            {ItemName.BonusBadges, UseBonusBadges},
+            {ItemType.Badges, UseBonusBadges},
 
-            {ItemName.PlayerDoubleArmorBoost, UseBoost},
-            {ItemName.PlayerDoubleDamageBoost, UseBoost},
-            {ItemName.PlayerDoubleShootingSpeedBoost,UseBoost},
+            {ItemType.ArmorMultyplier, UseBoost},
+            {ItemType.DamageMultyplier, UseBoost},
+            {ItemType.ShootingDelayDivider, UseBoost},
 
-            {ItemName.PlayerHeal20, UseHealer},
+            {ItemType.Healer, UseHealer},
 
-            {ItemName.PlayerPropertyPointMaxHealth, UsePropertyPoint},
-            {ItemName.PlayerPropertyPointArmor, UsePropertyPoint},
-            {ItemName.PlayerPropertyPointDamage, UsePropertyPoint},
-            {ItemName.PlayerPropertyPointShootingSpeed, UsePropertyPoint},
-
-            {ItemName.PlayerPropertyLevelMaxHealth, UsePropertyLevel},
-            {ItemName.PlayerPropertyLevelArmor, UsePropertyLevel},
-            {ItemName.PlayerPropertyLevelDamage, UsePropertyLevel},
-            {ItemName.PlayerPropertyLevelShootingSpeed, UsePropertyLevel},
-
-            {ItemName.TankDoubleArmorBoost, UseBoost},
-            {ItemName.TankDoubleDamageBoost, UseBoost},
-            {ItemName.TankDoubleShootingSpeedBoost, UseBoost},
-
-            {ItemName.TankHeal20, UseHealer},
-
-            {ItemName.TankPropertyPointMaxHealth, UsePropertyPoint},
-            {ItemName.TankPropertyPointArmor, UsePropertyPoint},
-            {ItemName.TankPropertyPointDamage, UsePropertyPoint},
-            {ItemName.TankPropertyPointShootingSpeed, UsePropertyPoint},
-
-            {ItemName.TankPropertyLevelMaxHealth, UsePropertyLevel},
-            {ItemName.TankPropertyLevelArmor, UsePropertyLevel},
-            {ItemName.TankPropertyLevelDamage, UsePropertyLevel},
-            {ItemName.TankPropertyLevelShootingSpeed, UsePropertyLevel}
+            {ItemType.MaxHealthProperty, UsePropertyPoint},
+            {ItemType.ArmorProperty, UsePropertyPoint},
+            {ItemType.DamageProperty, UsePropertyPoint},
+            {ItemType.ShootingDelayProperty, UsePropertyPoint},
     };
 
         public static void UseItem(Item item)
         {
-            if(Handlers.TryGetValue(item.Name, out Action<Item> action))
+            if(Handlers.TryGetValue(item.Type, out Action<Item> action))
             {
                 action?.Invoke(item);
                 Debug.Log($"Item used {item.Name}!");
@@ -80,12 +59,6 @@ namespace Assets.Scripts.Items
         {
             Unit unit = GetBoostableUnit(item.Owner);
             unit.AddPropertyUpgradePoint(Item.UnitPropertyByItemType(item.Type));
-        }
-
-        private static void UsePropertyLevel(Item item)
-        {
-            Unit unit = GetBoostableUnit(item.Owner);
-            unit.AddPropertyLevel(Item.UnitPropertyByItemType(item.Type));
         }
 
         private static IBoostable GetBoostable(ItemOwner owner)

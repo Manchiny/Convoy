@@ -4387,6 +4387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoostButtonTank_ShootigSpeed
       objectReference: {fileID: 0}
+    - target: {fileID: 7992570030004809268, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7992570030911233552, guid: 58a476306f3e1ae4ab0bc01e1e97ffc1, type: 3}
       propertyPath: m_Sprite
       value: 

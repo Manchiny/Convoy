@@ -13,111 +13,99 @@ MonoBehaviour:
   m_Name: ShopItemsDatabase
   m_EditorClassIdentifier: 
   _shopItems:
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 0
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 5
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 1
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 6
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 2
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 7
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 3
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 8
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 4
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
-    - _name: 17
+    - _name: 13
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 5
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
-    - _name: 18
+    - _name: 14
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 6
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
-    - _name: 19
+    - _name: 15
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 7
     _moneyType: 1
     _cost: 0
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
-    - _name: 20
+    - _name: 16
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 8
     _moneyType: 0
     _cost: 50
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 5
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 9
     _moneyType: 0
     _cost: 50
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 6
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 10
     _moneyType: 0
     _cost: 50
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 7
       Count: 1
-  - _showInShop: 0
+  - _showInShop: 1
     _name: 11
     _moneyType: 0
     _cost: 50
     _icon: {fileID: 0}
-    _descriptonLocalizationKey: 
     _items:
     - _name: 8
       Count: 1

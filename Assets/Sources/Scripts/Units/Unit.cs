@@ -66,11 +66,6 @@ namespace Assets.Scripts.Units
             Data.AddUpgradePoint(propertyType, PropertiesDatabase);
         }
 
-        public void AddPropertyLevel(UnitPropertyType propertyType)
-        {
-            Data.UpgradeLevel(propertyType, PropertiesDatabase);
-        }
-
         protected virtual void OnDataInited() { }
         protected abstract void OnEnemyFinded(Damageable enemy);
         protected abstract void OnEnenmyMissed(Damageable enemy);

@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI
 
             foreach (var view in _propertyViews)
             {
-                view.Init(Game.Player);
+                view.Init(null, Game.Player);
             }
         }
 
