@@ -22,13 +22,17 @@ namespace Assets.Scripts.Levels
         [SerializeField] private Ground _ground;
         [SerializeField] private Transform _borderEnd;
         [SerializeField] private EndLevelCheckpoint _endLevelCheckpoint;
-        //[Space]
-        [SerializeField] private GameDrop _airDropPrefab;
+        [Space]
+        [SerializeField] private AirPlane _airPlane;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
+        private readonly Vector3 AirDropOffsetPosition = new Vector3(13.5f, 0,0);
+        private readonly Vector3 AirplaneOffsetStartPosition = new Vector3(-1, 40, -5);
 
         private List<RoadPart> _currentRoad = new();
         private System.Random _systemRandom = new();
+
+        private List<GameDrop> _drops = new();
 
         private RoadPart _lastFilledRoadPart;
         private float _lastOffsetXOnRoad;
@@ -47,15 +51,23 @@ namespace Assets.Scripts.Levels
         {
             LevelConfigData config = _levelsDatabase.GetLevelConfig(levelId);
             Configure(config);
+
+            if (_drops.Count > 0)
+                foreach (var drop in _drops)
+                    Destroy(drop.gameObject);
+
+            _drops.Clear();
         }
 
         public void CreateAirDrop(List<ItemCount> items)
         {
-            var roadPart = _currentRoad.First();
+            var roadPart = _currentRoad[1];
 
-            Vector3 position = roadPart.Center + new Vector3(10, 2, 0);
-            var drop = Instantiate(_airDropPrefab, position, Quaternion.identity);
-            drop.Init(items, true);
+            Vector3 dropPosition = roadPart.Center + AirDropOffsetPosition;
+            _airPlane.transform.position = roadPart.Center + AirplaneOffsetStartPosition;
+            _airPlane.gameObject.SetActive(true);
+
+            _drops.Add(_airPlane.DeliveDrop(dropPosition, items, true));
         }
 
         private void Configure(LevelConfigData config)
@@ -91,12 +103,12 @@ namespace Assets.Scripts.Levels
 
         private void CreateEnemyies(LevelConfigData config)
         {
-            for (int i = 1; i < _currentRoad.Count - 1; i++)
+            for (int i = 2; i < _currentRoad.Count - 1; i++)
             {
                 RoadPart road = _currentRoad[i];
 
                 bool needDoubleSide = false;
-                bool needFillMax =  _systemRandom.NextDouble() <= config.MaxFullnesRoadPartChance;
+                bool needFillMax = _systemRandom.NextDouble() <= config.MaxFullnesRoadPartChance;
 
                 Damageable prefab = null;
 
@@ -167,7 +179,7 @@ namespace Assets.Scripts.Levels
                 enemy.transform.position = GetRandomPosition();
                 enemy.transform.rotation = Quaternion.Euler(EnemyRotation);
 
-                TryLoadUnitData(enemy, config);                   
+                TryLoadUnitData(enemy, config);
 
                 if (enemy is IEnemyGroupable)
                 {
@@ -203,7 +215,7 @@ namespace Assets.Scripts.Levels
             Tower tower = Instantiate(prefab, position, rotation, _enemiesContainer) as Tower;
             TryLoadUnitData(tower.Unit, config);
 
-            if(needDoubleSide)
+            if (needDoubleSide)
             {
                 float offset = (-1) * offsetX;
                 position.x = road.Center.x + offset;

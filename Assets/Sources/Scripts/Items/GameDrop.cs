@@ -9,6 +9,8 @@ namespace Assets.Scripts.Items
     {
         [SerializeField] private GameDropChecker _playerChecker;
 
+        protected GameDropChecker Checker => _playerChecker;
+
         private List<ItemCount> _items;
         private bool _needWathRewardedVideoToGet;
 
@@ -27,7 +29,7 @@ namespace Assets.Scripts.Items
                 _window.Closed -= OnWindowClosed;
         }
 
-        public void Init(List<ItemCount> items, bool needWathRewardedVideoToGet)
+        public virtual void Init(List<ItemCount> items, bool needWathRewardedVideoToGet)
         {
             _items = items;
             _needWathRewardedVideoToGet = needWathRewardedVideoToGet;
