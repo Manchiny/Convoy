@@ -18,31 +18,35 @@ namespace Assets.Scripts.UI
         private const string UgradePlayerLocalizationKey = "upgrade_player";
         private const string ShopLocalizationKey = "shop";
 
-        private int _userBadgesCount;
-
         private event Action _onStartCallback;
 
         public override string LockKey => "StartLevelWindow";
         public override bool AnimatedClose => true;
         public override bool NeedHideHudOnShow => true;
 
-        public static StartLevelWindow Show(int userBadgesCount, Action onStartClick) =>
-                      Game.Windows.ScreenChange<StartLevelWindow>(true, w => w.Init(userBadgesCount, onStartClick));
+        public static StartLevelWindow Show(Action onStartClick) =>
+                      Game.Windows.ScreenChange<StartLevelWindow>(true, w => w.Init(onStartClick));
+
+        private void OnDestroy()
+        {
+            Game.User.BadgesChaged -= ChangeBadgesText;
+        }
 
         protected override void SetText()
         {
             _levelText.text = LevelLocalizationKey.Localize() + $" {Game.Instance.CurrentLevelId + 1}";
-            _badgesCountText.text = _userBadgesCount.ToString();
 
             _startLevelButton.Text = PlayLocalizationKey.Localize();
             _upgradePlayerButton.Text = UgradePlayerLocalizationKey.Localize();
             _shopButton.Text = ShopLocalizationKey.Localize();
         }
 
-        private void Init(int userBadgesCount, Action onStartClick)
+        private void Init(Action onStartClick)
         {
             _onStartCallback = onStartClick;
-            _userBadgesCount = userBadgesCount;
+
+            ChangeBadgesText(Game.User.Badges);
+            Game.User.BadgesChaged += ChangeBadgesText;
 
             _startLevelButton.SetOnClick(OnStartLevelButtonClick);
             _upgradePlayerButton.SetOnClick(OnUpgradePlayerButtonClick);
@@ -65,6 +69,11 @@ namespace Assets.Scripts.UI
         private void OnUpgradePlayerButtonClick()
         {
             UpgradePlayerWindow.Show();
+        }
+
+        private void ChangeBadgesText(int count)
+        {
+            _badgesCountText.text = count.ToString();
         }
     }
 }

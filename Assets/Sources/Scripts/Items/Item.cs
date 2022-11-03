@@ -64,6 +64,8 @@ namespace Assets.Scripts.Items
         {
             if (IsHealer)
                 return $"+{Value}%";
+            else if (Type == ItemType.Badges)
+                return $"{Value}";
             else if (IsBoost)
                 return $"x{Value}";
             else if (IsPropertyPoint)

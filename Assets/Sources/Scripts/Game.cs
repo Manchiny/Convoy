@@ -320,7 +320,7 @@ namespace Assets.Scripts
             _winLooseProcess = false;
 
             SetMode(GameMode.PuaseTankView);
-            StartLevelWindow.Show(_userData.Badges, () => SetMode(GameMode.Game));
+            StartLevelWindow.Show(() => SetMode(GameMode.Game));
         }
 
         private void OnAnyPlayerUnitDied(Damageable unit)

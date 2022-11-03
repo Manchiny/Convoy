@@ -11,8 +11,8 @@ namespace Assets.Scripts
     [Serializable]
     public class UserData
     {
-        public int LevelId;
         public int Badges;
+        public int LevelId;
         public string SavedLocale;
 
         public UnitData TankData;
