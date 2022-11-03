@@ -55,7 +55,7 @@ namespace Assets.Scripts.Levels
 
             Vector3 position = roadPart.Center + new Vector3(10, 2, 0);
             var drop = Instantiate(_airDropPrefab, position, Quaternion.identity);
-            drop.Init(items, false);
+            drop.Init(items, true);
         }
 
         private void Configure(LevelConfigData config)

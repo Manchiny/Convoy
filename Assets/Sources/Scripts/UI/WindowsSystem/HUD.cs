@@ -87,7 +87,7 @@ namespace Assets.Scripts.UI
                 _showHideAnimation = null;
             }
 
-            _showHideAnimation = _canvas.DOFade(0f, FadeDuration).SetLink(gameObject);
+            _showHideAnimation = _canvas.DOFade(0f, FadeDuration).SetLink(gameObject).SetUpdate(true);
         }
 
         //public void ShowFloatingMoney(int count, Hand hand)

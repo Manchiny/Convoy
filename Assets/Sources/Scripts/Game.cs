@@ -57,7 +57,8 @@ namespace Assets.Scripts
         public enum GameMode
         {
             Game,
-            Puase
+            Pause,
+            PuaseTankView
         }
 
         private enum LoosReason
@@ -168,7 +169,10 @@ namespace Assets.Scripts
                 case GameMode.Game:
                     Unpause();
                     break;
-                case GameMode.Puase:
+                case GameMode.Pause:
+                    Pause();
+                    break;
+                case GameMode.PuaseTankView:
                     Pause();
                     break;
             }
@@ -315,7 +319,7 @@ namespace Assets.Scripts
 
             _winLooseProcess = false;
 
-            SetMode(GameMode.Puase);
+            SetMode(GameMode.PuaseTankView);
             StartLevelWindow.Show(_userData.Badges, () => SetMode(GameMode.Game));
         }
 

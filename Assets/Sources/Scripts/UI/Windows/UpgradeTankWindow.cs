@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI
 
         protected void Init()
         {
-            Game.Instance.SetMode(Game.GameMode.Puase);
+            Game.Instance.SetMode(Game.GameMode.PuaseTankView);
             SetText();
 
             foreach (var view in _propertyViews)
