@@ -4751,6 +4751,7 @@ MonoBehaviour:
   _ground: {fileID: 537378340}
   _borderEnd: {fileID: 1157670982}
   _endLevelCheckpoint: {fileID: 1105307585}
+  _airDropPrefab: {fileID: 435812443273072931, guid: 896f0a610c64ef04fbaaa1ff9e5cfb8e, type: 3}
 --- !u!1 &1512845756
 GameObject:
   m_ObjectHideFlags: 0

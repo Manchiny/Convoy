@@ -1,3 +1,4 @@
+using Assets.Scripts.Items;
 using Assets.Scripts.Units;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Assets.Scripts.Levels
         [SerializeField] private Ground _ground;
         [SerializeField] private Transform _borderEnd;
         [SerializeField] private EndLevelCheckpoint _endLevelCheckpoint;
+        //[Space]
+        [SerializeField] private GameDrop _airDropPrefab;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
 
@@ -44,6 +47,15 @@ namespace Assets.Scripts.Levels
         {
             LevelConfigData config = _levelsDatabase.GetLevelConfig(levelId);
             Configure(config);
+        }
+
+        public void CreateAirDrop(List<ItemCount> items)
+        {
+            var roadPart = _currentRoad.First();
+
+            Vector3 position = roadPart.Center + new Vector3(10, 2, 0);
+            var drop = Instantiate(_airDropPrefab, position, Quaternion.identity);
+            drop.Init(items, false);
         }
 
         private void Configure(LevelConfigData config)

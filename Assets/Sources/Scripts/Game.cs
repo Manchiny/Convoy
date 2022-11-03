@@ -10,6 +10,7 @@ using Assets.Scripts.UserInputSystem;
 using GameAnalyticsSDK;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -205,6 +206,16 @@ namespace Assets.Scripts
             Save();
         }
 
+        public void AddItems(List<ItemCount> items)
+        {
+            foreach (var item in items)
+            {
+                User.AddItemCount(item);
+            }
+
+            Save();
+        }
+
         public void ChangeLocale(string local)
         {
             if (local == GameLocalization.CurrentLocale)
@@ -289,6 +300,9 @@ namespace Assets.Scripts
             if (restart == false)
             {
                 _levelLoader.LoadLevel(levelId);
+
+                List<ItemCount> levelDropItems = Shop.ItemsDatabase.GetRandomBoosts(2);
+                _levelLoader.CreateAirDrop(levelDropItems);
 #if GAME_ANALYTICS
                 GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_start", levelId);
 # endif

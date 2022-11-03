@@ -55,18 +55,18 @@ namespace Assets.Scripts
             ItemsChanged?.Invoke(item.Name);
         }
 
-        public void AddItem(Item item)
-        {
-            ItemCount itemCount = GetItemCountByName(item.Name);
+        //public void AddItem(Item item)
+        //{
+        //    ItemCount itemCount = GetItemCountByName(item.Name);
 
-            if (itemCount == null)
-                Items.Add(new ItemCount(item.Name, 1));
-            else
-                itemCount.Count += 1;
+        //    if (itemCount == null)
+        //        Items.Add(new ItemCount(item.Name, 1));
+        //    else
+        //        itemCount.Count += 1;
 
-            Debug.Log($"Added item: {item.Name}; Total count: {GetItemCountByName(item.Name).Count}");
-            ItemsChanged?.Invoke(item.Name);
-        }
+        //    Debug.Log($"Added item: {item.Name}; Total count: {GetItemCountByName(item.Name).Count}");
+        //    ItemsChanged?.Invoke(item.Name);
+        //}
 
         public void AddBadges(int count)
         {
