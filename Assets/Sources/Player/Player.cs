@@ -104,7 +104,20 @@ namespace Assets.Scripts.Units
 
         protected override void Die()
         {
+            DropBadges();
             Debug.LogWarning("Game over");
+        }
+
+        private void DropBadges()
+        {
+            if(_badges.Count > 0)
+            {
+                foreach (var badge in _badges)
+                {
+                    badge.Drop();
+                }
+
+            }
         }
 
         protected override void OnDataInited()

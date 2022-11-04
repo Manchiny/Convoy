@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8048773835547749320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StartConnector
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -40,10 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8048773836223788679}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EndConnector
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8048773836340719063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Centr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8048773836413947168}
   - component: {fileID: 8048773836413947175}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoadPart_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,10 +199,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road_005
       objectReference: {fileID: 0}
+    - target: {fileID: 8571384289544499276, guid: f1c62180351f39e4d956924cddaea2b8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1c62180351f39e4d956924cddaea2b8, type: 3}
+--- !u!1 &2083310095428852397 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8571384289544499276, guid: f1c62180351f39e4d956924cddaea2b8, type: 3}
+  m_PrefabInstance: {fileID: 7645647511766199009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5190797685246679383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2455483352516408246, guid: f1c62180351f39e4d956924cddaea2b8, type: 3}
   m_PrefabInstance: {fileID: 7645647511766199009}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &5567826923053535465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083310095428852397}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4727312, y: 0.01864031, z: 1.9999998}
+  m_Center: {x: -0.23636563, y: 9.313226e-10, z: -0.00000008940697}

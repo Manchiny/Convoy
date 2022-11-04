@@ -13,6 +13,8 @@ namespace Assets.Scripts
         private Rigidbody _rigidbody;
         private BoxCollider _collider;
 
+        private Sequence _animation;
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -30,7 +32,7 @@ namespace Assets.Scripts
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent(out Player player))
+            if (collision.gameObject.TryGetComponent(out Player player) && player.IsAlive)
                 player.TakeBadge(this);
         }
 
@@ -51,18 +53,34 @@ namespace Assets.Scripts
             Vector3 position = Vector3.zero;
             position.y += DeltaY * positionNumber;
 
-            Sequence sequence = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
+            _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
 
-            sequence.Insert(0, transform.DOLocalMove(position, 0.3f));
-            sequence.Insert(0, transform.DOLocalRotate(Vector3.zero, 0.3f));
+            _animation.Append(transform.DOLocalMove(position, 0.3f));
+            _animation.Play();
+            _animation.Insert(0, transform.DOLocalRotate(Vector3.zero, 0.3f));
+        }
+
+        public void Drop()
+        {
+            if (_animation != null)
+                _animation.Kill();
+
+            transform.parent = null;
+
+            _collider.isTrigger = false;
+            _rigidbody.isKinematic = false;
         }
 
         private void PlayResizeAnimation(Transform badgeHolder, int positionNumber)
         {
-            Sequence sequence = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject);
+            _animation.Kill();
 
-            sequence.Append(transform.DOScale(2f, 0.2f));
-            sequence.Append(transform.DOScale(1f, 0.1f));
+            _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject);
+
+            _animation.Append(transform.DOScale(2f, 0.2f));
+            _animation.Append(transform.DOScale(1f, 0.1f));
+
+            _animation.Play();
         }
 
         private void OnRestart()
