@@ -54,6 +54,7 @@ namespace Assets.Scripts
 
         public static event Action Inited;
         public static event Action Restarted;
+        public static event Action LevelStarted;
 
         public event Action<GameMode> GameModeChanged;
 
@@ -317,9 +318,11 @@ namespace Assets.Scripts
 
                 List<ItemCount> levelDropItems = Shop.ItemsDatabase.GetRandomBoosts(2);
                 _levelLoader.CreateAirDrop(levelDropItems);
+
+                LevelStarted?.Invoke();
 #if GAME_ANALYTICS
                 GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "level_start", levelId);
-# endif
+#endif
             }
 
             _tank.OnLevelStarted(_levelLoader.TankSpawnPoint.position, _levelLoader.Waypoints);

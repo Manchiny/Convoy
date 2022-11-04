@@ -9,6 +9,14 @@ namespace Assets.Scripts.Units
     public class PlayerMovement : MonoBehaviour
     {
         private const float MaxAngleForAnimationTransition = 90f;
+
+        private const int AnimatorHandsLayerId = 1;
+        private const int AnimatorFullBodyLayerId = 2;
+
+        private const string AnimatorSpeedKey = "Speed";
+        private const string AnimatorSideSpeedKey = "SideSpeed";
+        private const string AnimatorDiedKey = "Died";
+
         private Player _player;
 
         private float _speed = 5f;
@@ -19,6 +27,8 @@ namespace Assets.Scripts.Units
 
         private float _speedForward;
         private float _speedSide;
+
+        private bool _died;
 
         private Vector3 _inputDirection;
 
@@ -32,7 +42,7 @@ namespace Assets.Scripts.Units
             set
             {
                 _speedForward = value;
-                _animator.SetFloat("Speed", value);
+                _animator.SetFloat(AnimatorSpeedKey, value);
             }
         }
 
@@ -42,7 +52,7 @@ namespace Assets.Scripts.Units
             set
             {
                 _speedSide = value;
-                _animator.SetFloat("SideSpeed", value);
+                _animator.SetFloat(AnimatorSideSpeedKey, value);
             }
         }
 
@@ -51,16 +61,31 @@ namespace Assets.Scripts.Units
             _player = GetComponent<Player>();
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
+
+            _player.Died += OnPlayerDied;
+            Game.LevelStarted += OnLevelStarted;
+            Game.Restarted += OnLevelStarted;
         }
 
         private void FixedUpdate()
         {
-            Move();
-            Rotate();
+            if (_player.IsAlive || _died == false)
+            {
+                Move();
+                Rotate();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _player.Died -= OnPlayerDied;
         }
 
         public void SetInputDirection(Vector3 inputDirection)
         {
+            if (_player.IsAlive == false || _died)
+                return;
+
             if (IsStoped == false && inputDirection == Vector3.zero)
             {
                 IsStoped = true;
@@ -114,6 +139,35 @@ namespace Assets.Scripts.Units
 
             Quaternion playerRotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, _rotationSpeed * Time.fixedDeltaTime);
+        }
+
+        private void OnPlayerDied(Damageable unit)
+        {
+            _died = true;
+            Debug.Log("PlayerDied");
+
+            SpeedForward = 0;
+            SpeedSide = 0;
+
+            _animator.SetLayerWeight(AnimatorHandsLayerId, 0);
+            _animator.SetLayerWeight(AnimatorFullBodyLayerId, 1);
+
+            _animator.SetBool(AnimatorDiedKey, true);
+        }
+
+        private void OnLevelStarted() 
+        {
+            _died = false;
+            Debug.Log("OnLevelRestarted");
+
+            _animator.SetLayerWeight(AnimatorHandsLayerId, 1);
+            _animator.SetLayerWeight(AnimatorFullBodyLayerId, 0);
+
+            _animator.SetBool(AnimatorDiedKey, false);
+
+            SpeedForward = 0;
+            SpeedSide = 0;
+
         }
     }
 }
