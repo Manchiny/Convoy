@@ -116,3 +116,34 @@ MonoBehaviour:
       _value: "\u041F\u041E\u0421\u0422\u0410\u0412\u041A\u0410"
     - _language: 10
       _value: AIR DROP
+  - _key: EN
+    _values:
+    - _language: 30
+      _value: ENGLISH
+    - _language: 10
+      _value: ENGLISH
+  - _key: RU
+    _values:
+    - _language: 30
+      _value: "\u0420\u0423\u0421\u0421\u041A\u0418\u0419"
+    - _language: 10
+      _value: "\u0420\u0423\u0421\u0421\u041A\u0418\u0419"
+  - _key: settings
+    _values:
+    - _language: 30
+      _value: "\u041D\u0410\u0421\u0422\u0420\u041E\u0419\u041A\u0418"
+    - _language: 10
+      _value: SETTINGS
+  - _key: language
+    _values:
+    - _language: 30
+      _value: "\u042F\u0417\u042B\u041A"
+    - _language: 10
+      _value: LANGUAGE
+  - _key: connect_to
+    _values:
+    - _language: 30
+      _value: "\u041F\u041E\u0414\u041A\u041B\u042E\u0427\u0418\u0422\u042C\u0421\u042F
+        \u041A"
+    - _language: 10
+      _value: CONNECT TO

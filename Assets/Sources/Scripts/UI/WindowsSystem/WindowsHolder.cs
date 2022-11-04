@@ -14,6 +14,7 @@ namespace Assets.Scripts.UI
             [typeof(ShopWindow)] = "Windows/ShopWindow",
             [typeof(LevelFailedWindow)] = "Windows/LevelFailedWindow",
             [typeof(WatchAdsRewardWindow)] = "Windows/WatchAdsRewardWindow",
+            [typeof(SettingsWindow)] = "Windows/SettingsWindow",
         };
     }
 }

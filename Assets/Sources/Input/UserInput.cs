@@ -13,12 +13,12 @@ namespace Assets.Scripts.UserInputSystem
         protected virtual float Horizontal => InputVector.x;
         protected virtual float Vertical  => InputVector.y;
 
-        private bool _freezed;
+        protected bool Freezed { get; private set; }
 
         public virtual void Init(PlayerMovement character)
         {
             _characterMovement = character;
-            _freezed = false;
+            Freezed = false;
         }
 
         public abstract bool NeedActivate();
@@ -28,7 +28,7 @@ namespace Assets.Scripts.UserInputSystem
             if (_characterMovement == null)
                 return;
 
-            if(_freezed == false)
+            if(Freezed == false)
                 GetInputVector();
 
             SetPlayerMoveDirection();
@@ -36,13 +36,13 @@ namespace Assets.Scripts.UserInputSystem
 
         public void Freeze()
         {
-            _freezed = true;
+            Freezed = true;
             InputVector = Vector2.zero;
         }
 
         public void UnFreeze()
         {
-            _freezed = false;
+            Freezed = false;
         }
 
 

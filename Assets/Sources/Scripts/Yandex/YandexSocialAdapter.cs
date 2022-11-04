@@ -1,4 +1,5 @@
 using Agava.YandexGames;
+using Assets.Scripts.Saves;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -11,7 +12,8 @@ namespace Assets.Scripts.Social
 
         public string Tag => "[YandexSDK]";
         public string Name => "Yandex";
-     //   public override Saver GetSaver => new YandexSaver();
+
+        public Saver GetSaver => new YandexSaver();
         public bool IsAuthorized => IsInited && PlayerAccount.IsAuthorized;
         public bool HasPersonalDataPermission => PlayerAccount.HasPersonalProfileDataPermission;
         public Agava.YandexGames.DeviceType DeviceType => Device.Type;

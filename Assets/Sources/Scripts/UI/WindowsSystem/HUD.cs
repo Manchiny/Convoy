@@ -56,7 +56,7 @@ namespace Assets.Scripts.UI
 
             if (isReinit == false)
             {
-                // _settingsButton.AddListener(OnSettingsButtonClick);
+                _settingsButton.AddListener(OnSettingsButtonClick);
                 // _leaderboardButton.AddListener(OnLeaderboardButtonClick);
 
                 Game.Player.BadgesChanged += OnBadgesChanged;
@@ -101,7 +101,7 @@ namespace Assets.Scripts.UI
 
         private void OnLevelChanged(int level)
         {
-          //  _levelText.text = LevelLocalizationKey.Localize() + $" {level + 1}";
+            //  _levelText.text = LevelLocalizationKey.Localize() + $" {level + 1}";
         }
 
         private void OnBadgesChanged(int badgesCount)
@@ -132,12 +132,12 @@ namespace Assets.Scripts.UI
 
         private void OnSettingsButtonClick()
         {
-          //  SettingsWindow.Show();
+            SettingsWindow.Show();
         }
 
         private void OnLocalizationChanged()
         {
-          //  OnLevelChanged(Game.Instance.CurrentLevelId.Value);
+            //  OnLevelChanged(Game.Instance.CurrentLevelId.Value);
         }
 
         private void OnLeaderboardButtonClick()

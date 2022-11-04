@@ -94,6 +94,7 @@ namespace Assets.Scripts
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
 
+
         private void Awake()
         {
             if (Instance == null)
@@ -165,6 +166,7 @@ namespace Assets.Scripts
                     break;
             }
 
+            _currentMode = mode;
             GameModeChanged?.Invoke(mode);
         }
 
@@ -218,6 +220,15 @@ namespace Assets.Scripts
         }
 
         public static string Localize(string key, params string[] parameters) => Localization?.Localize(key, parameters) ?? key;
+
+        public void SetSaver(Saver saver)
+        {
+            if (saver == null || saver.GetType() == _saver.GetType())
+                return;
+
+            _saver = saver;
+            Save();
+        }
 
         private void InitData(UserData userData)
         {

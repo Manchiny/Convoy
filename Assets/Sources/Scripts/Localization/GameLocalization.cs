@@ -26,8 +26,6 @@ namespace Assets.Scripts.Localization
             Locale.AZ
         };
 
-        public static IReadOnlyCollection<string> AvailableLocals => _availableLocals;
-
         private static string[] _availableLocals =
 {
             Locale.RU,
@@ -35,6 +33,8 @@ namespace Assets.Scripts.Localization
         };
 
         private readonly Regex _paramRegex = new Regex(@"@\d");
+
+        public static IReadOnlyCollection<string> AvailableLocals => _availableLocals;
 
         public static string CurrentLocale { get; set; }
         public static bool IsLocaleRU => CurrentLocale == Locale.RU;
