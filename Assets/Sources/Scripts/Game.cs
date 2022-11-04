@@ -45,9 +45,7 @@ namespace Assets.Scripts
         private GameLocalization _gameLocalization;
 
         private float _startLevelTime;
-
         private GameMode _currentMode;
-
         private UserInput _input;
 
         private bool _winLooseProcess;
@@ -355,9 +353,8 @@ namespace Assets.Scripts
             if (_winLooseProcess)
                 return;
 
-            _input.Freeze();
-
             _winLooseProcess = true;
+            _input.Freeze();
 
             float currentTime = Time.time;
             int elapsedTime = (int)(currentTime - _startLevelTime);
@@ -375,16 +372,19 @@ namespace Assets.Scripts
             if (_winLooseProcess)
                 return;
 
+            _winLooseProcess = true;
             _input.Freeze();
 
-            _winLooseProcess = true;
 
 #if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", CurrentLevelId);
 #endif
             LevelCompleteWindow.Show(CurrentLevelId, Player.Badges, () => StartLevel(CurrentLevelId));
-
             _userData.LevelId++;
+
+            if (SocialAdapter != null && SocialAdapter.IsInited)
+                SocialAdapter.SetLeaderboardValue(YandexSocialAdapter.DefaultLeaderBoardName, CurrentLevelId + 1);
+
             Save();
         }
 

@@ -12,7 +12,6 @@ namespace Assets.Scripts.UI
         [Space]
         [SerializeField] private LeaderboardPlayerView _playerViewPrefab;
 
-        public const string DefaultLeaderBoardName = "LevelValue";
         public override string LockKey => "LeaderboardWindow";
 
         public override bool AnimatedClose => true;
@@ -38,7 +37,7 @@ namespace Assets.Scripts.UI
             if (gameObject == null)
                 return;
 
-            if (data == null)
+            if (data == null || data.Count == 0)
             {
                 Game.Windows.SoftLoader.gameObject.SetActive(false);
                 Close();
@@ -46,7 +45,7 @@ namespace Assets.Scripts.UI
             else
             {
                 data.ForEach(user => CreatePlayerView(user));
-                Game.Windows.Loader.gameObject.SetActive(false);
+                Game.Windows.SoftLoader.gameObject.SetActive(false);
             }
         }
 

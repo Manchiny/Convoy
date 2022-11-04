@@ -110,7 +110,7 @@ namespace Assets.Scripts.Social
             }
         }
 
-        protected void SetLeaderboardValue(string leaderboardName, int value)
+        public void SetLeaderboardValue(string leaderboardName, int value)
         {
             Leaderboard.SetScore(leaderboardName, value, OnSucces, OnError);
 
