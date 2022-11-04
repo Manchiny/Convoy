@@ -77,7 +77,8 @@ namespace Assets.Scripts
         public static Player Player => Instance._player;
         public static Tank Tank => Instance._tank;
         public static Shop Shop => Instance._shop;
-        public static UserData User => Instance._userData; 
+        public static UserData User => Instance._userData;
+        public static bool IsAllAlive => Player.IsAlive && Tank.IsAlive;
 
         public static WindowsController Windows => Instance._windowsController;
 
@@ -222,8 +223,8 @@ namespace Assets.Scripts
         {
             _userData = userData;
 
-            _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
             _player.InitData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
+            _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
 
             StartCoroutine(LoadGameConfiguration());
         }

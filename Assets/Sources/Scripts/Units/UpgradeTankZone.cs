@@ -30,7 +30,7 @@ namespace Assets.Scripts.Units
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Player player) == true)
+            if (other.TryGetComponent(out Player player) == true && Game.IsAllAlive)
                 ShowIndicator();
         }
 
@@ -62,7 +62,9 @@ namespace Assets.Scripts.Units
             _fillerAnimation = _filler.DOFillAmount(1, DelayTime).SetLink(_openingIndicator.gameObject).SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    UpgradeTankWindow.Show();
+                    if(Game.IsAllAlive)
+                        UpgradeTankWindow.Show();
+
                     StopWaiting();
                 });
         }

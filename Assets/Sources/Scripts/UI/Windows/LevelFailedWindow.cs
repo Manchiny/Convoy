@@ -40,7 +40,10 @@ namespace Assets.Scripts.UI
         private void OnContinueButtonClick()
         {
             Close();
+        }
 
+        protected override void OnClose()
+        {
             if (_onContinueCallback != null)
                 _onContinueCallback?.Invoke();
         }

@@ -72,8 +72,8 @@ namespace Assets.Scripts.UI
 
             float duration = (_lastHealth - Damageable.CurrentHealth) * AnimationDurationPerUnit;
 
-            if (NeedLog)
-                Debug.Log($"{Damageable.gameObject.name} [1]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
+            //if (NeedLog)
+            //    Debug.Log($"{Damageable.gameObject.name} [1]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
 
             _mainFiller.localScale = _scale;
 
@@ -93,8 +93,8 @@ namespace Assets.Scripts.UI
             if (duration <= 0)
                 duration = 0.1f;
 
-            if (NeedLog)
-                Debug.Log($"{Damageable.gameObject.name} [2]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
+            //if (NeedLog)
+            //    Debug.Log($"{Damageable.gameObject.name} [2]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
 
             _animation = _slider.DOValue(targetValue, duration).SetLink(gameObject).SetEase(Ease.Linear).SetUpdate(true);
         }

@@ -34,7 +34,7 @@ namespace Assets.Scripts.Units
 
         private void Update()
         {
-            if (!_inited || Data == null || IsAlive == false || _completed)
+            if (!_inited || Data == null || Game.IsAllAlive == false || _completed)
                 return;
 
             if (Target != null)

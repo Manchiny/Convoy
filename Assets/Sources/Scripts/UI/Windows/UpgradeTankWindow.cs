@@ -17,7 +17,7 @@ namespace Assets.Scripts.UI
         public override bool AnimatedClose => true;
 
         public static UpgradeTankWindow Show() =>
-                       Game.Windows.ScreenChange<UpgradeTankWindow>(true, w => w.Init());
+                       Game.Windows.ScreenChange<UpgradeTankWindow>(false, w => w.Init());
 
         protected override void OnAwake()
         {
