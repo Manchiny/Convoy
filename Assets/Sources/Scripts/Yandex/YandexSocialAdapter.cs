@@ -2,6 +2,7 @@ using Agava.YandexGames;
 using Assets.Scripts.Saves;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Social
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Social
     public class YandexSocialAdapter : MonoBehaviour
     {
         public const string DefaultLeaderBoardName = "LevelValue";
+        protected const int LeaderbourdMaxCount = 20;
 
         public string Tag => "[YandexSDK]";
         public string Name => "Yandex";
@@ -76,80 +78,73 @@ namespace Assets.Scripts.Social
             Debug.Log($"Environment = {JsonUtility.ToJson(YandexGamesSdk.Environment)}");
         }
 
-        //public override Promise<List<LeaderboardData>> GetLeaderboardData(string leaderBoardName)
-        //{
-        //    Promise<List<LeaderboardData>> promise = new();
-        //    List<LeaderboardData> data = new();
+        public void GetLeaderboardData(Action<List<LeaderboardData>> onComplete, string leaderBoardName)
+        {
+            List<LeaderboardData> data = new();
 
-        //    Leaderboard.GetEntries(leaderBoardName, OnSucces, OnError, LeaderbourdMaxCount, LeaderbourdMaxCount, true);
+            Leaderboard.GetEntries(leaderBoardName, OnSucces, OnError, LeaderbourdMaxCount, LeaderbourdMaxCount, true);
 
-        //    void OnSucces(LeaderboardGetEntriesResponse result)
-        //    {
-        //        Debug.Log($"User rank = {result.userRank}");
+            void OnSucces(LeaderboardGetEntriesResponse result)
+            {
+                Debug.Log($"User rank = {result.userRank}");
 
-        //        foreach (var entry in result.entries)
-        //        {
-        //            string name = entry.player.publicName;
+                foreach (var entry in result.entries)
+                {
+                    string name = entry.player.publicName;
 
-        //            if (name.IsNullOrEmpty())
-        //                name = "Anonymous";
+                    if (name.IsNullOrEmpty())
+                        name = "Anonymous";
 
-        //            int score = entry.score;
+                    int score = entry.score;
 
-        //            data.Add(new LeaderboardData(name, score));
-        //        }
+                    data.Add(new LeaderboardData(name, score));
+                }
 
-        //        promise.Resolve(data);
-        //    }
+                onComplete?.Invoke(data);
+            }
 
-        //    void OnError(string error)
-        //    {
-        //        Debug.Log(Tag + ": error GetLeaderboardData - " + error);
-        //        promise.Resolve(data);
-        //    }
+            void OnError(string error)
+            {
+                Debug.Log(Tag + ": error GetLeaderboardData - " + error);
+                onComplete?.Invoke(null);
+            }
+        }
 
-        //    return promise;
-        //}
+        protected void SetLeaderboardValue(string leaderboardName, int value)
+        {
+            Leaderboard.SetScore(leaderboardName, value, OnSucces, OnError);
 
-        //protected void SetLeaderboardValue(string leaderboardName, int value)
-        //{
-        //    Leaderboard.SetScore(leaderboardName, value, OnSucces, OnError);
+            void OnSucces()
+            {
+                Debug.Log($"{Tag}: player's leaderboard data succesfully updated!");
+            }
 
-        //    void OnSucces()
-        //    {
-        //        Debug.Log($"{Tag}: player's leaderboard data succesfully updated!");
-        //    }
+            void OnError(string error)
+            {
+                Debug.Log($"{Tag}: player's leaderboard data update failed - {error}");
+            }
+        }
 
-        //    void OnError(string error)
-        //    {
-        //        Debug.Log($"{Tag}: player's leaderboard data update failed - {error}");
-        //    }
-        //}
+        protected void TryGetLeaderboardPlayerEntry(Action<int> onComplete, string leaderBoardName)
+        {
+            int scores = -1;
 
-        //protected Promise<int> TryGetLeaderboardPlayerEntry(string leaderBoardName)
-        //{
-        //    Promise<int> promise = new();
+            Leaderboard.GetPlayerEntry(leaderBoardName, OnSucces, OnError);
 
-        //    int scores = -1;
+            void OnSucces(LeaderboardEntryResponse responce)
+            {
+                if (responce == null)
+                    onComplete?.Invoke(scores);
+                else
+                    onComplete?.Invoke(responce.score);
+            }
 
-        //    Leaderboard.GetPlayerEntry(leaderBoardName, OnSucces, OnError);
-
-        //    void OnSucces(LeaderboardEntryResponse responce)
-        //    {
-        //        if (responce == null)
-        //            promise.Resolve(scores);
-        //        else
-        //            promise.Resolve(responce.score);
-        //    }
-
-        //    void OnError(string error)
-        //    {
-        //        promise.Reject(null);
-        //        Debug.Log(Tag + $" can't get Leaderboard player entry: {error}");
-        //    }
-
-        //    return promise;
-        //}
+            void OnError(string error)
+            {
+                Debug.Log(Tag + $" can't get Leaderboard player entry: {error}");
+                onComplete?.Invoke(scores);
+            }
+        }
 
         public class LeaderboardData
         {

@@ -15,6 +15,7 @@ namespace Assets.Scripts.UI
             [typeof(LevelFailedWindow)] = "Windows/LevelFailedWindow",
             [typeof(WatchAdsRewardWindow)] = "Windows/WatchAdsRewardWindow",
             [typeof(SettingsWindow)] = "Windows/SettingsWindow",
+            [typeof(LeaderboardWindow)] = "Windows/LeaderboardWindow",
         };
     }
 }

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -8,22 +7,17 @@ namespace Assets.Scripts.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class HUD : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _badgesText;
         [Space]
         [SerializeField] private RectTransform _badgesPanelContent;
         [Space]
         [SerializeField] private BasicButton _settingsButton;
-        [SerializeField] private BasicButton _leaderboardButton;
         [Space]
         [SerializeField] private BoostsPanel _playerBoostsPanel;
         [SerializeField] private BoostsPanel _tankBoostsPanel;
 
-        private const string LevelLocalizationKey = "level";
-
         private const float FadeDuration = 1f;
         private const float MoneyPanelAnimationDuration = 0.075f;
-        private const float FloatingMoneyDeltaYStartPosition = 1f;
 
         private CanvasGroup _canvas;
 
@@ -38,9 +32,6 @@ namespace Assets.Scripts.UI
         private void OnDestroy()
         {
             Game.Player.BadgesChanged -= OnBadgesChanged;
-            //Game.Localization.LanguageChanged -= OnLocalizationChanged;
-
-            // _settingsButton.RemoveListener(OnSettingsButtonClick);
         }
 
         public void Init(UserData userData, bool isReinit = false)
@@ -50,15 +41,11 @@ namespace Assets.Scripts.UI
             _playerBoostsPanel.Init(userData);
             _tankBoostsPanel.Init(userData);
 
-            //SetMoneyText(Game.User.Money);
-
             if (isReinit == false)
             {
                 _settingsButton.AddListener(OnSettingsButtonClick);
                 Game.Player.BadgesChanged += OnBadgesChanged;
             }
-            //else
-            //    OnLevelChanged(Game.Instance.CurrentLevelId.Value);
 
             Show();
         }
