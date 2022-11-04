@@ -24,6 +24,7 @@ namespace Assets.Scripts.Levels
         [SerializeField] private EndLevelCheckpoint _endLevelCheckpoint;
         [Space]
         [SerializeField] private AirPlane _airPlane;
+        [SerializeField] private Angar _finishAngar;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
         private readonly Vector3 AirDropOffsetPosition = new Vector3(13.5f, 0,0);
@@ -37,7 +38,8 @@ namespace Assets.Scripts.Levels
         private RoadPart _lastFilledRoadPart;
         private float _lastOffsetXOnRoad;
 
-        public IReadOnlyList<Vector3> Waypoints => _currentRoad.Select(road => road.Center).ToList();
+        private List<Vector3> _waypoints = new();
+        public IReadOnlyList<Vector3> Waypoints => _waypoints;
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
         public float DatabaseVesrsion => _levelsDatabase.Version;
@@ -50,6 +52,8 @@ namespace Assets.Scripts.Levels
         public void LoadLevel(int levelId)
         {
             LevelConfigData config = _levelsDatabase.GetLevelConfig(levelId);
+            _waypoints.Clear();
+
             Configure(config);
 
             if (_drops.Count > 0)
@@ -75,7 +79,10 @@ namespace Assets.Scripts.Levels
             RemoveOldRoad();
             CreateRoad(config);
 
-            _endLevelCheckpoint.transform.position = _currentRoad.Last().Center;
+            _finishAngar.transform.position = _currentRoad.Last().EndConnectorPosition + new Vector3(0, 0, _finishAngar.Length / 2f);
+            _waypoints.Add(_finishAngar.TankEndPoint);
+
+            _endLevelCheckpoint.transform.position = _waypoints.Last();
 
             _ground.Resize(_currentRoad.Count * RoadPart.Lenght);
 
@@ -92,7 +99,7 @@ namespace Assets.Scripts.Levels
             _currentRoad.Add(firstRoadPart);
 
             for (int i = 1; i < config.RoadPartsCount; i++)
-                CreatRandomRoadPart();
+                 CreatRandomRoadPart();
         }
 
         private void RemoveOldRoad()
@@ -164,6 +171,7 @@ namespace Assets.Scripts.Levels
             newRoadPart.transform.position = position;
 
             _currentRoad.Add(newRoadPart);
+            _waypoints.Add(newRoadPart.Center);
         }
 
         private void CreateMovableGroup(LevelConfigData config, RoadPart road, Damageable prefab)
