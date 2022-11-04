@@ -50,17 +50,12 @@ namespace Assets.Scripts.UI
             _playerBoostsPanel.Init(userData);
             _tankBoostsPanel.Init(userData);
 
-            //_leaderboardButton.gameObject.SetActive(Game.Social != null && Game.Social.IsInited && Game.Social.IsAuthorized);
-
             //SetMoneyText(Game.User.Money);
 
             if (isReinit == false)
             {
                 _settingsButton.AddListener(OnSettingsButtonClick);
-                // _leaderboardButton.AddListener(OnLeaderboardButtonClick);
-
                 Game.Player.BadgesChanged += OnBadgesChanged;
-                //Game.Localization.LanguageChanged += OnLocalizationChanged;
             }
             //else
             //    OnLevelChanged(Game.Instance.CurrentLevelId.Value);
@@ -99,11 +94,6 @@ namespace Assets.Scripts.UI
         //    floatingMoney.Init(count);
         //}
 
-        private void OnLevelChanged(int level)
-        {
-            //  _levelText.text = LevelLocalizationKey.Localize() + $" {level + 1}";
-        }
-
         private void OnBadgesChanged(int badgesCount)
         {
             SetBadgesText(badgesCount);
@@ -133,17 +123,6 @@ namespace Assets.Scripts.UI
         private void OnSettingsButtonClick()
         {
             SettingsWindow.Show();
-        }
-
-        private void OnLocalizationChanged()
-        {
-            //  OnLevelChanged(Game.Instance.CurrentLevelId.Value);
-        }
-
-        private void OnLeaderboardButtonClick()
-        {
-            //if (Game.Social != null && Game.Social.IsAuthorized)
-            //    LeaderboardWindow.Show();
         }
     }
 }

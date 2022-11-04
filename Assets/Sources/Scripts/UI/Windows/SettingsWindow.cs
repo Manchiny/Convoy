@@ -13,9 +13,11 @@ namespace Assets.Scripts.UI
         [SerializeField] private ChangeLanguageButton _languageButtonPrefab;
         [Space]
         [SerializeField] private BasicButton _connectToSocial;
+        [SerializeField] private BasicButton _leaderBoardButton;
 
         private const string LanguageLocalizationKey = "language";
         private const string TitleLocalizationKey = "settings";
+        private const string LeaderboardLocalizationKey = "leaderboard";
 
         private Game.GameMode _gameMode;
 
@@ -33,6 +35,9 @@ namespace Assets.Scripts.UI
             Game.Instance.SetMode(Game.GameMode.Pause);
 
             InitSocialButton();
+
+            _leaderBoardButton.gameObject.SetActive(Game.SocialAdapter != null && Game.SocialAdapter.IsInited && Game.SocialAdapter.IsAuthorized);
+            _leaderBoardButton.AddListener(OnLeaderboardButtonClick);
 
             SetText();
 
@@ -55,6 +60,9 @@ namespace Assets.Scripts.UI
 
             if (_connectToSocial.gameObject.activeInHierarchy)
                 _connectToSocial.Text = "connect_to".Localize() + $" {Game.SocialAdapter.Name}";
+
+            if (_leaderBoardButton.gameObject.activeInHierarchy)
+                _leaderBoardButton.Text = LeaderboardLocalizationKey.Localize();
         }
 
         private void InitSocialButton()
@@ -78,12 +86,20 @@ namespace Assets.Scripts.UI
             _connectToSocial.gameObject.SetActive(false);
             Game.Instance.SetSaver(Game.SocialAdapter.GetSaver);
             Game.SocialAdapter.RequestPersonalProfileDataPermission();
+
+            _leaderBoardButton.gameObject.SetActive(Game.SocialAdapter != null && Game.SocialAdapter.IsInited && Game.SocialAdapter.IsAuthorized);
         }
 
         private void OnAuthorizationError(string text)
         {
             _connectToSocial.gameObject.SetActive(false);
             Debug.Log($"Error autorization: {text}");
+        }
+
+        private void OnLeaderboardButtonClick()
+        {
+            if (Game.SocialAdapter != null && Game.SocialAdapter.IsAuthorized)
+                LeaderboardWindow.Show();
         }
     }
 }
