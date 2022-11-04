@@ -50,6 +50,15 @@ namespace Assets.Scripts.Units
 
         protected void MoveTo(Transform target)
         {
+            if (IsAlive == false)
+            {
+                _agent.ResetPath();
+                _agent.isStopped = true;
+                return;
+            }
+            else if (_agent.isStopped == true && _agent.isActiveAndEnabled && _agent.isOnNavMesh)
+                _agent.isStopped = false;
+
             _agent.SetDestination(target.position);
             Animations.PlayAnimation(EnemyAnimations.RunAnimationKey);
         }
@@ -58,6 +67,12 @@ namespace Assets.Scripts.Units
         {
             _agent.ResetPath();
             Animations.PlayAnimation(EnemyAnimations.IdleAnimationKey);
+        }
+
+        protected override void OnDie()
+        {
+            base.OnDie();
+            _agent.isStopped = true;
         }
     }
 }

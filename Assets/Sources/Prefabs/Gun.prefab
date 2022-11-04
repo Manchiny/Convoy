@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -50,6 +50,7 @@ MonoBehaviour:
   _shootingPoint: {fileID: 4088304533293443865}
   _bullet: {fileID: 3912627011782732605, guid: f9f357f6bdb376f458475aeaf9cb9469, type: 3}
   _shootingEffect: {fileID: 6894148614989922032}
+  _poolCount: 20
 --- !u!1 &6059708926612114321
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +149,7 @@ GameObject:
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4088304533293443865
 Transform:
   m_ObjectHideFlags: 0

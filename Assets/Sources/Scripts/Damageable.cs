@@ -72,7 +72,12 @@ namespace Assets.Scripts
             HealthChanged?.Invoke();
         }
 
-        protected void ResetHealth() => CurrentHealth = MaxHealth;
+        protected void ResetHealth()
+        {
+            CurrentHealth = MaxHealth;
+            HealthChanged?.Invoke();
+        }
+
         protected abstract void Die();
         protected abstract void OnGetDamage();
     }

@@ -13,25 +13,12 @@ namespace Assets.Scripts.UserInputSystem
         protected virtual float Horizontal => InputVector.x;
         protected virtual float Vertical  => InputVector.y;
 
-        private void Awake()
-        {
-            Game.Inited += OnGameInited;
-        }
-
-        private void OnDestroy()
-        {
-            Game.Inited -= OnGameInited;
-        }
-
-        public void OnGameInited()
-        {
-            Game.Inited -= OnGameInited;
-            Game.Instance.SetInputSystem(this);
-        }
+        private bool _freezed;
 
         public virtual void Init(PlayerMovement character)
         {
             _characterMovement = character;
+            _freezed = false;
         }
 
         public abstract bool NeedActivate();
@@ -41,9 +28,23 @@ namespace Assets.Scripts.UserInputSystem
             if (_characterMovement == null)
                 return;
 
-            GetInputVector();
+            if(_freezed == false)
+                GetInputVector();
+
             SetPlayerMoveDirection();
         }
+
+        public void Freeze()
+        {
+            _freezed = true;
+            InputVector = Vector2.zero;
+        }
+
+        public void UnFreeze()
+        {
+            _freezed = false;
+        }
+
 
         protected abstract void GetInputVector();
 

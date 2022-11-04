@@ -2063,6 +2063,17 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &678253461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  m_PrefabInstance: {fileID: 678253456}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678253458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -4182,6 +4193,8 @@ MonoBehaviour:
   _playerCharacterPropertiesDatabase: {fileID: 11400000, guid: 4d048ecd091fa1b4a94fe3b37e764193, type: 2}
   _localizationDatabase: {fileID: 11400000, guid: 8dff0d6e49e74c64d845afc3e30961e5, type: 2}
   _shop: {fileID: 1186169091}
+  _joistickInput: {fileID: 678253461}
+  _keyboardInput: {fileID: 1034948763}
 --- !u!114 &1186169090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6320,6 +6333,10 @@ PrefabInstance:
     - target: {fileID: 3683437172325771972, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788807027046739117, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
+      propertyPath: m_Radius
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 4059399382884298878, guid: 29e6bca7628d87d42a81fbb7522386ee, type: 3}
       propertyPath: m_Name

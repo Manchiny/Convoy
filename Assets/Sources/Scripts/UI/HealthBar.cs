@@ -1,3 +1,4 @@
+using Assets.Scripts.Units;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,17 +10,19 @@ namespace Assets.Scripts.UI
         [SerializeField] private Slider _slider;
         [SerializeField] private RectTransform _mainFiller;
 
-        private const float MainFillerOffse = 0.01f;
+        private const float MainFillerOffset = 0.01f;
         private const float AnimationDurationPerUnit = 0.15f;
 
         protected Damageable Damageable;
+
+        protected bool NeedLog;
+        protected bool NeedHideOnDie = true;
 
         private int _maxHealth;
         private int _lastHealth;
 
         private Tween _animation;
-
-        Vector3 _scale = Vector3.one;
+        private Vector3 _scale = Vector3.one;
 
         private void Awake()
         {
@@ -61,37 +64,53 @@ namespace Assets.Scripts.UI
             }
 
             _scale.x = Damageable.CurrentHealth / (float)_maxHealth;
-            
-            float targetValue = _scale.x - MainFillerOffse;
+
+            float targetValue = _scale.x - MainFillerOffset;
 
             if (targetValue < 0)
                 targetValue = 0;
 
             float duration = (_lastHealth - Damageable.CurrentHealth) * AnimationDurationPerUnit;
 
+            if (NeedLog)
+                Debug.Log($"{Damageable.gameObject.name} [1]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
+
             _mainFiller.localScale = _scale;
 
             _lastHealth = Damageable.CurrentHealth;
 
-            if (_animation != null && _animation.IsActive())
+            if (_animation != null)
             {
-                float timeRamin = _slider.value - targetValue * _animation.position;
+                float currentValue = _slider.value;
+
+                float timeRamin = currentValue - targetValue * _animation.position;
                 duration += timeRamin;
 
                 _animation.Kill();
+                _slider.value = currentValue;
             }
 
-            _animation = _slider.DOValue(targetValue, duration).SetLink(gameObject).SetEase(Ease.Linear);
+            if (duration <= 0)
+                duration = 0.1f;
+
+            if (NeedLog)
+                Debug.Log($"{Damageable.gameObject.name} [2]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
+
+            _animation = _slider.DOValue(targetValue, duration).SetLink(gameObject).SetEase(Ease.Linear).SetUpdate(true);
         }
 
         private void OnDied(Damageable damageable)
         {
-            gameObject.SetActive(false);
+            if(NeedHideOnDie)
+                gameObject.SetActive(false);
         }
 
         private void OnRestart()
         {
             gameObject.SetActive(true);
+
+            if (_animation != null)
+                _animation.Kill();
 
             _slider.value = _slider.maxValue;
             _scale.x = 1;

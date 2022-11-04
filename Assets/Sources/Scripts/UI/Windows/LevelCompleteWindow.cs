@@ -46,6 +46,8 @@ namespace Assets.Scripts.UI
 
         private void Init(int levelId, int badgesCount, Action onContinue)
         {
+            Game.Instance.SetMode(Game.GameMode.Pause);
+
             _levelId = levelId;
             _badgesCount = badgesCount;
             _totelBadges = badgesCount;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
@@ -10,6 +9,8 @@ namespace Assets.Scripts.UI
         protected override void OnInit()
         {
             Damageable = _unit;
+            NeedLog = true;
+            NeedHideOnDie = false;
         }
     }
 }

@@ -31,6 +31,9 @@ namespace Assets.Scripts
         [Space]
         [SerializeField] private LocalizationDatabase _localizationDatabase;
         [SerializeField] private Shop _shop;
+        [Space]
+        [SerializeField] private UserInput _joistickInput;
+        [SerializeField] private UserInput _keyboardInput;
 
         private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
@@ -138,23 +141,6 @@ namespace Assets.Scripts
             _tank.Completed -= OnLevelComplete;
             _tank.Died -= OnAnyPlayerUnitDied;
             _player.Died -= OnAnyPlayerUnitDied;
-        }
-
-        public void SetInputSystem(UserInput input)
-        {
-            Debug.Log($"Device type = {SystemInfo.deviceType}");
-
-            if (input.NeedActivate() == false)
-            {
-                input.gameObject.SetActive(false);
-                Debug.Log($"{input.GetType()} disbled");
-                return;
-            }
-
-            Debug.Log($"{input.GetType()} init");
-
-            _input = input;
-            _input.Init(_player.Movement);
         }
 
         public void OnDamageableHited(Damageable damageable, int damage)
@@ -270,6 +256,7 @@ namespace Assets.Scripts
 
             Windows.HUD.Init(_userData);
 
+            InitInputSystem();
             StartLevel(CurrentLevelId);
             _currentMode = GameMode.Game;
 
@@ -297,6 +284,29 @@ namespace Assets.Scripts
             _gameLocalization.LoadKeys(locale, _localizationDatabase.LocalizationKeys);
         }
 
+        private void InitInputSystem()
+        {
+            Debug.Log($"Device type = {SystemInfo.deviceType}");
+
+            Init(_joistickInput);
+            Init(_keyboardInput);
+
+            void Init(UserInput input)
+            {
+                if (input.NeedActivate() == false)
+                {
+                    input.gameObject.SetActive(false);
+                    Debug.Log($"{input.GetType()} disbled");
+                    return;
+                }
+
+                Debug.Log($"{input.GetType()} init");
+
+                _input = input;
+                _input.Init(_player.Movement);
+            }
+        }
+
         private void StartLevel(int levelId, bool restart = false)
         {
             _startLevelTime = Time.time;
@@ -317,6 +327,8 @@ namespace Assets.Scripts
 
             Debug.Log($"Level {levelId + 1} started");
 
+            _input.UnFreeze();
+
             _winLooseProcess = false;
 
             SetMode(GameMode.PuaseTankView);
@@ -327,6 +339,8 @@ namespace Assets.Scripts
         {
             if (_winLooseProcess)
                 return;
+
+            _input.Freeze();
 
             _winLooseProcess = true;
 
@@ -345,6 +359,8 @@ namespace Assets.Scripts
         {
             if (_winLooseProcess)
                 return;
+
+            _input.Freeze();
 
             _winLooseProcess = true;
 

@@ -19467,7 +19467,7 @@ GameObject:
   m_Layer: 0
   m_Name: ShootingPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -19656,6 +19656,7 @@ GameObject:
   - component: {fileID: 8725883507570500812}
   - component: {fileID: 7883364218187848857}
   - component: {fileID: 1135974469}
+  - component: {fileID: 2939838019981353470}
   m_Layer: 0
   m_Name: TowerSolderEnemy
   m_TagString: Untagged
@@ -19744,6 +19745,18 @@ CapsuleCollider:
   m_Height: 3.2
   m_Direction: 1
   m_Center: {x: 0, y: 1.6, z: 0}
+--- !u!114 &2939838019981353470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725883507570500816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6666ef12a4c45546afaccf060071e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8725883507601785050
 GameObject:
   m_ObjectHideFlags: 0
@@ -22044,7 +22057,7 @@ GameObject:
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

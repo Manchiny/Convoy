@@ -110,7 +110,7 @@ namespace Assets.Scripts.Levels
 
         private void CreateEnemyies(LevelConfigData config)
         {
-            for (int i = 2; i < _currentRoad.Count - 1; i++)
+            for (int i = 2; i < _currentRoad.Count; i++)
             {
                 RoadPart road = _currentRoad[i];
 
