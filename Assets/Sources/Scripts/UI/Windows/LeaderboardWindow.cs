@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI
             SetText();
 
             Game.Windows.SoftLoader.gameObject.SetActive(true);
-           Game.SocialAdapter.GetLeaderboardData(OnLeaderboardResponce, DefaultLeaderBoardName);
+            Game.SocialAdapter.GetLeaderboardData(OnLeaderboardResponce, DefaultLeaderBoardName);
         }
 
         protected override void SetText()
@@ -38,7 +38,7 @@ namespace Assets.Scripts.UI
             if (gameObject == null)
                 return;
 
-            if(data == null)
+            if (data == null)
             {
                 Game.Windows.SoftLoader.gameObject.SetActive(false);
                 Close();

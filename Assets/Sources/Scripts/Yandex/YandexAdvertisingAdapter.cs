@@ -89,7 +89,7 @@ namespace Assets.Scripts.Social.Adverts
         private void OnInterstitialOpen()
         {
             // _showInterstitialAfterLevelCounter = GameConstants.LevelsCountBetweenInterstitialShow;
-            Debug.LogError($"[{Tag}]: opened interstitial video");
+            Debug.Log($"[{Tag}]: opened interstitial video");
         }
 
         private void OnIntersitialOffline()
@@ -99,7 +99,7 @@ namespace Assets.Scripts.Social.Adverts
 
         protected void OnRewardedOpen()
         {
-            Debug.LogError($"[{Tag}]: opened rewarded video");
+            Debug.Log($"[{Tag}]: opened rewarded video");
 
             if (RevardedAdsOpened != null)
             {
@@ -110,7 +110,7 @@ namespace Assets.Scripts.Social.Adverts
 
         protected void OnRewarded()
         {
-            Debug.LogError($"[{Tag}]: rewarded!");
+            Debug.Log($"[{Tag}]: rewarded!");
 
             if (Rewarded != null)
             {
