@@ -40,7 +40,6 @@ namespace Assets.Scripts.UI
             if (data == null || data.Count == 0)
             {
                 Game.Windows.SoftLoader.gameObject.SetActive(false);
-                Close();
             }
             else
             {

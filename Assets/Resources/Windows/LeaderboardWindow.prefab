@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _titleText: {fileID: 5246897388036707918}
-  _viewsContainer: {fileID: 6884397816078145290, guid: 61d76f99589d4e94894598e68f125227, type: 3}
-  _playerViewPrefab: {fileID: 0}
+  _viewsContainer: {fileID: 7411463915078462450}
+  _playerViewPrefab: {fileID: 6877784124742601197, guid: 61d76f99589d4e94894598e68f125227, type: 3}
 --- !u!1 &1496567660406786282
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,9 +55,9 @@ namespace Assets.Scripts.Social
             PlayerAccount.Authorize(onSucces, onError);
         }
 
-        public void RequestPersonalProfileDataPermission()
+        public void RequestPersonalProfileDataPermission(Action onSucces, Action<string> onError)
         {
-            PlayerAccount.RequestPersonalProfileDataPermission();
+            PlayerAccount.RequestPersonalProfileDataPermission(onSucces, onError);
         }
 
         public void GetProfileData()

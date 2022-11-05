@@ -25,8 +25,16 @@ namespace Assets.Scripts.UI
         public override bool AnimatedClose => true;
         public override bool NeedHideHudOnShow => true;
 
+        private AbstractWindow _leaderboard;
+
         public static SettingsWindow Show() =>
                        Game.Windows.ScreenChange<SettingsWindow>(false, w => w.Init());
+
+        private void OnDestroy()
+        {
+            if (_leaderboard != null)
+                _leaderboard.Closed -= OnLeaderboardClose;
+        }
 
         protected void Init()
         {
@@ -67,27 +75,30 @@ namespace Assets.Scripts.UI
 
         private void InitSocialButton()
         {
-            if (Game.SocialAdapter != null)
+            if (Game.SocialAdapter != null && Game.SocialAdapter.IsInited)
             {
-                if (Game.SocialAdapter.IsInited && Game.SocialAdapter.IsAuthorized == false) // || Game.SocialAdapter.IsInited && Game.SocialAdapter.HasPersonalDataPermission == false)
-                {
-                    _connectToSocial.gameObject.SetActive(true);
-                    _connectToSocial.AddListener(() => Game.SocialAdapter.ConnectProfileToSocial(OnAuthorizationSuccess, OnAuthorizationError));
+                _connectToSocial.gameObject.SetActive(true);
 
-                    return;
-                }
+                if (Game.SocialAdapter.IsAuthorized == false)       
+                    _connectToSocial.SetOnClick(() => Game.SocialAdapter.ConnectProfileToSocial(OnAuthorizationSuccess, OnAuthorizationError));
+                else
+                    _connectToSocial.gameObject.SetActive(false);
             }
-
-            _connectToSocial.gameObject.SetActive(false);
+            else
+                _connectToSocial.gameObject.SetActive(false);
         }
 
         private void OnAuthorizationSuccess()
         {
-            _connectToSocial.gameObject.SetActive(false);
             Game.Instance.SetSaver(Game.SocialAdapter.GetSaver);
-            Game.SocialAdapter.RequestPersonalProfileDataPermission();
+            Game.SocialAdapter.RequestPersonalProfileDataPermission(OnGetDataPermissionSuccess, OnAuthorizationError);
 
             _leaderBoardButton.gameObject.SetActive(Game.SocialAdapter != null && Game.SocialAdapter.IsInited && Game.SocialAdapter.IsAuthorized);
+        }
+
+        private void OnGetDataPermissionSuccess()
+        {
+            _connectToSocial.gameObject.SetActive(false);
         }
 
         private void OnAuthorizationError(string text)
@@ -99,7 +110,17 @@ namespace Assets.Scripts.UI
         private void OnLeaderboardButtonClick()
         {
             if (Game.SocialAdapter != null && Game.SocialAdapter.IsAuthorized)
-                LeaderboardWindow.Show();
+            {
+                _leaderBoardButton.SetLock(true);
+
+                _leaderboard = LeaderboardWindow.Show();
+                _leaderboard.Closed += OnLeaderboardClose;
+            }
+        }
+
+        private void OnLeaderboardClose(AbstractWindow window)
+        {
+            _leaderBoardButton.SetLock(false);
         }
     }
 }
