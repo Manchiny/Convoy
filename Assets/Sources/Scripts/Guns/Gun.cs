@@ -16,7 +16,6 @@ namespace Assets.Scripts.Guns
         private Queue<Bullet> _bulletsPool = new();
 
         private IAttackable _attackable;
-      //  private WaitForSeconds _waitSeconds;
         private Coroutine _cooldawnAwaite;
 
         protected int Damage => _attackable.Damage;

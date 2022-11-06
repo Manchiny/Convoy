@@ -12,8 +12,6 @@ namespace Assets.Scripts.Units
         private const float RotationSpeed = 50f;
         private const float DestinationDistance = 1f;
 
-        private const float TowerRotationSpeed = 12f;
-
         private UnitBoosts _boosts;
 
         private IReadOnlyList<Vector3> _waypoints;
@@ -31,6 +29,8 @@ namespace Assets.Scripts.Units
         public override int Damage => _boosts.TryGetBoostValue(ItemType.DamageMultyplier, out float value) ? base.Damage * (int)value : base.Damage;
         public override int Armor => _boosts.TryGetBoostValue(ItemType.ArmorMultyplier, out float value) ? base.Armor * (int)value : base.Armor;
         public override float ShootDelay => _boosts.TryGetBoostValue(ItemType.ShootingDelayDivider, out float value) ? base.ShootDelay / value : base.ShootDelay;
+
+        private float TowerRotationSpeed => 20f / ShootDelay;
 
         private void Update()
         {

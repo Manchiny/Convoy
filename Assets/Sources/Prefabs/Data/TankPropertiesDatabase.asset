@@ -33,7 +33,7 @@ MonoBehaviour:
     - _value: 2.4
     - _value: 2.35
     - _value: 2.3
-    - _value: 2.25
+    - _value: 0.4
   - _type: 1
     _levels:
     - _value: 100
