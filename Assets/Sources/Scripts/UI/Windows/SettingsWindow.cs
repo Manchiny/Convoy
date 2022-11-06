@@ -76,6 +76,8 @@ namespace Assets.Scripts.UI
 
             if (_leaderBoardButton.gameObject.activeInHierarchy)
                 _leaderBoardButton.Text = LeaderboardLocalizationKey.Localize();
+
+            _soundPanlel.SetText(SoundLocalizationKey);
         }
 
         private void OnSoundSliderClicked(bool enabled)

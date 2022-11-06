@@ -166,3 +166,21 @@ MonoBehaviour:
       _value: "\u041D\u0410\u0413\u0420\u0410\u0414\u0410 \u0423\u0414\u0412\u041E\u0415\u041D\u0410!"
     - _language: 10
       _value: REWARD DOUBLED!
+  - _key: sound
+    _values:
+    - _language: 30
+      _value: "\u0417\u0412\u0423\u041A"
+    - _language: 10
+      _value: SOUND
+  - _key: on
+    _values:
+    - _language: 30
+      _value: "\u0412\u041A\u041B."
+    - _language: 10
+      _value: ON
+  - _key: off
+    _values:
+    - _language: 30
+      _value: "\u0412\u042B\u041A\u041B."
+    - _language: 10
+      _value: OFF
