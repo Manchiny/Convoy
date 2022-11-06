@@ -80,6 +80,8 @@ namespace Assets.Scripts.UI
         {
             _buyButton.SetLock(false);
             Debug.Log($"[Item] {ShopItem.Name} on buy fail: " + reason);
+            var buttonRect = _buyButton.transform as RectTransform;
+            Game.Windows.ShowFloatingText("not enough badges", buttonRect.position);
         }
 
         private void SetText()

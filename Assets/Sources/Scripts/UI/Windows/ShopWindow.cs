@@ -20,12 +20,6 @@ namespace Assets.Scripts.UI
         public static ShopWindow Show() =>
                        Game.Windows.ScreenChange<ShopWindow>(false, w => w.Init());
 
-        protected override void Awake()
-        {
-            base.Awake();
-            Debug.LogWarning($"{LockKey}: on Awake!");
-        }
-
         private void OnDestroy()
         {
             Game.User.BadgesChaged -= OnBadgesCountChanged;

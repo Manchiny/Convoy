@@ -11,7 +11,10 @@ namespace Assets.Scripts.UI
         [SerializeField] private HUD _hud;
         [SerializeField] private RectTransform _loader;
         [SerializeField] private RectTransform _softLoader;
+        [Space]
+        [SerializeField] private RectTransform _topLayer;
         [SerializeField] private DropController _dropController;
+        [SerializeField] private FloatingText _floatingTextPrefab;
 
         private Stack<AbstractWindow> _windows = new Stack<AbstractWindow>();
 
@@ -20,6 +23,8 @@ namespace Assets.Scripts.UI
         public DropController Drops => _dropController;
         public RectTransform Loader => _loader;
         public RectTransform SoftLoader => _softLoader;
+        public RectTransform TopLayer => _topLayer;
+
         private AbstractWindow CurrentWindow => _windows.Count > 0 ? _windows.Peek() : null;
 
         public T ScreenChange<T>(bool closeAllOther = true, Action<T> action = null) where T : AbstractWindow
@@ -74,6 +79,17 @@ namespace Assets.Scripts.UI
             }
 
             return window;
+        }
+
+        public void ShowFloatingText(string text, Vector2 position)
+        {
+            position.x = Screen.width / 2f;
+
+            FloatingText floatingText = Instantiate(_floatingTextPrefab, _topLayer);
+            var rect = floatingText.transform as RectTransform;
+            rect.position = position;
+
+            floatingText.Show(text);
         }
 
         private void CloseCurrentWindow()

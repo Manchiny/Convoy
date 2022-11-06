@@ -5,7 +5,6 @@ namespace Assets.Scripts.UI
 {
     public class DropController : MonoBehaviour
     {
-        [SerializeField] private RectTransform _dropHolder;
         [SerializeField] private DropItemView _dropItemViewPrefab;
 
         private const float MaxOffset = 60f;
@@ -17,7 +16,7 @@ namespace Assets.Scripts.UI
 
         private void CreateDropView(ItemCount itemCount)
         {
-            var view = Instantiate(_dropItemViewPrefab, _dropHolder);
+            var view = Instantiate(_dropItemViewPrefab, Game.Windows.TopLayer);
             view.Init(itemCount);
 
             float xPosition = Random.Range(-MaxOffset, MaxOffset);

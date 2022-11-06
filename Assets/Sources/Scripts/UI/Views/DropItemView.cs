@@ -7,7 +7,7 @@ namespace Assets.Scripts.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class DropItemView : ItemView
     {
-        private const float DropAnimationDuration = 1.1f;
+        private const float MoveAnimationDuration = 1.1f;
         private const float UnhideDuration = 0.1f;
         private const float HideDuration = 0.9f;
 
@@ -39,7 +39,7 @@ namespace Assets.Scripts.UI
         private Tween MoveUp()
         {
             var rect = transform as RectTransform;
-            return rect.DOMove(new Vector3(rect.position.x, Screen.height, 0f), DropAnimationDuration);
+            return rect.DOMove(new Vector3(rect.position.x, Screen.height, 0f), MoveAnimationDuration);
         }
     }
 }
