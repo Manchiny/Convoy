@@ -1,6 +1,4 @@
-using Assets.Scripts.Items;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Items
@@ -9,6 +7,8 @@ namespace Assets.Scripts.Items
     {
         [SerializeField] private ItemsDatabase _itemsDatabase;
         [SerializeField] private ShopItemsDatabase _shopItemsDatabase;
+
+        private const string NotEnoughBagesLocalizationKey = "not_enough_badges";
 
         private UserData _user;
         public ItemsDatabase ItemsDatabase => _itemsDatabase;
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Items
                 }
                 else
                 {
-                    onFail.Invoke("not enough badges");
+                    onFail.Invoke(NotEnoughBagesLocalizationKey.Localize());
                 }
             }
             else if (shopItem.MoneyType == ShopItem.MoneyTypes.Ads)

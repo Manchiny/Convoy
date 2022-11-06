@@ -1,6 +1,5 @@
 using Assets.Scripts.Items;
 using Assets.Scripts.Units;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -80,8 +79,9 @@ namespace Assets.Scripts.UI
         {
             _buyButton.SetLock(false);
             Debug.Log($"[Item] {ShopItem.Name} on buy fail: " + reason);
+
             var buttonRect = _buyButton.transform as RectTransform;
-            Game.Windows.ShowFloatingText("not enough badges", buttonRect.position);
+            Game.Windows.ShowFloatingText(reason, buttonRect.position);
         }
 
         private void SetText()

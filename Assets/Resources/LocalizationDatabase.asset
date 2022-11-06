@@ -153,3 +153,16 @@ MonoBehaviour:
       _value: "\u0422\u0410\u0411\u041B\u0418\u0426\u0410 \u041B\u0418\u0414\u0415\u0420\u041E\u0412"
     - _language: 10
       _value: LEADERBOARD
+  - _key: not_enough_badges
+    _values:
+    - _language: 30
+      _value: "\u041D\u0415 \u0414\u041E\u0421\u0422\u0410\u0422\u041E\u0427\u041D\u041E
+        \u0416\u0415\u0422\u041E\u041D\u041E\u0412!"
+    - _language: 10
+      _value: NOT ENOUGH BADGES!
+  - _key: reward_doubled
+    _values:
+    - _language: 30
+      _value: "\u041D\u0410\u0413\u0420\u0410\u0414\u0410 \u0423\u0414\u0412\u041E\u0415\u041D\u0410!"
+    - _language: 10
+      _value: REWARD DOUBLED!

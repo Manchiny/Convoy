@@ -19,6 +19,7 @@ namespace Assets.Scripts.UI
         private const string YouRewardLocalizationKey = "you_reward";
         private const string DoubleLoacalizationKey = "double";
         private const string AdsLocalizationKey = "ad";
+        private const string DoubledLocalizationKey = "reward_doubled";
 
         private int _levelId;
 
@@ -86,6 +87,8 @@ namespace Assets.Scripts.UI
                 {
                     _totelBadges = _badgesCount * 2;
                     _badgesCountText.text = _totelBadges.ToString();
+
+                    Game.Windows.ShowFloatingText(DoubledLocalizationKey.Localize());
                 }
             }
         }

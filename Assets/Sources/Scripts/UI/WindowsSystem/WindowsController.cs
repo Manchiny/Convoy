@@ -81,13 +81,19 @@ namespace Assets.Scripts.UI
             return window;
         }
 
-        public void ShowFloatingText(string text, Vector2 position)
+        public void ShowFloatingText(string text, Vector2? position = null)
         {
-            position.x = Screen.width / 2f;
+            Vector2 textPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
+
+            if (position != null)
+            {
+                Vector2 pos = (Vector2)position;
+                textPosition.y = pos.y;
+            }
 
             FloatingText floatingText = Instantiate(_floatingTextPrefab, _topLayer);
             var rect = floatingText.transform as RectTransform;
-            rect.position = position;
+            rect.position = textPosition;
 
             floatingText.Show(text);
         }
