@@ -11,11 +11,13 @@ namespace Assets.Scripts.UI
         [SerializeField] private HUD _hud;
         [SerializeField] private RectTransform _loader;
         [SerializeField] private RectTransform _softLoader;
+        [SerializeField] private DropController _dropController;
 
         private Stack<AbstractWindow> _windows = new Stack<AbstractWindow>();
 
         public Locker Locker => _locker;
         public HUD HUD => _hud;
+        public DropController Drops => _dropController;
         public RectTransform Loader => _loader;
         public RectTransform SoftLoader => _softLoader;
         private AbstractWindow CurrentWindow => _windows.Count > 0 ? _windows.Peek() : null;

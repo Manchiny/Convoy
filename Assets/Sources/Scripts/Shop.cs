@@ -27,7 +27,7 @@ namespace Assets.Scripts.Items
             {
                 if(_user.TryBuyItem(shopItem))
                 {
-                    AddItemsToUser(shopItem);
+                    Game.Instance.AddItems(shopItem);
 
                     if (onSucces != null)
                         onSucces?.Invoke();
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Items
 
                 if (rewarded)
                 {
-                    AddItemsToUser(shopItem);
+                    Game.Instance.AddItems(shopItem);
 
                     if (onSucces != null)
                         onSucces?.Invoke();
@@ -68,14 +68,6 @@ namespace Assets.Scripts.Items
                     if (onFail != null)
                         onFail?.Invoke("Rewarded video not watched");
                 }
-            }
-        }
-
-        private void AddItemsToUser(ShopItem shopItem)
-        {
-            foreach (var item in shopItem.Items)
-            {
-                _user.AddItemCount(item);
             }
         }
     }

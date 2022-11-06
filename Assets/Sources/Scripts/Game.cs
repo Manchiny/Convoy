@@ -203,6 +203,22 @@ namespace Assets.Scripts
             foreach (var item in items)
             {
                 User.AddItemCount(item);
+
+                if(item.Item.IsPropertyPoint == false)
+                    Windows.Drops.Drop(item);
+            }
+
+            Save();
+        }
+
+        public void AddItems(ShopItem shopItem)
+        {
+            foreach (var item in shopItem.Items)
+            {
+                User.AddItemCount(item);
+
+                if (item.Item.IsPropertyPoint == false)
+                    Windows.Drops.Drop(item);
             }
 
             Save();
