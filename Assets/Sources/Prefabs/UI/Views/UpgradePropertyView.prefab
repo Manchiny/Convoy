@@ -932,9 +932,9 @@ RectTransform:
   m_Father: {fileID: 6994918350212027116}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 476.36002, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 336.36002, y: -107.5}
   m_SizeDelta: {x: 0, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5240546295578740598
@@ -1055,10 +1055,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027cdfc546b057e48b3a75ac69d5fe35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shopItemName: 7
+  _itemViewPrefab: {fileID: 0}
+  _itemViewContainer: {fileID: 0}
   _buyButton: {fileID: 8890696625300366715}
   _adsText: {fileID: 637411373916581913}
   _moneyImage: {fileID: 2853293494618211965}
+  _shopItemName: 7
   _progresPanel: {fileID: 3534560495939816841}
   _levelsCountText: {fileID: 8363911299198218876}
 --- !u!1 &6839357168746468483

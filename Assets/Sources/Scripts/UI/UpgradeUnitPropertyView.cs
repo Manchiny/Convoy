@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI
 
         private void OnDestroy()
         {
-            _data.Changed -= UpdateView;
+            _data.Changed -= OnDataChanged;
         }
 
         public override void Init(ShopItem shopItem, Unit unit)
@@ -37,26 +37,37 @@ namespace Assets.Scripts.UI
             _propertyType = Item.UnitPropertyByItemType(_item.Type);
 
             _data = Unit.Data;
-            _data.Changed += UpdateView;
+            _data.Changed += OnDataChanged;
 
-            UpdateView();
+            UpdateView(false);
         }
 
-        private void UpdateView()
+        private void OnDataChanged()
+        {
+            UpdateView(true);
+        }
+
+        private void UpdateView(bool needAnimateIndicatorPanel)
         {
             _maxPropertyLevel = _data.MaxPropertyLevel(_propertyType, Unit.PropertiesDatabase);
+
+            int lastPropertyLevel = _currentPropertyLevel;
+            int lastPropertyPoints = _currentPropertyPoints;
+
             _currentPropertyLevel = _data.GetUserPropertyLevel(_propertyType);
             _currentPropertyPoints = _data.CurrentPropertyPoints(_propertyType);
+
+            bool dataChanged = lastPropertyLevel != _currentPropertyLevel || lastPropertyPoints != _currentPropertyPoints;
 
             _levelsCountText.text = $"{_currentPropertyLevel}/{_maxPropertyLevel}";
 
             if (_currentPropertyLevel == _maxPropertyLevel)
             {
-                _progresPanel.SetMax();
+                _progresPanel.SetMax(needAnimateIndicatorPanel);
                 BuyButton.SetLock(true);
             }
             else
-                _progresPanel.SetProgress(_currentPropertyPoints);
+                _progresPanel.SetProgress(_currentPropertyPoints, needAnimateIndicatorPanel && dataChanged);
         }
     }
 }
