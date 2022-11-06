@@ -53,6 +53,7 @@ namespace Assets.Scripts
         public static event Action Inited;
         public static event Action Restarted;
         public static event Action LevelStarted;
+        public static event Action Loosed;
 
         public event Action<GameMode> GameModeChanged;
 
@@ -370,6 +371,7 @@ namespace Assets.Scripts
                 return;
 
             _winLooseProcess = true;
+            Loosed?.Invoke();
             _input.Freeze();
 
             float currentTime = Time.time;

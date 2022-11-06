@@ -6,6 +6,8 @@ namespace Assets.Scripts
     [RequireComponent(typeof(Restartable))]
     public abstract class Damageable : MonoBehaviour, IRestartable
     {
+        private Collider _collider;
+
         public event Action<Damageable> Died;
         public event Action HealthChanged;
 
@@ -22,11 +24,13 @@ namespace Assets.Scripts
         public abstract int Armor { get; }
         public int CurrentHealth { get; protected set; }
 
+        public Collider Collider => _collider;
         public bool IsAlive => CurrentHealth > 0;
 
         protected virtual void Start()
         {
             ResetHealth();
+            _collider = GetComponent<Collider>();
         }
 
         public void GetDamage(int damage)

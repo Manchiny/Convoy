@@ -10,6 +10,7 @@ namespace Assets.Scripts.Units
     public class Player : Unit, IBoostable
     {
         [SerializeField] private Transform _badgeHolder;
+        [SerializeField] private EnemyPointer _enemyPointer;
 
         private UnitBoosts _boosts;
         private bool _inited;
@@ -33,6 +34,8 @@ namespace Assets.Scripts.Units
             Movement = GetComponent<PlayerMovement>();
             Movement.OnMovementStarted += OnStartMovement;
             Movement.OnMovementStoped += OnStopMovement;
+
+            _enemyPointer.ForceHide();
         }
 
         private void OnDestroy()
@@ -68,7 +71,7 @@ namespace Assets.Scripts.Units
             foreach (var badge in _badges)
                 Destroy(badge.gameObject);
 
-             _badges.Clear();
+            _badges.Clear();
             BadgesChanged?.Invoke(_badges.Count);
 
             ClearTargets();
@@ -87,7 +90,7 @@ namespace Assets.Scripts.Units
         public void OnTankZoneEntered() { InTankZone = true; }
         public void InitUnitBoosts(UnitBoosts boosts) { _boosts = boosts; }
 
-        public void AddBoost(ItemType type, float value) 
+        public void AddBoost(ItemType type, float value)
         {
             _boosts.TryAddBoost(type, value);
         }
@@ -109,7 +112,7 @@ namespace Assets.Scripts.Units
 
         private void DropBadges()
         {
-            if(_badges.Count > 0)
+            if (_badges.Count > 0)
                 foreach (var badge in _badges)
                     badge.Drop();
         }
@@ -128,17 +131,25 @@ namespace Assets.Scripts.Units
         protected override void OnEnenmyMissed(Damageable enemy)
         {
             if (enemy == Target || (Target != null && Target.IsAlive == false))
-                Target = TryGetNearestTarget();
+                OnStopMovement();
         }
 
         private void OnStartMovement()
         {
             Target = null;
+
+            if (_enemyPointer.gameObject.activeInHierarchy)
+                _enemyPointer.SetEnemy(null);
         }
 
         private void OnStopMovement()
         {
             Target = TryGetNearestTarget();
+
+            if (Target != null && Target.IsAlive)
+                _enemyPointer.SetEnemy(Target);
+            else
+                _enemyPointer.SetEnemy(null);
         }
     }
 }
