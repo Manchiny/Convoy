@@ -5,18 +5,22 @@ using static Assets.Scripts.Damageable;
 
 namespace Assets.Scripts.Guns
 {
+    [RequireComponent(typeof(AudioSource))]
     public class Gun : MonoBehaviour
     {
         [SerializeField] private Transform _shootingPoint;
         [SerializeField] private Bullet _bullet;
         [SerializeField] private ParticleSystem _shootingEffect;
         [SerializeField] private int _poolCount = 20;
+        [SerializeField] private AudioClip _shootAudioClip;
 
         private Vector3 _shootingDiredtionOffaset = new Vector3(0, 1, 0);
         private Queue<Bullet> _bulletsPool = new();
 
         private IAttackable _attackable;
         private Coroutine _cooldawnAwaite;
+
+        private AudioSource _audioSource;
 
         protected int Damage => _attackable.Damage;
         protected virtual float CooldawnSeconds => _attackable.ShootDelay;
@@ -27,6 +31,7 @@ namespace Assets.Scripts.Guns
         private void Awake()
         {
             _attackable = GetComponentInParent<IAttackable>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -63,6 +68,7 @@ namespace Assets.Scripts.Guns
             bullet.Activate(_shootingPoint.position, direction, team, this);
 
             _shootingEffect.Play();
+            Game.Sound.PlayShoottingSound(_shootAudioClip, 1, _audioSource);
 
             if (_cooldawnAwaite != null)
                 StopCoroutine(_cooldawnAwaite);

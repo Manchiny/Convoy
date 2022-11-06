@@ -52,7 +52,12 @@ namespace Assets.Scripts.Sound
             PlaySound(_buttonClick, 0.75f);
         }
 
-        public void PlayCongratsSound()
+        public void PlayShoottingSound(AudioClip audioClip, float volume, AudioSource source)
+        {
+            PlaySound(audioClip, volume, source);
+        }
+
+        private void PlayCongratsSound()
         {
             PlaySound(_levelCompleteSound, 1);
         }
