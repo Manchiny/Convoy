@@ -800,7 +800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 141.3, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 207.4, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &349733289
@@ -3657,7 +3657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 141.3, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 207.4, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1062325456
@@ -4196,6 +4196,7 @@ MonoBehaviour:
   _shop: {fileID: 1186169091}
   _joistickInput: {fileID: 678253461}
   _keyboardInput: {fileID: 1034948763}
+  _gameSound: {fileID: 0}
 --- !u!114 &1186169090
 MonoBehaviour:
   m_ObjectHideFlags: 0

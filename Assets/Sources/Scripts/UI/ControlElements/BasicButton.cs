@@ -306,8 +306,8 @@ namespace Assets.Scripts.UI
         {
             if (_soundClickCallback != null)
                 _soundClickCallback?.Invoke();
-            //else
-            //    Game.Sound.PlayBasicButtonClick();
+            else
+                Game.Sound.PlayBasicButtonClick();
         }
 
         private void SetEffect(bool appear)

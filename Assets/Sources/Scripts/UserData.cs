@@ -13,7 +13,8 @@ namespace Assets.Scripts
     {
         public int Badges;
         public int LevelId;
-        public string SavedLocale;
+        public string SavedLocale; 
+        public bool NeedSound;
 
         public UnitData TankData;
         public UnitData PlayerCharacterData;

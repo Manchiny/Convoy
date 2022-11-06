@@ -20,6 +20,7 @@ namespace Assets.Scripts.Saves
         protected override void LoadData(Action<UserData> onComplete)
         {
             UserData data = new UserData();
+            data.NeedSound = true;
 
             if (File.Exists(SavePath))
                 data = JsonUtility.FromJson<UserData>(File.ReadAllText(SavePath));

@@ -4,6 +4,7 @@ using Assets.Scripts.Localization;
 using Assets.Scripts.Saves;
 using Assets.Scripts.Social;
 using Assets.Scripts.Social.Adverts;
+using Assets.Scripts.Sound;
 using Assets.Scripts.UI;
 using Assets.Scripts.Units;
 using Assets.Scripts.UserInputSystem;
@@ -34,6 +35,8 @@ namespace Assets.Scripts
         [Space]
         [SerializeField] private UserInput _joistickInput;
         [SerializeField] private UserInput _keyboardInput;
+        [Space]
+        [SerializeField] private GameSound _gameSound;
 
         private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
@@ -54,6 +57,7 @@ namespace Assets.Scripts
         public static event Action Restarted;
         public static event Action LevelStarted;
         public static event Action Loosed;
+        public static event Action LevelCompleted;
 
         public event Action<GameMode> GameModeChanged;
 
@@ -89,6 +93,7 @@ namespace Assets.Scripts
 
         public static GameLocalization Localization => Instance?._gameLocalization;
         public static GameConfiguration Configuration => Instance?._gameConfiguration;
+        public static GameSound Sound => Instance._gameSound;
 
         public static Transform GarbageHolder => Instance._sceneGarbageHolder;
         public static GameMode CurrentMode => Instance._currentMode;
@@ -129,14 +134,6 @@ namespace Assets.Scripts
 
             _saver.LoadUserData(InitData);
         }
-
-#if UNITY_EDITOR
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space) == true)
-                Debug.Log("Time: " + Time.time);
-        }
-#endif
 
         private void OnDestroy()
         {
@@ -393,7 +390,6 @@ namespace Assets.Scripts
             _winLooseProcess = true;
             _input.Freeze();
 
-
 #if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", CurrentLevelId);
 #endif
@@ -402,6 +398,8 @@ namespace Assets.Scripts
 
             if (SocialAdapter != null && SocialAdapter.IsInited)
                 SocialAdapter.SetLeaderboardValue(YandexSocialAdapter.DefaultLeaderBoardName, CurrentLevelId + 1);
+
+            LevelCompleted?.Invoke();
 
             Save();
         }
