@@ -20735,7 +20735,7 @@ MonoBehaviour:
   _bullet: {fileID: -3022636192214633427, guid: 59e8582a0f1ba7f4ca4dc97f17dbc717, type: 3}
   _shootingEffect: {fileID: 4140677524692547992}
   _poolCount: 12
-  _shootAudioClip: {fileID: 8300000, guid: 90fbe9f79d41f8f4f85182638b243063, type: 3}
+  _shootAudioClip: {fileID: 8300000, guid: b9b5745c3e83d3747a78702c91421e3f, type: 3}
 --- !u!114 &1115095785
 MonoBehaviour:
   m_ObjectHideFlags: 0

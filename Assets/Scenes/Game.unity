@@ -6465,6 +6465,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7987878030891807569, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7987878030891807569, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7987878030891807569, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: rolloffMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7987878030891807569, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: DopplerLevel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7987878030891807569, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235343292019521863, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
+      propertyPath: _movementSound
+      value: 
+      objectReference: {fileID: 8300000, guid: dfa241ecb47984441aeb846c38c1f328, type: 3}
     - target: {fileID: 1241944114353441309, guid: eb68c33d6da82b3459b3e26cdec0accd, type: 3}
       propertyPath: m_Name
       value: Tank

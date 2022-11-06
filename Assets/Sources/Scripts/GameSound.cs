@@ -57,6 +57,19 @@ namespace Assets.Scripts.Sound
             PlaySound(audioClip, volume, source);
         }
 
+        public void PlaySound(AudioClip clip, float volume, AudioSource source = null)
+        {
+            if (clip != null)
+            {
+                if (source == null)
+                    source = _defaultAudioSource;
+
+                source.volume = volume;
+                source.clip = clip;
+                source.Play();
+            }
+        }
+
         private void PlayCongratsSound()
         {
             PlaySound(_levelCompleteSound, 1);
@@ -75,19 +88,6 @@ namespace Assets.Scripts.Sound
             _backgroundPlaying = true;
 
             PlaySound(_backgroundSound, 0.5f, _backgrounsAudioSource);
-        }
-
-        private void PlaySound(AudioClip clip, float volume, AudioSource source = null)
-        {
-            if (clip != null)
-            {
-                if (source == null)
-                    source = _defaultAudioSource;
-
-                source.volume = volume;
-                source.clip = clip;
-                source.Play();
-            }
         }
 
         private void OnInBackgroundChange(bool inBackground)

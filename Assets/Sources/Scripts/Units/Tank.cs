@@ -6,13 +6,17 @@ using UnityEngine;
 namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(UnitBoosts))]
+    [RequireComponent(typeof(AudioSource))]
     public class Tank : Unit, IBoostable
     {
+        [SerializeField] private AudioClip _movementSound;
+
         private const float MoveSpeed = 2f;
         private const float RotationSpeed = 50f;
         private const float DestinationDistance = 1f;
 
         private UnitBoosts _boosts;
+        private AudioSource _audioSource;
 
         private IReadOnlyList<Vector3> _waypoints;
         private Vector3 _currnentTargetPoint;
@@ -20,6 +24,8 @@ namespace Assets.Scripts.Units
 
         private bool _inited;
         private bool _completed;
+
+        private bool _stopped;
 
         public event Action Completed;
 
@@ -32,13 +38,22 @@ namespace Assets.Scripts.Units
 
         private float TowerRotationSpeed => 20f / ShootDelay;
 
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+
         private void Update()
         {
             if (!_inited || Data == null || Game.IsAllAlive == false || _completed)
+            {
+                SetStoopedIfNeed(true);
                 return;
+            }
 
             if (Target != null)
             {
+                SetStoopedIfNeed(true);
                 if (NeedRotateTower)
                     Rotate(Gun.transform, Target.transform.position, TowerRotationSpeed);
                 else
@@ -77,6 +92,9 @@ namespace Assets.Scripts.Units
 
             _inited = true;
             _completed = false;
+
+            Game.Sound.PlaySound(_movementSound, 0.8f, _audioSource);
+            _stopped = true;
         }
 
         public void OnComplete()
@@ -101,7 +119,10 @@ namespace Assets.Scripts.Units
             _boosts.RemoveBoost(type);
         }
 
-        protected override void Die() { }
+        protected override void Die() 
+        {
+            _audioSource.Stop();
+        }
 
         protected override void OnGetDamage(){}
 
@@ -129,7 +150,21 @@ namespace Assets.Scripts.Units
 
         private void Move()
         {
+            SetStoopedIfNeed(false);
             transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
+        }
+
+        private void SetStoopedIfNeed(bool stopped)
+        {
+            if (stopped == _stopped)
+                return;
+
+            _stopped = stopped;
+
+            if (_stopped)
+                _audioSource.pitch = 1;
+            else
+                _audioSource.pitch = 1.2f;
         }
 
         private void OnWaypointReached()
