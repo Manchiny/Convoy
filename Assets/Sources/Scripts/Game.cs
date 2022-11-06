@@ -242,6 +242,13 @@ namespace Assets.Scripts
             Save();
         }
 
+        public void SetSound(bool needOn)
+        {
+            User.NeedSound = needOn;
+            _gameSound.SetSoundEnebled(needOn);
+            Save();
+        }
+
         private void InitData(UserData userData)
         {
             _userData = userData;
@@ -276,7 +283,8 @@ namespace Assets.Scripts
         {
             InitLocalization();
             _levelLoader.InitData(_gameConfiguration.LevelsDatabaseData);
-
+            
+            _gameSound.Init();
             _shop.Init(_userData);
 
             Windows.HUD.Init(_userData);

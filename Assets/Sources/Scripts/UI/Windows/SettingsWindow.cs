@@ -14,10 +14,13 @@ namespace Assets.Scripts.UI
         [Space]
         [SerializeField] private BasicButton _connectToSocial;
         [SerializeField] private BasicButton _leaderBoardButton;
+        [Space]
+        [SerializeField] private SliderParametrPanel _soundPanlel;
 
         private const string LanguageLocalizationKey = "language";
         private const string TitleLocalizationKey = "settings";
         private const string LeaderboardLocalizationKey = "leaderboard";
+        private const string SoundLocalizationKey = "sound";
 
         private Game.GameMode _gameMode;
 
@@ -54,6 +57,8 @@ namespace Assets.Scripts.UI
                 ChangeLanguageButton button = Instantiate(_languageButtonPrefab, _languageButtonContainer);
                 button.Init(lang);
             }
+
+            _soundPanlel.Init(Game.Sound.Enabled, SoundLocalizationKey.Localize(), OnSoundSliderClicked);
         }
 
         protected override void OnClose()
@@ -72,6 +77,11 @@ namespace Assets.Scripts.UI
             if (_leaderBoardButton.gameObject.activeInHierarchy)
                 _leaderBoardButton.Text = LeaderboardLocalizationKey.Localize();
         }
+
+        private void OnSoundSliderClicked(bool enabled)
+        {
+            Game.Instance.SetSound(enabled);
+        }   
 
         private void InitSocialButton()
         {

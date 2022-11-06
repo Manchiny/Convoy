@@ -19,11 +19,6 @@ namespace Assets.Scripts.Sound
 
         public bool Enabled { get; private set; }
 
-        private void OnDestroy()
-        {
-
-        }
-
         private void OnEnable()
         {
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
