@@ -5,7 +5,6 @@ namespace Assets.Scripts.Units
     [RequireComponent(typeof(Collider))]
     public class StayOnPlayceEnemy : Enemy, IEnemyGroupable
     {
-        private Collider _collider;
         public EnemyGroup _group;
 
         protected virtual float AttackDistance => 24f;
@@ -15,11 +14,6 @@ namespace Assets.Scripts.Units
 
         protected bool NeedAttack => Target != null && (Target.transform.position - transform.position).sqrMagnitude <= AttackDistance * AttackDistance;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _collider = GetComponent<Collider>();
-        }
 
         private void FixedUpdate()
         {
@@ -38,7 +32,7 @@ namespace Assets.Scripts.Units
         public override void OnRestart()
         {
             base.OnRestart();
-            _collider.isTrigger = false;
+            Collider.isTrigger = false;
             _group.ResetTarget();
         }
 
@@ -51,7 +45,7 @@ namespace Assets.Scripts.Units
 
         protected override void OnDie()
         {
-            _collider.isTrigger = true;
+            Collider.isTrigger = true;
         }
 
         protected virtual void Attack()
