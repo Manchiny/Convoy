@@ -1,4 +1,3 @@
-using Assets.Scripts.Units;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +37,7 @@ namespace Assets.Scripts.UI
             OnRestart();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Damageable.HealthChanged -= OnHealthChanged;
             Damageable.Died -= OnDied;
@@ -50,17 +49,26 @@ namespace Assets.Scripts.UI
             Damageable = GetComponentInParent<Damageable>();
         }
 
+        protected void SetMaxHealth()
+        {
+            if (Damageable.MaxHealth == 0)
+                return;
+            else
+            {
+                _maxHealth = Damageable.MaxHealth;
+                OnHealthChanged();
+            }
+        }
+
         private void OnHealthChanged()
         {
             if (_maxHealth == 0)
             {
-                if (Damageable.MaxHealth == 0)
+                SetMaxHealth();
+                _lastHealth = _maxHealth;
+
+                if (_maxHealth == 0)
                     return;
-                else
-                {
-                    _maxHealth = Damageable.MaxHealth;
-                    _lastHealth = _maxHealth;
-                }
             }
 
             _scale.x = Damageable.CurrentHealth / (float)_maxHealth;
@@ -101,7 +109,7 @@ namespace Assets.Scripts.UI
 
         private void OnDied(Damageable damageable)
         {
-            if(NeedHideOnDie)
+            if (NeedHideOnDie)
                 gameObject.SetActive(false);
         }
 

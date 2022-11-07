@@ -40,7 +40,12 @@ namespace Assets.Scripts.Units
             _baseArmor = (int)Data.GetPropertyValue(UnitPropertyType.Armor, _propertiesDatabase);
             _baseDamage = (int)Data.GetPropertyValue(UnitPropertyType.Damage, _propertiesDatabase);
             _baseShootDelay = Data.GetPropertyValue(UnitPropertyType.ShootDelay, _propertiesDatabase);
+
+            int maxHealth = MaxHealth;
             MaxHealth = (int)Data.GetPropertyValue(UnitPropertyType.MaxHealth, _propertiesDatabase);
+
+            if (maxHealth != 0 && MaxHealth != maxHealth)
+                UpdateHealth(maxHealth, MaxHealth);
         }
 
         public void AddFindedEnemy(Damageable enemy)

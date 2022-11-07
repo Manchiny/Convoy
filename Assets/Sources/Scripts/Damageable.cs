@@ -10,6 +10,7 @@ namespace Assets.Scripts
 
         public event Action<Damageable> Died;
         public event Action HealthChanged;
+        public event Action MaxHeathChanged;
 
         public enum Team
         {
@@ -80,6 +81,13 @@ namespace Assets.Scripts
         {
             CurrentHealth = MaxHealth;
             HealthChanged?.Invoke();
+        }
+
+        protected void UpdateHealth(int lastMaxHealth, int currentMaxHealth)
+        {
+            float healthPercent = CurrentHealth / lastMaxHealth;
+            CurrentHealth = (int)(healthPercent * MaxHealth);
+            MaxHeathChanged?.Invoke();
         }
 
         protected abstract void Die();
