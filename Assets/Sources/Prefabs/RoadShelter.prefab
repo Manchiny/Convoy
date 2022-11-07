@@ -1707,7 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2717839e9840b847aee8fb3894388fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _solderPrefab: {fileID: 4963327257803049976, guid: fe8d279b07ccab244b826ff860a73964, type: 3}
+  _solderPrefab: {fileID: 4963327257803049976, guid: 571ff73cbbf55da488896968f77b44fa, type: 3}
   _spwanPoints:
   - {fileID: 1034718663651386928}
   - {fileID: 1034718662784034442}
