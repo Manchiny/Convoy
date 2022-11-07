@@ -8,7 +8,7 @@ namespace Assets.Scripts
     [RequireComponent(typeof(BoxCollider))]
     public class SolderBadge : MonoBehaviour
     {
-        private const float DeltaY = 0.18f;
+        private const float DeltaY = 0.16f;
 
         private Rigidbody _rigidbody;
         private BoxCollider _collider;
@@ -55,9 +55,9 @@ namespace Assets.Scripts
 
             _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
 
-            _animation.Append(transform.DOLocalMove(position, 0.3f));
+            _animation.Append(transform.DOLocalMove(position, 0.2f));
             _animation.Play();
-            _animation.Insert(0, transform.DOLocalRotate(Vector3.zero, 0.3f));
+            _animation.Insert(0, transform.DOLocalRotate(Vector3.zero, 0.2f));
         }
 
         public void Drop()
@@ -77,8 +77,8 @@ namespace Assets.Scripts
 
             _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject);
 
-            _animation.Append(transform.DOScale(2f, 0.2f));
-            _animation.Append(transform.DOScale(1f, 0.1f));
+            _animation.Append(transform.DOScale(2.5f, 0.18f));
+            _animation.Append(transform.DOScale(1f, 0.06f));
 
             _animation.Play();
         }
