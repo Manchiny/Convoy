@@ -13,6 +13,8 @@ namespace Assets.Scripts
         [SerializeField] private Vector3 _baseOffset = new Vector3(0, 24, -10f);
         [SerializeField] private float _moveSpeedOnGame = 50f;
         [SerializeField] private float _moveSpeedOnShop = 1.5f;
+        [Space]
+        [SerializeField] private float _rotationSpeed = 50f;
 
         private Transform _target;
         private Transform _lookAtPoint;
@@ -21,7 +23,14 @@ namespace Assets.Scripts
         private Vector3 _offset;
         private Vector3 _smoothedPosition;
 
+        private Quaternion _startRotation;
+
         private Coroutine _increasingSpeed;
+
+        private void Awake()
+        {
+            _startRotation = transform.rotation;
+        }
 
         private void Start()
         {
@@ -34,13 +43,13 @@ namespace Assets.Scripts
         private void LateUpdate()
         {
             UpdateCameraPosition();
+            Rotate();
         }
 
         private void UpdateCameraPosition()
         {
             _smoothedPosition = Vector3.Lerp(transform.position, _target.position + _offset, _currentSpeed * Time.unscaledDeltaTime);
             transform.position = _smoothedPosition;
-            transform.LookAt(_lookAtPoint);
         }
 
         private void OnGameModeChanged(GameMode mode)
@@ -56,11 +65,24 @@ namespace Assets.Scripts
             }
         }
 
+        private void Rotate()
+        {
+            if (_lookAtPoint != null)
+            {
+                var rotation = Quaternion.LookRotation(_lookAtPoint.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.unscaledDeltaTime * _rotationSpeed);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, _startRotation, Time.unscaledDeltaTime * _rotationSpeed);
+            }
+        }
+
         private void SetupOnGame()
         {
             _target = _player;
             _offset = _baseOffset;
-            _lookAtPoint = _player;
+            _lookAtPoint = null;
 
             if (_increasingSpeed != null)
                 StopCoroutine(_increasingSpeed);
