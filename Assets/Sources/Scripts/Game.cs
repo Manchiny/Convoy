@@ -122,11 +122,7 @@ namespace Assets.Scripts
             _yandexAdapter = FindObjectOfType<YandexSocialAdapter>();
 
             if (_yandexAdapter != null && _yandexAdapter.IsInited)
-            {
-                _adverts = new YandexAdvertisingAdapter();
-                _adverts.Init(_yandexAdapter);
                 _saver = new YandexSaver();
-            }
             else
                 _saver = new LocalJSONSaver();
 
@@ -180,7 +176,7 @@ namespace Assets.Scripts
             {
                 ItemsUseHandler.UseItem(item);
 
-                if(onUse != null)
+                if (onUse != null)
                     onUse?.Invoke();
 
                 Save();
@@ -202,7 +198,7 @@ namespace Assets.Scripts
             {
                 User.AddItemCount(item);
 
-                if(item.Item.IsPropertyPoint == false)
+                if (item.Item.IsPropertyPoint == false)
                     Windows.Drops.Drop(item);
             }
 
@@ -282,14 +278,21 @@ namespace Assets.Scripts
         private void InitGame()
         {
             InitLocalization();
+
+            if (_yandexAdapter != null && _yandexAdapter.IsInited)
+            {
+                _adverts = new YandexAdvertisingAdapter();
+                _adverts.Init(_yandexAdapter);
+            }
+
             _levelLoader.InitData(_gameConfiguration.LevelsDatabaseData);
-            
+
             _gameSound.Init();
             _shop.Init(_userData);
-
             Windows.HUD.Init(_userData);
 
             InitInputSystem();
+
             StartLevel(CurrentLevelId);
             _currentMode = GameMode.Game;
 
@@ -387,7 +390,15 @@ namespace Assets.Scripts
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelId.ToString(), reason.ToString(), elapsedTime);
 #endif
             Debug.Log($"Level {CurrentLevelId + 1} loosed!");
-            LevelFailedWindow.Show(RestartLevel);
+            LevelFailedWindow.Show(OnContinue);
+
+            void OnContinue()
+            {
+                if (_adverts != null && _adverts.NeedShowInterstitialAfterFail)
+                    _adverts.TryShowInterstitial(RestartLevel);
+                else
+                    RestartLevel();
+            }
         }
 
         private void OnLevelComplete()
@@ -401,7 +412,7 @@ namespace Assets.Scripts
 #if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "level_complete", CurrentLevelId);
 #endif
-            LevelCompleteWindow.Show(CurrentLevelId, Player.Badges, () => StartLevel(CurrentLevelId));
+            LevelCompleteWindow.Show(CurrentLevelId, Player.Badges, OnContinue);
             _userData.LevelId++;
 
             if (SocialAdapter != null && SocialAdapter.IsInited)
@@ -410,6 +421,14 @@ namespace Assets.Scripts
             LevelCompleted?.Invoke();
 
             Save();
+
+            void OnContinue()
+            {
+                if (_adverts != null && _adverts.NeedShowInterstitialAfterLevel)
+                    _adverts.TryShowInterstitial(() => StartLevel(CurrentLevelId));
+                else
+                    StartLevel(CurrentLevelId);
+            }
         }
 
         private void RestartLevel()

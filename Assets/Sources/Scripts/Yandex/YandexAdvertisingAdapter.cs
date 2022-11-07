@@ -7,6 +7,8 @@ namespace Assets.Scripts.Social.Adverts
     public class YandexAdvertisingAdapter
     {
         private int _showInterstitialAfterLevelCounter;
+        private int _showInterstitialAfterLevelFailCounter;
+
         private YandexSocialAdapter _socialAdapter;
 
         private event Action Rewarded;
@@ -16,7 +18,8 @@ namespace Assets.Scripts.Social.Adverts
 
         private event Action OnInterstitialClosed;
 
-        public bool NeedShowInterstitial => true;// _showInterstitialAfterLevelCounter <= 0;
+        public bool NeedShowInterstitialAfterLevel => _showInterstitialAfterLevelCounter <= 0 && Game.Configuration.NeedSowInterstitialAfterLevelsComplete;
+        public bool NeedShowInterstitialAfterFail => _showInterstitialAfterLevelFailCounter <= 0 && Game.Configuration.NeedShowInterstitialOnRestartLevel;
 
         public string Tag => "YandexAdverts";
 
@@ -33,7 +36,12 @@ namespace Assets.Scripts.Social.Adverts
         public void Init(YandexSocialAdapter socialAdapter)
         {
             _socialAdapter = socialAdapter;
-            // _showInterstitialAfterLevelCounter = GameConstants.LevelsCountBetweenInterstitialShow;
+
+            _showInterstitialAfterLevelCounter = Game.Configuration.LevelsCompletedCountForShowInterstitial;
+            _showInterstitialAfterLevelFailCounter = Game.Configuration.LevelFailsCountForShowInterstitial;
+
+            Game.Loosed += OnLevelLoosed;
+            Game.LevelCompleted += OnLevelComplete;
         }
 
         public void TryShowInterstitial(Action onClose)
@@ -41,9 +49,9 @@ namespace Assets.Scripts.Social.Adverts
             Debug.Log($"[{Tag}] Try show Interstitial... ");
             OnInterstitialClosed = onClose;
 
-            if (_socialAdapter == null || _socialAdapter.IsInited == false || NeedShowInterstitial == false)
+            if (_socialAdapter == null || _socialAdapter.IsInited == false)
             {
-                Debug.Log($"[{Tag}] Interstitial rejected: social adapetr inited = {_socialAdapter?.IsInited}, need show interstitial = {NeedShowInterstitial}, show interstitial counter = {_showInterstitialAfterLevelCounter}");
+                Debug.Log($"[{Tag}] Interstitial rejected: social adapetr inited = {_socialAdapter?.IsInited}, show interstitial counter = {_showInterstitialAfterLevelCounter}");
 
                 onClose?.Invoke();
                 return;
@@ -137,6 +145,11 @@ namespace Assets.Scripts.Social.Adverts
                 RewardAdsError?.Invoke();
                 RewardAdsError = null;
             }
+        }
+
+        private void OnLevelLoosed()
+        {
+            _showInterstitialAfterLevelFailCounter--;
         }
 
         private void OnLevelComplete()
