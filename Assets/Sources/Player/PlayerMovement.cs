@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace Assets.Scripts.Units
 {
@@ -8,10 +9,8 @@ namespace Assets.Scripts.Units
     [RequireComponent(typeof(Player))]
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private Rig _leftHandRig;
         private const float MaxAngleForAnimationTransition = 90f;
-
-        private const int AnimatorHandsLayerId = 1;
-        private const int AnimatorFullBodyLayerId = 2;
 
         private const string AnimatorSpeedKey = "Speed";
         private const string AnimatorSideSpeedKey = "SideSpeed";
@@ -149,9 +148,7 @@ namespace Assets.Scripts.Units
             SpeedForward = 0;
             SpeedSide = 0;
 
-            _animator.SetLayerWeight(AnimatorHandsLayerId, 0);
-            _animator.SetLayerWeight(AnimatorFullBodyLayerId, 1);
-
+            _leftHandRig.weight = 0;
             _animator.SetBool(AnimatorDiedKey, true);
         }
 
@@ -160,14 +157,11 @@ namespace Assets.Scripts.Units
             _died = false;
             Debug.Log("OnLevelRestarted");
 
-            _animator.SetLayerWeight(AnimatorHandsLayerId, 1);
-            _animator.SetLayerWeight(AnimatorFullBodyLayerId, 0);
-
+            _leftHandRig.weight = 1;
             _animator.SetBool(AnimatorDiedKey, false);
 
             SpeedForward = 0;
             SpeedSide = 0;
-
         }
     }
 }
