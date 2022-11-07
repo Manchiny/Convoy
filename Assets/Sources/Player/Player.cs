@@ -34,6 +34,7 @@ namespace Assets.Scripts.Units
             Movement = GetComponent<PlayerMovement>();
             Movement.OnMovementStarted += OnStartMovement;
             Movement.OnMovementStoped += OnStopMovement;
+            Movement.Init(Gun);
 
             _enemyPointer.ForceHide();
         }

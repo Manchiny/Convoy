@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Assets.Scripts.Guns
         private Coroutine _cooldawnAwaite;
 
         private AudioSource _audioSource;
+
+        public event Action Shooted;
 
         protected int Damage => _attackable.Damage;
         protected virtual float CooldawnSeconds => _attackable.ShootDelay;
@@ -58,6 +61,8 @@ namespace Assets.Scripts.Guns
 
             Vector3 direction = target.transform.position + _shootingDiredtionOffaset - _shootingPoint.transform.position;
             Shoot(direction, team);
+            
+            return;
         }
 
         protected void Shoot(Vector3 direction, Team team)
@@ -68,6 +73,7 @@ namespace Assets.Scripts.Guns
             bullet.Activate(_shootingPoint.position, direction, team, this);
 
             _shootingEffect.Play();
+            Shooted?.Invoke();
             Game.Sound.PlayShoottingSound(_shootAudioClip, 1, _audioSource);
 
             if (_cooldawnAwaite != null)

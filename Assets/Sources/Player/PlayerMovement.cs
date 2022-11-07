@@ -1,3 +1,4 @@
+using Assets.Scripts.Guns;
 using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Units
         private const string AnimatorSpeedKey = "Speed";
         private const string AnimatorSideSpeedKey = "SideSpeed";
         private const string AnimatorDiedKey = "Died";
+        private const string ShootTriggerKey = "Shoot";
 
         private Player _player;
 
@@ -27,6 +29,7 @@ namespace Assets.Scripts.Units
         private float _speedForward;
         private float _speedSide;
 
+        private Gun _gun;
         private bool _died;
 
         private Vector3 _inputDirection;
@@ -62,6 +65,7 @@ namespace Assets.Scripts.Units
             _rigidbody = GetComponent<Rigidbody>();
 
             _player.Died += OnPlayerDied;
+
             Game.LevelStarted += OnLevelStarted;
             Game.Restarted += OnLevelStarted;
         }
@@ -78,6 +82,13 @@ namespace Assets.Scripts.Units
         private void OnDestroy()
         {
             _player.Died -= OnPlayerDied;
+            _gun.Shooted -= OnPlayerShooted;
+        }
+
+        public void Init(Gun gun)
+        {
+            _gun = gun;
+            _gun.Shooted += OnPlayerShooted;
         }
 
         public void SetInputDirection(Vector3 inputDirection)
@@ -138,6 +149,11 @@ namespace Assets.Scripts.Units
 
             Quaternion playerRotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, _rotationSpeed * Time.fixedDeltaTime);
+        }
+
+        private void OnPlayerShooted()
+        {
+            _animator.SetTrigger(ShootTriggerKey);
         }
 
         private void OnPlayerDied(Damageable unit)
