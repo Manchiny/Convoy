@@ -22,11 +22,6 @@ namespace Assets.Scripts.UI
         private int _currentPropertyLevel;
         private int _currentPropertyPoints;
 
-        private void OnDestroy()
-        {
-            _data.Changed -= OnDataChanged;
-        }
-
         public override void Init(ShopItem shopItem, Unit unit)
         {
             ShopItem = Game.Shop.ShopItemsDatabase.GetShopItemByName(_shopItemName);
@@ -37,14 +32,13 @@ namespace Assets.Scripts.UI
             _propertyType = Item.UnitPropertyByItemType(_item.Type);
 
             _data = Unit.Data;
-            _data.Changed += OnDataChanged;
-
             UpdateView(false);
         }
 
-        private void OnDataChanged()
+        protected override void OnSuccesBuy()
         {
             UpdateView(true);
+            Debug.Log($"[Item] {ShopItem.Name} on succes buy");
         }
 
         private void UpdateView(bool needAnimateIndicatorPanel)
@@ -67,7 +61,10 @@ namespace Assets.Scripts.UI
                 BuyButton.SetLock(true);
             }
             else
+            {
                 _progresPanel.SetProgress(_currentPropertyPoints, needAnimateIndicatorPanel && dataChanged);
+                BuyButton.SetLock(false);
+            }
         }
     }
 }

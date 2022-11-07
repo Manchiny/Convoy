@@ -44,10 +44,19 @@ namespace Assets.Scripts.UI
 
         public void SetMax(bool needAnimate)
         {
-            foreach (var indicator in _indicators)
-                indicator.SetUpgraded();
+            int counter = 0;
+          
 
-            if (needAnimate)
+            foreach (var indicator in _indicators)
+            {
+                if(indicator.IsUpgraded == false)
+                {
+                    indicator.SetUpgraded();
+                    counter++;
+                }
+            }
+
+            if (needAnimate && counter > 0)
                 ShowAnimation();
         }
 

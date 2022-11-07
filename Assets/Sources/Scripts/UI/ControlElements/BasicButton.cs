@@ -160,11 +160,13 @@ namespace Assets.Scripts.UI
                 return;
 
             Locked = val;
-
             Touchable = val ? touchable : true; // При снятии лока всегда возвращаем кликабельность кнопки
 
             if (this && gameObject)
+            {
                 _button.interactable = !Locked;
+                CanvasGroup.interactable = !Locked;
+            }
         }
 
         public virtual void OnSelectAnimation()
