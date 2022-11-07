@@ -5133,7 +5133,7 @@ MonoBehaviour:
   _levelsDatabase: {fileID: 11400000, guid: f52c3d4a47bd41c42a2874ab9ba34e14, type: 2}
   _enemyPrefabs:
   - _type: 0
-    _prefab: {fileID: 2628307218003889793, guid: 0f51832bcf15b1340aa4d42553715131, type: 3}
+    _prefab: {fileID: 7214503708244660138, guid: 0e7073def6cf78f45a056c2485de7db6, type: 3}
   - _type: 1
     _prefab: {fileID: 5493221914931301020, guid: ea599531b82632045a4ea334b969d532, type: 3}
   - _type: 2
@@ -7017,6 +7017,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5612282533995680829, guid: 45ca1159855a12b4998ca13342aa04d6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612282533995680829, guid: 45ca1159855a12b4998ca13342aa04d6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5664188371025248816, guid: 45ca1159855a12b4998ca13342aa04d6, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7272162607149123896, guid: 45ca1159855a12b4998ca13342aa04d6, type: 3}
       propertyPath: m_Name
       value: Player
