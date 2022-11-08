@@ -1470,6 +1470,7 @@ GameObject:
   - component: {fileID: 7883364218187848857}
   - component: {fileID: 1135974469}
   - component: {fileID: 2939838019981353470}
+  - component: {fileID: 5832728965250890079}
   m_Layer: 0
   m_Name: TowerSolderEnemy
   m_TagString: Untagged
@@ -1570,6 +1571,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6666ef12a4c45546afaccf060071e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5832728965250890079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725883507570500816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 3335354975360081730}
+    m_Active: 1
+  m_Effectors: []
 --- !u!1 &8725883508071927864
 GameObject:
   m_ObjectHideFlags: 0
