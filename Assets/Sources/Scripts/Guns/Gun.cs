@@ -13,7 +13,9 @@ namespace Assets.Scripts.Guns
         [SerializeField] private Bullet _bullet;
         [SerializeField] private ParticleSystem _shootingEffect;
         [SerializeField] private int _poolCount = 20;
+        [Space]
         [SerializeField] private AudioClip _shootAudioClip;
+        [SerializeField] private float _audioVolume = 1f;
 
         private Vector3 _shootingDiredtionOffaset = new Vector3(0, 1, 0);
         private Queue<Bullet> _bulletsPool = new();
@@ -74,7 +76,7 @@ namespace Assets.Scripts.Guns
 
             _shootingEffect.Play();
             Shooted?.Invoke();
-            Game.Sound.PlayShoottingSound(_shootAudioClip, 1, _audioSource);
+            Game.Sound.PlayShoottingSound(_shootAudioClip, _audioVolume, _audioSource);
 
             if (_cooldawnAwaite != null)
                 StopCoroutine(_cooldawnAwaite);

@@ -6,17 +6,13 @@ using UnityEngine;
 namespace Assets.Scripts.Units
 {
     [RequireComponent(typeof(UnitBoosts))]
-    [RequireComponent(typeof(AudioSource))]
     public class Tank : Unit, IBoostable
     {
-        [SerializeField] private AudioClip _movementSound;
-
         private const float MoveSpeed = 2f;
         private const float RotationSpeed = 50f;
         private const float DestinationDistance = 1f;
 
         private UnitBoosts _boosts;
-        private AudioSource _audioSource;
 
         private IReadOnlyList<Vector3> _waypoints;
         private Vector3 _currnentTargetPoint;
@@ -24,10 +20,10 @@ namespace Assets.Scripts.Units
 
         private bool _inited;
         private bool _completed;
-
         private bool _stopped;
 
         public event Action Completed;
+        public event Action<bool> Stopped; 
 
         public override Team TeamId => Team.Player;
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
@@ -37,11 +33,6 @@ namespace Assets.Scripts.Units
         public override float ShootDelay => _boosts.TryGetBoostValue(ItemType.ShootingDelayDivider, out float value) ? base.ShootDelay / value : base.ShootDelay;
 
         private float TowerRotationSpeed => 20f / ShootDelay;
-
-        private void Awake()
-        {
-            _audioSource = GetComponent<AudioSource>();
-        }
 
         private void Update()
         {
@@ -54,6 +45,7 @@ namespace Assets.Scripts.Units
             if (Target != null)
             {
                 SetStoopedIfNeed(true);
+
                 if (NeedRotateTower)
                     Rotate(Gun.transform, Target.transform.position, TowerRotationSpeed);
                 else
@@ -92,9 +84,6 @@ namespace Assets.Scripts.Units
 
             _inited = true;
             _completed = false;
-
-            Game.Sound.PlaySound(_movementSound, 0.8f, _audioSource);
-            _stopped = true;
         }
 
         public void OnComplete()
@@ -121,7 +110,6 @@ namespace Assets.Scripts.Units
 
         protected override void Die() 
         {
-            _audioSource.Stop();
         }
 
         protected override void OnGetDamage(){}
@@ -160,11 +148,7 @@ namespace Assets.Scripts.Units
                 return;
 
             _stopped = stopped;
-
-            if (_stopped)
-                _audioSource.pitch = 1;
-            else
-                _audioSource.pitch = 1.2f;
+            Stopped?.Invoke(stopped);
         }
 
         private void OnWaypointReached()
