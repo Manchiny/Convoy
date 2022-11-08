@@ -8,7 +8,7 @@ namespace Assets.Scripts
     [RequireComponent(typeof(BoxCollider))]
     public class SolderBadge : MonoBehaviour
     {
-        private const float DeltaY = 0.16f;
+        private const float DeltaY = 0.14f;
 
         private Rigidbody _rigidbody;
         private BoxCollider _collider;
