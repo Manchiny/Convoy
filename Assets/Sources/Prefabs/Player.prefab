@@ -818,7 +818,7 @@ GameObject:
   m_Layer: 6
   m_Name: LeftHandTarget
   m_TagString: Untagged
-  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -995,7 +995,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5664188372084953704}
   m_LocalRotation: {x: -0.008078518, y: 0.000000014915523, z: -2.5029168e-10, w: 0.9999674}
-  m_LocalPosition: {x: 0.088, y: -0.326, z: -1.021}
+  m_LocalPosition: {x: 0, y: -0.315, z: -0.854}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2150,6 +2150,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6328168806146081520, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6894148614970740826, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -2194,6 +2198,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cdb068b2ffe192440aeeae0fd38d54c4, type: 2}
+    - target: {fileID: 8522759342646486067, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8db04505c64e70a4bb3d856dfca6077c, type: 3}
 --- !u!4 &872053975209980571 stripped
