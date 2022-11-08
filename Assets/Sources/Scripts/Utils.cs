@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.UI;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,7 +101,6 @@ public static class Utils
         return false;
     }
 
-
     public static void ParseToDataOrCreateNew<T>(string parseText, out T resultOut) where T : class, new()
     {
         try
@@ -145,4 +145,46 @@ public static class Utils
 
         request.Dispose();
     }
+
+    #region BesierPath
+
+    private const float PointCount = 6f;
+
+    public static Tween GetBezierLocalPathAnimation(Transform obj, Transform controlPoint1, Transform controlPoint2, Vector3 endPoint, float duration)
+    {
+        Vector3[] pathvec = Bezier2Path(obj.localPosition, controlPoint1.localPosition, controlPoint2.localPosition, endPoint);
+        return obj.DOLocalPath(pathvec, duration).SetLink(obj.gameObject).SetEase(Ease.Linear);
+    }
+
+    // Get a second-order beezel curve path number
+    private static Vector3[] Bezier2Path(Vector3 startPos, Vector3 controlPos1, Vector3 controlPos2, Vector3 endPos)
+    {
+        Vector3[] path = new Vector3[(int)PointCount];
+
+        for (int i = 1; i <= PointCount; i++)
+        {
+            float t = i / PointCount;
+            path[i - 1] = Bezier3(startPos, controlPos1, controlPos2, endPos, t);
+        }
+
+        return path;
+    }
+
+    // 2-step Bazier curve
+    public static Vector3 Bezier2(Vector3 startPos, Vector3 controlPos, Vector3 endPos, float t)
+    {
+        return (1 - t) * (1 - t) * startPos + 2 * t * (1 - t) * controlPos + t * t * endPos;
+    }
+
+    // 3-step Bazier curve
+    public static Vector3 Bezier3(Vector3 startPos, Vector3 controlPos1, Vector3 controlPos2, Vector3 endPos, float t)
+    {
+        float t2 = 1 - t;
+        return t2 * t2 * t2 * startPos
+            + 3 * t * t2 * t2 * controlPos1
+            + 3 * t * t * t2 * controlPos2
+            + t * t * t * endPos;
+    }
+
+    #endregion
 }

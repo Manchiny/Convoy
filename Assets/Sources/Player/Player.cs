@@ -11,6 +11,9 @@ namespace Assets.Scripts.Units
     {
         [SerializeField] private Transform _badgeHolder;
         [SerializeField] private EnemyPointer _enemyPointer;
+        [Space]
+        [SerializeField] private Transform _bezierControlPoint;
+        [SerializeField] private Transform _bezierControlPoint_2;
 
         private UnitBoosts _boosts;
         private bool _inited;
@@ -82,7 +85,7 @@ namespace Assets.Scripts.Units
 
         public void TakeBadge(SolderBadge badge)
         {
-            badge.MoveToHolder(_badgeHolder, _badges.Count);
+            badge.MoveToHolder(_badgeHolder, _bezierControlPoint, _bezierControlPoint_2, _badges.Count);
             _badges.Add(badge);
             BadgesChanged?.Invoke(_badges.Count);
         }

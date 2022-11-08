@@ -44,21 +44,21 @@ namespace Assets.Scripts
             _rigidbody.AddTorque(transform.forward * 50f);
         }
 
-        public void MoveToHolder(Transform badgeHolder, int positionNumber)
+        public void MoveToHolder(Transform badgeHolder, Transform bezierControlPoint1, Transform bezierControlPoint2, int positionNumber)
         {
             _rigidbody.isKinematic = true;
             _collider.isTrigger = true;
 
             transform.parent = badgeHolder;
 
-            Vector3 position = Vector3.zero;
-            position.y += DeltaY * positionNumber;
+            Vector3 endPosition = Vector3.zero;
+            endPosition.y += DeltaY * positionNumber;
 
             _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
 
-            _animation.Append(transform.DOLocalMove(position, 0.3f));
+            _animation.Append(transform.DOLocalRotate(Vector3.zero, 0.2f));
             _animation.Play();
-            _animation.Insert(0, transform.DOLocalRotate(Vector3.zero, 0.3f));
+            _animation.Insert(0, Utils.GetBezierLocalPathAnimation(transform, bezierControlPoint1, bezierControlPoint2, endPosition, 0.25f));
         }
 
         public void Drop()
@@ -78,8 +78,8 @@ namespace Assets.Scripts
 
             _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject);
 
-            _animation.Append(transform.DOScale(2.15f, 0.20f));
-            _animation.Append(transform.DOScale(1f, 0.1f));
+            _animation.Append(transform.DOScale(2.15f, 0.16f));
+            _animation.Append(transform.DOScale(1f, 0.08f));
 
             _animation.Play();
         }
