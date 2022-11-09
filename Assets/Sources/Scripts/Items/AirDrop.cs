@@ -4,11 +4,22 @@ using UnityEngine;
 
 namespace Assets.Scripts.Items
 {
+    [RequireComponent(typeof(AudioSource))]
     public class AirDrop : GameDrop
     {
         [SerializeField] private Transform _parahute;
+        [Space]
+        [SerializeField] private AudioClip _dropSound;
+        [Range(0, 1)]
+        [SerializeField] private float _volume;
 
         private const float FlyDuration = 4f;
+        private AudioSource _audioSource;
+
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
 
         public override void Init(List<ItemCount> items, bool needWathRewardedVideoToGet)
         {
@@ -38,6 +49,7 @@ namespace Assets.Scripts.Items
         private void PlayFinishAnimation()
         {
             Checker.gameObject.SetActive(true);
+            Game.Sound.PlaySound(_dropSound, _volume, _audioSource);
 
             Sequence sequense = DOTween.Sequence().SetLink(gameObject).SetEase(Ease.Linear);
 

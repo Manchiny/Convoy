@@ -107,6 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerChecker: {fileID: 499111161218770972}
   _parahute: {fileID: 3300745753973379358}
+  _dropSound: {fileID: 8300000, guid: e2d7ac0318e81184e82c69d382b6eed9, type: 3}
+  _volume: 0.7
 --- !u!1001 &1120379056744730175
 PrefabInstance:
   m_ObjectHideFlags: 0
