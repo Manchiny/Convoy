@@ -347,6 +347,8 @@ namespace Assets.Scripts
         {
             _startLevelTime = Time.time;
 
+            Windows.Loader.gameObject.SetActive(true);
+
             if (restart == false)
             {
                 _levelLoader.LoadLevel(levelId);
@@ -370,6 +372,9 @@ namespace Assets.Scripts
             _winLooseProcess = false;
 
             SetMode(GameMode.PuaseTankView);
+
+            Windows.Loader.gameObject.SetActive(false);
+
             StartLevelWindow.Show(() => SetMode(GameMode.Game));
         }
 
