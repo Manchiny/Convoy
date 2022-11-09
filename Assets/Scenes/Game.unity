@@ -2926,6 +2926,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
+      propertyPath: _backgroundSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 55d17b9d055a9a945ab95ffb8acf6045, type: 3}
+    - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: _defaultAudioSource
       value: 
       objectReference: {fileID: 464972056}
@@ -3199,7 +3203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 580
+      value: 580.8955
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3207,7 +3211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 500
+      value: 500.8955
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3689,10 +3693,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1435787594}
     m_Modifications:
-    - target: {fileID: 5498049867707097003, guid: 3c4d7e57703eff44385dce414c72256b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 6691206882122506191, guid: 3c4d7e57703eff44385dce414c72256b, type: 3}
       propertyPath: m_Name
       value: Ground
@@ -3740,10 +3740,6 @@ PrefabInstance:
     - target: {fileID: 6691206882122506227, guid: 3c4d7e57703eff44385dce414c72256b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7664943755650631021, guid: 3c4d7e57703eff44385dce414c72256b, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c4d7e57703eff44385dce414c72256b, type: 3}

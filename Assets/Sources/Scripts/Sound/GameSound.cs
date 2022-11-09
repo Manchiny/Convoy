@@ -136,11 +136,13 @@ namespace Assets.Scripts.Sound
         private void PlayBackgroundSound()
         {
             if (_backgroundPlaying)
+            {
+                _backgrounsAudioSource.Play();
                 return;
+            }
 
             _backgroundPlaying = true;
-
-            PlaySound(_backgroundSound, 0.5f, _backgrounsAudioSource);
+            PlaySound(_backgroundSound, 0.4f, _backgrounsAudioSource);
         }
 
         private void OnInBackgroundChange(bool inBackground)
