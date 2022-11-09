@@ -39,6 +39,9 @@ namespace Assets.Scripts.Levels
         private float _lastOffsetXOnRoad;
 
         private List<Vector3> _waypoints = new();
+
+        public event Action LevelBuilded;
+
         public IReadOnlyList<Vector3> Waypoints => _waypoints;
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
@@ -61,6 +64,7 @@ namespace Assets.Scripts.Levels
                     Destroy(drop.gameObject);
 
             _drops.Clear();
+            LevelBuilded?.Invoke();
         }
 
         public void CreateAirDrop(List<ItemCount> items)

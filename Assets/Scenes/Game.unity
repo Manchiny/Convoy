@@ -4478,10 +4478,10 @@ MonoBehaviour:
   _player: {fileID: 2394512713706060869}
   _tank: {fileID: 1235343292019521864}
   _tankUpgradePosition: {fileID: 1132143717}
-  _baseOffset: {x: 0, y: 24, z: -8}
+  _baseOffset: {x: 0, y: 24, z: -10}
   _moveSpeedOnGame: 50
-  _moveSpeedOnShop: 1
-  _rotationSpeed: 5
+  _moveSpeedOnShop: 1.5
+  _rotationSpeed: 50
 --- !u!1001 &966208012
 PrefabInstance:
   m_ObjectHideFlags: 0

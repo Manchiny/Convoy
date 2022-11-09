@@ -128,7 +128,7 @@ namespace Assets.Scripts
 
             yield return null;
 
-            _saver.LoadUserData(InitData);
+            _saver.LoadUserData(data => StartCoroutine(Init(data)));
         }
 
         private void OnDestroy()
@@ -245,14 +245,15 @@ namespace Assets.Scripts
             Save();
         }
 
-        private void InitData(UserData userData)
+        private IEnumerator Init(UserData userData)
         {
             _userData = userData;
 
             _player.InitData(_userData.PlayerCharacterData, _playerCharacterPropertiesDatabase);
             _tank.InitData(_userData.TankData, _tankPropertiesDatabase);
 
-            StartCoroutine(LoadGameConfiguration());
+            yield return StartCoroutine(LoadGameConfiguration());
+            yield return StartCoroutine(InitGame());
         }
 
         private IEnumerator LoadGameConfiguration()
@@ -272,10 +273,9 @@ namespace Assets.Scripts
                 yield return _gameConfiguration.LocalizationData != null;
             }
 
-            InitGame();
         }
 
-        private void InitGame()
+        private IEnumerator InitGame()
         {
             InitLocalization();
 
@@ -293,14 +293,14 @@ namespace Assets.Scripts
 
             InitInputSystem();
 
-            StartLevel(CurrentLevelId);
+            yield return StartCoroutine(StartLevel(CurrentLevelId));
+
             _currentMode = GameMode.Game;
 
             _tank.Completed += OnLevelComplete;
             _tank.Died += OnAnyPlayerUnitDied;
             _player.Died += OnAnyPlayerUnitDied;
 
-            Windows.Loader.gameObject.SetActive(false);
             Inited?.Invoke();
         }
 
@@ -343,14 +343,20 @@ namespace Assets.Scripts
             }
         }
 
-        private void StartLevel(int levelId, bool restart = false)
+        private IEnumerator StartLevel(int levelId, bool restart = false)
         {
             _startLevelTime = Time.time;
+            bool levelBuilded = false;
 
             Windows.Loader.gameObject.SetActive(true);
 
+            yield return new WaitForEndOfFrame();
+
             if (restart == false)
             {
+                _levelLoader.LevelBuilded += OnLevelBuilded;
+                yield return (levelBuilded == true);
+
                 _levelLoader.LoadLevel(levelId);
 
                 List<ItemCount> levelDropItems = Shop.ItemsDatabase.GetRandomBoosts(2);
@@ -371,11 +377,18 @@ namespace Assets.Scripts
 
             _winLooseProcess = false;
 
+            Windows.Loader.gameObject.SetActive(false);
             SetMode(GameMode.PuaseTankView);
 
-            Windows.Loader.gameObject.SetActive(false);
+            yield return new WaitForEndOfFrame();
 
             StartLevelWindow.Show(() => SetMode(GameMode.Game));
+
+            void OnLevelBuilded()
+            {
+                _levelLoader.LevelBuilded -= OnLevelBuilded;
+                levelBuilded = true;
+            }
         }
 
         private void OnAnyPlayerUnitDied(Damageable unit)
@@ -400,9 +413,9 @@ namespace Assets.Scripts
             void OnContinue()
             {
                 if (_adverts != null && _adverts.NeedShowInterstitialAfterFail)
-                    _adverts.TryShowInterstitial(RestartLevel);
+                    _adverts.TryShowInterstitial(() => StartCoroutine(RestartLevel()));
                 else
-                    RestartLevel();
+                    StartCoroutine(RestartLevel());
             }
         }
 
@@ -430,18 +443,18 @@ namespace Assets.Scripts
             void OnContinue()
             {
                 if (_adverts != null && _adverts.NeedShowInterstitialAfterLevel)
-                    _adverts.TryShowInterstitial(() => StartLevel(CurrentLevelId));
+                    _adverts.TryShowInterstitial(() => StartCoroutine(StartLevel(CurrentLevelId)));
                 else
-                    StartLevel(CurrentLevelId);
+                    StartCoroutine(StartLevel(CurrentLevelId));
             }
         }
 
-        private void RestartLevel()
+        private IEnumerator RestartLevel()
         {
 #if GAME_ANALYTICS
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "restart", CurrentLevelId);
 #endif
-            StartLevel(CurrentLevelId, true);
+            yield return StartCoroutine(StartLevel(CurrentLevelId, true));
             Restarted?.Invoke();
         }
 

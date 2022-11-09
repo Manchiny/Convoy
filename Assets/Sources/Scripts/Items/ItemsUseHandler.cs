@@ -26,7 +26,7 @@ namespace Assets.Scripts.Items
 
         public static void UseItem(Item item)
         {
-            if(Handlers.TryGetValue(item.Type, out Action<Item> action))
+            if (Handlers.TryGetValue(item.Type, out Action<Item> action))
             {
                 action?.Invoke(item);
                 Debug.Log($"Item used {item.Name}!");
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Items
         private static void UseHealer(Item item)
         {
             Unit unit = GetBoostableUnit(item.Owner);
-            float count = item.Value * unit.MaxHealth;
+            float count = item.Value / 100f * unit.MaxHealth;
             unit.AddHealth((int)count);
         }
 

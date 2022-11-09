@@ -79,7 +79,7 @@ namespace Assets.Scripts.Units
 
         private void DropBadge()
         {
-            var badge = Instantiate(_badgePrefab, transform.position, Quaternion.identity, transform.parent);
+            var badge = Instantiate(_badgePrefab, transform.position, Quaternion.identity);
             badge.AddDropForce();
         }
 
