@@ -14,6 +14,7 @@ namespace Assets.Scripts.Sound
         [SerializeField] private AudioClip _buttonClick;
         [Space]
         [SerializeField] private AudioClip _backgroundSound;
+        [SerializeField] private AudioClip _buySound;
 
         private bool _backgroundPlaying;
 
@@ -52,6 +53,11 @@ namespace Assets.Scripts.Sound
             PlaySound(_buttonClick, 0.75f);
         }
 
+        public void PlayPurchaseSound()
+        {
+            PlaySound(_buySound, 1);
+        }
+
         public void PlayShoottingSound(AudioClip audioClip, float volume, AudioSource source)
         {
             PlaySound(audioClip, volume, source);
@@ -72,12 +78,12 @@ namespace Assets.Scripts.Sound
 
         private void PlayCongratsSound()
         {
-            PlaySound(_levelCompleteSound, 1);
+            PlaySound(_levelCompleteSound, 0.8f);
         }
 
         private void PlayLooseSound()
         {
-            PlaySound(_failSound, 1f, _defaultAudioSource);
+            PlaySound(_failSound, 0.8f, _defaultAudioSource);
         }
 
         private void PlayBackgroundSound()

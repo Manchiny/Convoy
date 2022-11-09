@@ -43,6 +43,8 @@ namespace Assets.Scripts.Units
             {
                 StopCoroutine(_dyingProcess);
                 _dyingProcess = null;
+
+                Animations.Reset();
             }
         }
 

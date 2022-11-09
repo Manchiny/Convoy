@@ -6,10 +6,12 @@ namespace Assets.Scripts
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(AudioSource))]
     public class SolderBadge : MonoBehaviour
     {
         private const float DeltaY = 0.14f;
 
+        private AudioSource _audioSource;
         private Rigidbody _rigidbody;
         private BoxCollider _collider;
 
@@ -17,6 +19,7 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<BoxCollider>();
         }
@@ -54,7 +57,9 @@ namespace Assets.Scripts
             Vector3 endPosition = Vector3.zero;
             endPosition.y += DeltaY * positionNumber;
 
-            _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
+            _audioSource.Play();
+
+             _animation = DOTween.Sequence().SetEase(Ease.Linear).SetLink(gameObject).OnComplete(() => PlayResizeAnimation(badgeHolder, positionNumber));
 
             _animation.Append(transform.DOLocalRotate(Vector3.zero, 0.2f));
             _animation.Play();

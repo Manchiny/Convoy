@@ -28,6 +28,7 @@ namespace Assets.Scripts.Items
                 if(_user.TryBuyItem(shopItem))
                 {
                     Game.Instance.AddItems(shopItem);
+                    Game.Sound.PlayPurchaseSound();
 
                     if (onSucces != null)
                         onSucces?.Invoke();
