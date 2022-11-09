@@ -89,7 +89,10 @@ namespace Assets.Scripts.Units
         public void OnComplete()
         {
             Debug.Log("[Tank] completed;");
+
             _completed = true;
+            SetStoopedIfNeed(true);
+
             Completed?.Invoke();
         }
 

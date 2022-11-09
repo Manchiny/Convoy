@@ -46,6 +46,7 @@ namespace Assets.Scripts.Items
         {
             IBoostable unit = GetBoostable(item.Owner);
             unit.AddBoost(item.Type, item.Value);
+            Game.Sound.PlayBoostUseSound();
         }
 
         private static void UseHealer(Item item)
@@ -53,6 +54,7 @@ namespace Assets.Scripts.Items
             Unit unit = GetBoostableUnit(item.Owner);
             float count = item.Value / 100f * unit.MaxHealth;
             unit.AddHealth((int)count);
+            Game.Sound.PlayBoostUseSound();
         }
 
         private static void UsePropertyPoint(Item item)

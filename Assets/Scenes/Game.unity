@@ -2269,10 +2269,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2926,6 +2926,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
+      propertyPath: _boostUse
+      value: 
+      objectReference: {fileID: 8300000, guid: fa2a763e7b585fb45a76b53f1c63baec, type: 3}
+    - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
+      propertyPath: _backgroundSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ee56c25bac80b444b4b1bea4dae5523, type: 3}
+    - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: _defaultAudioSource
       value: 
       objectReference: {fileID: 464972056}
@@ -3199,7 +3207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1837.1332
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3207,7 +3215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1757.1332
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3287,7 +3295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322306342537, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 141.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322306342537, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3387,7 +3395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322918233057, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 141.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322918233057, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y

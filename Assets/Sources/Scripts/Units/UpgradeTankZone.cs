@@ -43,11 +43,18 @@ namespace Assets.Scripts.Units
         private void OnDestroy()
         {
             Game.Inited -= Init;
+            Game.Localization.LanguageChanged -= SetText;
         }
 
         private void Init()
         {
             Game.Inited -= Init;
+            Game.Localization.LanguageChanged += SetText;
+            SetText();
+        }
+
+        private void SetText()
+        {
             _upgrageTankText.text = UpgradeTankLocalizationKey.Localize();
         }
 

@@ -15,6 +15,7 @@ namespace Assets.Scripts.Sound
         [Space]
         [SerializeField] private AudioClip _backgroundSound;
         [SerializeField] private AudioClip _buySound;
+        [SerializeField] private AudioClip _boostUse;
 
         private bool _backgroundPlaying;
 
@@ -83,7 +84,12 @@ namespace Assets.Scripts.Sound
 
         private void PlayLooseSound()
         {
-            PlaySound(_failSound, 0.8f, _defaultAudioSource);
+            PlaySound(_failSound, 0.8f);
+        }
+
+        public void PlayBoostUseSound()
+        {
+            PlaySound(_boostUse, 1);
         }
 
         private void PlayBackgroundSound()

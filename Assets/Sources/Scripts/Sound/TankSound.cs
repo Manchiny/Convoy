@@ -10,7 +10,7 @@ namespace Assets.Scripts.Sound
         [SerializeField] private AudioClip _movementSound;
         [SerializeField] private AudioClip _tankDestruction;
 
-        private const float MovementAudioVolume = 0.55f;
+        private const float MovementAudioVolume = 0.4f;
         private const float DestructionVolume = 0.5f;
 
         private const float MovementPtichOnStop = 1f;
