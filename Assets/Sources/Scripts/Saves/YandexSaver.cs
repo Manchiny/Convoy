@@ -28,6 +28,7 @@ namespace Assets.Scripts.Saves
                 Debug.LogError(Tag + " get player data error: " + error);
                 UserData userData = new UserData();
                 userData.NeedSound = true;
+                userData.NeedMusic = true;
 
                 onComplete?.Invoke(userData);
             }

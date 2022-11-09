@@ -54,7 +54,7 @@ MonoBehaviour:
   _shootingEffect: {fileID: 6894148614989922032}
   _poolCount: 20
   _shootAudioClip: {fileID: 8300000, guid: 90fbe9f79d41f8f4f85182638b243063, type: 3}
-  _audioVolume: 0.8
+  _audioVolume: 0.4
 --- !u!82 &8800316789957579518
 AudioSource:
   m_ObjectHideFlags: 0

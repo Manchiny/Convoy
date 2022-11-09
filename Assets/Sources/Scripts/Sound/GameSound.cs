@@ -1,5 +1,6 @@
 using Agava.WebUtility;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Assets.Scripts.Sound
 {
@@ -16,10 +17,17 @@ namespace Assets.Scripts.Sound
         [SerializeField] private AudioClip _backgroundSound;
         [SerializeField] private AudioClip _buySound;
         [SerializeField] private AudioClip _boostUse;
+        [Space]
+        [SerializeField] private AudioMixer _mixer;
+
+        private const float NormalVolumeLevel = 0f;
+        private const float MinVolumeLevel = -100f;
+
+        private const string MasterVolumeKey = "MasterVolume";
+        private const string GameSoundsVolumeKey = "GameSoundsVolume";
+        private const string MusicVolumeKey = "MusicVolume";
 
         private bool _backgroundPlaying;
-
-        public bool Enabled { get; private set; }
 
         private void OnEnable()
         {
@@ -33,20 +41,41 @@ namespace Assets.Scripts.Sound
 
         public void Init()
         {
-            SetSoundEnebled(Game.User.NeedSound);
+            SetGameSoundsEnabled(Game.User.NeedSound);
+            SetMusicEnabled(Game.User.NeedMusic);
 
-            Game.Loosed += PlayLooseSound;
+            Game.Loosed += OnGameLoosed;
             Game.LevelCompleted += PlayCongratsSound;
+            Game.LevelStarted += PlayBackgroundSound;
+            Game.LevelCompleted += OnLevelComplete;
 
             PlayBackgroundSound();
         }
 
-        public void SetSoundEnebled(bool enabled)
+        private void OnDestroy()
         {
-            Enabled = enabled;
+            Game.Loosed -= OnGameLoosed;
+            Game.LevelCompleted -= PlayCongratsSound;
+            Game.LevelStarted -= PlayBackgroundSound;
+            Game.LevelCompleted -= OnLevelComplete;
+        }
+
+        public void SetAllSoundEnabled(bool enabled)
+        {
+            _mixer.SetFloat(MasterVolumeKey, enabled ? NormalVolumeLevel : MinVolumeLevel);
 
             AudioListener.pause = !enabled;
             AudioListener.volume = enabled ? 1 : 0;
+        }
+
+        public void SetGameSoundsEnabled(bool enabled)
+        {
+            _mixer.SetFloat(GameSoundsVolumeKey, enabled ? NormalVolumeLevel : MinVolumeLevel);
+        }
+
+        public void SetMusicEnabled(bool enabled)
+        {
+            _mixer.SetFloat(MusicVolumeKey, enabled ? NormalVolumeLevel : MinVolumeLevel);
         }
 
         public void PlayBasicButtonClick()
@@ -77,6 +106,18 @@ namespace Assets.Scripts.Sound
             }
         }
 
+        private void OnGameLoosed()
+        {
+            _backgrounsAudioSource.Stop();
+            PlayLooseSound();
+        }
+
+        private void OnLevelComplete()
+        {
+            _backgrounsAudioSource.Stop();
+            PlayCongratsSound();
+        }
+
         private void PlayCongratsSound()
         {
             PlaySound(_levelCompleteSound, 0.8f);
@@ -105,9 +146,9 @@ namespace Assets.Scripts.Sound
         private void OnInBackgroundChange(bool inBackground)
         {
             if (inBackground == false)
-                SetSoundEnebled(Game.User.NeedSound);
+                SetAllSoundEnabled(true);
             else
-                SetSoundEnebled(false);
+                SetAllSoundEnabled(false);
         }
     }
 }

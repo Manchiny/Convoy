@@ -517,7 +517,7 @@ AudioSource:
   m_GameObject: {fileID: 464972054}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1262221813144948813, guid: 69817fdd568d59b48b7a0f657c5873bf, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2267,7 +2267,7 @@ AudioSource:
   m_GameObject: {fileID: 1515231476}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2616638444148969040, guid: 69817fdd568d59b48b7a0f657c5873bf, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -2926,14 +2926,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
-      propertyPath: _boostUse
-      value: 
-      objectReference: {fileID: 8300000, guid: fa2a763e7b585fb45a76b53f1c63baec, type: 3}
-    - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
-      propertyPath: _backgroundSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 2ee56c25bac80b444b4b1bea4dae5523, type: 3}
-    - target: {fileID: 3282999320923729451, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: _defaultAudioSource
       value: 
       objectReference: {fileID: 464972056}
@@ -3207,7 +3199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 580
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3215,7 +3207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322042370251, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3295,7 +3287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322306342537, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 141.3
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322306342537, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3395,7 +3387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322918233057, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 141.3
       objectReference: {fileID: 0}
     - target: {fileID: 3282999322918233057, guid: 9287fad6a3db2a1498456435ff1b45d5, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3573,10 +3565,6 @@ PrefabInstance:
     - target: {fileID: 4539083651684170133, guid: ffe9ba87505eebc4aa1ed20e50de4684, type: 3}
       propertyPath: m_Name
       value: Angar
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108508471932210688, guid: ffe9ba87505eebc4aa1ed20e50de4684, type: 3}
-      propertyPath: _length
-      value: 67
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe9ba87505eebc4aa1ed20e50de4684, type: 3}

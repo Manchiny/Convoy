@@ -15,6 +15,7 @@ namespace Assets.Scripts
         public int LevelId;
         public string SavedLocale; 
         public bool NeedSound;
+        public bool NeedMusic;
 
         public UnitData TankData;
         public UnitData PlayerCharacterData;

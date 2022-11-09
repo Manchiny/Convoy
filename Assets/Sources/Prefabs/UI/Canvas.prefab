@@ -202,8 +202,10 @@ MonoBehaviour:
   _levelCompleteSound: {fileID: 8300000, guid: 4cf678bf44b0bfa409b9eec4231bfeb9, type: 3}
   _failSound: {fileID: 8300000, guid: fdc8c8537d022ba4ab40e406429864d3, type: 3}
   _buttonClick: {fileID: 8300000, guid: 0d152c8c78652ce46b07d26924c233f6, type: 3}
-  _backgroundSound: {fileID: 0}
+  _backgroundSound: {fileID: 8300000, guid: 2ee56c25bac80b444b4b1bea4dae5523, type: 3}
   _buySound: {fileID: 8300000, guid: e37204bec2b91aa4180c0be9a6b52ab6, type: 3}
+  _boostUse: {fileID: 8300000, guid: fa2a763e7b585fb45a76b53f1c63baec, type: 3}
+  _mixer: {fileID: 24100000, guid: 69817fdd568d59b48b7a0f657c5873bf, type: 2}
 --- !u!1 &3282999321764145143
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4028779883284697950, guid: 0f04917ad6f8ad64c86edc204b836749, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1837.1332
+      value: 580
       objectReference: {fileID: 0}
     - target: {fileID: 4028779883284697950, guid: 0f04917ad6f8ad64c86edc204b836749, type: 3}
       propertyPath: m_SizeDelta.y
@@ -630,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4028779883284697950, guid: 0f04917ad6f8ad64c86edc204b836749, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1757.1332
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4028779883284697950, guid: 0f04917ad6f8ad64c86edc204b836749, type: 3}
       propertyPath: m_AnchoredPosition.y

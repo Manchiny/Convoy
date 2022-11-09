@@ -57,7 +57,7 @@ namespace Assets.Scripts.Social.Adverts
                 return;
             }
 
-            Game.Sound.SetSoundEnebled(false);
+            Game.Sound.SetAllSoundEnabled(false);
 
             Debug.Log($"[{Tag}] start show Interstitial... ");
             ShowInterstitial(OnInterstitialOpen, OnInterstitilaClose, OnInterstitiaError, OnIntersitialOffline);
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Social.Adverts
                 return false;
             }
 
-            Game.Sound.SetSoundEnebled(false);
+            Game.Sound.SetAllSoundEnabled(false);
 
             RevardedAdsOpened = onOpen;
             Rewarded = onRewarded;
@@ -87,7 +87,7 @@ namespace Assets.Scripts.Social.Adverts
         {
             if (OnInterstitialClosed != null)
             {
-                Game.Sound.SetSoundEnebled(Game.User.NeedSound);
+                Game.Sound.SetAllSoundEnabled(true);
                 OnInterstitialClosed?.Invoke();
                 OnInterstitialClosed = null;
             }
@@ -136,7 +136,7 @@ namespace Assets.Scripts.Social.Adverts
         {
             if (RewardedAdsClosed != null)
             {
-                Game.Sound.SetSoundEnebled(Game.User.NeedSound);
+                Game.Sound.SetAllSoundEnabled(true);
                 RewardedAdsClosed?.Invoke();
                 RewardedAdsClosed = null;
             }
@@ -146,7 +146,7 @@ namespace Assets.Scripts.Social.Adverts
         {
             Debug.LogError($"[{Tag}]: {errorMessage}");
 
-            Game.Sound.SetSoundEnebled(Game.User.NeedSound);
+            Game.Sound.SetAllSoundEnabled(true);
 
             if (RewardAdsError != null)
             {

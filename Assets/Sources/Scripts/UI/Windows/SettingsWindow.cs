@@ -16,11 +16,13 @@ namespace Assets.Scripts.UI
         [SerializeField] private BasicButton _leaderBoardButton;
         [Space]
         [SerializeField] private SliderParametrPanel _soundPanlel;
+        [SerializeField] private SliderParametrPanel _musicPanel;
 
         private const string LanguageLocalizationKey = "language";
         private const string TitleLocalizationKey = "settings";
         private const string LeaderboardLocalizationKey = "leaderboard";
         private const string SoundLocalizationKey = "sound";
+        private const string MusicLocalizationKey = "music";
 
         private Game.GameMode _gameMode;
 
@@ -58,7 +60,8 @@ namespace Assets.Scripts.UI
                 button.Init(lang);
             }
 
-            _soundPanlel.Init(Game.Sound.Enabled, SoundLocalizationKey.Localize(), OnSoundSliderClicked);
+            _soundPanlel.Init(Game.User.NeedSound, SoundLocalizationKey.Localize(), OnSoundSliderClicked);
+            _musicPanel.Init(Game.User.NeedMusic, MusicLocalizationKey.Localize(), OnMusicSliderClicked);
         }
 
         protected override void OnClose()
@@ -82,8 +85,13 @@ namespace Assets.Scripts.UI
 
         private void OnSoundSliderClicked(bool enabled)
         {
-            Game.Instance.SetSound(enabled);
+            Game.Instance.SetUserNeedSound(enabled);
         }   
+
+        private void OnMusicSliderClicked(bool enabled)
+        {
+            Game.Instance.SetUserNeedMusic(enabled);
+        }
 
         private void InitSocialButton()
         {

@@ -21,6 +21,7 @@ namespace Assets.Scripts.Saves
         {
             UserData data = new UserData();
             data.NeedSound = true;
+            data.NeedMusic = true;
 
             if (File.Exists(SavePath))
                 data = JsonUtility.FromJson<UserData>(File.ReadAllText(SavePath));

@@ -44,7 +44,8 @@ namespace Assets.Scripts.Units
                 StopCoroutine(_dyingProcess);
                 _dyingProcess = null;
 
-                Animations.Reset();
+                if(gameObject != null && gameObject.activeInHierarchy)
+                    Animations.Reset();
             }
         }
 

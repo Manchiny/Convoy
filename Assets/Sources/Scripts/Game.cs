@@ -238,10 +238,19 @@ namespace Assets.Scripts
             Save();
         }
 
-        public void SetSound(bool needOn)
+        public void SetUserNeedSound(bool needOn)
         {
             User.NeedSound = needOn;
-            _gameSound.SetSoundEnebled(needOn);
+            _gameSound.SetGameSoundsEnabled(needOn);
+
+            Save();
+        }
+
+        public void SetUserNeedMusic(bool need)
+        {
+            User.NeedMusic = need;
+            _gameSound.SetMusicEnabled(need);
+
             Save();
         }
 

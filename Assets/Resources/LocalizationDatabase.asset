@@ -184,3 +184,9 @@ MonoBehaviour:
       _value: "\u0412\u042B\u041A\u041B."
     - _language: 10
       _value: OFF
+  - _key: music
+    _values:
+    - _language: 30
+      _value: "\u041C\u0423\u0417\u042B\u041A\u0410"
+    - _language: 10
+      _value: MUSIC
