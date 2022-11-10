@@ -27,8 +27,8 @@ namespace Assets.Scripts.UI
         {
             OnInit();
 
-            _slider.minValue = 0;
-            _slider.maxValue = 1;
+            _slider.minValue = 0f;
+            _slider.maxValue = 1f;
 
             Damageable.HealthChanged += OnHealthChanged;
             Damageable.Died += OnDied;
@@ -65,10 +65,11 @@ namespace Assets.Scripts.UI
             if (_maxHealth == 0)
             {
                 SetMaxHealth();
-                _lastHealth = _maxHealth;
 
                 if (_maxHealth == 0)
                     return;
+
+                _lastHealth = _maxHealth;
             }
 
             _scale.x = Damageable.CurrentHealth / (float)_maxHealth;
@@ -84,17 +85,16 @@ namespace Assets.Scripts.UI
             //    Debug.Log($"{Damageable.gameObject.name} [1]: HP {Damageable.CurrentHealth}/{_maxHealth}, lastHealth {_lastHealth}, scale.x = {_scale.x}, targetValue {targetValue}, duration {duration}; slider {_slider.value}");
 
             _mainFiller.localScale = _scale;
-
             _lastHealth = Damageable.CurrentHealth;
 
             if (_animation != null)
             {
                 float currentValue = _slider.value;
-
                 float timeRamin = currentValue - targetValue * _animation.position;
-                duration += timeRamin;
 
                 _animation.Kill();
+                duration += timeRamin;
+
                 _slider.value = currentValue;
             }
 
@@ -109,6 +109,9 @@ namespace Assets.Scripts.UI
 
         private void OnDied(Damageable damageable)
         {
+            if (_animation != null)
+                _animation.Kill();
+
             if (NeedHideOnDie)
                 gameObject.SetActive(false);
         }

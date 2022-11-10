@@ -9,7 +9,7 @@ namespace Assets.Scripts
     [RequireComponent(typeof(AudioSource))]
     public class SolderBadge : MonoBehaviour
     {
-        private const float DeltaY = 0.14f;
+        private const float DeltaY = 0.11f;
 
         private AudioSource _audioSource;
         private Rigidbody _rigidbody;
