@@ -27,7 +27,10 @@ namespace Assets.Scripts.Units
         private bool _stopped;
 
         public event Action Completed;
-        public event Action<bool> Stopped; 
+        public event Action<bool> Stopped;
+
+        public event Action<ItemType> BoostAdded;
+        public event Action<ItemType> BoostRemoved;
 
         public override Team TeamId => Team.Player;
         private bool NeedRotateTower => Target != null && Target.IsAlive && CheckTowerDirection() == false;
@@ -107,12 +110,14 @@ namespace Assets.Scripts.Units
 
         public void AddBoost(ItemType type, float value)
         {
-            _boosts.TryAddBoost(type, value);
+            if (_boosts.TryAddBoost(type, value))
+                BoostAdded?.Invoke(type);
         }
 
         public void RemoveBoost(ItemType type)
         {
             _boosts.RemoveBoost(type);
+            BoostRemoved?.Invoke(type);
         }
 
         public void PlayBoosUseEffect()

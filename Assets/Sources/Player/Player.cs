@@ -25,6 +25,9 @@ namespace Assets.Scripts.Units
 
         public event Action<int> BadgesChanged;
 
+        public event Action<ItemType> BoostAdded;
+        public event Action<ItemType> BoostRemoved;
+
         public override Team TeamId => Team.Player;
         public int Badges => _badges.Count;
 
@@ -99,12 +102,14 @@ namespace Assets.Scripts.Units
 
         public void AddBoost(ItemType type, float value)
         {
-            _boosts.TryAddBoost(type, value);
+            if (_boosts.TryAddBoost(type, value))
+                BoostAdded?.Invoke(type);
         }
 
         public void RemoveBoost(ItemType type)
         {
             _boosts.RemoveBoost(type);
+            BoostRemoved?.Invoke(type);
         }
 
         public void PlayBoosUseEffect()
