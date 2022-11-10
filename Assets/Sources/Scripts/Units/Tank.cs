@@ -8,6 +8,8 @@ namespace Assets.Scripts.Units
     [RequireComponent(typeof(UnitBoosts))]
     public class Tank : Unit, IBoostable
     {
+        [SerializeField] private ParticleSystem _explosionFX;
+
         private const float MoveSpeed = 2f;
         private const float RotationSpeed = 50f;
         private const float DestinationDistance = 1f;
@@ -113,6 +115,7 @@ namespace Assets.Scripts.Units
 
         protected override void Die() 
         {
+            _explosionFX.Play();
         }
 
         protected override void OnGetDamage(){}

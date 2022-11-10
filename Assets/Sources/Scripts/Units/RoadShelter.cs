@@ -10,6 +10,7 @@ namespace Assets.Scripts.Units
         [SerializeField] private StayOnPlayceEnemy _solderPrefab;
         [SerializeField] private List<Transform> _spwanPoints;
         [SerializeField] private DestroyableObject _destroyable;
+        [SerializeField] private ParticleSystem _explosionFX;
 
         private HashSet<Enemy> _units = new();
 
@@ -54,6 +55,7 @@ namespace Assets.Scripts.Units
             }
 
             _destroyable.transform.parent = transform.parent;
+            _explosionFX.Play();
             _destroyable.DestroyObject();
 
             gameObject.SetActive(false);

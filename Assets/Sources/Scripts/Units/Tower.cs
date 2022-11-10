@@ -7,6 +7,7 @@ namespace Assets.Scripts.Units
     {
         [SerializeField] private TowerSolderEnemy _unit;
         [SerializeField] private DestroyableObject _destroyable;
+        [SerializeField] private ParticleSystem _explosionFX;
 
         public override Team TeamId => _unit.TeamId;
         public Unit Unit => _unit;
@@ -34,6 +35,7 @@ namespace Assets.Scripts.Units
 
         protected override void Die()
         {
+            _explosionFX.Play();
             _unit.transform.parent = transform.parent;
             _unit.ForceDie();
 

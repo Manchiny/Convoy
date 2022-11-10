@@ -47,6 +47,7 @@ namespace Assets.Scripts.Sound
             Game.Loosed += OnGameLoosed;
             Game.LevelCompleted += PlayCongratsSound;
             Game.LevelStarted += PlayBackgroundSound;
+            Game.Restarted += PlayBackgroundSound;
             Game.LevelCompleted += OnLevelComplete;
 
             PlayBackgroundSound();
