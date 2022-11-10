@@ -83,6 +83,8 @@ namespace Assets.Scripts
         public static UserData User => Instance._userData;
         public static bool IsAllAlive => Player.IsAlive && Tank.IsAlive;
 
+        public static LevelLoader LevelLoader => Instance._levelLoader;
+
         public static WindowsController Windows => Instance._windowsController;
 
         public static YandexAdvertisingAdapter Adverts => Instance._adverts;
@@ -360,6 +362,8 @@ namespace Assets.Scripts
             Windows.Loader.gameObject.SetActive(true);
 
             yield return new WaitForEndOfFrame();
+
+            _levelLoader.RemoveAllUntakedBadges();
 
             if (restart == false)
             {

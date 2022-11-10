@@ -25,6 +25,8 @@ namespace Assets.Scripts.Levels
         [Space]
         [SerializeField] private AirPlane _airPlane;
         [SerializeField] private Angar _finishAngar;
+        [Space]
+        [SerializeField] private Transform _badges;
 
         private readonly Vector3 EnemyRotation = new Vector3(0, -180, 0);
         private readonly Vector3 AirDropOffsetPosition = new Vector3(13.5f, 0,0);
@@ -45,6 +47,8 @@ namespace Assets.Scripts.Levels
         public IReadOnlyList<Vector3> Waypoints => _waypoints;
         public Transform TankSpawnPoint => _tankSpawnPoint;
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
+        public Transform BadgesHolder => _badges;
+
         public float DatabaseVesrsion => _levelsDatabase.Version;
 
         public void InitData(LevelsDatabaseData data)
@@ -56,6 +60,8 @@ namespace Assets.Scripts.Levels
         {
             LevelConfigData config = _levelsDatabase.GetLevelConfig(levelId);
             _waypoints.Clear();
+
+
 
             Configure(config);
 
@@ -94,6 +100,12 @@ namespace Assets.Scripts.Levels
             CreateEnemyies(config);
 
             _borderEnd.position = _currentRoad.Last().EndConnectorPosition;
+        }
+
+        public void RemoveAllUntakedBadges()
+        {
+            foreach (var badge in _badges.GetChildrensWithInactive())
+                Destroy(badge.gameObject);
         }
 
         private void CreateRoad(LevelConfigData config)
