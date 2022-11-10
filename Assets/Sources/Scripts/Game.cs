@@ -194,27 +194,27 @@ namespace Assets.Scripts
             Save();
         }
 
-        public void AddItems(List<ItemCount> items)
+        public void AddItems(List<ItemCount> items, RectTransform fromRect = null)
         {
             foreach (var item in items)
             {
                 User.AddItemCount(item);
 
                 if (item.Item.IsPropertyPoint == false)
-                    Windows.Drops.Drop(item);
+                    Windows.Drops.Drop(item, fromRect);
             }
 
             Save();
         }
 
-        public void AddItems(ShopItem shopItem)
+        public void AddItems(ShopItem shopItem, RectTransform fromRect = null)
         {
             foreach (var item in shopItem.Items)
             {
                 User.AddItemCount(item);
 
                 if (item.Item.IsPropertyPoint == false)
-                    Windows.Drops.Drop(item);
+                    Windows.Drops.Drop(item, fromRect);
             }
 
             Save();

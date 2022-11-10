@@ -9,21 +9,27 @@ namespace Assets.Scripts.UI
 
         private const float MaxOffset = 60f;
 
-        public void Drop(ItemCount itemCount)
+        public void Drop(ItemCount itemCount, RectTransform rectFrom)
         {
-            CreateDropView(itemCount);
+            CreateDropView(itemCount, rectFrom);
         }
 
-        private void CreateDropView(ItemCount itemCount)
+        private void CreateDropView(ItemCount itemCount, RectTransform rectFrom)
         {
-            var view = Instantiate(_dropItemViewPrefab, Game.Windows.TopLayer);
+            DropItemView view = null;
+            if(rectFrom == null)
+                view = Instantiate(_dropItemViewPrefab, Game.Windows.TopLayer);
+            else
+                view = Instantiate(_dropItemViewPrefab, rectFrom.position, Quaternion.identity, Game.Windows.TopLayer);
+
             view.Init(itemCount);
 
-            float xPosition = Random.Range(-MaxOffset, MaxOffset);
-            float yPosition = Random.Range(-MaxOffset, MaxOffset);
+            float xOffset = Random.Range(-MaxOffset, MaxOffset);
+            float yOffset = Random.Range(-MaxOffset, MaxOffset);
 
             RectTransform rect = view.transform as RectTransform;
-            rect.anchoredPosition = new Vector2(xPosition, yPosition);
+            Vector2 position = rect.anchoredPosition + new Vector2(xOffset, yOffset);
+            rect.anchoredPosition = position;
             view.Show();
         }
     }

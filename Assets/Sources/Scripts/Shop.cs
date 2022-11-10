@@ -19,7 +19,7 @@ namespace Assets.Scripts.Items
             _user = userData;
         }
 
-        public void TryBuyItem(ShopItem shopItem, Action onSucces = null, Action<string> onFail = null)
+        public void TryBuyItem(ShopItem shopItem, RectTransform button, Action onSucces = null, Action<string> onFail = null)
         {
             bool rewarded = false;
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Items
             {
                 if(_user.TryBuyItem(shopItem))
                 {
-                    Game.Instance.AddItems(shopItem);
+                    Game.Instance.AddItems(shopItem, button);
                     Game.Sound.PlayPurchaseSound();
 
                     if (onSucces != null)
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Items
 
                 if (rewarded)
                 {
-                    Game.Instance.AddItems(shopItem);
+                    Game.Instance.AddItems(shopItem, button);
 
                     if (onSucces != null)
                         onSucces?.Invoke();
