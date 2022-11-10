@@ -9,6 +9,8 @@ namespace Assets.Scripts.Units
     public class Tank : Unit, IBoostable
     {
         [SerializeField] private ParticleSystem _explosionFX;
+        [SerializeField] private ParticleSystem _useBoostFX;
+        [SerializeField] private ParticleSystem _useHealerFX;
 
         private const float MoveSpeed = 2f;
         private const float RotationSpeed = 50f;
@@ -111,6 +113,16 @@ namespace Assets.Scripts.Units
         public void RemoveBoost(ItemType type)
         {
             _boosts.RemoveBoost(type);
+        }
+
+        public void PlayBoosUseEffect()
+        {
+            _useBoostFX.Play();
+        }
+
+        public void PlayHealerUseEffect()
+        {
+            _useHealerFX.Play();
         }
 
         protected override void Die() 

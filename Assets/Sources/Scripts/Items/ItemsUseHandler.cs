@@ -46,14 +46,20 @@ namespace Assets.Scripts.Items
         {
             IBoostable unit = GetBoostable(item.Owner);
             unit.AddBoost(item.Type, item.Value);
+
+            unit.PlayBoosUseEffect();
             Game.Sound.PlayBoostUseSound();
         }
 
         private static void UseHealer(Item item)
         {
             Unit unit = GetBoostableUnit(item.Owner);
+            IBoostable boostableUnit = GetBoostable(item.Owner);
+
             float count = item.Value / 100f * unit.MaxHealth;
             unit.AddHealth((int)count);
+
+            boostableUnit.PlayHealerUseEffect();
             Game.Sound.PlayBoostUseSound();
         }
 

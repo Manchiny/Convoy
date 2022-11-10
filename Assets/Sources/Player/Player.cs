@@ -14,6 +14,9 @@ namespace Assets.Scripts.Units
         [Space]
         [SerializeField] private Transform _bezierControlPoint;
         [SerializeField] private Transform _bezierControlPoint_2;
+        [Space]
+        [SerializeField] private ParticleSystem _useBoostFX;
+        [SerializeField] private ParticleSystem _useHealerFX;
 
         private UnitBoosts _boosts;
         private bool _inited;
@@ -102,6 +105,16 @@ namespace Assets.Scripts.Units
         public void RemoveBoost(ItemType type)
         {
             _boosts.RemoveBoost(type);
+        }
+
+        public void PlayBoosUseEffect()
+        {
+            _useBoostFX.Play();
+        }
+
+        public void PlayHealerUseEffect()
+        {
+            _useHealerFX.Play();
         }
 
         protected override void OnGetDamage()
