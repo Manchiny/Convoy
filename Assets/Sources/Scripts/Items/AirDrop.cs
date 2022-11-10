@@ -8,6 +8,8 @@ namespace Assets.Scripts.Items
     public class AirDrop : GameDrop
     {
         [SerializeField] private Transform _parahute;
+        [SerializeField] private ParticleSystem _effect;
+
         [Space]
         [SerializeField] private AudioClip _dropSound;
         [Range(0, 1)]
@@ -19,6 +21,7 @@ namespace Assets.Scripts.Items
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
+            _effect.gameObject.SetActive(false);
         }
 
         public override void Init(List<ItemCount> items, bool needWathRewardedVideoToGet)
@@ -38,6 +41,9 @@ namespace Assets.Scripts.Items
             _parahute.DOScale(0, 0.4f).SetEase(Ease.Linear).SetUpdate(true).SetLink(gameObject).OnComplete(OnParachuteComplete);
 
             PlayFinishAnimation();
+
+            _effect.gameObject.SetActive(true);
+            _effect.Play();
 
             void OnParachuteComplete()
             {
