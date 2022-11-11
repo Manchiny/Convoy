@@ -15,7 +15,7 @@ MonoBehaviour:
   _properties:
   - _type: 3
     _levels:
-    - _value: 40
+    - _value: 45
     - _value: 75
     - _value: 125
     - _value: 175
@@ -25,15 +25,15 @@ MonoBehaviour:
     - _value: 0
   - _type: 1
     _levels:
-    - _value: 10
-    - _value: 20
-    - _value: 30
-    - _value: 40
+    - _value: 12
+    - _value: 25
     - _value: 50
+    - _value: 70
+    - _value: 90
   - _type: 2
     _levels:
+    - _value: 0.7
+    - _value: 0.6
     - _value: 0.5
-    - _value: 0.42
-    - _value: 0.36
-    - _value: 0.3
-    - _value: 0.2
+    - _value: 0.45
+    - _value: 0.4

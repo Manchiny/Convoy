@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3364ff42e6140e46b37e840be3856a5, type: 3}
-  m_Name: Level_0 1
+  m_Name: Level_8
   m_EditorClassIdentifier: 
   _roadPartCount: 7
-  _maxMovableEnemyiesInGroup: 6
-  _minMovableEnemyiesInGroup: 3
-  _maxOnShelterEnemiesInGroup: 5
-  _minOnShelterEnemiesInGroup: 4
+  _maxMovableEnemyiesInGroup: 5
+  _minMovableEnemyiesInGroup: 4
+  _maxOnShelterEnemiesInGroup: 1
+  _minOnShelterEnemiesInGroup: 1
   _minSolderLevel: 0
   _maxSolderLevel: 0
-  _doubleSideOutOfRoadEnemyChance: 0.552
-  _maxFullnesRoadPartChance: 0.321
+  _doubleSideOutOfRoadEnemyChance: 0.5
+  _maxFullnesRoadPartChance: 0
   _enemiesFullness:
   - _type: 0
     _chance: 0
   - _type: 1
     _chance: 40
   - _type: 2
-    _chance: 40
+    _chance: 0

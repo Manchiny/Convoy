@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3364ff42e6140e46b37e840be3856a5, type: 3}
+  m_Name: Level_133
+  m_EditorClassIdentifier: 
+  _roadPartCount: 10
+  _maxMovableEnemyiesInGroup: 7
+  _minMovableEnemyiesInGroup: 5
+  _maxOnShelterEnemiesInGroup: 6
+  _minOnShelterEnemiesInGroup: 4
+  _minSolderLevel: 3
+  _maxSolderLevel: 4
+  _doubleSideOutOfRoadEnemyChance: 0.7
+  _maxFullnesRoadPartChance: 0.6
+  _enemiesFullness:
+  - _type: 0
+    _chance: 0
+  - _type: 1
+    _chance: 30
+  - _type: 2
+    _chance: 30

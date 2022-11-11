@@ -15,36 +15,86 @@ MonoBehaviour:
   _properties:
   - _type: 3
     _levels:
+    - _value: 250
+    - _value: 300
+    - _value: 350
+    - _value: 400
+    - _value: 450
+    - _value: 500
+    - _value: 570
+    - _value: 650
+    - _value: 730
+    - _value: 820
+    - _value: 910
     - _value: 1000
-    - _value: 1500
-    - _value: 2000
-    - _value: 3000
-    - _value: 5000
+    - _value: 1080
+    - _value: 1170
+    - _value: 1260
+    - _value: 1350
+    - _value: 1450
+    - _value: 1550
+    - _value: 1650
+    - _value: 1750
+    - _value: 1850
   - _type: 0
     _levels:
-    - _value: 0
     - _value: 1
     - _value: 2
     - _value: 3
     - _value: 4
+    - _value: 5
+    - _value: 6
+    - _value: 7
+    - _value: 8
+    - _value: 9
+    - _value: 10
+    - _value: 11
+    - _value: 12
+    - _value: 13
+    - _value: 14
+    - _value: 15
+    - _value: 16
+    - _value: 17
+    - _value: 18
+    - _value: 19
+    - _value: 20
+    - _value: 21
   - _type: 1
     _levels:
-    - _value: 10
-    - _value: 12
     - _value: 15
-    - _value: 17
-    - _value: 20
+    - _value: 18
+    - _value: 22
+    - _value: 25
+    - _value: 28
+    - _value: 31
+    - _value: 35
+    - _value: 38
+    - _value: 41
+    - _value: 45
+    - _value: 48
+    - _value: 51
+    - _value: 54
+    - _value: 58
+    - _value: 61
+    - _value: 64
+    - _value: 67
+    - _value: 70
+    - _value: 73
+    - _value: 77
+    - _value: 80
   - _type: 2
     _levels:
     - _value: 1.2
     - _value: 1.15
-    - _value: 1.1
-    - _value: 1.05
-    - _value: 1
+    - _value: 1.11
+    - _value: 1.07
+    - _value: 1.03
+    - _value: 0.99
     - _value: 0.95
     - _value: 0.9
+    - _value: 0.89
     - _value: 0.85
-    - _value: 8
+    - _value: 0.8
     - _value: 0.75
     - _value: 0.7
     - _value: 0.65
@@ -55,5 +105,3 @@ MonoBehaviour:
     - _value: 0.4
     - _value: 0.35
     - _value: 0.3
-    - _value: 0.25
-    - _value: 0.2

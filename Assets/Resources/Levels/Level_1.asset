@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   _roadPartCount: 7
-  _maxMovableEnemyiesInGroup: 6
-  _minMovableEnemyiesInGroup: 3
-  _maxOnShelterEnemiesInGroup: 4
+  _maxMovableEnemyiesInGroup: 3
+  _minMovableEnemyiesInGroup: 2
+  _maxOnShelterEnemiesInGroup: 1
   _minOnShelterEnemiesInGroup: 1
   _minSolderLevel: 0
   _maxSolderLevel: 0
-  _doubleSideOutOfRoadEnemyChance: 0.217
-  _maxFullnesRoadPartChance: 0.052
+  _doubleSideOutOfRoadEnemyChance: 0
+  _maxFullnesRoadPartChance: 0
   _enemiesFullness:
   - _type: 0
-    _chance: 15
+    _chance: 0
   - _type: 1
     _chance: 40
   - _type: 2
-    _chance: 40
+    _chance: 0
