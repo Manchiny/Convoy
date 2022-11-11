@@ -1,4 +1,6 @@
+using Assets.Scripts.Units;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,10 @@ namespace Assets.Scripts.UI
     {
         [SerializeField] private Slider _slider;
         [SerializeField] private RectTransform _mainFiller;
+        [Space]
+        [SerializeField] private bool _needShowLevel;
+        [SerializeField] private TextMeshProUGUI _unitLevelText;
+        [SerializeField] private RectTransform _unitLevelPanel;
 
         private const float MainFillerOffset = 0.01f;
         private const float AnimationDurationPerUnit = 0.15f;
@@ -31,6 +37,7 @@ namespace Assets.Scripts.UI
             _slider.maxValue = 1f;
 
             Damageable.HealthChanged += OnHealthChanged;
+            Damageable.MaxHeathChanged += SetMaxHealth;
             Damageable.Died += OnDied;
             Game.Restarted += OnRestart;
 
@@ -42,6 +49,7 @@ namespace Assets.Scripts.UI
             Damageable.HealthChanged -= OnHealthChanged;
             Damageable.Died -= OnDied;
             Game.Restarted -= OnRestart;
+            Damageable.MaxHeathChanged -= SetMaxHealth;
         }
 
         protected virtual void OnInit()
@@ -56,7 +64,27 @@ namespace Assets.Scripts.UI
             else
             {
                 _maxHealth = Damageable.MaxHealth;
+                ShowLevelIfNeed();
                 OnHealthChanged();
+            }
+        }
+
+        protected void ShowLevelIfNeed()
+        {
+            if (_unitLevelPanel != null)
+            {
+                if (_needShowLevel)
+                {
+                    if(Damageable is Unit)
+                    {
+                        var unit = Damageable as Unit;
+                        int level = unit.Data.Level;
+
+                        _unitLevelText.text = (level + 1).ToString();
+                        return;
+                    }
+                }
+                _unitLevelPanel.gameObject.SetActive(false);
             }
         }
 

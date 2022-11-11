@@ -2280,6 +2280,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 408486109141112551, guid: 41adc7b9077bb6742862ce7235e1a046, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4205546220942937243, guid: 41adc7b9077bb6742862ce7235e1a046, type: 3}
       propertyPath: m_Name
       value: HealthBar
@@ -2366,6 +2370,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5556195978517019689, guid: 41adc7b9077bb6742862ce7235e1a046, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151723074572186529, guid: 41adc7b9077bb6742862ce7235e1a046, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966680925431089740, guid: 41adc7b9077bb6742862ce7235e1a046, type: 3}
+      propertyPath: _needShowLevel
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

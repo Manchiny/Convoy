@@ -6,19 +6,11 @@ namespace Assets.Scripts.UI
     {
         [SerializeField] private Damageable _unit;
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            Damageable.MaxHeathChanged -= SetMaxHealth;
-        }
-
         protected override void OnInit()
         {
             Damageable = _unit;
             NeedLog = true;
             NeedHideOnDie = false;
-
-            Damageable.MaxHeathChanged += SetMaxHealth;
         }
     }
 }

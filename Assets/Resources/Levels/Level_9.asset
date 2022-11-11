@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level_9
   m_EditorClassIdentifier: 
   _roadPartCount: 7
-  _maxMovableEnemyiesInGroup: 5
-  _minMovableEnemyiesInGroup: 4
-  _maxOnShelterEnemiesInGroup: 3
+  _maxMovableEnemyiesInGroup: 4
+  _minMovableEnemyiesInGroup: 3
+  _maxOnShelterEnemiesInGroup: 2
   _minOnShelterEnemiesInGroup: 2
   _minSolderLevel: 0
   _maxSolderLevel: 0

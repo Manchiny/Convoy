@@ -17,8 +17,8 @@ MonoBehaviour:
   _minMovableEnemyiesInGroup: 5
   _maxOnShelterEnemiesInGroup: 5
   _minOnShelterEnemiesInGroup: 4
-  _minSolderLevel: 3
-  _maxSolderLevel: 3
+  _minSolderLevel: 2
+  _maxSolderLevel: 2
   _doubleSideOutOfRoadEnemyChance: 0.7
   _maxFullnesRoadPartChance: 0.5
   _enemiesFullness:

@@ -137,6 +137,8 @@ namespace Assets.Scripts
 
         private Dictionary<UnitPropertyType, UnitPropertyValues> _values;
 
+        public int Level { get; private set; }
+
         public UnitData()
         {
             ArmorProperty = new();
@@ -147,6 +149,8 @@ namespace Assets.Scripts
 
         public UnitData(int level)
         {
+            Level = level;
+
             ArmorProperty = new(level);
             DamageProperty = new(level);
             ShootDelayProperty = new(level);
