@@ -12,6 +12,7 @@ using GameAnalyticsSDK;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Recorder;
 using UnityEngine;
 
 namespace Assets.Scripts

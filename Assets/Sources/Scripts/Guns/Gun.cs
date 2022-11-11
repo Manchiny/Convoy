@@ -17,7 +17,7 @@ namespace Assets.Scripts.Guns
         [SerializeField] private AudioClip _shootAudioClip;
         [SerializeField] private float _audioVolume = 1f;
 
-        private Vector3 _shootingDiredtionOffaset = new Vector3(0, 1, 0);
+        private Vector3 _shootingDiredtionOffset = new Vector3(0, 1, 0);
         private Queue<Bullet> _bulletsPool = new();
 
         private IAttackable _attackable;
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Guns
             if (!CanShoot)
                 return;
 
-            Vector3 direction = target.transform.position + _shootingDiredtionOffaset - _shootingPoint.transform.position;
+            Vector3 direction = target.transform.position + _shootingDiredtionOffset - _shootingPoint.position;
             Shoot(direction, team);
             
             return;

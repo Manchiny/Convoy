@@ -28,12 +28,12 @@ namespace Assets.Scripts.Guns
             _waitSeconds = new WaitForSeconds(Lifetime);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (_isActive == false)
                 return;
 
-            transform.Translate(_moveDirection * Time.deltaTime * Speed);
+            transform.Translate(_moveDirection * Time.fixedDeltaTime * Speed);
         }
 
         private void OnTriggerEnter(Collider other)
