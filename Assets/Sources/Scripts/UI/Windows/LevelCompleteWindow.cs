@@ -14,10 +14,12 @@ namespace Assets.Scripts.UI
         [SerializeField] private BasicButton _doubleRewardButton;
         [SerializeField] private TextMeshProUGUI _adsText;
 
+        private const int AdsRewardMultyplier = 3;
+
         private const string TitleLocalizationKey = "level_complete";
         private const string ContinueLocalizationKey = "continue";
         private const string YouRewardLocalizationKey = "you_reward";
-        private const string DoubleLoacalizationKey = "double";
+        private const string AddButtonLocalizationKey = "triple_reward";
         private const string AdsLocalizationKey = "ad";
         private const string DoubledLocalizationKey = "reward_doubled";
 
@@ -41,7 +43,7 @@ namespace Assets.Scripts.UI
             _badgesCountText.text = _totelBadges.ToString();
 
             _continueButton.Text = ContinueLocalizationKey.Localize();
-            _doubleRewardButton.Text = DoubleLoacalizationKey.Localize();
+            _doubleRewardButton.Text = AddButtonLocalizationKey.Localize();
             _adsText.text = AdsLocalizationKey.Localize();
         }
 
@@ -58,7 +60,7 @@ namespace Assets.Scripts.UI
             SetText();
 
             _continueButton.SetOnClick(OnContinueButtonClick);
-            _doubleRewardButton.SetOnClick(OnDoubleRewardButtonClick);
+            _doubleRewardButton.SetOnClick(OnAdsButtonClick);
         }
 
         private void OnContinueButtonClick()
@@ -71,7 +73,7 @@ namespace Assets.Scripts.UI
                 _onContinueCallback?.Invoke();
         }
 
-        private void OnDoubleRewardButtonClick()
+        private void OnAdsButtonClick()
         {
             bool rewarded = false;
             Game.Adverts.TryShowRewardedVideo(OnAdOpened, () => rewarded = true, OnAdsClosed, null);
@@ -85,7 +87,7 @@ namespace Assets.Scripts.UI
             {
                 if(rewarded)
                 {
-                    _totelBadges = _badgesCount * 2;
+                    _totelBadges = _badgesCount * AdsRewardMultyplier;
                     _badgesCountText.text = _totelBadges.ToString();
 
                     Game.Windows.ShowFloatingText(DoubledLocalizationKey.Localize());

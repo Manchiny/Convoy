@@ -17,23 +17,23 @@ MonoBehaviour:
     _levels:
     - _value: 45
     - _value: 75
-    - _value: 125
-    - _value: 175
-    - _value: 225
+    - _value: 160
+    - _value: 230
+    - _value: 320
   - _type: 0
     _levels:
     - _value: 0
   - _type: 1
     _levels:
     - _value: 12
-    - _value: 25
-    - _value: 50
-    - _value: 70
-    - _value: 90
+    - _value: 20
+    - _value: 36
+    - _value: 53
+    - _value: 80
   - _type: 2
     _levels:
     - _value: 0.7
+    - _value: 0.68
+    - _value: 0.65
+    - _value: 0.63
     - _value: 0.6
-    - _value: 0.5
-    - _value: 0.45
-    - _value: 0.4

@@ -16,26 +16,26 @@ MonoBehaviour:
   - _type: 3
     _levels:
     - _value: 250
-    - _value: 300
-    - _value: 350
-    - _value: 400
-    - _value: 450
-    - _value: 500
-    - _value: 570
-    - _value: 650
-    - _value: 730
-    - _value: 820
-    - _value: 910
+    - _value: 440
+    - _value: 620
+    - _value: 800
     - _value: 1000
-    - _value: 1080
-    - _value: 1170
-    - _value: 1260
-    - _value: 1350
-    - _value: 1450
-    - _value: 1550
-    - _value: 1650
-    - _value: 1750
-    - _value: 1850
+    - _value: 1200
+    - _value: 1400
+    - _value: 1600
+    - _value: 1800
+    - _value: 2000
+    - _value: 2170
+    - _value: 2350
+    - _value: 2500
+    - _value: 2700
+    - _value: 2900
+    - _value: 3050
+    - _value: 3300
+    - _value: 3480
+    - _value: 3700
+    - _value: 3850
+    - _value: 4000
   - _type: 0
     _levels:
     - _value: 1

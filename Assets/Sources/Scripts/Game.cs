@@ -12,7 +12,6 @@ using GameAnalyticsSDK;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Recorder;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -38,6 +37,8 @@ namespace Assets.Scripts
         [SerializeField] private UserInput _keyboardInput;
         [Space]
         [SerializeField] private GameSound _gameSound;
+
+        public const int AirdropItemsCount = 3;
 
         private YandexSocialAdapter _yandexAdapter;
         private YandexAdvertisingAdapter _adverts;
@@ -85,7 +86,6 @@ namespace Assets.Scripts
         public static bool IsAllAlive => Player.IsAlive && Tank.IsAlive;
 
         public static LevelLoader LevelLoader => Instance._levelLoader;
-
         public static WindowsController Windows => Instance._windowsController;
 
         public static YandexAdvertisingAdapter Adverts => Instance._adverts;
@@ -373,7 +373,7 @@ namespace Assets.Scripts
 
                 _levelLoader.LoadLevel(levelId);
 
-                List<ItemCount> levelDropItems = Shop.ItemsDatabase.GetRandomBoosts(2);
+                List<ItemCount> levelDropItems = Shop.ItemsDatabase.GetRandomBoosts(AirdropItemsCount);
                 _levelLoader.CreateAirDrop(levelDropItems);
 
                 LevelStarted?.Invoke();

@@ -11,17 +11,17 @@ namespace Assets.Scripts
     public class GameConfiguration
     {
         public bool NeedSowInterstitialAfterLevelsComplete = true;
-        public int LevelsCompletedCountForShowInterstitial;
+        public int LevelsCompletedCountForShowInterstitial = 2;
 
         public bool NeedShowInterstitialOnRestartLevel = true;
         public int LevelFailsCountForShowInterstitial = 3;
 
         public float LocalizationsVersion;
 
-        public int MinLevelForRandom = 1;
+        public int MinLevelForRandom = 165;
 
         public float LevelsDataBaseVersion;
-        public float MinAppVersionForThisLevels = 0.1f;
+        public float MinAppVersionForThisLevels = 0.3f;
 
 
         [NonSerialized]

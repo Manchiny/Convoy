@@ -16,26 +16,26 @@ MonoBehaviour:
   - _type: 3
     _levels:
     - _value: 1000
-    - _value: 1100
     - _value: 1200
-    - _value: 1300
     - _value: 1400
-    - _value: 1500
     - _value: 1600
-    - _value: 1700
     - _value: 1800
-    - _value: 1900
     - _value: 2000
-    - _value: 2100
     - _value: 2200
-    - _value: 2300
     - _value: 2400
-    - _value: 2500
     - _value: 2600
-    - _value: 2700
     - _value: 2800
-    - _value: 2900
     - _value: 3000
+    - _value: 3200
+    - _value: 3400
+    - _value: 3600
+    - _value: 3800
+    - _value: 4000
+    - _value: 4200
+    - _value: 4400
+    - _value: 4600
+    - _value: 4800
+    - _value: 5000
   - _type: 0
     _levels:
     - _value: 1
@@ -62,26 +62,26 @@ MonoBehaviour:
   - _type: 2
     _levels:
     - _value: 2.5
-    - _value: 2.4
-    - _value: 2.3
-    - _value: 2.2
-    - _value: 2.1
-    - _value: 2
-    - _value: 1.9
-    - _value: 1.8
-    - _value: 1.7
+    - _value: 2.41
+    - _value: 2.32
+    - _value: 2.23
+    - _value: 2.14
+    - _value: 2.05
+    - _value: 1.96
+    - _value: 1.87
+    - _value: 1.78
+    - _value: 1.69
     - _value: 1.6
-    - _value: 1.5
-    - _value: 1.4
-    - _value: 1.3
-    - _value: 1.2
-    - _value: 1.1
-    - _value: 1
-    - _value: 0.9
-    - _value: 0.8
+    - _value: 1.51
+    - _value: 1.42
+    - _value: 1.33
+    - _value: 1.24
+    - _value: 1.15
+    - _value: 1.06
+    - _value: 0.97
+    - _value: 0.88
+    - _value: 0.79
     - _value: 0.7
-    - _value: 0.6
-    - _value: 0.5
   - _type: 1
     _levels:
     - _value: 40

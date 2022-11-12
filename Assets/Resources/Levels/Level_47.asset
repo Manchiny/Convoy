@@ -20,7 +20,7 @@ MonoBehaviour:
   _minSolderLevel: 0
   _maxSolderLevel: 1
   _doubleSideOutOfRoadEnemyChance: 0.7
-  _maxFullnesRoadPartChance: 0.3
+  _maxFullnesRoadPartChance: 0
   _enemiesFullness:
   - _type: 0
     _chance: 0

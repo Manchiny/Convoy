@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a074720c9e15d344aa20135fcb0398d, type: 3}
   m_Name: LocalizationDatabase
   m_EditorClassIdentifier: 
-  _version: 0.2
+  _version: 0.3
   _localizationKeys:
   - _key: m
     _values:
@@ -190,3 +190,9 @@ MonoBehaviour:
       _value: "\u041C\u0423\u0417\u042B\u041A\u0410"
     - _language: 10
       _value: MUSIC
+  - _key: triple_reward
+    _values:
+    - _language: 30
+      _value: "\u0423\u0442\u0440\u043E\u0438\u0442\u044C!"
+    - _language: 10
+      _value: Triple!
