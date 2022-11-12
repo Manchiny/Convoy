@@ -10,7 +10,7 @@ namespace Assets.Scripts
     [Serializable]
     public class GameConfiguration
     {
-        public bool NeedSowInterstitialAfterLevelsComplete = true;
+        public bool NeedSowInterstitialAfterLevelsComplete = false;
         public int LevelsCompletedCountForShowInterstitial = 2;
 
         public bool NeedShowInterstitialOnRestartLevel = true;

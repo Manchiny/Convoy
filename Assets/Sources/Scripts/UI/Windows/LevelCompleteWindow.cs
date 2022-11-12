@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI
         private int _levelId;
 
         private int _badgesCount;
-        private int _totelBadges;
+        private int _totalBadges;
 
         private event Action _onContinueCallback;
 
@@ -40,7 +40,7 @@ namespace Assets.Scripts.UI
         {
             _titleText.text = TitleLocalizationKey.Localize((_levelId + 1).ToString());
             _youGotText.text = YouRewardLocalizationKey.Localize();
-            _badgesCountText.text = _totelBadges.ToString();
+            _badgesCountText.text = _totalBadges.ToString();
 
             _continueButton.Text = ContinueLocalizationKey.Localize();
             _doubleRewardButton.Text = AddButtonLocalizationKey.Localize();
@@ -53,7 +53,7 @@ namespace Assets.Scripts.UI
 
             _levelId = levelId;
             _badgesCount = badgesCount;
-            _totelBadges = badgesCount;
+            _totalBadges = badgesCount;
 
             _onContinueCallback = onContinue;
 
@@ -65,7 +65,7 @@ namespace Assets.Scripts.UI
 
         private void OnContinueButtonClick()
         {
-            Game.Instance.AddBadges(_badgesCount);
+            Game.Instance.AddBadges(_totalBadges);
 
             Close();
 
@@ -87,8 +87,8 @@ namespace Assets.Scripts.UI
             {
                 if(rewarded)
                 {
-                    _totelBadges = _badgesCount * AdsRewardMultyplier;
-                    _badgesCountText.text = _totelBadges.ToString();
+                    _totalBadges = _badgesCount * AdsRewardMultyplier;
+                    _badgesCountText.text = _totalBadges.ToString();
 
                     Game.Windows.ShowFloatingText(DoubledLocalizationKey.Localize());
                 }
