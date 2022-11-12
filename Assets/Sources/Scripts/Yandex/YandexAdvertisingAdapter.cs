@@ -18,20 +18,10 @@ namespace Assets.Scripts.Social.Adverts
 
         private event Action OnInterstitialClosed;
 
-        public bool NeedShowInterstitialAfterLevel => _showInterstitialAfterLevelCounter <= 0 && Game.Configuration.NeedSowInterstitialAfterLevelsComplete;
+        public bool NeedShowInterstitialAfterLevel => _showInterstitialAfterLevelCounter <= 0 && Game.Configuration.NeedShowInterstitialAfterLevelsComplete;
         public bool NeedShowInterstitialAfterFail => _showInterstitialAfterLevelFailCounter <= 0 && Game.Configuration.NeedShowInterstitialOnRestartLevel;
 
         public string Tag => "YandexAdverts";
-
-        protected void ShowInterstitial(Action onOpen, Action<bool> onClose, Action<string> onError, Action onOffline)
-        {
-            InterstitialAd.Show(onOpen, onClose, onError, onOffline);
-        }
-
-        protected void ShowRewarded(Action onOpen, Action onRewarded, Action onClose, Action<string> onError)
-        {
-            VideoAd.Show(onOpen, onRewarded, onClose, onError);
-        }
 
         public void Init(YandexSocialAdapter socialAdapter)
         {
@@ -81,6 +71,16 @@ namespace Assets.Scripts.Social.Adverts
             ShowRewarded(OnRewardedOpen, OnRewarded, OnRewardedClose, OnRewardedError);
 
             return true;
+        }
+
+        protected void ShowInterstitial(Action onOpen, Action<bool> onClose, Action<string> onError, Action onOffline)
+        {
+            InterstitialAd.Show(onOpen, onClose, onError, onOffline);
+        }
+
+        protected void ShowRewarded(Action onOpen, Action onRewarded, Action onClose, Action<string> onError)
+        {
+            VideoAd.Show(onOpen, onRewarded, onClose, onError);
         }
 
         private void OnInterstitilaClose(bool close)

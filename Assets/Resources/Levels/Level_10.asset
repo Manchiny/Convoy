@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3364ff42e6140e46b37e840be3856a5, type: 3}
   m_Name: Level_10
   m_EditorClassIdentifier: 
-  _roadPartCount: 7
+  _roadPartCount: 6
   _maxMovableEnemyiesInGroup: 5
   _minMovableEnemyiesInGroup: 3
   _maxOnShelterEnemiesInGroup: 2
   _minOnShelterEnemiesInGroup: 2
   _minSolderLevel: 0
   _maxSolderLevel: 0
-  _doubleSideOutOfRoadEnemyChance: 0.5
+  _doubleSideOutOfRoadEnemyChance: 0
   _maxFullnesRoadPartChance: 0
   _enemiesFullness:
   - _type: 0

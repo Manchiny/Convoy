@@ -67,6 +67,7 @@ namespace Assets.Scripts.UI
         protected override void OnClose()
         {
             Game.Instance.SetMode(_gameMode);
+            Game.Instance.Save();
         }
 
         protected override void SetText()

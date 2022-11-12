@@ -182,7 +182,6 @@ namespace Assets.Scripts
                 if (onUse != null)
                     onUse?.Invoke();
 
-                Save();
                 return true;
             }
 
@@ -245,16 +244,12 @@ namespace Assets.Scripts
         {
             User.NeedSound = needOn;
             _gameSound.SetGameSoundsEnabled(needOn);
-
-            Save();
         }
 
         public void SetUserNeedMusic(bool need)
         {
             User.NeedMusic = need;
             _gameSound.SetMusicEnabled(need);
-
-            Save();
         }
 
         private IEnumerator Init(UserData userData)
@@ -422,6 +417,8 @@ namespace Assets.Scripts
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, CurrentLevelId.ToString(), reason.ToString(), elapsedTime);
 #endif
             Debug.Log($"Level {CurrentLevelId + 1} loosed!");
+
+            Save();
             LevelFailedWindow.Show(OnContinue);
 
             void OnContinue()

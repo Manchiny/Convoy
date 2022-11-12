@@ -50,6 +50,7 @@ namespace Assets.Scripts
             if (IsAlive == false)
             {
                 Die();
+                HealthChanged?.Invoke();
                 Died?.Invoke(this);
             }
             else

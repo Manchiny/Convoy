@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3364ff42e6140e46b37e840be3856a5, type: 3}
   m_Name: Level_14
   m_EditorClassIdentifier: 
-  _roadPartCount: 7
+  _roadPartCount: 6
   _maxMovableEnemyiesInGroup: 5
   _minMovableEnemyiesInGroup: 3
   _maxOnShelterEnemiesInGroup: 3
