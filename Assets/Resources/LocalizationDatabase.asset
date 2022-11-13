@@ -196,3 +196,9 @@ MonoBehaviour:
       _value: "\u0423\u0442\u0440\u043E\u0438\u0442\u044C!"
     - _language: 10
       _value: Triple!
+  - _key: reward_tripled
+    _values:
+    - _language: 30
+      _value: "\u041D\u0410\u0413\u0420\u0410\u0414\u0410 \u0423\u0422\u0420\u041E\u0415\u041D\u0410!"
+    - _language: 10
+      _value: REWARD TRIPLED!
