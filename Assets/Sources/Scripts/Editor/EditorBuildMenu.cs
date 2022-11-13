@@ -8,9 +8,9 @@ using UnityEngine;
 
 public class EditorBuildMenu
 {
-    private const string MainGameConfigFileName = "GameConfiguration.json";
-    private const string LocalizationsFileName = "LocalizationsData.json";
-    private const string LevelsFileName = "LevelsData.json";
+    private const string MainGameConfigFileName = "GameConfiguration.txt";
+    private const string LocalizationsFileName = "LocalizationsData.txt";
+    private const string LevelsFileName = "LevelsData.txt";
     private static string BuildDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{Application.productName}Data", $"Data_{DateTime.Now.ToString("dd_MM_yyyy")}");
 
     [MenuItem("Build/Create Build Data")]

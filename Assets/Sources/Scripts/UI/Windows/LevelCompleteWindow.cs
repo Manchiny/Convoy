@@ -21,7 +21,7 @@ namespace Assets.Scripts.UI
         private const string YouRewardLocalizationKey = "you_reward";
         private const string AddButtonLocalizationKey = "triple_reward";
         private const string AdsLocalizationKey = "ad";
-        private const string DoubledLocalizationKey = "reward_doubled";
+        private const string RewardedLocalizationKey = "reward_tripled";
 
         private int _levelId;
 
@@ -90,7 +90,7 @@ namespace Assets.Scripts.UI
                     _totalBadges = _badgesCount * AdsRewardMultyplier;
                     _badgesCountText.text = _totalBadges.ToString();
 
-                    Game.Windows.ShowFloatingText(DoubledLocalizationKey.Localize());
+                    Game.Windows.ShowFloatingText(RewardedLocalizationKey.Localize());
                 }
             }
         }
