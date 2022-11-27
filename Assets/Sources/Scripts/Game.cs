@@ -124,7 +124,7 @@ namespace Assets.Scripts
 #endif
             _yandexAdapter = FindObjectOfType<YandexSocialAdapter>();
 
-            if (_yandexAdapter != null && _yandexAdapter.IsInited)
+            if (_yandexAdapter != null && _yandexAdapter.IsInited && _yandexAdapter.IsAuthorized)
                 _saver = new YandexSaver();
             else
                 _saver = new LocalJSONSaver();
